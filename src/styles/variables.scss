@@ -1,0 +1,41 @@
+@import "./colors.scss";
+
+$theme-light: (
+        name: 'theme-light',
+        'bg-color': #fff,
+        'bg-dropdown': #fff,
+        'color': #1F2931,
+        'bg-section':rgba(178, 197, 203, 0.15),
+        'bg-item':white,
+        'h-color':#0071B2,
+        'subtitle-color':#0071B2,
+        'subtitle-color-diff':#1F2931,
+        'img-hex':url("../assets/images/PolygonLight.svg"),
+        'img-hex-container':url("../assets/images/sectionLight.svg"),
+        'ethics-road':#CFCFCF,
+        'ethics-marker':#fff,
+        'input-default':#0071B2,
+        'input-active':#005A8E,
+);
+
+$theme-dark: (
+        name: 'theme-dark',
+        'bg-color': #070C2D,
+        'bg-dropdown': rgb(38, 25, 103),
+        'color': #E9E9E9,
+        'bg-section':rgba(110, 56, 239, 0.3),
+        'bg-item':rgba(110, 56, 239, 0.3),
+        'h-color':$news-1,
+        'subtitle-color':#E9E9E9,
+        'subtitle-color-diff':#2DC0C5,
+        'img-hex':url("../assets/images/PolygonDark.svg"),
+        'img-hex-container':url("../assets/images/sectionDark.svg"),
+        'ethics-road':#97CDF7,
+        'ethics-marker':#97CDF7,
+        'input-default':#00A1FF,
+        'input-active':#00A1FF,
+);
+
+
+$themes: $theme-dark, $theme-light;
+$themeNames: 'theme-dark', 'theme-light'

@@ -1,32 +1,45 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view />
+  <div :class="'theme-' + theme">
+    <v-app class="app-background">
+      <TheHeaderComponent />
+      <v-main style="margin-top: 5em">
+        <router-view />
+      </v-main>
+      <TheFooterComponent v-if="pageNoFooter.filter(x=>x===$route.name).length===0" />
+      <TheDialogThemeComponent
+        :dialog="dialog"
+        @changeDialog="changeDialog"
+      />
+    </v-app>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { mapActions, mapState } from 'vuex'
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+  name: 'App',
+  components: {
+    TheDialogThemeComponent: () => import('@/components/TheDialogThemeComponent'),
+    TheHeaderComponent: () => import('@/components/TheHeaderComponent'),
+    TheFooterComponent: () => import('@/components/TheFooterComponent')
+  },
+  data: () => ({ dialog: false, pageNoFooter: ['notFound', 'login'] }),
+  computed: mapState('app', ['theme']),
+  mounted() {
+    const localTheme = localStorage.getItem('theme')
+    if (localTheme === 'dark') {
+      this.changeTheme(localTheme)
+    } else if (!localTheme) {
+      this.dialog = true
     }
+  },
+  methods: {
+    changeDialog(val) {
+      this.dialog = val
+    },
+    ...mapActions('app', ['changeTheme']
+    )
   }
 }
-</style>
+</script>

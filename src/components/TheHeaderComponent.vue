@@ -1,0 +1,348 @@
+<template>
+  <div class="navbar-container app-background">
+    <v-container>
+      <v-row
+        class="d-flex align-center"
+        style="background-color: inherit; box-shadow: none"
+      >
+        <v-col
+          cols
+        >
+          <router-link to="/">
+            <img
+              alt="logo"
+              class="logo"
+              src="../assets/images/logo.png"
+            >
+          </router-link>
+        </v-col>
+
+        <v-col
+          v-if="$vuetify.breakpoint.mdAndUp"
+          cols
+          class="d-flex align-center"
+        >
+          <template
+            v-for="(link,i) in links"
+          >
+            <router-link
+              v-if="i!==3"
+              :key="i"
+              :to="'/'+link.path"
+              class="header-link mr-3"
+              :class="link.name.filter(x=>x===$route.name).length>0?'link--active':''"
+            >
+              {{ link.text }}
+            </router-link>
+            <div
+              v-else
+              :key="i"
+              class="text-center"
+            >
+              <v-menu
+                offset-y
+                class="ict-dropdown"
+                rounded="b-xl"
+                nudge-left="15"
+              >
+                <template #activator="{ on,attrs }">
+                  <div
+                    class="header-link mr-3 d-flex align-center"
+                    v-bind="attrs"
+                    v-on="{...on,...changeDropdown(JSON.parse(attrs['aria-expanded']))}"
+                  >
+                    <span
+                      class="pr-1"
+                      :class="['baccalaureate','magistracy','program','disciplines'].filter(x=>x===$route.name).length>0?'link--active':''"
+                    >Поступление</span>
+                    <div class="dropdown-symbol">
+                      ▼
+                    </div>
+                  </div>
+                </template>
+                <v-list class="dropdown-background">
+                  <v-list-item style="min-height: 32px">
+                    <router-link
+                      to="/baccalaureate"
+                      class="header-link"
+                    >
+                      Бакалавриат
+                    </router-link>
+                  </v-list-item>
+                  <v-list-item style="min-height: 32px">
+                    <router-link
+                      to="/magistracy"
+                      class="header-link"
+                    >
+                      Магистратура
+                    </router-link>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
+          </template>
+        </v-col>
+
+        <v-col
+          v-if="show||$vuetify.breakpoint.mdAndUp"
+          cols
+        >
+          <SwitchComponent class="ml-lg-4" />
+        </v-col>
+
+        <v-spacer />
+
+        <v-col
+          v-if="$vuetify.breakpoint.mdAndUp"
+          cols
+        >
+          <v-text-field
+            :dark="theme==='dark'"
+            dense
+            placeholder="Поиск по сайту"
+            hide-details
+            outlined
+            append-icon="mdi-magnify"
+            color="#2DC0C5"
+            class="search-input"
+            style="min-width: 175px;"
+            @click:append="()=>{}"
+          />
+        </v-col>
+
+        <v-col
+          v-if="$vuetify.breakpoint.smAndDown"
+          cols="5"
+          class="d-flex justify-end"
+        >
+          <v-btn
+            v-if="!show"
+            icon
+            x-large
+            color="#2DC0C5"
+            @click="clickSearchIcon"
+          >
+            <v-icon
+              size="40"
+            >
+              mdi-magnify
+            </v-icon>
+          </v-btn>
+          <v-btn
+            icon
+            x-large
+            color="#2DC0C5"
+            @click="show=!show"
+          >
+            <v-icon
+              size="40"
+            >
+              mdi-{{ show ? 'close' : 'menu' }}
+            </v-icon>
+          </v-btn>
+        </v-col>
+
+        <v-col
+          v-if="$vuetify.breakpoint.smAndDown"
+          cols="12 "
+          class="pa-0"
+        >
+          <v-expand-transition>
+            <v-list
+              v-show="show"
+              class="app-background"
+            >
+              <v-list-item>
+                <v-text-field
+                  ref="search"
+                  :dark="theme==='dark'"
+                  dense
+                  placeholder="Введите название новости или тега"
+                  hide-details
+                  outlined
+                  append-icon="mdi-magnify"
+                  color="#2DC0C5"
+                  class="search-input"
+                  height="100%"
+                  @click:append="()=>{}"
+                />
+              </v-list-item>
+              <template
+                v-for="(link,i) in links"
+              >
+                <v-list-item
+                  v-if="i!==3"
+                  :key="i"
+                  style="min-height: 33px"
+                  class="d-flex justify-center"
+                  @click="show=false"
+                >
+                  <router-link
+                    :to="'/'+link.path"
+                    class="header-link text-center"
+                    style="width: 100%"
+                    :class="link.name.filter(x=>x===$route.name).length>0?'link--active':''"
+                  >
+                    {{ link.text }}
+                  </router-link>
+                </v-list-item>
+                <v-list-item
+                  v-else
+                  :key="i"
+                  style="min-height: 33px"
+                  class="d-flex justify-center align-start pt-1"
+                >
+                  <div>
+                    <div
+                      class="header-link d-flex align-center justify-center"
+                      @click="()=>{ changeDropdown(!symbol)}"
+                    >
+                      <span
+                        class="pr-1"
+                        :class="['baccalaureate','magistracy','program','disciplines'].filter(x=>x===$route.name).length>0?'link--active':''"
+                      >Поступление</span>
+                      <div class="dropdown-symbol">
+                        ▼
+                      </div>
+                    </div>
+                    <v-expand-transition>
+                      <v-list
+                        v-show="symbol"
+                        class="app-background"
+                      >
+                        <v-list-item
+                          style="min-height: 33px"
+                          class="d-flex justify-center"
+                          @click="show=false"
+                        >
+                          <router-link
+                            to="/baccalaureate"
+                            class="header-link text-center"
+                            style="width: 100%"
+                          >
+                            Бакалавриат
+                          </router-link>
+                        </v-list-item>
+                        <v-list-item
+                          style="min-height: 33px"
+                          class="d-flex justify-center"
+                          @click="show=false"
+                        >
+                          <router-link
+                            to="/magistracy"
+                            class="header-link text-center"
+                            style="width: 100%"
+                          >
+                            Магистратура
+                          </router-link>
+                        </v-list-item>
+                      </v-list>
+                    </v-expand-transition>
+                  </div>
+                </v-list-item>
+              </template>
+            </v-list>
+          </v-expand-transition>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  name: 'TheHeaderComponent',
+  components: { SwitchComponent: () => import('@/components/SwitchComponent') },
+  data: () => ({
+    symbol: false, show: false,
+    links: [
+      { text: 'Главная', name: ['home'], path: '' },
+      { text: 'События', name: ['events', 'news', 'new'], path: 'events' },
+      { text: 'Студентам', name: ['students'], path: 'students' },
+      {},
+      { text: 'Контакты', name: ['contacts'], path: 'contacts' }
+    ]
+  }),
+  computed: mapState('app', ['theme']),
+  methods: {
+    changeDropdown(attr) {
+      if (document.getElementsByClassName('dropdown-symbol').length > 0 && this.symbol !== attr) {
+        document.querySelectorAll('.dropdown-symbol').forEach(
+          function(element) {
+            element.animate([
+              { transform: 'rotate(' + (attr === false ? '180deg' : '0') + ')' },
+              { transform: 'rotate(' + (attr === false ? '0' : '180deg') + ')' }
+            ], {
+              duration: 300,
+              fill: 'forwards'
+            })
+          }
+        )
+        this.symbol = attr
+      }
+      return true
+    },
+    clickSearchIcon() {
+      this.show = true
+      setTimeout(() => {
+        this.$refs['search'].$refs.input.focus()
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import "./src/styles/colors.scss";
+
+.navbar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100
+}
+
+.header-link {
+  text-decoration: none;
+  font-size: 18px;
+  @media (max-width: 960px) {
+    font-size: 18px;
+  }
+  @media (max-width: 1264px) {
+    font-size: 14px;
+  }
+}
+
+.header-link:hover {
+  text-decoration: none;
+}
+
+.link--active {
+  color: $ict-blue-green !important;
+}
+
+.logo {
+  height: 3rem;
+  object-fit: contain;
+}
+
+.v-menu__content {
+  box-shadow: 0 0 5px rgba(0, 109, 172, 0.2), 0 0 14px rgba(3, 67, 104, 0.1) !important;
+}
+
+.dropdown-symbol {
+  font-size: 0.5em;
+  color: $ict-blue-green;
+  width: fit-content;
+  height: fit-content;
+}
+
+.search-input {
+  border-radius: 10px;
+  font-size: 15px;
+  color: #2DC0C5 !important;
+}
+</style >
