@@ -19,6 +19,7 @@
       <BaseChip
         v-for="(item,i) in news.items"
         :key="i"
+        class="mt-2"
         :item="item"
       />
     </div>

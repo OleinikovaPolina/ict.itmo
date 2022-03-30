@@ -1,7 +1,8 @@
 <template>
   <div :class="'theme-' + theme">
     <v-app class="app-background">
-      <TheHeaderComponent />
+      <TheHeaderComponent v-if="pageAdmin.filter(x=>x===$route.name).length===0" />
+      <TheHeaderAdminComponent v-else />
       <v-main style="margin-top: 5em">
         <router-view />
       </v-main>
@@ -22,9 +23,14 @@ export default {
   components: {
     TheDialogThemeComponent: () => import('@/components/TheDialogThemeComponent'),
     TheHeaderComponent: () => import('@/components/TheHeaderComponent'),
+    TheHeaderAdminComponent: () => import('@/components/admin/TheHeaderComponent'),
     TheFooterComponent: () => import('@/components/TheFooterComponent')
   },
-  data: () => ({ dialog: false, pageNoFooter: ['notFound', 'login'] }),
+  data: () => ({
+    dialog: false,
+    pageAdmin: ['login', 'published', 'createEntry', 'favorites', 'tags'],
+    pageNoFooter: ['notFound', 'login', 'published', 'createEntry', 'favorites', 'tags']
+  }),
   computed: mapState('app', ['theme']),
   mounted() {
     const localTheme = localStorage.getItem('theme')

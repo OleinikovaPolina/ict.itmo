@@ -188,8 +188,8 @@ export default {
     ],
     tagsSelected: [[], [], [], []],
     pages: 3,
+    activeIndex: 0,
     isLoad: false,
-    activeIndex: 0
   }),
   computed: {
     ...mapState('app', ['theme'])

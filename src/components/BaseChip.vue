@@ -1,9 +1,10 @@
 <template>
   <div
-    class="mr-1 mt-2 rounded px-2 chip-text"
+    class="mr-1 rounded px-2 chip-text"
     :style="{backgroundColor: colors[item.type]}"
   >
     {{ item.name }}
+    <slot name="chip-btns" />
   </div>
 </template>
 

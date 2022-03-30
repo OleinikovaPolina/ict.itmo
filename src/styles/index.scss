@@ -114,6 +114,14 @@
   border-width: 2px;
 }
 
+.v-application .input-blue.v-input input, .v-application .input-blue.v-input input::placeholder, .input-blue .v-icon {
+  color: #0071B2 !important;
+}
+
+.v-application .input-border-0.v-text-field--outlined fieldset {
+  border-width: 0;
+}
+
 .v-application .navbar-container .v-text-field--outlined fieldset {
   border-width: 1px;
 }

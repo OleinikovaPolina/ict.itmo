@@ -42,10 +42,17 @@
           :dark="theme==='dark'"
           :color="theme==='dark'?'#00A1FF':'#005A8E'"
           hide-details
+          :type="show1 ? 'text' : 'password'"
+          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="show1 = !show1"
         />
       </v-col>
-      <div class="pt-6 text-center">
-        <v-btn>Сохранить</v-btn>
+      <div class="pt-6">
+        <BaseButton
+          class="mx-auto"
+          text="Сохранить"
+          :click-btn="true"
+        />
       </div>
     </v-col>
   </v-container>
@@ -56,6 +63,10 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'LoginView',
+  components: {
+    BaseButton: () => import('@/components/admin/BaseButton')
+  },
+  data: () => ({ show1: false }),
   computed: {
     ...mapState('app', ['theme'])
   }

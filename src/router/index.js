@@ -61,6 +61,30 @@ const routes = [
     component: () => import('../views/LoginView.vue')
   },
   {
+    path: '/published',
+    name: 'published',
+    auth: true,
+    component: () => import('../views/AdminPublishedView.vue')
+  },
+  {
+    path: '/createEntry',
+    name: 'createEntry',
+    auth: true,
+    component: () => import('../views/AdminCreateEntryView.vue')
+  },
+  {
+    path: '/favorites',
+    name: 'favorites',
+    auth: true,
+    component: () => import('../views/AdminFavoritesView.vue')
+  },
+  {
+    path: '/tags',
+    name: 'tags',
+    auth: true,
+    component: () => import('../views/AdminTagsView.vue')
+  },
+  {
     path: '*',
     name: 'notFound',
     component: () => import('../views/NotFound.vue')
