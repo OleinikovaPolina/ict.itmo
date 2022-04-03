@@ -4,7 +4,7 @@
     class="d-flex flex-wrap"
   >
     <v-col
-      v-for="(element,i) in blocks"
+      v-for="element in blocks"
       :key="element.id"
       cols="12"
       :md="sizeBlock"
@@ -34,7 +34,7 @@
               class="ma-0"
               hide-details
               :value="element.type"
-              @change="changeTypeBlock(i,$event)"
+              @change="changeTypeBlock(element.id,$event)"
             >
               <v-radio
                 v-for="item in typesInput"
@@ -62,6 +62,7 @@
           <DraggableInputs
             :blocks="element.content.blocks"
             :size-block="6"
+            @updateProp="(val)=>{element.content.blocks=val}"
           />
         </div>
       </template>
@@ -82,14 +83,14 @@
             @drop.prevent
           >
             <input
-              :id="'img-' +sizeBlock+'-'+ i"
+              :id="'img-' +sizeBlock+'-'+ element.id"
               type="file"
-              @change="(e)=>{element.content.img = e.target.files[0]}"
+              @change="(e)=>{changeContentImgBlock(element.id,'img',e.target.files[0])}"
             >
             <label
-              :for="'img-' +sizeBlock+'-'+ i"
+              :for="'img-' +sizeBlock+'-'+ element.id"
               class="d-flex align-center justify-center py-6 px-12 text-center"
-              @drop="(e)=>{element.content.img = e.dataTransfer.files[0]}"
+              @drop="(e)=>{changeContentImgBlock(element.id,'img',e.dataTransfer.files[0])}"
             >
               <v-img
                 style="z-index: 0"
@@ -127,15 +128,15 @@
             @drop.prevent
           >
             <input
-              :id="'images-' +sizeBlock+'-'+ i"
+              :id="'images-' +sizeBlock+'-'+ element.id"
               type="file"
               multiple
-              @change="(e)=>{element.content.images = element.content.images.concat(Array.from(e.target.files))}"
+              @change="(e)=>{changeContentImgBlock(element.id,'images',element.content.images.concat(Array.from(e.target.files)))}"
             >
             <label
-              :for="'images-' +sizeBlock+'-'+ i"
+              :for="'images-' +sizeBlock+'-'+ element.id"
               class="d-flex align-center py-md-6 px-md-12 text-center"
-              @drop="(e)=>{element.content.images = element.content.images.concat(Array.from(e.dataTransfer.files))}"
+              @drop="(e)=>{changeContentImgBlock(element.id,'images',element.content.images.concat(Array.from(e.dataTransfer.files)))}"
             >
               <span>
                 <v-img
@@ -168,7 +169,7 @@
                   icon
                   x-small
                   color="#0071B2"
-                  @click="element.content.images.splice(j, 1)"
+                  @click="deleteContentImgBlock(element.id,j)"
                 >
                   <v-icon small>
                     mdi-close-circle-outline
@@ -259,13 +260,23 @@ export default {
     }, ...mapState('app', ['theme'])
   },
   methods: {
-    changeBlock(newBlock) {
-      this.$emit('updateProp', newBlock)
+    changeContentImgBlock(i, name, val) {
+      let newVal = this.blocks.find(x=>x.id===i)
+      newVal.content[name] = val
+      this.changeBlocks(this.blocks.map(o => o.id === i ? newVal : o))
+    },
+    deleteContentImgBlock(i,j){
+      let newVal = this.blocks.find(x=>x.id===i)
+      newVal.content.images.splice(j,1)
+      this.changeBlocks(this.blocks.map(o => o.id === i ? newVal : o))
+    },
+    changeBlocks(newBlocks) {
+      this.$emit('updateProp', newBlocks)
     },
     changeTypeBlock(i, type) {
-      let newVal = this.blocks[i]
+      let newVal = this.blocks.find(x=>x.id===i)
       newVal.type = type
-      switch (this.blocks[i].type) {
+      switch (type) {
         case 0:
           newVal.content = { type: 0, text: '' }
           break
@@ -287,7 +298,7 @@ export default {
         default:
           newVal.content = { type: -1 }
       }
-      this.changeBlock(this.blocks.map(o => o.id === i ? newVal : o))
+      this.changeBlocks(this.blocks.map(o => o.id === i ? newVal : o))
     },
     getTextType(element) {
       const res = this.typesInput.find(x => x.id === element.type)
