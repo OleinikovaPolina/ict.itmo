@@ -9,6 +9,10 @@
       font-family: "OpenSans-Regular", sans-serif !important;
     }
 
+    .default-color {
+      color: map-get($theme, "color") !important;
+    }
+
     .text-h1, .text-h2, .text-h3, .text-h4, .text-h5, .text-h6 {
       font-family: "Rubik-Medium", sans-serif !important;
       color: map-get($theme, "h-color");
@@ -27,7 +31,7 @@
       color: map-get($theme, "subtitle-color-diff");
     }
 
-    .app-background {
+    .app-background, .v-list {
       background-color: map-get($theme, "bg-color") !important;
     }
 
@@ -165,20 +169,20 @@ body .v-application .text-subtitle-1 {
   }
 }
 
-ul {
+.ict-ul {
   list-style: none;
   padding-left: 5px !important;
-}
 
-li::before {
-  content: " ";
-  display: inline-block;
-  border: 1px solid $ict-blue-green;
-  border-radius: 50%;
-  height: 8px;
-  width: 8px;
-  margin-inline-end: 7px;
-  margin-bottom: 2px;
+  li::before {
+    content: " ";
+    display: inline-block;
+    border: 1px solid $ict-blue-green;
+    border-radius: 50%;
+    height: 8px;
+    width: 8px;
+    margin-inline-end: 7px;
+    margin-bottom: 2px;
+  }
 }
 
 a {
@@ -209,7 +213,7 @@ body .v-application a:hover {
 }
 
 .navbar-container .v-icon.v-icon.v-icon--link {
-  color: #2DC0C5;
+  color: #2DC0C5 !important;
 }
 
 .v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) > .v-input__control > .v-input__slot {
@@ -220,4 +224,8 @@ body .v-application a:hover {
   @media (max-width: 600px) {
     font-size: 12px;
   }
+}
+
+.theme-dark .v-list-item__action .v-icon {
+  color: white !important;
 }

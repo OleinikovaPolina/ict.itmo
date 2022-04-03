@@ -164,10 +164,10 @@ export default {
   name: 'EventsView',
   components: {
     LineComponent: () => import('@/components/LineComponent'),
-    EventsGalleryComponent: () => import('@/components/EventsGalleryComponent'),
-    EventsAnnouncements: () => import('@/components/EventsAnnouncementsComponent'),
+    EventsGalleryComponent: () => import('@/components/Events/EventsGalleryComponent'),
+    EventsAnnouncements: () => import('@/components/Events/EventsAnnouncementsComponent'),
     CarouselComponent: () => import('@/components/CarouselComponent'),
-    NewsComponent: () => import('@/components/NewsComponent')
+    NewsComponent: () => import('@/components/Events/NewsComponent')
   },
   data: () => ({
     slider: [

@@ -23,6 +23,7 @@
           :dark="theme==='dark'"
           :color="theme==='dark'?'#00A1FF':'#005A8E'"
           hide-details
+          append-icon="mdi-chevron-down"
         />
       </v-col>
       <v-col

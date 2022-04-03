@@ -27,14 +27,14 @@
 </template>
 
 <script>
-import img from '../assets/images/delete/home-1.png'
+import img from '../../assets/images/delete/home-1.png'
 
 export default {
   name: 'NewsComponent',
   components: {
     CarouselComponent: () => import('@/components/CarouselComponent'),
     BaseButtonOutlined: () => import('@/components/BaseButtonOutlined'),
-    BaseNews: () => import('@/components/BaseNews')
+    BaseNews: () => import('@/components/Events/BaseNewsSmall')
   },
   data: () => ({
     activeIndex: 0,

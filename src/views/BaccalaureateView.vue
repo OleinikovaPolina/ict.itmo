@@ -47,7 +47,7 @@
               <div>{{ program.program }}</div>
             </v-col>
             <v-col cols="6">
-              <ul>
+              <ul class="ict-ul">
                 <li
                   v-for="(sp,j) in program.specializations"
                   :key="j"

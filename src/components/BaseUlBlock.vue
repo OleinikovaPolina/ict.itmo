@@ -20,7 +20,7 @@
         cols="9"
         class="pl-2"
       >
-        <ul>
+        <ul class="ict-ul">
           <li
             v-for="(link,i) in item.links"
             :key="i"

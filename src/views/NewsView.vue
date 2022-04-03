@@ -119,7 +119,7 @@ export default {
   name: 'NewsView',
   components: {
     BaseChipSelected: () => import('@/components/BaseChipSelected'),
-    BaseNews: () => import('@/components/BaseNews')
+    BaseNews: () => import('@/components/Events/BaseNewsSmall')
   },
   data: () => ({
     news: [

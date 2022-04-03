@@ -223,7 +223,7 @@ export default {
     BaseHeaderAnimation: () => import('@/components/BaseHeaderAnimation'),
     TheEthicsComponent: () => import('@/components/TheEthicsComponent'),
     TheEthicsMobileComponent: () => import('@/components/TheEthicsMobileComponent'),
-    NewsComponent: () => import('@/components/NewsComponent'),
+    NewsComponent: () => import('@/components/Events/NewsComponent'),
     PartnersComponent: () => import('@/components/ThePartnersComponent'),
     BaseHexagonContainer: () => import('@/components/BaseHexagonContainer')
   },

@@ -11,7 +11,7 @@
       class="input-bordered mb-6 pa-0 pt-4"
       style="min-height: 60px"
     >
-      <div class="input-bordered-label pa-0">
+      <div class="input-bordered-label app-background pa-0">
         <v-menu offset-y>
           <template #activator="{ on, attrs }">
             <div
@@ -29,11 +29,12 @@
               </v-icon>
             </div>
           </template>
-          <v-list>
+          <v-list class="app-background">
             <v-radio-group
               class="ma-0"
               hide-details
               :value="element.type"
+              :dark="theme==='dark'"
               @change="changeTypeBlock(element.id,$event)"
             >
               <v-radio
@@ -47,15 +48,11 @@
           </v-list>
         </v-menu>
       </div>
-      <v-text-field
+      <vue-editor
         v-if="element.type===0"
         v-model="element.content.text"
+        :editor-toolbar="customToolbar"
         placeholder="Введите текст"
-        outlined
-        dense
-        class="input-border-0"
-        :dark="theme==='dark'"
-        hide-details
       />
       <template v-if="element.type===1">
         <div class="pt-8 px-4">
@@ -131,12 +128,12 @@
               :id="'images-' +sizeBlock+'-'+ element.id"
               type="file"
               multiple
-              @change="(e)=>{changeContentImgBlock(element.id,'images',element.content.images.concat(Array.from(e.target.files)))}"
+              @change="(e)=>{changeContentImagesBlock(element.id,'images',element.content.images.concat(Array.from(e.target.files)))}"
             >
             <label
               :for="'images-' +sizeBlock+'-'+ element.id"
               class="d-flex align-center py-md-6 px-md-12 text-center"
-              @drop="(e)=>{changeContentImgBlock(element.id,'images',element.content.images.concat(Array.from(e.dataTransfer.files)))}"
+              @drop="(e)=>{changeContentImagesBlock(element.id,'images',element.content.images.concat(Array.from(e.dataTransfer.files)))}"
             >
               <span>
                 <v-img
@@ -181,7 +178,7 @@
         </div>
       </template>
       <div v-if="element.type===4">
-        <div style="border-bottom: 2px solid rgba(31, 41, 49, 0.6)">
+        <div class="ict-border-bottom">
           <v-textarea
             v-model="element.content.text"
             placeholder="Введите цитату"
@@ -219,11 +216,12 @@
 <script>
 import { mapState } from 'vuex'
 import draggable from 'vuedraggable'
+import { VueEditor } from 'vue2-editor'
 
 export default {
   name: 'DraggableInputs',
   components: {
-    draggable
+    draggable, VueEditor
   },
   props: {
     blocks: {
@@ -236,6 +234,14 @@ export default {
     }
   },
   emits: ['updateProp'],
+  data: () => ({
+    customToolbar: [
+      [{ align: '' }, { align: 'center' }, { align: 'justify' }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['bold', 'italic', 'underline'],
+      ['link']
+    ]
+  }),
   computed: {
     typesInput() {
       if (this.sizeBlock === 6) {
@@ -261,20 +267,42 @@ export default {
   },
   methods: {
     changeContentImgBlock(i, name, val) {
-      let newVal = this.blocks.find(x=>x.id===i)
-      newVal.content[name] = val
+      let newVal = this.blocks.find(x => x.id === i)
+      newVal.content.img = val
+      if (val.type.match('image.*')) {
+        let reader = new FileReader()
+        reader.onload = (e) => {
+          newVal.content.imgName = e.target.result
+        }
+        reader.readAsDataURL(val)
+      }
       this.changeBlocks(this.blocks.map(o => o.id === i ? newVal : o))
     },
-    deleteContentImgBlock(i,j){
-      let newVal = this.blocks.find(x=>x.id===i)
-      newVal.content.images.splice(j,1)
+    changeContentImagesBlock(i, name, vals) {
+      let newVal = this.blocks.find(x => x.id === i)
+      newVal.content.images = vals
+      vals.forEach(val => {
+        if (val.type.match('image.*')) {
+          let reader = new FileReader()
+          reader.onload = (e) => {
+            newVal.content.imagesName.push(e.target.result)
+          }
+          reader.readAsDataURL(val)
+        }
+      })
+      this.changeBlocks(this.blocks.map(o => o.id === i ? newVal : o))
+    },
+    deleteContentImgBlock(i, j) {
+      let newVal = this.blocks.find(x => x.id === i)
+      newVal.content.images.splice(j, 1)
+      newVal.content.imagesName.splice(j, 1)
       this.changeBlocks(this.blocks.map(o => o.id === i ? newVal : o))
     },
     changeBlocks(newBlocks) {
       this.$emit('updateProp', newBlocks)
     },
     changeTypeBlock(i, type) {
-      let newVal = this.blocks.find(x=>x.id===i)
+      let newVal = this.blocks.find(x => x.id === i)
       newVal.type = type
       switch (type) {
         case 0:
@@ -284,10 +312,10 @@ export default {
           newVal.content = { type: 1, blocks: [{ id: 1000, type: -1 }, { id: 2000, type: -1 }] }
           break
         case 2:
-          newVal.content = { type: 2, img: null, text: '' }
+          newVal.content = { type: 2, img: null, imgName: '', text: '' }
           break
         case 3:
-          newVal.content = { type: 3, images: [], text: '' }
+          newVal.content = { type: 3, images: [], imagesName: [], text: '' }
           break
         case 4:
           newVal.content = { type: 4, text: '', author: '' }
@@ -315,12 +343,25 @@ export default {
   position: relative;
 }
 
+.ict-border-bottom {
+  border-bottom: 2px solid rgba(31, 41, 49, 0.6)
+}
+
+.theme-dark {
+  .input-bordered {
+    border: 2px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .ict-border-bottom {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.6)
+  }
+}
+
 .input-bordered-label {
   position: absolute;
   padding: 2.5px 10px;
   right: 0;
   top: -18px;
-  background-color: white;
   border: 2px solid #0071B2;
   border-radius: 25px;
 }

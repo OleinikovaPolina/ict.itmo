@@ -29,7 +29,7 @@
 <script>
 export default {
   name: 'BaseNews',
-  components: { BaseChip: () => import('./BaseChip') },
+  components: { BaseChip: () => import('../BaseChip') },
   props: {
     news: {
       type: Object,
