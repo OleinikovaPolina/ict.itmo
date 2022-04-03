@@ -2,9 +2,13 @@
   <v-container>
     <v-row align="center">
       <v-col
-        cols="3"
+        cols="6"
+        md="3"
       >
-        <div class="pl-4 subtitle-color">
+        <div
+          class="pl-4 subtitle-color text-body-2"
+          style="opacity: 0.7"
+        >
           Раздел тега<span class="error--text">*</span>
         </div>
         <v-select
@@ -22,9 +26,13 @@
         />
       </v-col>
       <v-col
-        cols="4"
+        cols="6"
+        md="4"
       >
-        <div class="pl-4 subtitle-color">
+        <div
+          class="pl-4 subtitle-color text-body-2"
+          style="opacity: 0.7"
+        >
           Название тега<span class="error--text">*</span>
         </div>
         <v-text-field
@@ -39,10 +47,7 @@
         />
       </v-col>
       <v-spacer />
-      <v-col
-        cols="2"
-        class="d-flex justify-end"
-      >
+      <v-col cols="2">
         <div style="width:fit-content">
           <BaseButton
             v-if="tagForm.id"
@@ -64,7 +69,7 @@
       <div
         v-for="(tag,i) in tags"
         :key="i"
-        class="d-flex pt-md-2 align-center"
+        class="d-flex pt-md-2 align-center flex-wrap"
       >
         <div class="pr-4">
           {{ tag.name }}

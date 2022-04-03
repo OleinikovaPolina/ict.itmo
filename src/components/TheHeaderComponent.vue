@@ -49,13 +49,16 @@
                   <div
                     class="header-link mr-3 d-flex align-center"
                     v-bind="attrs"
-                    v-on="{...on,...changeDropdown(JSON.parse(attrs['aria-expanded']))}"
+                    v-on="on"
                   >
                     <span
                       class="pr-1"
                       :class="['baccalaureate','magistracy','program','disciplines'].filter(x=>x===$route.name).length>0?'link--active':''"
                     >Поступление</span>
-                    <div class="dropdown-symbol">
+                    <div
+                      class="dropdown-symbol"
+                      :style="{transform:attrs['aria-expanded']==='true'?'rotate(180deg)':''}"
+                    >
                       ▼
                     </div>
                   </div>
@@ -195,13 +198,16 @@
                   <div>
                     <div
                       class="header-link d-flex align-center justify-center"
-                      @click="()=>{ changeDropdown(!symbol)}"
+                      @click="symbol=!symbol"
                     >
                       <span
                         class="pr-1"
                         :class="['baccalaureate','magistracy','program','disciplines'].filter(x=>x===$route.name).length>0?'link--active':''"
                       >Поступление</span>
-                      <div class="dropdown-symbol">
+                      <div
+                        class="dropdown-symbol"
+                        :style="{transform:symbol?'rotate(180deg)':''}"
+                      >
                         ▼
                       </div>
                     </div>
@@ -267,23 +273,6 @@ export default {
   }),
   computed: mapState('app', ['theme']),
   methods: {
-    changeDropdown(attr) {
-      if (document.getElementsByClassName('dropdown-symbol').length > 0 && this.symbol !== attr) {
-        document.querySelectorAll('.dropdown-symbol').forEach(
-          function(element) {
-            element.animate([
-              { transform: 'rotate(' + (attr === false ? '180deg' : '0') + ')' },
-              { transform: 'rotate(' + (attr === false ? '0' : '180deg') + ')' }
-            ], {
-              duration: 300,
-              fill: 'forwards'
-            })
-          }
-        )
-        this.symbol = attr
-      }
-      return true
-    },
     clickSearchIcon() {
       this.show = true
       setTimeout(() => {
@@ -331,6 +320,7 @@ export default {
 
 .v-menu__content {
   box-shadow: 0 0 5px rgba(0, 109, 172, 0.2), 0 0 14px rgba(3, 67, 104, 0.1) !important;
+  border: 0;
 }
 
 .dropdown-symbol {
@@ -338,6 +328,7 @@ export default {
   color: $ict-blue-green;
   width: fit-content;
   height: fit-content;
+  transition: all .5s;
 }
 
 .search-input {

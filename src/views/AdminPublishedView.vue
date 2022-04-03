@@ -20,7 +20,8 @@
       <v-col
         v-for="(info,i) in infos"
         :key="i"
-        cols="6"
+        cols="12"
+        md="6"
       >
         <BaseBlock :info="info" />
       </v-col>

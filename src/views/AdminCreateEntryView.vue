@@ -26,191 +26,10 @@
         hide-details
       />
     </div>
-    <draggable
-      :list="form.blocks"
-    >
-      <div
-        v-for="(element,i) in form.blocks"
-        :key="element.id"
-        class="input-bordered mb-6 pt-6"
-        style="min-height: 60px"
-      >
-        <div
-          class="input-bordered-label pa-0"
-          style="max-width: 200px"
-        >
-          <v-select
-            v-model="element.type"
-            :items="typesInput"
-            item-value="id"
-            item-text="text"
-            value="-1"
-            placeholder="Выберите блок"
-            outlined
-            dense
-            class="input-border-0 input-blue"
-            :dark="theme==='dark'"
-            hide-details
-            @change="changeTypeBlock(i)"
-          >
-            <template #item="{item}">
-              <v-radio
-                :value="element.type"
-                :label="item.text"
-              />
-            </template>
-          </v-select>
-        </div>
-        <v-text-field
-          v-if="element.type===0"
-          v-model="element.content.text"
-          placeholder="Введите текст"
-          outlined
-          dense
-          class="input-border-0"
-          :dark="theme==='dark'"
-          hide-details
-        />
-        <template v-if="element.type===2">
-          <v-text-field
-            v-model="element.content.text"
-            placeholder="Название картинки"
-            outlined
-            dense
-            class="mx-6 my-2"
-            :dark="theme==='dark'"
-            hide-details
-          />
-          <div
-            class="input-file-container mx-auto pb-4"
-            @dragover.prevent
-            @drop.prevent
-          >
-            <input
-              :id="'img'+i"
-              type="file"
-              @change="(e)=>{element.content.img = e.target.files[0]}"
-            >
-            <label
-              :for="'img'+i"
-              class="d-flex align-center py-6 px-12 text-center"
-              @drop="(e)=>{element.content.img = e.dataTransfer.files[0]}"
-            >
-              <v-img
-                style="z-index: 0"
-                width="80"
-                height="80"
-                src="../assets/images/admin/ep_picture.svg"
-              />
-              Выберите изображение обложки или перетащите файл<br>
-              Размер 200*260
-            </label>
-          </div>
-          <div
-            v-if="element.content.img"
-            class="text-center"
-          >
-            {{ element.content.img.name }}
-          </div>
-        </template>
-        <template v-if="element.type===3">
-          <v-text-field
-            v-model="element.content.text"
-            placeholder="Название слайдера"
-            outlined
-            dense
-            :dark="theme==='dark'"
-            hide-details
-            class="mx-6 my-2"
-          />
-          <div class="mx-6 pb-4 d-flex">
-            <div
-              class="input-file-container"
-              @dragover.prevent
-              @drop.prevent
-            >
-              <input
-                :id="'img'+i"
-                type="file"
-                multiple
-                @change="(e)=>{element.content.imgs = element.content.imgs.concat(Array.from(e.target.files))}"
-              >
-              <label
-                :for="'img'+i"
-                class="d-flex align-center py-6 px-12 text-center"
-                @drop="(e)=>{element.content.imgs = element.content.imgs.concat(Array.from(e.dataTransfer.files))}"
-              >
-                <v-img
-                  style="z-index: 0"
-                  width="80"
-                  height="80"
-                  src="../assets/images/admin/ep_picture.svg"
-                />
-                Выберите изображение обложки или перетащите файл<br>
-                Размер 200*260
-              </label>
-            </div>
-            <div
-              v-if="element.content.imgs.length"
-              class="pl-6"
-            >
-              <div
-                v-for="(img,j) in element.content.imgs"
-                :key="j"
-                class="d-flex mt-2"
-              >
-                <div>{{ j + 1 }}.</div>
-                <div class="input-slider-img-block px-2 ml-2">
-                  {{ img.name }}
-                  <v-btn
-                    icon
-                    x-small
-                    color="#0071B2"
-                    @click="element.content.imgs.splice(j, 1)"
-                  >
-                    <v-icon small>
-                      mdi-close-circle-outline
-                    </v-icon>
-                  </v-btn>
-                </div>
-              </div>
-            </div>
-          </div>
-        </template>
-        <div v-if="element.type===4">
-          <div style="border-bottom: 2px solid rgba(31, 41, 49, 0.6)">
-            <v-text-field
-              v-model="element.text"
-              placeholder="Введите цитату"
-              outlined
-              dense
-              class="input-border-0"
-              :dark="theme==='dark'"
-              hide-details
-            />
-          </div>
-          <v-text-field
-            v-model="element.content.author"
-            placeholder="Введите ФИО человека, должность"
-            outlined
-            dense
-            class="input-border-0"
-            :dark="theme==='dark'"
-            hide-details
-          />
-        </div>
-        <v-text-field
-          v-if="element.type===5"
-          v-model="element.content.text"
-          placeholder="Введите подзаголовок"
-          outlined
-          dense
-          class="input-border-0"
-          :dark="theme==='dark'"
-          hide-details
-        />
-      </div>
-    </draggable>
+    <DraggableInputs
+      :blocks="form.blocks"
+      @updateProp="updateProp"
+    />
     <div
       v-if="typeDate===1"
       class="input-bordered mb-6 py-6"
@@ -284,7 +103,7 @@
               src="../assets/images/admin/ep_picture.svg"
             />
             Выберите изображение обложки или перетащите файл<br>
-            Размер 200*260
+            Размер 1140*400
           </label>
         </div>
         <div
@@ -307,10 +126,13 @@
     </div>
     <v-row class="pt-4">
       <v-col
-        cols="4"
+        cols="12"
         md="3"
       >
-        <div class="pl-4 subtitle-color">
+        <div
+          class="pl-4 subtitle-color text-body-2"
+          style="opacity: 0.7"
+        >
           Дата начала мероприятия<span class="error--text">*</span>
         </div>
         <v-text-field
@@ -324,10 +146,13 @@
         />
       </v-col>
       <v-col
-        cols="4"
+        cols="12"
         md="3"
       >
-        <div class="pl-4 subtitle-color">
+        <div
+          class="pl-4 subtitle-color text-body-2"
+          style="opacity: 0.7"
+        >
           Дата конца мероприятия
         </div>
         <v-text-field
@@ -341,10 +166,13 @@
         />
       </v-col>
       <v-col
-        cols="3"
+        cols="12"
         md="2"
       >
-        <div class="pl-4 subtitle-color">
+        <div
+          class="pl-4 subtitle-color text-body-2"
+          style="opacity: 0.7"
+        >
           Время начала
         </div>
         <v-text-field
@@ -360,10 +188,13 @@
     </v-row>
     <v-row>
       <v-col
-        cols="4"
+        cols="12"
         md="3"
       >
-        <div class="pl-4 subtitle-color">
+        <div
+          class="pl-4 subtitle-color text-body-2"
+          style="opacity: 0.7"
+        >
           Дата выхода поста<span class="error--text">*</span>
         </div>
         <v-text-field
@@ -377,10 +208,13 @@
         />
       </v-col>
       <v-col
-        cols="3"
+        cols="12"
         md="2"
       >
-        <div class="pl-4 subtitle-color">
+        <div
+          class="pl-4 subtitle-color text-body-2"
+          style="opacity: 0.7"
+        >
           Время выхода<span class="error--text">*</span>
         </div>
         <v-text-field
@@ -399,7 +233,10 @@
       md="4"
       class="px-0"
     >
-      <div class="pl-4 subtitle-color">
+      <div
+        class="pl-4 subtitle-color text-body-2"
+        style="opacity: 0.7"
+      >
         Место проведения<span class="error--text">*</span>
       </div>
       <v-text-field
@@ -417,7 +254,10 @@
       md="4"
       class="px-0"
     >
-      <div class="pl-4 subtitle-color">
+      <div
+        class="pl-4 subtitle-color  text-body-2"
+        style="opacity: 0.7"
+      >
         Теги<span class="error--text">*</span>
       </div>
       <v-autocomplete
@@ -444,7 +284,7 @@
                 icon
                 dark
                 x-small
-                @click="remove(item)"
+                @click="removeTag(item)"
               >
                 <v-icon small>
                   mdi-close-circle-outline
@@ -459,6 +299,7 @@
       <BaseButton
         text="Опубликовать"
         :click-btn="true"
+        @clickBtnCallback="publish"
       />
       <BaseButtonOutlined
         class="ml-4"
@@ -471,12 +312,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import draggable from 'vuedraggable'
 
 export default {
   name: 'AdminCreateEntryView',
   components: {
-    draggable,
+    DraggableInputs: () => import('@/components/admin/DraggableInputs'),
     BaseChip: () => import('@/components/BaseChip'),
     BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined'),
     BaseButton: () => import('@/components/admin/BaseButton')
@@ -492,48 +332,26 @@ export default {
       { id: 3, type: 2, name: 'Название 3' },
       { id: 4, type: 2, name: 'Название 4' },
       { id: 5, type: 3, name: 'Название 5' }],
-    typesInput: [{ id: 0, text: 'Текстовый блок' },
-      { id: 1, text: 'Два блока' },
-      { id: 2, text: 'Изображение' },
-      { id: 3, text: 'Слайдер' },
-      { id: 4, text: 'Цитата' },
-      { id: 5, text: 'Подзаголовок' }]
   }),
-  computed: mapState('app', ['theme']),
+  computed: {
+    ...mapState('app', ['theme'])
+  },
   methods: {
-    addBlock() {
-      this.form.blocks.push({ id: 0, type: -1, content: null })
+    updateProp(val) {
+      this.form.blocks = val
     },
-    changeTypeBlock(i) {
-      switch (this.form.blocks[i].type) {
-        case 0:
-          this.form.blocks[i].content = { type: 0, text: '' }
-          break
-        case 1:
-          this.form.blocks[i].content = { type: 1, blocks: [{ type: -1 }, { type: -1 }] }
-          break
-        case 2:
-          this.form.blocks[i].content = { type: 2, img: null, text: '' }
-          break
-        case 3:
-          this.form.blocks[i].content = { type: 3, imgs: [], text: '' }
-          break
-        case 4:
-          this.form.blocks[i].content = { type: 4, text: '', author: '' }
-          break
-        case 5:
-          this.form.blocks[i].content = { type: 5, text: '' }
-          break
-        default:
-          this.form.blocks[i].content = { type: -1 }
-      }
+    addBlock() {
+      this.form.blocks.push({ id: this.form.blocks.length, type: -1, content: null })
     },
     changeTypeData(val) {
       this.typeDate = val
     },
-    remove(item) {
+    removeTag(item) {
       const index = this.form.tags.indexOf(item.id)
       if (index >= 0) this.form.tags.splice(index, 1)
+    },
+    publish() {
+      console.log(this.form)
     }
   }
 }

@@ -152,7 +152,7 @@
         >
           <v-img
             width="100"
-            src="../assets/images/program/Vector.svg"
+            :src="programAreasImg"
           />
         </v-col>
         <v-col
@@ -295,6 +295,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'ProgramView',
   components: {
@@ -416,8 +418,14 @@ export default {
         email: 'asvatian@itmo.ru',
         tel: '+7 920-457-85-96'
       }
-    ],
-  })
+    ]
+  }),
+  computed: {
+    ...mapState('app', ['theme']),
+    programAreasImg() {
+      return this.theme === 'dark' ? require('../assets/images/program/Vector.svg') : require('../assets/images/program/VectorLight.svg')
+    }
+  }
 }
 </script>
 

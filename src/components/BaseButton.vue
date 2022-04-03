@@ -69,6 +69,7 @@ export default {
   background-size: 300% 100%;
   transition: all .3s ease-in-out;
   background-position: 100% 0;
+  background-color: #0071B2;
   background-image: linear-gradient(101.62deg, #0071B2, #0071B2, #0071B2, #2E9CEF 50%, #2E9CEF 70%, #2DC0C5 100%);
   letter-spacing: normal;
   @media (max-width: 600px) {
@@ -85,8 +86,9 @@ export default {
 }
 
 .ict-button:active {
-  background-position: 0 0;
-  transition: all .3s ease-in-out;
+  background-image:none;
+//  background-position: 0 0;
+//  transition: all .3s ease-in-out;
 }
 
 .smallBtn .ict-button {

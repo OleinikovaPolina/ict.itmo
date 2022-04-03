@@ -91,7 +91,7 @@
       fill: map-get($theme, "ethics-marker");
     }
 
-    .search-input {
+    .search-input, .search-input .v-input__icon--append .v-icon {
       color: map-get($theme, "input-active") !important;
     }
 
@@ -105,6 +105,16 @@
   }
 }
 
+.v-menu__content {
+  box-shadow: none !important;
+  border: 2px solid #0071B2;
+  border-radius: 5px;
+
+  .v-list-item__action {
+    margin: 6px 24px 6px 0 !important;
+  }
+}
+
 .search-input {
   border-radius: 10px;
   font-size: 15px;
@@ -114,8 +124,27 @@
   border-width: 2px;
 }
 
-.v-application .input-blue.v-input input, .v-application .input-blue.v-input input::placeholder, .input-blue .v-icon {
+input[type=date]::-webkit-calendar-picker-indicator {
+  background-image: url("../assets/images/admin/akar-icons_calendar.svg");
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+}
+
+input[type=time]::-webkit-calendar-picker-indicator {
+  background-image: url("../assets/images/admin/icon-park-outline_time.svg");
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+}
+
+.v-application .input-blue.v-input input, .v-application .input-blue.v-input input::placeholder, .input-blue .v-icon, input[type=date]::-webkit-calendar-picker-indicator {
   color: #0071B2 !important;
+}
+
+.v-application .input-light-blue.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset {
+  color: #00A1FF !important;
+  border-width: 1.5px;
 }
 
 .v-application .input-border-0.v-text-field--outlined fieldset {
