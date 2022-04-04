@@ -5,7 +5,7 @@
   >
     <v-img
       class="mb-4"
-      :height="$vuetify.breakpoint.smAndUp?'200':'160'"
+      :height="$vuetify.breakpoint.xl?'300':$vuetify.breakpoint.smAndUp?'200':'160'"
       width="100%"
       :src="news.img"
     />
@@ -41,9 +41,13 @@ export default {
 
 <style scoped lang="scss">
 .news-name {
-  font-size: 20px;
-  line-height: 22px;
+  font-size: 30px;
+  line-height: 34px;
   font-family: "OpenSans-Bold", sans-serif !important;
+  @media (max-width: 1904px) {
+    font-size: 20px;
+    line-height: 22px;
+  }
   @media (max-width: 600px) {
     font-size: 16px;
     line-height: 18px;
@@ -51,8 +55,12 @@ export default {
 }
 
 .news-subtitle {
-  font-size: 16px;
-  line-height: 19px;
+  font-size: 20px;
+  line-height: 25px;
+  @media (max-width: 1904px) {
+    font-size: 16px;
+    line-height: 19px;
+  }
   @media (max-width: 600px) {
     font-size: 12px;
     line-height: 17px;

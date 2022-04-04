@@ -1,5 +1,5 @@
 <template>
-<p>AdminFavoritesView</p>
+  <p>AdminFavoritesView</p>
 </template>
 
 <script>

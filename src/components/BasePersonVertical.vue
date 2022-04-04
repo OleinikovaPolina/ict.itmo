@@ -1,6 +1,6 @@
 <template>
   <v-sheet
-    class="person rounded-pill mx-auto"
+    class="person rounded-pill mx-auto section-background"
     :max-width="$vuetify.breakpoint.sm?250:300"
   >
     <div class="person-img-container rounded-circle">
@@ -24,7 +24,7 @@
         </v-icon>
         <a
           :href="'mailto: '+person.email"
-          class="person-email"
+          class="person-email subtitle-color"
         >
           {{ person.email }}
         </a>
@@ -47,18 +47,6 @@ export default {
 
 <style scoped lang="scss">
 @import "../styles/variables.scss";
-
-@each $theme in $themes {
-  .#{map-get($theme, "name")} {
-    .person {
-      background-color: map-get($theme, "bg-section");
-
-      .person-link a div {
-        color: map-get($theme, "subtitle-color");
-      }
-    }
-  }
-}
 
 .person {
   width: 100%;

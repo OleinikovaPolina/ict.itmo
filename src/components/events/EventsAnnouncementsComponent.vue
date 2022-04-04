@@ -107,7 +107,12 @@ export default {
 
 
 .announ-text {
-  line-height: 19px;
+  font-size: 18px;
+  line-height: 23px;
+  @media (max-width: 1904px) {
+    font-size: 14px;
+    line-height: 19px;
+  }
   @media (max-width: 600px) {
     font-size: 12px;
     line-height: 14px;

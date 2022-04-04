@@ -1,6 +1,6 @@
 <template>
   <v-sheet
-    class="person rounded-pill mx-auto"
+    class="person person-horizontal rounded-pill mx-auto"
     :class="{'person-small':smallPerson}"
     :max-width="smallPerson?520:700"
   >
@@ -77,14 +77,6 @@ export default {
 
 <style scoped lang="scss">
 @import "../styles/variables.scss";
-
-@each $theme in $themes {
-  .#{map-get($theme, "name")} {
-    .text-h6 {
-      color: map-get($theme, "bg-color");
-    }
-  }
-}
 
 .person {
   background-color: #00A1FF;

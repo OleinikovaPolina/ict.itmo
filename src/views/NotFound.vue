@@ -215,9 +215,13 @@ export default {
 }
 
 .notfound-nums {
-  font-size: 240px;
-  line-height: 240px;
+  font-size: 320px;
+  line-height: 320px;
   font-family: "OpenSans-Bold", sans-serif !important;
+  @media (max-width: 1904px) {
+    font-size: 240px;
+    line-height: 240px;
+  }
   @media (max-width: 600px) {
     font-size: 120px;
     line-height: 120px;

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="d-flex justify-space-between align-center pb-2 pt-md-10 pb-md-6">
-      <div class="text-center mx-auto text-h6 text-sm-h4">
+      <div class="text-center mx-auto text-h6 text-sm-h4 text-xl-h3">
         Партнеры
       </div>
     </div>
@@ -43,22 +43,22 @@ export default {
   components: { CarouselComponent: () => import('@/components/CarouselComponent') },
   data: () => ({
     slider: [
-      { link: '', img: require('../assets/images/partners/vk.svg') },
-      { link: '', img: require('../assets/images/partners/red.svg') },
-      { link: '', img: require('../assets/images/partners/napoleon.svg') },
-      { link: '', img: require('../assets/images/partners/Layer1.svg') },
-      { link: '', img: require('../assets/images/partners/cisco.svg') },
-      { link: '', img: require('../assets/images/partners/ascaeen.svg') },
-      { link: '', img: require('../assets/images/partners/raidix.svg') },
-      { link: '', img: require('../assets/images/partners/rardio.svg') },
-      { link: '', img: require('../assets/images/partners/Transas_logo 1.svg') },
-      { link: '', img: require('../assets/images/partners/emc.svg') },
-      { link: '', img: require('../assets/images/partners/Vector (7).svg') },
-      { link: '', img: require('../assets/images/partners/Luxoft.svg') },
-      { link: '', img: require('../assets/images/partners/micro 1.svg') },
-      { link: '', img: require('../assets/images/partners/Group.svg') },
-      { link: '', img: require('../assets/images/partners/huawei.svg') },
-      { link: '', img: require('../assets/images/partners/кщы.svg') }
+      { link: '', img: require('../../assets/images/partners/vk.svg') },
+      { link: '', img: require('../../assets/images/partners/red.svg') },
+      { link: '', img: require('../../assets/images/partners/napoleon.svg') },
+      { link: '', img: require('../../assets/images/partners/Layer1.svg') },
+      { link: '', img: require('../../assets/images/partners/cisco.svg') },
+      { link: '', img: require('../../assets/images/partners/ascaeen.svg') },
+      { link: '', img: require('../../assets/images/partners/raidix.svg') },
+      { link: '', img: require('../../assets/images/partners/rardio.svg') },
+      { link: '', img: require('../../assets/images/partners/Transas_logo 1.svg') },
+      { link: '', img: require('../../assets/images/partners/emc.svg') },
+      { link: '', img: require('../../assets/images/partners/Vector (7).svg') },
+      { link: '', img: require('../../assets/images/partners/Luxoft.svg') },
+      { link: '', img: require('../../assets/images/partners/micro 1.svg') },
+      { link: '', img: require('../../assets/images/partners/Group.svg') },
+      { link: '', img: require('../../assets/images/partners/huawei.svg') },
+      { link: '', img: require('../../assets/images/partners/кщы.svg') }
     ]
   }),
   computed: {
@@ -74,14 +74,20 @@ export default {
 }
 
 .partner-container-1 {
-  height: 90px;
+  height: 120px;
+  @media (max-width: 1904px) {
+    height: 90px;
+  }
   @media (max-width: 600px) {
     height: 50px;
   }
 }
 
 .partner-container-2 {
-  height: 124px;
+  height: 180px;
+  @media (max-width: 1904px) {
+    height: 124px;
+  }
   @media (max-width: 600px) {
     height: 80px;
   }

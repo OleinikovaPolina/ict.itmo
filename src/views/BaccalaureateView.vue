@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="text-center pb-2 text-h6 pb-sm-10 text-sm-h4">
+    <div class="text-center pb-2 text-h6 pb-sm-10 text-sm-h4 text-xl-h3">
       Поступление в БАКАЛАВРИАТ
     </div>
     <v-row
@@ -110,6 +110,10 @@ export default {
 }
 
 * {
+  @media (min-width: 1904px) {
+    font-size: 24px;
+    line-height: 28px;
+  }
   @media (max-width: 600px) {
     font-size: 10px;
     line-height: 14px;

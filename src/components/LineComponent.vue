@@ -3,7 +3,7 @@
     :id="'ict-line-'+id"
     class="ict-line"
     :style="{
-      border: '1px solid '+color,
+      border: '1px solid '+ color,
       backgroundColor: color,
       left:position==='left'?0:'auto',
       right:position==='right'?0:'auto',

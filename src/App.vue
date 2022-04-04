@@ -21,10 +21,10 @@ import { mapActions, mapState } from 'vuex'
 export default {
   name: 'App',
   components: {
-    TheDialogThemeComponent: () => import('@/components/TheDialogThemeComponent'),
-    TheHeaderComponent: () => import('@/components/TheHeaderComponent'),
+    TheDialogThemeComponent: () => import('@/components/app/TheDialogThemeComponent'),
+    TheHeaderComponent: () => import('@/components/app/TheHeaderComponent'),
     TheHeaderAdminComponent: () => import('@/components/admin/TheHeaderComponent'),
-    TheFooterComponent: () => import('@/components/TheFooterComponent')
+    TheFooterComponent: () => import('@/components/app/TheFooterComponent')
   },
   data: () => ({
     dialog: false,

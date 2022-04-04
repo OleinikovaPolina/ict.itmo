@@ -11,7 +11,8 @@
       >
         <v-row class="px-2 px-md-6">
           <v-col
-            cols="7"
+            cols="9"
+            md="7"
             class="d-flex justify-start align-center"
             :class="$vuetify.breakpoint.smAndDown?'py-2':''"
           >
@@ -21,11 +22,11 @@
               style="width: 100%"
             >
               <v-img
-                position="center"
+                position="0 center"
                 contain
                 width="100%"
-                :height="$vuetify.breakpoint.smAndDown?'15':'36'"
-                src="../assets/images/logoITMO.svg"
+                :height="$vuetify.breakpoint.smAndDown?'15':$vuetify.breakpoint.xl?'48':'36'"
+                src="../../assets/images/footer/logoITMO.svg"
               />
             </a>
           </v-col>
@@ -35,7 +36,7 @@
             class="d-flex justify-end align-center"
           >
             <div
-              class="text-h6"
+              class="text-h6 text-xl-h5"
             >
               Факультет ИКТ
             </div>
@@ -59,7 +60,7 @@
             >
               <v-list-item
                 class="footer-inf"
-                :style="{minHeight: $vuetify.breakpoint.smAndDown?'2em':'2.75em'}"
+                :style="{minHeight:$vuetify.breakpoint.smAndDown?'2em':'2.75em'}"
               >
                 Информация © 1993–2022 Университет ИТМО
               </v-list-item>
@@ -69,7 +70,7 @@
               >
                 Разработка © 2022 Факультет ИКТ
               </v-list-item>
-              <v-list-item :style="{minHeight: $vuetify.breakpoint.smAndDown?'2em':'2.75em'}">
+              <v-list-item :style="{minHeight: $vuetify.breakpoint.smAndDown ?'2em':'2.75em'}">
                 <a
                   href="#"
                   class="link font-weight-light text-decoration-underline"
@@ -77,7 +78,7 @@
                   Политика по обработке персональных данных
                 </a>
               </v-list-item>
-              <v-list-item :style="{minHeight: $vuetify.breakpoint.smAndDown?'2em':'2.75em'}">
+              <v-list-item :style="{minHeight: $vuetify.breakpoint.smAndDown ?'2em':'2.75em'}">
                 <a
                   href="#"
                   class="link font-weight-thin text-decoration-underline"
@@ -177,7 +178,7 @@
           width="100%"
           class="rounded-l-pill"
           position="right"
-          src="../assets/images/footer-building.svg"
+          src="../../assets/images/footer/footer-building.svg"
         />
       </v-sheet>
     </v-sheet>
@@ -298,10 +299,10 @@
 </template>
 
 <script>
-import iconVk from '../assets/images/Button-S-Vk-ic.svg'
-import iconYT from '../assets/images/Button-S-Youtube-ic.svg'
-import iconIn from '../assets/images/Button-S-Instagram-ic.svg'
-import iconTe from '../assets/images/Button-S-Telegram-ic.svg'
+import iconVk from '../../assets/images/footer/Button-S-Vk-ic.svg'
+import iconYT from '../../assets/images/footer/Button-S-Youtube-ic.svg'
+import iconIn from '../../assets/images/footer/Button-S-Instagram-ic.svg'
+import iconTe from '../../assets/images/footer/Button-S-Telegram-ic.svg'
 
 export default {
   name: 'TheFooterComponent',
@@ -345,9 +346,12 @@ export default {
 .sheet-2 {
   max-width: 80%;
   padding-left: 3.5em;
-  font-size: 14px;
+  font-size: 20px;
   padding-top: 4em;
   padding-bottom: 2.5em;
+  @media (max-width: 1904px) {
+    font-size: 14px;
+  }
   @media (max-width: 960px) {
     max-width: 85%;
     padding-left: 2.25em;
@@ -380,7 +384,7 @@ export default {
   padding-left: 1em;
   font-size: 10px;
   padding-top: 2em;
-  background-image: url("../assets/images/footer-building.svg");
+  background-image: url("../../assets/images/footer/footer-building.svg");
   background-position: 100% 100%;
   background-size: auto 70%;
 }

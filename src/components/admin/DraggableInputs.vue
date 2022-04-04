@@ -11,13 +11,27 @@
       class="input-bordered mb-6 pa-0 pt-4"
       style="min-height: 60px"
     >
+      <div
+        v-if="sizeBlock!==6"
+        class="input-bordered-label delete-block app-background pa-0"
+      >
+        <v-btn
+          icon
+          small
+          @click="deleteBlock(element.id)"
+        >
+          <v-icon color="#0071B2">
+            mdi-close
+          </v-icon>
+        </v-btn>
+      </div>
       <div class="input-bordered-label app-background pa-0">
         <v-menu offset-y>
           <template #activator="{ on, attrs }">
             <div
               v-bind="attrs"
               class="input-border-0 input-blue px-2 py-1 d-flex justify-space-between"
-              style="width: 200px"
+              style="width: 180px"
               v-on="on"
             >
               {{ getTextType(element) }}
@@ -53,13 +67,14 @@
         v-model="element.content.text"
         :editor-toolbar="customToolbar"
         placeholder="Введите текст"
+        :class="{custom:sizeBlock!==6}"
       />
       <template v-if="element.type===1">
         <div class="pt-8 px-4">
           <DraggableInputs
             :blocks="element.content.blocks"
             :size-block="6"
-            @updateProp="(val)=>{element.content.blocks=val}"
+            @updateProp="function(val){element.content.blocks=val}"
           />
         </div>
       </template>
@@ -73,7 +88,7 @@
           :dark="theme==='dark'"
           hide-details
         />
-        <div class="pb-4">
+        <div class="mx-6 pb-4 d-flex">
           <div
             class="input-file-container mx-auto"
             @dragover.prevent
@@ -235,12 +250,11 @@ export default {
   },
   emits: ['updateProp'],
   data: () => ({
-    customToolbar: [
-      [{ align: '' }, { align: 'center' }, { align: 'justify' }],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      ['bold', 'italic', 'underline'],
-      ['link']
-    ]
+    customToolbar: [{ align: '' }, { align: 'center' }, { align: 'justify' },
+      { list: 'ordered' }, { list: 'bullet' },
+      'bold', 'italic', 'underline',
+      'link',
+      'clean']
   }),
   computed: {
     typesInput() {
@@ -263,9 +277,13 @@ export default {
         ]
       }
 
-    }, ...mapState('app', ['theme'])
+    }, ...mapState('app', { theme: 'theme' })
   },
   methods: {
+    deleteBlock(i) {
+      let newVal = this.blocks.filter(x => x.id !== i)
+      this.changeBlocks(newVal)
+    },
     changeContentImgBlock(i, name, val) {
       let newVal = this.blocks.find(x => x.id === i)
       newVal.content.img = val
@@ -336,7 +354,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .input-bordered {
   border: 2px solid rgba(31, 41, 49, 0.6);
   border-radius: 5px;
@@ -364,6 +382,11 @@ export default {
   top: -18px;
   border: 2px solid #0071B2;
   border-radius: 25px;
+}
+
+.delete-block {
+  right: 190px;
+  top: -18px;
 }
 
 .input-file-container {
@@ -397,5 +420,38 @@ export default {
 .input-slider-img-block {
   border: 1px solid #0071B2;
   border-radius: 20px;
+}
+
+.quillWrapper {
+  &.custom {
+    @media (min-width: 960px) {
+      margin-top: -2.5em;
+      .ql-snow.ql-toolbar button {
+        margin-left: 1em;
+        margin-right: 0;
+      }
+    }
+  }
+
+  .ql-snow.ql-toolbar button {
+    height: 36px;
+    width: 36px;
+    border: 2px solid #0071B2;
+    border-radius: 25px;
+    margin-right: 1em;
+  }
+
+  .ql-snow.ql-toolbar button.ql-active {
+    background-color: #0071B2;
+
+    .ql-stroke, {
+      stroke: #000;
+      stroke-width: 1.7px;
+    }
+  }
+
+  .ql-toolbar.ql-snow {
+    border: none
+  }
 }
 </style>

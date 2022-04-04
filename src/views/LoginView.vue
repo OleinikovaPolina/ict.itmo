@@ -68,7 +68,7 @@ export default {
   },
   data: () => ({ show1: false }),
   computed: {
-    ...mapState('app', ['theme'])
+    ...mapState('app', {theme:'theme'})
   }
 }
 </script>

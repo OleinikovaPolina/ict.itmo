@@ -85,7 +85,7 @@
               icon
               dark
               x-small
-              @click="tagForm=item"
+              @click="tagForm = item"
             >
               <v-icon small>
                 mdi-pencil-outline

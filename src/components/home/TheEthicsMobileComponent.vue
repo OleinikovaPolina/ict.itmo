@@ -44,7 +44,7 @@
           width="100%"
           height="100%"
           contain
-          src="../assets/images/Ethics/book.svg"
+          src="../../assets/images/ethics/book.svg"
         />
         <div class="ethics-book-text ethics-book-text-1">
           Путеводитель<br>ИКТ
@@ -59,8 +59,6 @@
       <!--  arrow  -->
       <svg
         class="ethics-arrow"
-        width="35"
-        height="33"
         viewBox="0 0 44 42"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -80,8 +78,6 @@
         :class="'ethics-marker-'+n"
       >
         <svg
-          width="20"
-          height="60"
           viewBox="0 0 30 86"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -115,8 +111,7 @@
           {{ item.text }}
         </div>
         <v-img
-          class="order-1"
-          :height="35"
+          class="order-1 ethics-item-img"
           :src="item.img"
           contain
         />
@@ -130,12 +125,12 @@ export default {
   name: 'TheEthicsMobileComponent',
   data: () => ({
     items: [
-      { img: require('../assets/images/Ethics/Vector (7).svg'), text: 'Кооперация' },
-      { img: require('../assets/images/Ethics/Vector (8).svg'), text: 'Open Source' },
-      { img: require('../assets/images/Ethics/Vector (9).svg'), text: 'Прозрачность' },
-      { img: require('../assets/images/Ethics/Vector (10).svg'), text: 'Рациональность' },
-      { img: require('../assets/images/Ethics/Vector (11).svg'), text: 'Свобода и ответственность' },
-      { img: require('../assets/images/Ethics/Union.svg'), text: 'Самообразование' }
+      { img: require('../../assets/images/ethics/Vector (7).svg'), text: 'Кооперация' },
+      { img: require('../../assets/images/ethics/Vector (8).svg'), text: 'Open Source' },
+      { img: require('../../assets/images/ethics/Vector (9).svg'), text: 'Прозрачность' },
+      { img: require('../../assets/images/ethics/Vector (10).svg'), text: 'Рациональность' },
+      { img: require('../../assets/images/ethics/Vector (11).svg'), text: 'Свобода и ответственность' },
+      { img: require('../../assets/images/ethics/Union.svg'), text: 'Самообразование' }
     ],
     scrolled: false
   }),
@@ -284,6 +279,12 @@ export default {
 .ethics-mobile-container {
   position: relative;
   padding-bottom: 8em;
+  @media (min-width: 480px) {
+    padding-bottom: 12em;
+  }
+  @media (min-width: 600px) {
+    padding-bottom: 18em;
+  }
 }
 
 .ethics-road {
@@ -297,15 +298,28 @@ export default {
   left: 25%;
   transform: rotate(-29deg);
   width: 202px;
+  @media (min-width: 480px) {
+    width: 280px;
+  }
+  @media (min-width: 600px) {
+    width: 400px;
+    bottom: 2%;
+  }
 
   .ethics-book-text {
     position: absolute;
-    line-height: 10px;
+    line-height: normal;
     color: #FFFFFF;
     background: #0071B2;
     border-radius: 6px;
     padding: 3px;
     font-size: 7px;
+    @media (min-width: 480px) {
+      font-size: 11px;
+    }
+    @media (min-width: 600px) {
+      font-size: 16px;
+    }
   }
 
   .ethics-book-text-1 {
@@ -324,6 +338,12 @@ export default {
     top: 40%;
     padding: 10px 5px;
     font-size: 12px;
+    @media (min-width: 480px) {
+      font-size: 17px;
+    }
+    @media (min-width: 600px) {
+      font-size: 24px;
+    }
   }
 }
 
@@ -333,6 +353,12 @@ export default {
   left: 24%;
   z-index: 2;
   transform: rotate(70deg);
+  width:35px;
+  height:33px;
+  @media (min-width: 600px) {
+    width:45px;
+    height:43px;
+  }
 }
 
 .ethics-item {
@@ -346,6 +372,25 @@ export default {
   font-size: 11px;
   line-height: 15px;
   padding: 1em;
+  @media (min-width: 480px) {
+    max-height: 140px;
+    max-width: 160px;
+    font-size: 14px;
+  }
+  @media (min-width: 600px) {
+    max-height: 180px;
+    max-width: 220px;
+    font-size: 18px;
+  }
+  .ethics-item-img{
+    height: 35px;
+    @media (min-width: 480px) {
+      height: 50px;
+    }
+    @media (min-width: 600px) {
+      height: 70px;
+    }
+  }
 }
 
 .ethics-item-0 {
@@ -380,6 +425,16 @@ export default {
 
 .ethics-marker {
   position: absolute;
+  width:20px;
+  height:60px;
+  @media (min-width: 480px) {
+    width:30px;
+    height:70px;
+  }
+  @media (min-width: 600px) {
+    width:45px;
+    height:80px;
+  }
 }
 
 .ethics-marker-1 {

@@ -2,6 +2,7 @@
   <button
     v-if="clickBtn"
     class="ict-button text-decoration-none d-flex align-center"
+    :disabled="disabledBtn"
     @click="$emit('clickBtnCallback')"
   >
     {{ text }}
@@ -30,6 +31,10 @@ export default {
     clickBtn: {
       type: Boolean,
       default: false
+    },
+    disabledBtn: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['clickBtnCallback']
@@ -52,7 +57,7 @@ export default {
   }
 }
 
-.ict-button:hover {
+.ict-button:hover:not([disabled]) {
   background-color: #004268;
 }
 

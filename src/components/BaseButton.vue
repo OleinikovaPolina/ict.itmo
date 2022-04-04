@@ -1,7 +1,7 @@
 <template>
   <div
     style="width: fit-content"
-    :class="{'smallBtn':smallBtn}"
+    :class="{'smallBtn': smallBtn}"
   >
     <a
       v-if="href"

@@ -1,6 +1,6 @@
 <template>
   <v-container class="pt-8 pb-6 pt-md-16 pb-md-10">
-    <div class="text-center mx-auto pb-8 text-h6 text-sm-h4">
+    <div class="text-center mx-auto pb-8 text-h6 text-sm-h4 text-xl-h3">
       Этика факультета
     </div>
     <div class="ethics-container">
@@ -43,7 +43,7 @@
           width="100%"
           height="100%"
           contain
-          src="../assets/images/Ethics/book.svg"
+          src="../../assets/images/ethics/book.svg"
         />
         <div class="ethics-book-text ethics-book-text-1">
           Путеводитель<br>ИКТ
@@ -58,8 +58,6 @@
       <!--  arrow  -->
       <svg
         class="ethics-arrow"
-        :width="$vuetify.breakpoint.lgAndUp?40:$vuetify.breakpoint.mdAndUp?35:30"
-        :height="$vuetify.breakpoint.lgAndUp?38:$vuetify.breakpoint.mdAndUp?32:28"
         viewBox="0 0 44 42"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -79,8 +77,6 @@
         :class="'ethics-marker-'+n"
       >
         <svg
-          :width="$vuetify.breakpoint.lgAndUp?30:$vuetify.breakpoint.mdAndUp?25:25"
-          :height="$vuetify.breakpoint.lgAndUp?86:$vuetify.breakpoint.mdAndUp?76:68"
           viewBox="0 0 30 86"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +111,7 @@
         </div>
         <v-img
           class="order-1"
-          :height="$vuetify.breakpoint.mdAndUp?50:35"
+          :height="$vuetify.breakpoint.xl?70:$vuetify.breakpoint.mdAndUp?50:35"
           :src="item.img"
           contain
         />
@@ -129,12 +125,12 @@ export default {
   name: 'TheEthicsComponent',
   data: () => ({
     items: [
-      { img: require('../assets/images/Ethics/Vector (7).svg'), text: 'Кооперация' },
-      { img: require('../assets/images/Ethics/Vector (8).svg'), text: 'Open Source' },
-      { img: require('../assets/images/Ethics/Vector (9).svg'), text: 'Прозрачность' },
-      { img: require('../assets/images/Ethics/Vector (10).svg'), text: 'Рациональность' },
-      { img: require('../assets/images/Ethics/Vector (11).svg'), text: 'Свобода и ответственность' },
-      { img: require('../assets/images/Ethics/Union.svg'), text: 'Самообразование' }
+      { img: require('../../assets/images/ethics/Vector (7).svg'), text: 'Кооперация' },
+      { img: require('../../assets/images/ethics/Vector (8).svg'), text: 'Open Source' },
+      { img: require('../../assets/images/ethics/Vector (9).svg'), text: 'Прозрачность' },
+      { img: require('../../assets/images/ethics/Vector (10).svg'), text: 'Рациональность' },
+      { img: require('../../assets/images/ethics/Vector (11).svg'), text: 'Свобода и ответственность' },
+      { img: require('../../assets/images/ethics/Union.svg'), text: 'Самообразование' }
     ],
     scrolled: false
   }),
@@ -291,10 +287,14 @@ export default {
 
 .ethics-book {
   position: absolute;
-  right: 0;
+  right: 1%;
   top: -15%;
   transform: rotate(-29deg);
-  width: 262px;
+  width: 380px;
+  @media (max-width: 1904px) {
+    width: 262px;
+    right: 0;
+  }
   @media (max-width: 1264px) {
     width: 222px;
     right: -2%;
@@ -306,12 +306,15 @@ export default {
 
   .ethics-book-text {
     position: absolute;
-    font-size: 10px;
-    line-height: 10px;
+    font-size: 14px;
+    line-height: normal;
     color: #FFFFFF;
     background: #0071B2;
     border-radius: 6px;
     padding: 3px;
+    @media (max-width: 1904px) {
+      font-size: 10px;
+    }
     @media (max-width: 1264px) {
       font-size: 9px;
     }
@@ -332,10 +335,13 @@ export default {
 
   .ethics-book-text-3 {
     opacity: 0;
-    font-size: 16px;
+    font-size: 22px;
     left: 36%;
     top: 40%;
     padding: 10px 5px;
+    @media (max-width: 1904px) {
+      font-size: 16px;
+    }
     @media (max-width: 1264px) {
       font-size: 14px;
     }
@@ -350,28 +356,43 @@ export default {
   bottom: 27%;
   left: -1%;
   z-index: 2;
+  transform: translateY(9px);
+  width: 48px;
+  height: 46px;
+  @media (max-width: 1904px) {
+    transform: translateY(0);
+    width: 35px;
+    height: 32px;
+  }
   @media (max-width: 1264px) {
     transform: translateY(-14px);
+    width: 30px;
+    height: 28px;
   }
 }
 
 .ethics-item {
   position: absolute;
-  max-height: 110px;
-  max-width: 150px;
   width: fit-content;
-  font-size: 14px;
-  line-height: 19px;
+  max-height: 140px;
+  max-width: 190px;
+  font-size: 19px;
+  line-height: 23px;
   box-shadow: 0 0 5px rgba(0, 109, 172, 0.2), 0 0 14px rgba(3, 67, 104, 0.1);
   border-radius: 10px;
   padding: 1em;
   opacity: 0;
+  @media (max-width: 1904px) {
+    max-height: 110px;
+    max-width: 150px;
+    font-size: 14px;
+    line-height: 19px;
+  }
   @media (max-width: 1264px) {
     max-height: 100px;
     max-width: 120px;
     font-size: 11px;
     line-height: 15px;
-    padding: 1em;
   }
 }
 
@@ -407,6 +428,19 @@ export default {
 
 .ethics-marker {
   position: absolute;
+
+  svg {
+    width: 46px;
+    height: 106px;
+    @media (max-width: 1904px) {
+      width: 25px;
+      height: 86px;
+    }
+    @media (max-width: 1264px) {
+      width: 25px;
+      height: 68px;
+    }
+  }
 }
 
 .ethics-marker-1 {

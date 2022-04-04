@@ -71,8 +71,12 @@ export default {
 }
 
 .events-item-footer-text-1 {
-  font-size: 18px;
-  line-height: 20px;
+  font-size: 24px;
+  line-height: 26px;
+  @media (max-width: 1904px) {
+    font-size: 18px;
+    line-height: 20px;
+  }
   @media (max-width: 600px) {
     font-size: 16px;
     line-height: 18px;
@@ -80,8 +84,12 @@ export default {
 }
 
 .events-item-footer-text-2 {
-  font-size: 14px;
-  line-height: 19px;
+  font-size: 20px;
+  line-height: 22px;
+  @media (max-width: 1904px) {
+    font-size: 14px;
+    line-height: 19px;
+  }
   @media (max-width: 600px) {
     font-size: 12px;
     line-height: 14px;

@@ -18,6 +18,7 @@
       color: map-get($theme, "h-color");
     }
 
+
     .admission-title {
       font-family: "OpenSans-SemiBold", sans-serif !important;
       color: map-get($theme, "h-color");
@@ -35,7 +36,7 @@
       background-color: map-get($theme, "bg-color") !important;
     }
 
-    .news-hover, .dialog-theme, .announ-calendar-circles div {
+    .news-hover, .dialog-theme, .announ-calendar-circles div, .quillWrapper .ql-snow.ql-toolbar button {
       background-color: map-get($theme, "bg-color");
     }
 
@@ -43,7 +44,7 @@
       border: 1px solid map-get($theme, "bg-color");
     }
 
-    .events-item-footer *, .slick-slide.slick-center .text-h6, .notfound-nums, .announ-calendar *, .chip-text {
+    .events-item-footer *, .slick-slide.slick-center .text-h6, .notfound-nums, .announ-calendar *, .chip-text, .v-application .person-horizontal .text-h6 {
       color: map-get($theme, "bg-color");
     }
 
@@ -156,9 +157,13 @@ input[type=time]::-webkit-calendar-picker-indicator {
 }
 
 body .v-application .text-subtitle-1 {
-  font-size: 24px !important;
-  line-height: 28px;
+  font-size: 36px !important;
+  line-height: 40px;
   font-family: "OpenSans-Regular", sans-serif !important;
+  @media (max-width: 1904px) {
+    font-size: 24px !important;
+    line-height: 28px;
+  }
   @media (max-width: 600px) {
     font-size: 14px !important;
     line-height: 19px;
@@ -192,7 +197,10 @@ body .v-application a:hover {
 
 .link-arrow {
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
+  @media (max-width: 1904px) {
+    font-size: 14px;
+  }
   @media (max-width: 600px) {
     font-size: 12px;
   }

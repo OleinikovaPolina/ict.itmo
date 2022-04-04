@@ -48,7 +48,7 @@ export default {
   name: 'TheDialogThemeComponent',
   components: {
     BaseButton: () => import('@/components/BaseButton'),
-    SwitchComponent: () => import('@/components/SwitchComponent')
+    SwitchComponent: () => import('@/components/app/SwitchComponent')
   },
   props: {
     dialog: { type: Boolean, default: false }

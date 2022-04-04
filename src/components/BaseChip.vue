@@ -24,8 +24,12 @@ export default {
 </script>
 <style scoped lang="scss">
 .chip-text {
-  font-size: 15px;
-  line-height: 20px;
+  font-size: 20px;
+  line-height: 25px;
+  @media (max-width: 1904px) {
+    font-size: 15px;
+    line-height: 20px;
+  }
   @media (max-width: 600px) {
     font-size: 12px;
     line-height: 17px;

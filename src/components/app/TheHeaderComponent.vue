@@ -12,7 +12,7 @@
             <img
               alt="logo"
               class="logo"
-              src="../assets/images/logo.png"
+              src="../../assets/images/logo.png"
             >
           </router-link>
         </v-col>
@@ -57,7 +57,7 @@
                     >Поступление</span>
                     <div
                       class="dropdown-symbol"
-                      :style="{transform:attrs['aria-expanded']==='true'?'rotate(180deg)':''}"
+                      :style="{transform: attrs['aria-expanded']==='true'?'rotate(180deg)':''}"
                     >
                       ▼
                     </div>
@@ -87,7 +87,7 @@
         </v-col>
 
         <v-col
-          :style="{opacity:show||$vuetify.breakpoint.mdAndUp?1:0,zIndex:show||$vuetify.breakpoint.mdAndUp?1:-1}"
+          :style="{opacity:show||$vuetify.breakpoint.mdAndUp?1:0,zIndex:show|| $vuetify.breakpoint.mdAndUp?1:-1}"
           style="transition: all .4s"
           cols
         >
@@ -257,7 +257,7 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'TheHeaderComponent',
-  components: { SwitchComponent: () => import('@/components/SwitchComponent') },
+  components: { SwitchComponent: () => import('@/components/app/SwitchComponent') },
   data: () => ({
     symbol: false, show: false,
     links: [
@@ -286,7 +286,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./src/styles/colors.scss";
+@import "../../styles/colors";
 
 .navbar-container {
   position: fixed;
@@ -298,12 +298,15 @@ export default {
 
 .header-link {
   text-decoration: none;
-  font-size: 18px;
-  @media (max-width: 960px) {
+  font-size: 22px;
+  @media (max-width: 1904px) {
     font-size: 18px;
   }
   @media (max-width: 1264px) {
     font-size: 14px;
+  }
+  @media (max-width: 960px) {
+    font-size: 18px;
   }
 }
 

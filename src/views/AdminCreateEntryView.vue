@@ -77,13 +77,13 @@
         </div>
       </div>
       <!--  slider  -->
-      <div class="input-bordered pl-2">
+      <div class="input-bordered">
         <v-checkbox
           v-model="form.isSlider"
           :dark="theme==='dark'"
           dense
           label="Добавить в слайдер"
-          class="input-blue"
+          class="input-blue pl-2"
         />
         <div
           v-if="form.isSlider"
@@ -320,6 +320,7 @@
         <BaseButton
           text="Опубликовать"
           :click-btn="true"
+          :disabled-btn="canBePublished()"
           @clickBtnCallback="publish"
         />
         <BaseButtonOutlined
@@ -334,7 +335,7 @@
     <div v-else>
       <BaseNews :data="previewData" />
       <BaseButtonOutlined
-        class="ml-4"
+        class="ml-3"
         text="Назад"
         :click-btn="true"
         @clickBtnCallback="isPreview = false"
@@ -349,7 +350,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'AdminCreateEntryView',
   components: {
-    BaseNews: () => import('@/components/Events/BaseNews'),
+    BaseNews: () => import('@/components/events/BaseNews'),
     DraggableInputs: () => import('@/components/admin/DraggableInputs'),
     BaseChip: () => import('@/components/BaseChip'),
     BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined'),
@@ -359,6 +360,7 @@ export default {
     typeDate: 0,
     isPreview: false,
     previewData: {},
+    count:1,
     form: {
       name: '', dateStart: null, dateEnd: null, timeStart: null, datePublish: null, timePublish: null, place: '',
       tags: [], isSlider: false, sliderImg: null, cover: null,
@@ -374,11 +376,30 @@ export default {
     ...mapState('app', ['theme'])
   },
   methods: {
+    canBePublished() {
+      let k = true
+      if (this.typeDate===1&& !this.form.cover) {
+        k = false
+      }
+      if (this.form.isSlider && !this.form.sliderImg) {
+        k = false
+      }
+      for (const block of this.form.blocks) {
+        if (block.type === -1) {
+          k = false
+          break
+        }
+      }
+      return !(this.form.name && this.form.dateStart && this.form.datePublish
+        && this.form.timePublish && this.form.place && this.form.tags.length
+        && this.form.blocks.length && k)
+    },
     updateProp(val) {
       this.form.blocks = val
     },
     addBlock() {
-      this.form.blocks.push({ id: this.form.blocks.length, type: -1, content: null })
+      this.form.blocks.push({ id: this.count, type: -1, content: null })
+      this.count++
     },
     changeTypeData(val) {
       this.typeDate = val
@@ -395,7 +416,6 @@ export default {
       this.previewData.tags.forEach((x, i) => {
         this.previewData.tags[i] = this.tags.find(y => y.id === x)
       })
-      console.log(this.previewData)
       this.isPreview = true
     }
   }
@@ -403,54 +423,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.input-bordered {
-  border: 2px solid rgba(31, 41, 49, 0.6);
-  border-radius: 5px;
-  position: relative;
-}
 
-.theme-dark {
-  .input-bordered {
-    border: 2px solid rgba(255, 255, 255, 0.6);
-  }
-}
-
-.input-bordered-label {
-  position: absolute;
-  padding: 2.5px 10px;
-  right: 0;
-  top: -18px;
-  border: 2px solid #0071B2;
-  border-radius: 25px;
-}
-
-.input-file-container {
-  position: relative;
-  height: 120px;
-  width: 478px;
-
-  input {
-    position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
-  }
-
-  label {
-    cursor: pointer;
-    border: 2px dashed #2DC0C5;
-    height: 100%;
-    width: 100%;
-    color: #2DC0C5;
-
-    div {
-      color: #2DC0C5;
-    }
-  }
-}
-
-.input-slider-img-block {
-  border: 1px solid #0071B2;
-  border-radius: 20px;
-}
 </style>

@@ -28,12 +28,16 @@ export default {
 <style scoped lang="scss">
 .ict-button {
   border-radius: 20px;
-  font-size: 14px;
-  line-height: 16px;
+  font-size: 18px;
+  line-height: 20px;
   border: 1px solid #2DC0C5;
   color: #2DC0C5 !important;
   padding: 0.4em 1.5em;
   transition: all .4s ease-in-out;
+  @media (max-width: 1904px) {
+    font-size: 14px;
+    line-height: 16px;
+  }
   @media (max-width: 600px) {
     font-size: 12px;
     line-height: 14px;

@@ -65,7 +65,7 @@ export default {
   left: 0;
   width: 58%;
   height: 66.67%;
-  background-image: url("../assets/images/delete/unsplash_JjjSPPzzpkU.png");
+  background-image: url("../../assets/images/delete/unsplash_JjjSPPzzpkU.png");
   background-size: cover;
   background-position: center;
 }
@@ -75,7 +75,7 @@ export default {
   right: 21.5%;
   width: 43.5%;
   height: 66.67%;
-  background-image: url("../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png");
+  background-image: url("../../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png");
   background-size: cover;
   background-position: center;
 }
@@ -85,13 +85,15 @@ export default {
   right: 35%;
 
   p {
-    font-size: 14px;
+    font-size: 18px;
     line-height: normal;
     margin: 0;
+    @media (max-width: 1904px) {
+      font-size: 14px;
+    }
     @media (max-width: 600px) {
       font-size: 10px;
       line-height: 10px;
-
     }
   }
 }

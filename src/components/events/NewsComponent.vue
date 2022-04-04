@@ -1,7 +1,7 @@
 <template>
   <v-container class="pb-4">
     <div class="d-flex justify-space-between align-center pt-6 pb-4 pt-md-10 ">
-      <div class="text-h6 text-sm-h4">
+      <div class="text-h6 text-sm-h4 text-xl-h3">
         Новости
       </div>
       <BaseButtonOutlined
@@ -34,7 +34,7 @@ export default {
   components: {
     CarouselComponent: () => import('@/components/CarouselComponent'),
     BaseButtonOutlined: () => import('@/components/BaseButtonOutlined'),
-    BaseNews: () => import('@/components/Events/BaseNewsSmall')
+    BaseNews: () => import('@/components/events/BaseNewsSmall')
   },
   data: () => ({
     activeIndex: 0,

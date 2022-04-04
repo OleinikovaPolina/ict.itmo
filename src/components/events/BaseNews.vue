@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="d-flex justify-space-between align-center pb-md-2">
-      <div class="text-h6 text-sm-h4">
+      <div class="text-h6 text-sm-h4 text-xl-h3">
         {{ data.name }}
       </div>
       <div class="d-flex">
@@ -24,10 +24,11 @@
         :item="item"
       />
     </div>
-    <div><b>Место проведения:</b> {{ data.place }}</div>
-    <div v-if="data.dateStart">
-      <b>Дата проведения:</b>
-      {{ data.timeStart + ' ' + $moment(data.dateStart).format('DD MMMM YYYY года') }}
+    <div><b>Место проведения: </b>{{ data.place }}</div>
+    <div>
+      <b>Дата проведения: </b>
+      <span v-if="data.timeStart">{{ data.timeStart }} </span>
+      <span v-if="data.dateStart">{{ $moment(data.dateStart).format('DD MMMM YYYY года') }}</span>
     </div>
 
     <div
@@ -44,7 +45,7 @@
 export default {
   name: 'BaseNews',
   components: {
-    BaseNewsBlocks: () => import('@/components/Events/BaseNewsBlocks'),
+    BaseNewsBlocks: () => import('@/components/events/BaseNewsBlocks'),
     BaseChip: () => import('@/components/BaseChip')
   },
   props: {

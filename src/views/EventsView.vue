@@ -37,7 +37,7 @@
     />
     <div class="section-background py-4 py-md-8 mt-2">
       <v-container>
-        <div class="pb-2 pb-sm-6 text-h6 text-sm-h4">
+        <div class="pb-2 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Анонсы
         </div>
         <v-row>
@@ -67,7 +67,7 @@
     />
     <!--  News  -->
     <NewsComponent />
-    <!-- Events   -->
+    <!-- events   -->
     <LineComponent
       id="5"
       color="#FF776E"
@@ -83,7 +83,7 @@
     />
     <div class="section-background py-4 py-md-8 mt-2">
       <v-container>
-        <div class="text-center mx-auto pb-2 pb-sm-6 text-h6 text-sm-h4">
+        <div class="text-center mx-auto pb-2 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Мероприятия
         </div>
         <v-row class="d-flex align-stretch justify-center">
@@ -164,10 +164,10 @@ export default {
   name: 'EventsView',
   components: {
     LineComponent: () => import('@/components/LineComponent'),
-    EventsGalleryComponent: () => import('@/components/Events/EventsGalleryComponent'),
-    EventsAnnouncements: () => import('@/components/Events/EventsAnnouncementsComponent'),
+    EventsGalleryComponent: () => import('@/components/events/EventsGalleryComponent'),
+    EventsAnnouncements: () => import('@/components/events/EventsAnnouncementsComponent'),
     CarouselComponent: () => import('@/components/CarouselComponent'),
-    NewsComponent: () => import('@/components/Events/NewsComponent')
+    NewsComponent: () => import('@/components/events/NewsComponent')
   },
   data: () => ({
     slider: [

@@ -101,7 +101,7 @@ export default {
   width: 31.5%;
   height: 34.72%;
   background-color: #020202;
-  background-image: url("../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png");
+  background-image: url("../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png");
   background-size: cover;
   animation: anim1 4s ease-in-out forwards;
 }
@@ -121,7 +121,7 @@ export default {
   width: 31.5%;
   height: 34.72%;
   background-color: #020202;
-  background-image: url("../assets/images/homeHeader/unsplash_vdXMSiX-n6M.png");
+  background-image: url("../assets/images/home/homeHeader/unsplash_vdXMSiX-n6M.png");
   background-size: cover;
   animation: anim2 3s ease-in-out forwards;
 }
@@ -141,7 +141,7 @@ export default {
   width: 31.5%;
   height: 34.72%;
   background-color: #020202;
-  background-image: url("../assets/images/homeHeader/unsplash_XkKCui44iM0.png");
+  background-image: url("../assets/images/home/homeHeader/unsplash_XkKCui44iM0.png");
   background-size: cover;
   animation: anim3 2s 0.5s ease-in-out forwards;
 }
@@ -161,7 +161,7 @@ export default {
   width: 39.4%;
   height: 43.4%;
   background-color: #020202;
-  background-image: url("../assets/images/homeHeader/unsplash_98Elr-LIvD8.png");
+  background-image: url("../assets/images/home/homeHeader/unsplash_98Elr-LIvD8.png");
   background-size: cover;
   animation: anim4 2s 1s ease-in-out forwards;
 }
@@ -179,7 +179,7 @@ export default {
   width: 31.5%;
   height: 34.72%;
   background-color: #020202;
-  background-image: url("../assets/images/homeHeader/unsplash_8nHQx4zi9Wk.png");
+  background-image: url("../assets/images/home/homeHeader/unsplash_8nHQx4zi9Wk.png");
   background-size: cover;
   animation: anim5 2s ease-in-out forwards;
 }

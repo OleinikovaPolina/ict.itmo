@@ -1,5 +1,5 @@
 <template>
-  <div class="useful-block item-background pa-3">
+  <div class="useful-block pa-3" :class="background">
     <div class="text-center pb-2">
       {{ item.name }}
     </div>
@@ -43,6 +43,10 @@ export default {
     item: {
       type: Object,
       default: null
+    },
+    background: {
+      type: String,
+      default: 'item-background'
     }
   }
 }

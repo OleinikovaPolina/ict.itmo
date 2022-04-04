@@ -16,7 +16,7 @@
         </router-link>
         <span>/ Дисциплины</span>
       </div>
-      <div class="pb-2 text-h5 pb-md-4 text-sm-h4">
+      <div class="pb-2 text-h5 pb-md-4 text-sm-h4 text-xl-h3">
         Дисциплины
       </div>
     </v-container>
@@ -44,7 +44,7 @@
               $expand
             </v-icon>
           </template>
-          <div class="text-h6 order-1">
+          <div class="text-h6 text-xl-h5 order-1">
             Основы проектирования баз данных
           </div>
         </v-expansion-panel-header>

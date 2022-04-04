@@ -2,7 +2,7 @@
   <div>
     <v-container>
       <!--  header  -->
-      <div class="text-center mx-auto pb-5 pb-md-8 text-h5 text-sm-h4">
+      <div class="text-center mx-auto pb-5 pb-md-8 text-h5 text-sm-h4 text-xl-h3">
         Руководство факультета ИКТ
       </div>
       <!--  декан  -->
@@ -15,7 +15,7 @@
           sm="8"
           md="8"
         >
-          <BasePerson :person="dean"/>
+          <BasePerson :person="dean" />
         </v-col>
       </v-row>
       <!--  people  -->
@@ -31,7 +31,7 @@
         </v-col>
       </v-row>
       <!--  header  -->
-      <div class="text-center mx-auto pt-6 pb-6 pt-md-10 text-h6 text-sm-h5">
+      <div class="text-center mx-auto pt-6 pb-6 pt-md-10 text-h6 text-sm-h5 text-xl-h4">
         Офис образовательных программ
       </div>
       <!--  people  -->
@@ -67,7 +67,7 @@
     />
     <div class="section-background py-6">
       <v-container>
-        <div class="text-center mx-auto pb-4 text-h6 text-sm-h5">
+        <div class="text-center mx-auto pb-4 text-h6 text-sm-h5 text-xl-h4">
           Офис факультета ИКТ
         </div>
         <v-row>
@@ -177,37 +177,44 @@ export default {
   data: () => ({
     persons: [
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
         position: 'Заместитель декана факультета',
         email: 'Aleksandrov@gmail.com'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
         position: 'Заместитель декана факультета',
         email: 'Aleksandrov@gmail.com'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
         position: 'Заместитель декана факультета',
         email: 'Aleksandrov@gmail.com'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
         position: 'Заместитель декана факультета',
         email: 'Aleksandrov@gmail.com'
       }
     ],
-    dean:{
+    dean: {
       img: require('../assets/images/contacts/unsplash_v2aKnjMbP_k.png'),
       name: 'Капитонов Александр Александрович',
       position: 'Декан факультета',
       email: 'kapitonov.aleksandr@itmo.ru',
-      tel:'+7 920-457-85-96'
+      tel: '+7 920-457-85-96'
     }
   })
 }
 </script>
+<style scoped lang="scss">
+* {
+  @media (min-width: 1904px) {
+    font-size: 20px
+  }
+}
+</style>

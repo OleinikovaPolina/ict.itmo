@@ -26,7 +26,10 @@
       </div>
     </div>
     <div class="hex-btn">
-      <base-button :link="link" :small-btn="true" />
+      <base-button
+        :link="link"
+        :small-btn="true"
+      />
     </div>
   </div>
 </template>
@@ -94,15 +97,15 @@ export default {
   100% {
     opacity: 1;
     height: 36px;
-    @media (max-width: 600px) {
-      height: 20px;
-    }
   }
 }
 
 .hex-container {
   position: relative;
-  height: 450px;
+  height:600px;
+  @media (max-width: 1904px) {
+    height: 450px;
+  }
   @media (max-width: 1024px) {
     height: 400px;
   }
@@ -116,8 +119,12 @@ export default {
 
 .hex-block {
   position: absolute;
-  height: 240px;
-  width: 180px;
+  height: 280px;
+  width: 220px;
+  @media (max-width: 1904px) {
+    height: 240px;
+    width: 180px;
+  }
   @media (max-width: 1024px) {
     height: 200px;
     width: 150px;
@@ -155,9 +162,13 @@ export default {
 
 .hex-text {
   padding-top: 0.5em;
-  font-size: 14px;
-  line-height: 15px;
+  font-size: 20px;
+  line-height: 22px;
   font-family: "OpenSans-Bold", sans-serif !important;
+  @media (max-width: 1904px) {
+    font-size: 14px;
+    line-height: 15px;
+  }
   @media (max-width: 600px) {
     font-size: 10px;
     line-height: 12px;

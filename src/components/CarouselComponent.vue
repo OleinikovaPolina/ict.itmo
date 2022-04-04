@@ -29,7 +29,10 @@
       </template>
     </v-carousel>
     <slot name="subtitle" />
-    <div class="d-flex justify-center align-center pt-6">
+    <div
+      v-if="slider.length"
+      class="d-flex justify-center align-center pt-6"
+    >
       <button
         class="btn-nav mr-3"
         @click="prev"

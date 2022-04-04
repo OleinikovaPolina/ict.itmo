@@ -3,7 +3,7 @@
     <VueSlickCarousel
       ref="carousel"
       v-bind="settings"
-      :style="{height: $vuetify.breakpoint.xl?'500px':$vuetify.breakpoint.lg?'400px':$vuetify.breakpoint.md?'320px':$vuetify.breakpoint.sm?'420px':'220px'}"
+      :style="{height: $vuetify.breakpoint.xl?'540px':$vuetify.breakpoint.lg?'400px':$vuetify.breakpoint.md?'320px':$vuetify.breakpoint.sm?'420px':'220px'}"
       :slides-to-show="$vuetify.breakpoint.mdAndUp?5:3"
       @beforeChange="(oldSlideIndex, newSlideIndex)=>{changeActiveIndex(newSlideIndex)}"
     >
@@ -29,6 +29,7 @@
               {{ person.name }}
             </div>
             <div>{{ person.position }}</div>
+            <div class="person-position-2">{{ person.position2 }}</div>
             <a
               :href="'mailto: '+person.email"
               class="person-email px-1 px-md-2"
@@ -59,10 +60,10 @@
         x-small
         icon
         class="btn-nav-circle"
-        :class="(n-1)===activeIndex?'is-active':''"
+        :class="((n-1)===activeIndex?'is-active':'')+($vuetify.breakpoint.xl?' mx-1':' ')"
         @click="clickDelimiters(n-1)"
       >
-        <v-icon x-small>
+        <v-icon :x-small="$vuetify.breakpoint.lgAndDown">
           mdi-circle
         </v-icon>
       </v-btn>
@@ -165,7 +166,10 @@ export default {
 
   .text-h6 {
     line-height: normal;
-    font-size: 20px !important;
+    font-size: 28px !important;
+    @media (max-width: 1904px) {
+      font-size: 20px !important;
+    }
     @media (max-width: 1264px) {
       font-size: 18px !important;
     }
@@ -192,7 +196,10 @@ export default {
 
   * {
     line-height: normal;
-    font-size: 16px;
+    font-size: 19px;
+    @media (max-width: 1904px) {
+      font-size: 16px !important;
+    }
     @media (max-width: 1264px) {
       font-size: 14px !important;
     }
@@ -204,7 +211,7 @@ export default {
     }
   }
 
-  .person-email {
+  .person-email, .person-position-2 {
     display: none;
   }
 
@@ -231,6 +238,10 @@ export default {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .person-position-2 {
+    display: block;
   }
 
   .person-img {

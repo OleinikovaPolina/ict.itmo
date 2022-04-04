@@ -2,6 +2,8 @@
   <div>
     <div
       v-if="block.type===0"
+      style="min-height: 0"
+      class="ql-editor pa-0"
       v-html="block.content.text"
     />
     <v-row v-if="block.type===1">
@@ -61,11 +63,13 @@
     </div>
     <div v-if="block.type===4">
       <div class="d-flex align-start">
-        <v-img
-          width="50"
-          height="50"
-          src="../../assets/images/news/bxs_quote-alt-left.svg"
-        />
+        <div>
+          <v-img
+            width="50"
+            height="50"
+            src="../../assets/images/news/bxs_quote-alt-left.svg"
+          />
+        </div>
         <div class="pl-4">
           {{ block.content.text }}
         </div>
@@ -100,6 +104,6 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="css">
+@import "~vue2-editor/dist/vue2-editor.css";
 </style>

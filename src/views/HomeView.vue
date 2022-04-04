@@ -8,7 +8,7 @@
           sm="6"
           :class="$vuetify.breakpoint.xs?'text-center':''"
         >
-          <div class="pb-6 pb-md-10 text-h4 text-sm-h3 text-md-h2">
+          <div class="pb-6 pb-md-10 text-h4 text-sm-h3 text-md-h2 text-xl-h1">
             Факультет ИКТ
           </div>
           <div class="text-subtitle-1">
@@ -29,11 +29,8 @@
     <!-- What can you learn at the Faculty of ICT -->
     <div class="hex-section">
       <v-container>
-        <div
-          class=" text-center mx-auto text-h6 text-sm-h4"
-          :style="{width:$vuetify.breakpoint.xs?'275px':'450px'}"
-        >
-          Что вы сможете изучить на факультете ИКТ
+        <div class=" text-center mx-auto text-h6 text-sm-h4 text-xl-h3">
+          Что вы сможете изучить<br> на факультете ИКТ
         </div>
         <BaseHexagonContainer
           :hex-array="hexArray"
@@ -72,7 +69,7 @@
         position="right"
       />
       <v-container>
-        <div class="text-center mx-auto pb-4 pb-sm-6 text-h6 text-sm-h4">
+        <div class="text-center mx-auto pb-4 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Руководство факультета
         </div>
         <CarouselLeadersComponent :slider="persons" />
@@ -91,7 +88,7 @@
       position="right"
       top="10px"
     />
-    <!--  Ethics  -->
+    <!--  ethics  -->
     <div class="ethics">
       <TheEthicsMobileComponent class="ethics-mobile" />
       <TheEthicsComponent class="ethics-desktop" />
@@ -114,7 +111,7 @@
     <!-- Clubs -->
     <div class="section-background pt-4 pb-10">
       <v-container>
-        <div class="text-center mx-auto pb-6 text-h6 text-sm-h4">
+        <div class="text-center mx-auto pb-6 text-h6 text-sm-h4 text-xl-h3">
           Клубы факультета
         </div>
         <v-row class="d-flex align-start justify-space-around">
@@ -131,7 +128,7 @@
               contain
             />
             <div class="club-text">
-              <div class="text-h6 club-name">
+              <div class="text-h6 text-xl-h4 club-name">
                 {{ club.name }}
               </div>
               <div class="club-description px-sm-6">
@@ -189,7 +186,7 @@
     <!--  Numbers  -->
     <div class="pt-2 pt-sm-6 pb-sm-10">
       <v-container class="animation-numbers">
-        <div class="text-center mx-auto pb-sm-6 text-h6 text-sm-h4">
+        <div class="text-center mx-auto pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Факультет в цифрах
         </div>
         <v-row>
@@ -221,49 +218,49 @@ export default {
     LineComponent: () => import('@/components/LineComponent'),
     CarouselLeadersComponent: () => import('@/components/CarouselLeadersComponent'),
     BaseHeaderAnimation: () => import('@/components/BaseHeaderAnimation'),
-    TheEthicsComponent: () => import('@/components/TheEthicsComponent'),
-    TheEthicsMobileComponent: () => import('@/components/TheEthicsMobileComponent'),
-    NewsComponent: () => import('@/components/Events/NewsComponent'),
-    PartnersComponent: () => import('@/components/ThePartnersComponent'),
+    TheEthicsComponent: () => import('@/components/home/TheEthicsComponent'),
+    TheEthicsMobileComponent: () => import('@/components/home/TheEthicsMobileComponent'),
+    NewsComponent: () => import('@/components/events/NewsComponent'),
+    PartnersComponent: () => import('@/components/home/ThePartnersComponent'),
     BaseHexagonContainer: () => import('@/components/BaseHexagonContainer')
   },
   data: () => ({
     hexArray: [
-      { img: require('../assets/images/Vector.svg'), text: 'Архитектура баз данных' },
-      { img: require('../assets/images/Vector1.svg'), text: 'Облачные технологии' },
-      { img: require('../assets/images/Vector3.svg'), text: 'Backend разработка' },
-      { img: require('../assets/images/Vector2.svg'), text: 'Frontend разработка' },
-      { img: require('../assets/images/Vector4.svg'), text: 'Управление проектами' },
-      { img: require('../assets/images/Vector5.svg'), text: 'Геймификация' }
+      { img: require('../assets/images/home/Vector.svg'), text: 'Архитектура баз данных' },
+      { img: require('../assets/images/home/Vector1.svg'), text: 'Облачные технологии' },
+      { img: require('../assets/images/home/Vector3.svg'), text: 'Backend разработка' },
+      { img: require('../assets/images/home/Vector2.svg'), text: 'Frontend разработка' },
+      { img: require('../assets/images/home/Vector4.svg'), text: 'Управление проектами' },
+      { img: require('../assets/images/home/Vector5.svg'), text: 'Геймификация' }
     ],
     clubs: [
       {
-        img: require('../assets/images/aires.png'),
+        img: require('../assets/images/home/aires.png'),
         name: 'AIRes',
         description: 'Сообщество разработчиков искусственного интеллекта',
         link: 'https://vk.com/airesclub',
-        iconLink: require('../assets/images/vkMini.svg')
+        iconLink: require('../assets/images/home/vkMini.svg')
       },
       {
-        img: require('../assets/images/ftml.png'),
+        img: require('../assets/images/home/ftml.png'),
         name: 'FTML',
         description: 'Клуб frontend-разработчиков',
         link: 'https://vk.com/ftmlclub',
-        iconLink: require('../assets/images/vkMini.svg')
+        iconLink: require('../assets/images/home/vkMini.svg')
       },
       {
-        img: require('../assets/images/pm.png'),
+        img: require('../assets/images/home/pm.png'),
         name: 'PM\'s',
         description: 'Объединение специалистов в сфере менеджемента',
         link: 'https://vk.com/pms_itmo',
-        iconLink: require('../assets/images/vkMini.svg')
+        iconLink: require('../assets/images/home/vkMini.svg')
       },
       {
-        img: require('../assets/images/infolab.png'),
+        img: require('../assets/images/home/infolab.png'),
         name: 'Info Lab',
         description: 'Проектный клуб разработчиков',
         link: 'https://vk.com/infolab_club',
-        iconLink: require('../assets/images/vkMini.svg')
+        iconLink: require('../assets/images/home/vkMini.svg')
       }
     ],
     numbers: [
@@ -274,43 +271,43 @@ export default {
     ],
     persons: [
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Александрова А.А.',
         position: 'Заместитель декана факультета',
         email: 'Aleksandrov@gmail.com'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
         position: 'Заместитель декана факультета',
         email: 'Aleksandrov@gmail.com'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Александрова А.А.',
         position: 'Заместитель декана факультета',
         email: 'Aleksandrov@gmail.com'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
         position: 'Заместитель декана факультета',
         email: 'Aleksandrov@gmail.com'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
         position: 'Заместитель декана факультета',
         email: 'Aleksandrov@gmail.com'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
         position: 'Заместитель декана факультета',
         email: 'Aleksandrov@gmail.com'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
         position: 'Заместитель декана факультета',
         email: 'Aleksandrov@gmail.com'
@@ -371,8 +368,12 @@ export default {
 }
 
 .club-img {
-  width: 160px;
-  height: 178px;
+  width: 180px;
+  height: 210px;
+  @media (max-width: 1904px) {
+    width: 160px;
+    height: 178px;
+  }
   @media (max-width: 600px) {
     width: 120px;
     height: 134px;
@@ -405,9 +406,13 @@ export default {
 }
 
 .club-description {
-  font-size: 16px;
-  line-height: 19px;
+  font-size: 20px;
+  line-height: 25px;
   padding-top: 0.1em;
+  @media (max-width: 1904px) {
+    font-size: 16px;
+    line-height: 19px;
+  }
   @media (max-width: 600px) {
     font-size: 12px;
     line-height: 17px;

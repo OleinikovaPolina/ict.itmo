@@ -20,7 +20,7 @@
             <span>/ Прикладная информатика</span>
           </div>
           <div>
-            <div class="pb-8 text-h4">
+            <div class="pb-8 text-h4 text-xl-h3">
               Прикладная информатика
             </div>
             <div class="text-subtitle-1 pb-6">
@@ -68,7 +68,7 @@
                 class="program-info pa-2 py-6 d-flex flex-column align-center justify-center item-background"
                 style="height: 100%"
               >
-                <div class="text-h6 text-center pb-2 subtitle-color">
+                <div class="text-h6 text-xl-h5 text-center pb-2 subtitle-color">
                   Вступительные испытания
                   и минимальные баллы ЕГЭ
                 </div>
@@ -122,7 +122,7 @@
                 class="subtitle-color program-info px-6 py-4 d-flex flex-column justify-center item-background"
                 style="height: 100%"
               >
-                <div class="text-h6 text-center pb-3">
+                <div class="text-h6 text-xl-h5 text-center pb-3">
                   Полезные ссылки
                 </div>
                 <a
@@ -159,7 +159,7 @@
           cols="9"
           md="6"
         >
-          <div class="text-h6">
+          <div class="text-h6 text-xl-h4">
             Основные направления профессиональной
             деятельности выпускников:
           </div>
@@ -189,8 +189,8 @@
     <div class="hex-section">
       <v-container>
         <div
-          class=" text-center mx-auto text-h5 text-sm-h4"
-          :style="{width:$vuetify.breakpoint.smAndDown?'275px':'450px'}"
+          class=" text-center mx-auto text-h5 text-sm-h4 text-xl-h3"
+          :style="{width: $vuetify.breakpoint.smAndDown?'275px':'450px'}"
         >
           Дисциплины
         </div>
@@ -230,7 +230,6 @@
         </v-col>
       </v-row>
     </v-container>
-    <!-- Где работают выпускники ИКТ -->
     <LineComponent
       id="3"
       color="#6A30F4"
@@ -244,9 +243,10 @@
       position="left"
       top="15px"
     />
+    <!-- Где работают выпускники ИКТ -->
     <div class="section-background job">
       <v-container class="py-6 py-md-12">
-        <div class="text-center mx-auto pb-6 pb-md-8 text-h6 text-sm-h4">
+        <div class="text-center mx-auto pb-6 pb-md-8 text-h6 text-sm-h4 text-xl-h3">
           Где работают выпускники ИКТ
         </div>
         <v-row justify="center">
@@ -268,7 +268,7 @@
                   class="pa-md-4"
                   style="height: 100%;"
                 >
-                  <BaseUlBlock :item="item" />
+                  <BaseUlBlock :item="item" background="app-background"/>
                 </div>
               </v-col>
             </v-row>
@@ -285,7 +285,7 @@
     <!--  Leaders  -->
     <div class="pt-8 pt-md-12">
       <v-container>
-        <div class="text-center mx-auto pb-4 pb-sm-6 text-h6 text-sm-h4">
+        <div class="text-center mx-auto pb-4 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Преподаватели
         </div>
         <CarouselLeadersComponent :slider="persons" />
@@ -310,12 +310,12 @@ export default {
   },
   data: () => ({
     hexArray: [
-      { img: require('@/assets/images/Vector.svg'), text: 'Архитектура баз данных' },
-      { img: require('@/assets/images/Vector1.svg'), text: 'Облачные технологии' },
-      { img: require('@/assets/images/Vector3.svg'), text: 'Backend разработка' },
-      { img: require('@/assets/images/Vector2.svg'), text: 'Frontend разработка' },
-      { img: require('@/assets/images/Vector4.svg'), text: 'Управление проектами' },
-      { img: require('@/assets/images/Vector5.svg'), text: 'Геймификация' }
+      { img: require('@/assets/images/home/Vector.svg'), text: 'Архитектура баз данных' },
+      { img: require('@/assets/images/home/Vector1.svg'), text: 'Облачные технологии' },
+      { img: require('@/assets/images/home/Vector3.svg'), text: 'Backend разработка' },
+      { img: require('@/assets/images/home/Vector2.svg'), text: 'Frontend разработка' },
+      { img: require('@/assets/images/home/Vector4.svg'), text: 'Управление проектами' },
+      { img: require('@/assets/images/home/Vector5.svg'), text: 'Геймификация' }
     ],
     slider: [
       { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') },
@@ -324,46 +324,39 @@ export default {
     ],
     persons: [
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Александрова А.А.',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
+        position2: 'Инфокоммуникационые системы и технологии, Проектная документация'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
+        position2: 'Заместитель декана факультета'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Александрова А.А.',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
+        position2: 'Заместитель декана факультета'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
+        position2: 'Заместитель декана факультета'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
+        position2: 'Заместитель декана факультета'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
+        position2: 'Заместитель декана факультета'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
+        position2: 'Заместитель декана факультета'
       }
     ],
     usefulLinks: [
@@ -405,14 +398,14 @@ export default {
     ],
     contactPersons: [
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         position: 'Дергунская Светлана Александровна',
         name: 'Контактное лицо',
         email: 'sderkunskaia@itmo.ru',
         tel: '+7 920-457-85-96'
       },
       {
-        img: require('../assets/images/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
         position: 'Ватьян Александра Сергеевна',
         name: 'Руководитель программы',
         email: 'asvatian@itmo.ru',
@@ -444,8 +437,11 @@ export default {
 }
 
 .job * {
-  font-size: 15px;
+  font-size: 19px;
   line-height: normal;
+  @media (max-width: 1904px) {
+    font-size: 15px;
+  }
   @media (max-width: 1264px) {
     font-size: 10px;
   }
@@ -462,7 +458,10 @@ export default {
   border-radius: 30px;
 
   * {
-    font-size: 16px;
+    font-size: 20px;
+    @media (max-width: 1904px) {
+      font-size: 16px;
+    }
     @media (max-width: 600px) {
       font-size: 12px;
     }

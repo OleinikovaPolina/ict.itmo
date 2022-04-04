@@ -10,7 +10,7 @@
       <span>/ Новости</span>
     </div>
     <!--  inputs  -->
-    <div class="pt-4 pb-2 text-h4">
+    <div class="pt-4 pb-2 text-h4 text-xl-h3">
       Новости
     </div>
     <v-col
@@ -118,8 +118,8 @@ import img from '@/assets/images/delete/home-1.png'
 export default {
   name: 'NewsView',
   components: {
-    BaseChipSelected: () => import('@/components/BaseChipSelected'),
-    BaseNews: () => import('@/components/Events/BaseNewsSmall')
+    BaseChipSelected: () => import('@/components/events/BaseChipSelected'),
+    BaseNews: () => import('@/components/events/BaseNewsSmall')
   },
   data: () => ({
     news: [
@@ -243,10 +243,14 @@ export default {
 }
 
 .btn-nav-nums span {
-  font-size: 18px;
-  line-height: 20px;
+  font-size: 22px;
+  line-height: 24px;
   font-family: "OpenSans-Bold", sans-serif !important;
   opacity: 0.6;
+  @media (max-width: 1904px) {
+    font-size: 18px;
+    line-height: 20px;
+  }
   @media (max-width: 600px) {
     font-size: 14px;
     line-height: 16px;
