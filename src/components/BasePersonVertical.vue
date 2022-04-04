@@ -15,15 +15,18 @@
         {{ person.name }}
       </div>
       <div>{{ person.position }}</div>
-      <div class="d-flex align-center justify-center person-link">
+      <div class="d-flex align-center person-link px-1">
         <v-icon
           class="mr-1 person-link-icon"
           :small="$vuetify.breakpoint.smAndDown"
         >
           mdi-email-outline
         </v-icon>
-        <a :href="'mailto: '+person.email">
-          <div>{{ person.email }}</div>
+        <a
+          :href="'mailto: '+person.email"
+          class="person-email"
+        >
+          {{ person.email }}
         </a>
       </div>
     </div>
@@ -49,6 +52,7 @@ export default {
   .#{map-get($theme, "name")} {
     .person {
       background-color: map-get($theme, "bg-section");
+
       .person-link a div {
         color: map-get($theme, "subtitle-color");
       }
@@ -87,6 +91,16 @@ export default {
 
   .person-link a div:hover {
     opacity: 1;
+  }
+
+  .person-email {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100% - 40px);
+    position: relative;
+    @media (max-width: 600px) {
+      width: calc(100% - 16px);
+    }
   }
 }
 </style>

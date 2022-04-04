@@ -1,54 +1,46 @@
 <template>
   <div>
-    <vueper-slides
-      ref="vueperslides"
-      class="no-shadow"
-      :infinite="true"
-      :touchable="false"
-      :arrows="false"
-      :bullets="false"
-      :duration="300"
-      :gap="1"
-      :fixed-height="$vuetify.breakpoint.xl?'500px':$vuetify.breakpoint.lg?'400px':$vuetify.breakpoint.md?'320px':$vuetify.breakpoint.sm?'420px':'220px'"
-      :visible-slides="$vuetify.breakpoint.mdAndUp?5:3"
+    <VueSlickCarousel
+      ref="carousel"
+      v-bind="settings"
+      :style="{height: $vuetify.breakpoint.xl?'500px':$vuetify.breakpoint.lg?'400px':$vuetify.breakpoint.md?'320px':$vuetify.breakpoint.sm?'420px':'220px'}"
+      :slides-to-show="$vuetify.breakpoint.mdAndUp?5:3"
+      @beforeChange="(oldSlideIndex, newSlideIndex)=>{changeActiveIndex(newSlideIndex)}"
     >
-      <vueper-slide
+      <div
         v-for="(person,i) in slider"
         :key="i"
+        class="person-container"
         style="max-width: 300px; cursor: pointer"
-        @click.native="clickDelimiters(i)"
       >
-        <template #content>
-          <div
-            class="person"
-          >
-            <div class="person-img mx-auto">
-              <v-img
-                width="100%"
-                height="100%"
-                class="rounded-circle"
-                :src="person.img"
-              />
-            </div>
-            <div class="person-text pt-1 pt-md-2 text-center">
-              <div class="text-h6">
-                {{ person.name }}
-              </div>
-              <div>{{ person.position }}</div>
-              <a
-                :href="'mailto: '+person.email"
-                class="person-email"
-              >
-                {{ person.email }}
-              </a>
-            </div>
+        <div
+          class="person"
+        >
+          <div class="person-img mx-auto">
+            <v-img
+              width="100%"
+              height="100%"
+              class="rounded-circle"
+              :src="person.img"
+            />
           </div>
-        </template>
-      </vueper-slide>
-    </vueper-slides>
+          <div class="person-text pt-1 pt-md-2 text-center">
+            <div class="text-h6">
+              {{ person.name }}
+            </div>
+            <div>{{ person.position }}</div>
+            <a
+              :href="'mailto: '+person.email"
+              class="person-email px-1 px-md-2"
+            >
+              {{ person.email }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </VueSlickCarousel>
     <div
       class="d-flex justify-center align-center"
-      style="margin-top: -2.5em;"
     >
       <button
         class="btn-nav mr-3"
@@ -90,12 +82,12 @@
 </template>
 
 <script>
-import { VueperSlides, VueperSlide } from 'vueperslides'
-import 'vueperslides/dist/vueperslides.css'
+import VueSlickCarousel from 'vue-slick-carousel'
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 
 export default {
   name: 'CarouselLeadersComponent',
-  components: { VueperSlides, VueperSlide },
+  components: { VueSlickCarousel },
   props: {
     slider: {
       type: Array,
@@ -103,19 +95,30 @@ export default {
     }
   },
   data: () => ({
+    settings: {
+      'centerMode': true,
+      'focusOnSelect': true,
+      'infinite': true,
+      'centerPadding': '0px',
+      'speed': 500,
+      'arrows': false
+    },
     activeIndex: 0
   }),
   methods: {
     next() {
-      this.$refs.vueperslides.next()
+      this.$refs.carousel.next()
       this.activeIndex = this.activeIndex < this.slider.length - 1 ? this.activeIndex + 1 : 0
     },
     prev() {
-      this.$refs.vueperslides.previous()
+      this.$refs.carousel.prev()
       this.activeIndex = this.activeIndex > 0 ? this.activeIndex - 1 : this.slider.length - 1
     },
     clickDelimiters(i) {
-      this.$refs.vueperslides.goToSlide(i)
+      this.$refs.carousel.goTo(i)
+      this.activeIndex = i
+    },
+    changeActiveIndex(i) {
       this.activeIndex = i
     }
   }
@@ -123,7 +126,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../styles/colors.scss";
+@import "../styles/variables.scss";
 
 .btn-nav {
   background-color: $ict-blue-green;
@@ -154,12 +157,11 @@ export default {
   color: #1E7F83 !important;
 }
 
-.vueperslide {
+.person-container {
   height: 100%;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   justify-content: center;
-
 
   .text-h6 {
     line-height: normal;
@@ -211,7 +213,7 @@ export default {
   }
 }
 
-.vueperslide--active {
+.slick-slide.slick-center {
   justify-content: start;
 
   .person {
@@ -227,6 +229,8 @@ export default {
 
   .person-email {
     display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .person-img {

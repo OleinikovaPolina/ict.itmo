@@ -87,7 +87,8 @@
         </v-col>
 
         <v-col
-          v-if="show||$vuetify.breakpoint.mdAndUp"
+          :style="{opacity:show||$vuetify.breakpoint.mdAndUp?1:0,zIndex:show||$vuetify.breakpoint.mdAndUp?1:-1}"
+          style="transition: all .4s"
           cols
         >
           <SwitchComponent class="ml-lg-4" />
@@ -119,7 +120,7 @@
           class="d-flex justify-end"
         >
           <v-btn
-            v-if="!show"
+            :style="{opacity:show?0:1,zIndex:show?-1:1}"
             icon
             x-large
             color="#2DC0C5"
@@ -131,18 +132,14 @@
               mdi-magnify
             </v-icon>
           </v-btn>
-          <v-btn
-            icon
-            x-large
-            color="#2DC0C5"
-            @click="show=!show"
+          <div
+            class="menu"
+            @click="clickMenu"
           >
-            <v-icon
-              size="40"
-            >
-              mdi-{{ show ? 'close' : 'menu' }}
-            </v-icon>
-          </v-btn>
+            <div class="bar" />
+            <div class="bar" />
+            <div class="bar" />
+          </div>
         </v-col>
 
         <v-col
@@ -274,10 +271,15 @@ export default {
   computed: mapState('app', ['theme']),
   methods: {
     clickSearchIcon() {
+      document.querySelector('.menu').classList.toggle('active')
       this.show = true
       setTimeout(() => {
         this.$refs['search'].$refs.input.focus()
       })
+    },
+    clickMenu() {
+      document.querySelector('.menu').classList.toggle('active')
+      this.show = !this.show
     }
   }
 }
@@ -336,4 +338,83 @@ export default {
   font-size: 15px;
   color: #2DC0C5 !important;
 }
-</style >
+
+.menu {
+  height: 22px;
+  width: 60px;
+  position: relative;
+  padding-top: 24px;
+  border: 5px solid transparent;
+  cursor: pointer;
+  transition: all .3s;
+  transform: translateY(-22px);
+}
+
+.bar {
+  height: 4px;
+  width: 40px;
+  display: block;
+  margin: 6px auto;
+  position: relative;
+  background-color: #2DC0C5;
+  transition: all .4s;
+  border-radius: 6px;
+}
+
+.menu.active {
+  .bar {
+    &:nth-of-type(1) {
+      transform: translateY(10px) rotate(45deg)
+    }
+
+    &:nth-of-type(2) {
+      opacity: 0;
+    }
+
+    &:nth-of-type(3) {
+      transform: translateY(-10px) rotate(-45deg)
+    }
+  }
+}
+
+@keyframes rotateR {
+  from {
+    transform: translateY(0px) rotate(0)
+  }
+  to {
+    transform: translateY(10px) rotate(45deg)
+  }
+}
+
+@keyframes rotateL {
+  from {
+    transform: translateY(0px) rotate(0)
+  }
+  to {
+    transform: translateY(-10px) rotate(-45deg)
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.active .bar {
+  &:nth-of-type(1) {
+    animation: rotateR .4s cubic-bezier(.5, .2, .2, 1)
+  }
+
+  &:nth-of-type(2) {
+    animation: fade .4s cubic-bezier(.1, .8, .1, 1)
+  }
+
+  &:nth-of-type(3) {
+    animation: rotateL .4s cubic-bezier(.5, .2, .2, 1)
+  }
+}
+</style>

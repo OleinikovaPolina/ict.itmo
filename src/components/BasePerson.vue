@@ -8,8 +8,8 @@
       <div>
         <v-img
           :src="person.img"
-          :height="smallPerson?$vuetify.breakpoint.mdAndUp?200:150:300"
-          :width="smallPerson?$vuetify.breakpoint.mdAndUp?200:150:300"
+          :width="$vuetify.breakpoint.mdAndUp?smallPerson?200:300:150"
+          :height="$vuetify.breakpoint.mdAndUp?smallPerson?200:300:150"
           class="rounded-circle"
           cover
         />
@@ -80,7 +80,7 @@ export default {
 
 @each $theme in $themes {
   .#{map-get($theme, "name")} {
-    .text-h6, .text-h4 {
+    .text-h6 {
       color: map-get($theme, "bg-color");
     }
   }
@@ -89,7 +89,7 @@ export default {
 .person {
   background-color: #00A1FF;
 
-  .text-h6, .text-h4 {
+  .text-h6 {
     line-height: normal;
     @media (max-width: 600px) {
       font-size: 16px !important;

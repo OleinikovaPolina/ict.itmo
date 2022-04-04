@@ -43,7 +43,7 @@
       border: 1px solid map-get($theme, "bg-color");
     }
 
-    .events-item-footer * {
+    .events-item-footer *, .slick-slide.slick-center .text-h6, .notfound-nums, .announ-calendar *, .chip-text {
       color: map-get($theme, "bg-color");
     }
 
@@ -77,10 +77,6 @@
 
     .ethics-item {
       background-color: map-get($theme, "bg-item");
-    }
-
-    .vueperslide--active .text-h6, .notfound-nums, .announ-calendar *, .chip-text {
-      color: map-get($theme, "bg-color");
     }
 
     .ethics-arrow path {
@@ -228,4 +224,9 @@ body .v-application a:hover {
 
 .theme-dark .v-list-item__action .v-icon {
   color: white !important;
+}
+
+
+.slick-track, .slick-slide, .slick-slide > div {
+  height: 100%;
 }

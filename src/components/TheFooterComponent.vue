@@ -9,7 +9,7 @@
         color="#00A1FF"
         style="position: relative"
       >
-        <v-row class="px-2 px-md-6" >
+        <v-row class="px-2 px-md-6">
           <v-col
             cols="7"
             class="d-flex justify-start align-center"
@@ -327,7 +327,7 @@ export default {
 
 .link {
   font-weight: 300;
-  text-decoration-thickness: 1px;
+  text-decoration-thickness: 1px!important;
   text-underline-offset: 1px;
 }
 
