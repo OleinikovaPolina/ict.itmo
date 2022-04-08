@@ -1,9 +1,12 @@
 <template>
   <div :class="'theme-' + theme">
-    <v-app class="app-background">
+    <v-app
+      class="app-background"
+      :class="{'active-animation-header':!dialog}"
+    >
       <TheHeaderComponent v-if="pageAdmin.filter(x=>x===$route.name).length===0" />
       <TheHeaderAdminComponent v-else />
-      <v-main style="margin-top: 5em">
+      <v-main class="mt-header">
         <router-view />
       </v-main>
       <TheFooterComponent v-if="pageNoFooter.filter(x=>x===$route.name).length===0" />
@@ -49,3 +52,11 @@ export default {
   }
 }
 </script>
+<style scoped lang="scss">
+.mt-header {
+  margin-top: 4.5em;
+  @media (min-width: 1904px) {
+    margin-top: 5.5rem;
+  }
+}
+</style>

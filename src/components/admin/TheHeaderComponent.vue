@@ -12,7 +12,7 @@
             <img
               alt="logo"
               class="logo"
-              src="../../assets/images/logo.png"
+              src="../../assets/images/logo.svg"
             >
           </router-link>
         </v-col>

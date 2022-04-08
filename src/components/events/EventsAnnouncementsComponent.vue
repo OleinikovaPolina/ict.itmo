@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-row>
-      <v-col
-        cols="4"
-        md="3"
-      >
+    <v-row
+      no-gutters
+      class="flex-nowrap"
+    >
+      <div class="pr-3">
         <v-sheet class="announ-calendar d-flex flex-column justify-center align-center">
           <div class="announ-calendar-circles d-flex ">
             <div
@@ -20,12 +20,8 @@
             {{ announ.month }}
           </div>
         </v-sheet>
-      </v-col>
-      <v-col
-        cols="8"
-        md="9"
-        class="announ-text"
-      >
+      </div>
+      <div class="announ-text">
         <div>
           <router-link
             :to="'/new/'+announ.id"
@@ -40,10 +36,11 @@
           <BaseChip
             v-for="(item,i) in announ.items"
             :key="i"
+            class="mt-1"
             :item="item"
           />
         </div>
-      </v-col>
+      </div>
     </v-row>
   </div>
 </template>

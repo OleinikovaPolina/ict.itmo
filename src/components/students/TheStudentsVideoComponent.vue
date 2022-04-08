@@ -55,16 +55,28 @@ export default {
     height: 368px;
   }
   @media (min-width: 960px) {
+    width: 380px;
+    height: 247px;
+  }
+  @media (min-width: 1110px) {
     width: 420px;
     height: 273px;
   }
   @media (min-width: 1264px) {
+    width: 505px;
+    height: 328px;
+  }
+  @media (min-width: 1514px) {
     width: 565px;
     height: 368px;
   }
   @media (min-width: 1904px) {
-    width: 872px;
-    height: 567px;
+    width: 760px;
+    height: 494px;
+  }
+  @media (min-width: 2204px) {
+    width: 860px;
+    height: 559px;
   }
 }
 
@@ -108,7 +120,7 @@ export default {
   border: 3px solid #FFFFFF;
   border-radius: 50%;
   position: relative;
-  @media (max-width: 600px) {
+  @media (max-width: 1264px) {
     font-size: 25px;
     height: 50px;
     width: 50px;
@@ -125,7 +137,7 @@ export default {
   width: 120px;
   border: 2px solid #FFFFFF;
   border-radius: 50%;
-  @media (max-width: 600px) {
+  @media (max-width: 1264px) {
     top: -8px;
     left: -8px;
     height: 60px;
@@ -143,7 +155,7 @@ export default {
   width: 140px;
   border: 1px solid #FFFFFF;
   border-radius: 50%;
-  @media (max-width: 600px) {
+  @media (max-width: 1264px) {
     top: -13px;
     left: -13px;
     height: 70px;

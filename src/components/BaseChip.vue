@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mr-1 rounded px-2 chip-text"
+    class="mr-1 rounded px-2 px-md-3 chip-text"
     :style="{backgroundColor: colors[item.type]}"
   >
     {{ item.name }}
@@ -25,14 +25,14 @@ export default {
 <style scoped lang="scss">
 .chip-text {
   font-size: 20px;
-  line-height: 25px;
+  line-height: 28px;
   @media (max-width: 1904px) {
     font-size: 15px;
-    line-height: 20px;
+    line-height: 22px;
   }
   @media (max-width: 600px) {
     font-size: 12px;
-    line-height: 17px;
+    line-height: 19px;
   }
 }
 </style>

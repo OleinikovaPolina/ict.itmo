@@ -111,7 +111,7 @@
         </div>
         <v-img
           class="order-1"
-          :height="$vuetify.breakpoint.xl?70:$vuetify.breakpoint.mdAndUp?50:35"
+          :height="$vuetify.breakpoint.xl?70:$vuetify.breakpoint.mdAndUp?40:35"
           :src="item.img"
           contain
         />
@@ -287,16 +287,16 @@ export default {
 
 .ethics-book {
   position: absolute;
-  right: 1%;
-  top: -15%;
+  right: 2%;
+  top: -12%;
   transform: rotate(-29deg);
   width: 380px;
   @media (max-width: 1904px) {
     width: 262px;
-    right: 0;
+    right: -1%;
   }
   @media (max-width: 1264px) {
-    width: 222px;
+    width: 200px;
     right: -2%;
   }
   @media (max-width: 960px) {
@@ -316,7 +316,7 @@ export default {
       font-size: 10px;
     }
     @media (max-width: 1264px) {
-      font-size: 9px;
+      font-size: 8px;
     }
     @media (max-width: 960px) {
       font-size: 7px;
@@ -324,28 +324,25 @@ export default {
   }
 
   .ethics-book-text-1 {
-    left: 38%;
+    left: 36%;
     top: 30%;
   }
 
   .ethics-book-text-2 {
-    left: 39%;
+    left: 37%;
     top: 45%;
   }
 
   .ethics-book-text-3 {
     opacity: 0;
     font-size: 22px;
-    left: 36%;
+    left: 35%;
     top: 40%;
     padding: 10px 5px;
     @media (max-width: 1904px) {
       font-size: 16px;
     }
     @media (max-width: 1264px) {
-      font-size: 14px;
-    }
-    @media (max-width: 960px) {
       font-size: 12px;
     }
   }
@@ -390,8 +387,8 @@ export default {
   }
   @media (max-width: 1264px) {
     max-height: 100px;
-    max-width: 120px;
-    font-size: 11px;
+    max-width: 100px;
+    font-size: 10px;
     line-height: 15px;
   }
 }
@@ -437,8 +434,8 @@ export default {
       height: 86px;
     }
     @media (max-width: 1264px) {
-      width: 25px;
-      height: 68px;
+      width: 22px;
+      height: 76px;
     }
   }
 }

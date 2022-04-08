@@ -26,21 +26,34 @@ export default {
   div {
     position: absolute;
   }
+
   @media (min-width: 600px) {
     width: 565px;
     height: 368px;
   }
   @media (min-width: 960px) {
+    width: 380px;
+    height: 247px;
+  }
+  @media (min-width: 1110px) {
     width: 420px;
     height: 273px;
   }
   @media (min-width: 1264px) {
+    width: 505px;
+    height: 328px;
+  }
+  @media (min-width: 1514px) {
     width: 565px;
     height: 368px;
   }
   @media (min-width: 1904px) {
-    width: 872px;
-    height: 567px;
+    width: 760px;
+    height: 494px;
+  }
+  @media (min-width: 2204px) {
+    width: 860px;
+    height: 559px;
   }
 }
 
@@ -91,7 +104,7 @@ export default {
     @media (max-width: 1904px) {
       font-size: 14px;
     }
-    @media (max-width: 600px) {
+    @media (max-width: 1264px) {
       font-size: 10px;
       line-height: 10px;
     }

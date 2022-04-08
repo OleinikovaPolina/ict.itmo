@@ -177,7 +177,7 @@
           height="100%"
           width="100%"
           class="rounded-l-pill"
-          position="right"
+          position="100% 0"
           src="../../assets/images/footer/footer-building.svg"
         />
       </v-sheet>
@@ -301,14 +301,12 @@
 <script>
 import iconVk from '../../assets/images/footer/Button-S-Vk-ic.svg'
 import iconYT from '../../assets/images/footer/Button-S-Youtube-ic.svg'
-import iconIn from '../../assets/images/footer/Button-S-Instagram-ic.svg'
 import iconTe from '../../assets/images/footer/Button-S-Telegram-ic.svg'
 
 export default {
   name: 'TheFooterComponent',
   data: () => ({
     social: [
-      { icon: iconIn, link: 'https://itmo.ru/ru/' },
       { icon: iconYT, link: 'https://itmo.ru/ru/' },
       { icon: iconVk, link: 'https://itmo.ru/ru/' },
       { icon: iconTe, link: 'https://itmo.ru/ru/' }

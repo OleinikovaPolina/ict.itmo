@@ -3,15 +3,15 @@
     <VueSlickCarousel
       ref="carousel"
       v-bind="settings"
-      :style="{height: $vuetify.breakpoint.xl?'540px':$vuetify.breakpoint.lg?'400px':$vuetify.breakpoint.md?'320px':$vuetify.breakpoint.sm?'420px':'220px'}"
+      :style="{height: $vuetify.breakpoint.xl?'570px':$vuetify.breakpoint.lg?'410px':$vuetify.breakpoint.md?'310px':$vuetify.breakpoint.sm?'460px':'240px'}"
       :slides-to-show="$vuetify.breakpoint.mdAndUp?5:3"
       @beforeChange="(oldSlideIndex, newSlideIndex)=>{changeActiveIndex(newSlideIndex)}"
     >
       <div
         v-for="(person,i) in slider"
         :key="i"
-        class="person-container"
-        style="max-width: 300px; cursor: pointer"
+        class="person-container mx-auto"
+        :style="{maxWidth: $vuetify.breakpoint.mdAndUp?'auto':$vuetify.breakpoint.xs?'150px':'250px'}"
       >
         <div
           class="person"
@@ -24,12 +24,14 @@
               :src="person.img"
             />
           </div>
-          <div class="person-text pt-1 pt-md-2 text-center">
-            <div class="text-h6">
+          <div class="person-text pt-1 pt-md-2 px-1 px-sm-4 text-center">
+            <div class="text-h6 pb-1">
               {{ person.name }}
             </div>
             <div>{{ person.position }}</div>
-            <div class="person-position-2">{{ person.position2 }}</div>
+            <div class="person-position-2">
+              {{ person.position2 }}
+            </div>
             <a
               :href="'mailto: '+person.email"
               class="person-email px-1 px-md-2"
@@ -41,10 +43,10 @@
       </div>
     </VueSlickCarousel>
     <div
-      class="d-flex justify-center align-center"
+      class="d-flex justify-center align-center mt-2 mt-lg-4 mt-xl-8"
     >
       <button
-        class="btn-nav mr-3"
+        class="btn-nav mr-3 d-flex justify-center align-center"
         @click="prev"
       >
         <v-icon
@@ -166,15 +168,15 @@ export default {
 
   .text-h6 {
     line-height: normal;
-    font-size: 28px !important;
+    font-size: 30px !important;
     @media (max-width: 1904px) {
       font-size: 20px !important;
     }
     @media (max-width: 1264px) {
       font-size: 18px !important;
     }
-    @media (max-width: 960px) {
-      font-size: 20px !important;
+    @media (max-width: 955.5px) {
+      font-size: 24px !important;
     }
     @media (max-width: 600px) {
       font-size: 12px !important;
@@ -196,18 +198,18 @@ export default {
 
   * {
     line-height: normal;
-    font-size: 19px;
+    font-size: 21px;
     @media (max-width: 1904px) {
-      font-size: 16px !important;
+      font-size: 16px ;
     }
     @media (max-width: 1264px) {
-      font-size: 14px !important;
+      font-size: 12px ;
     }
-    @media (max-width: 960px) {
-      font-size: 16px !important;
+    @media (max-width: 955.5px) {
+      font-size: 18px ;
     }
     @media (max-width: 600px) {
-      font-size: 10px !important;
+      font-size: 10px ;
     }
   }
 
@@ -246,10 +248,6 @@ export default {
 
   .person-img {
     width: 100%;
-  }
-
-  .person-text {
-    padding: 0 0.5em;
   }
 }
 </style>

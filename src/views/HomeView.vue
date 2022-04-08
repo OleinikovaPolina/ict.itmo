@@ -29,7 +29,7 @@
     <!-- What can you learn at the Faculty of ICT -->
     <div class="hex-section">
       <v-container>
-        <div class=" text-center mx-auto text-h6 text-sm-h4 text-xl-h3">
+        <div class=" text-center mx-auto text-h6 text-sm-h5 text-md-h4 text-xl-h3">
           Что вы сможете изучить<br> на факультете ИКТ
         </div>
         <BaseHexagonContainer
@@ -52,24 +52,24 @@
       />
     </div>
     <!--  News  -->
-    <NewsComponent />
+    <NewsComponent class="pb-4 pb-md-8 pb-xl-12" />
     <!--  Leaders  -->
-    <div class="section-background pt-4 pb-4 pb-md-8 mt-4 mt-md-4">
-      <LineComponent
-        id="3"
-        color="#6A30F4"
-        width="35%"
-        position="left"
-        top="-10px"
-      />
-      <LineComponent
-        id="4"
-        color="#18FFBA"
-        width="75%"
-        position="right"
-      />
+    <LineComponent
+      id="3"
+      color="#6A30F4"
+      width="35%"
+      position="left"
+      top="-10px"
+    />
+    <LineComponent
+      id="4"
+      color="#18FFBA"
+      width="75%"
+      position="right"
+    />
+    <div class="section-background pt-4 pt-xl-8 pb-4 pb-md-8 pb-xl-14">
       <v-container>
-        <div class="text-center mx-auto pb-4 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
+        <div class="text-center mx-auto pb-4 pb-sm-6 pb-xl-8 text-h6 text-sm-h4 text-xl-h3">
           Руководство факультета
         </div>
         <CarouselLeadersComponent :slider="persons" />
@@ -109,7 +109,7 @@
       left-after="15%"
     />
     <!-- Clubs -->
-    <div class="section-background pt-4 pb-10">
+    <div class="section-background pt-4 pb-10 pt-lg-12 pb-lg-16">
       <v-container>
         <div class="text-center mx-auto pb-6 text-h6 text-sm-h4 text-xl-h3">
           Клубы факультета
@@ -128,10 +128,10 @@
               contain
             />
             <div class="club-text">
-              <div class="text-h6 text-xl-h4 club-name">
+              <div class="text-h6 text-xl-h4 club-name pb-1 pt-4 pt-md-8">
                 {{ club.name }}
               </div>
-              <div class="club-description px-sm-6">
+              <div class="club-description px-sm-2">
                 {{ club.description }}
               </div>
               <div class="d-flex justify-center club-description pt-2">
@@ -184,7 +184,7 @@
       top="10px"
     />
     <!--  Numbers  -->
-    <div class="pt-2 pt-sm-6 pb-sm-10">
+    <div class="pt-2 pt-sm-6 pt-xl-12 pb-sm-10 pb-xl-14">
       <v-container class="animation-numbers">
         <div class="text-center mx-auto pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Факультет в цифрах
@@ -374,6 +374,10 @@ export default {
     width: 160px;
     height: 178px;
   }
+  @media (max-width: 1264px) {
+    width: 140px;
+    height: 160px;
+  }
   @media (max-width: 600px) {
     width: 120px;
     height: 134px;
@@ -399,10 +403,6 @@ export default {
   color: $news-3;
   font-size: 28px;
   line-height: 26px;
-  padding-top: 1em;
-  @media (max-width: 600px) {
-    padding-top: 0.5em
-  }
 }
 
 .club-description {
@@ -413,18 +413,22 @@ export default {
     font-size: 16px;
     line-height: 19px;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 1264px) {
     font-size: 12px;
     line-height: 17px;
   }
 }
 
 .numbers-name {
-  font-size: 144px;
-  line-height: 150px;
+  font-size: 180px;
+  line-height: 190px;
   letter-spacing: -0.02em;
   color: $ict-blue-green;
   font-family: "Rubik-SemiBold", sans-serif !important;
+  @media (max-width: 1904px) {
+    font-size: 120px;
+    line-height: 130px;
+  }
   @media (max-width: 1264px) {
     font-size: 92px;
     line-height: 100px;
@@ -444,6 +448,8 @@ export default {
   line-height: 26px;
   opacity: 0;
   transform: translateY(20px);
+  max-width: 250px;
+  margin: 0 auto;
   @media (max-width: 1264px) {
     font-size: 20px;
     line-height: 22px;
@@ -462,9 +468,22 @@ export default {
   width: 100%;
   background-size: cover;
   background-position: top left;
-  margin-top: -7.5em;
-  padding-top: 11em;
-  @media (max-width: 768px) {
+  margin-top: -14em;
+  padding-top: 20em;
+  @media (max-width: 1904px) {
+    margin-top: -11em;
+    padding-top: 14em;
+  }
+  @media (max-width: 1280px) {
+    margin-top: -7.5em;
+    padding-top: 11em;
+  }
+  @media (max-width: 960px) {
+    background-position: 25% 0;
+    margin-top: -5em;
+    padding-top: 8em;
+  }
+  @media (max-width: 600px) {
     background-position: 25% 0;
     margin-top: -7em;
     padding-top: 7em;

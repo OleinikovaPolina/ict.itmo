@@ -10,7 +10,7 @@
           :class="$vuetify.breakpoint.smAndDown?'text-center':''"
           class="d-flex flex-column justify-space-around"
         >
-          <div class="pb-4 pb-md-0 text-body-2 breadcrumbs text-start">
+          <div class="pb-4 pb-md-4 text-body-2 breadcrumbs text-start">
             <span>Поступление /</span>
             <router-link
               to="/baccalaureate"
@@ -51,6 +51,7 @@
       <v-col
         cols="12"
         md="10"
+        xl="12"
       >
         <v-row
           align="stretch"
@@ -59,6 +60,7 @@
           <v-col
             cols="6"
             md="4"
+            xl="3"
           >
             <div
               class="px-md-4"
@@ -86,6 +88,7 @@
           <v-col
             cols="6"
             md="4"
+            xl="3"
           >
             <div
               class="px-md-4"
@@ -104,7 +107,7 @@
                 <div class="subtitle-color pb-3">
                   Язык обучения - <b>русский</b>
                 </div>
-                <div class="subtitle-color pb-3">
+                <div class="subtitle-color">
                   Форма обучения - <b>очная</b>
                 </div>
               </div>
@@ -113,6 +116,7 @@
           <v-col
             cols="8"
             md="4"
+            xl="3"
           >
             <div
               class="px-md-4"
@@ -125,18 +129,23 @@
                 <div class="text-h6 text-xl-h5 text-center pb-3">
                   Полезные ссылки
                 </div>
-                <a
-                  class="link-arrow pb-3"
-                  href="#"
-                >Страница программы </a>
-                <a
-                  class="link-arrow pb-3"
-                  href="#"
-                >Правила приема 2022 </a>
-                <a
-                  class="link-arrow"
-                  href="#"
-                >Стипендии </a>
+                <div
+                  style="width: fit-content"
+                  class="d-flex flex-column pl-xl-4"
+                >
+                  <a
+                    class="link-arrow pb-2"
+                    href="#"
+                  >Страница программы </a>
+                  <a
+                    class="link-arrow pb-2"
+                    href="#"
+                  >Правила приема 2022 </a>
+                  <a
+                    class="link-arrow"
+                    href="#"
+                  >Стипендии </a>
+                </div>
               </div>
             </div>
           </v-col>
@@ -144,7 +153,7 @@
       </v-col>
     </v-container>
     <!--  directions  -->
-    <v-container class="directions">
+    <v-container class="directions pb-md-16">
       <div class="d-flex pb-6">
         <v-col
           cols="3"
@@ -222,6 +231,7 @@
           :key="i"
           cols="12"
           sm="6"
+          xl="4"
         >
           <BasePerson
             :person="person"
@@ -245,7 +255,7 @@
     />
     <!-- Где работают выпускники ИКТ -->
     <div class="section-background job">
-      <v-container class="py-6 py-md-12">
+      <v-container class="py-6 py-md-12 py-xl-16">
         <div class="text-center mx-auto pb-6 pb-md-8 text-h6 text-sm-h4 text-xl-h3">
           Где работают выпускники ИКТ
         </div>
@@ -268,7 +278,10 @@
                   class="pa-md-4"
                   style="height: 100%;"
                 >
-                  <BaseUlBlock :item="item" background="app-background"/>
+                  <BaseUlBlock
+                    :item="item"
+                    :background="'app-background'"
+                  />
                 </div>
               </v-col>
             </v-row>
@@ -427,11 +440,24 @@ export default {
   width: 100%;
   background-size: cover;
   background-position: top left;
-  margin-top: -4em;
-  padding-top: 11em;
+  margin-top: -14em;
+  padding-top: 20em;
+  @media (max-width: 1904px) {
+    margin-top: -11em;
+    padding-top: 14em;
+  }
+  @media (max-width: 1280px) {
+    margin-top: -7.5em;
+    padding-top: 11em;
+  }
+  @media (max-width: 960px) {
+    background-position: 25% 0;
+    margin-top: -5em;
+    padding-top: 8em;
+  }
   @media (max-width: 600px) {
     background-position: 25% 0;
-    margin-top: -4em;
+    margin-top: -7em;
     padding-top: 7em;
   }
 }
@@ -458,7 +484,7 @@ export default {
   border-radius: 30px;
 
   * {
-    font-size: 20px;
+    font-size: 24px;
     @media (max-width: 1904px) {
       font-size: 16px;
     }
@@ -469,6 +495,9 @@ export default {
 }
 
 .directions .text-h6, .program-info .text-h6 {
+  @media (min-width: 1904px) {
+    font-size: 28px !important;
+  }
   @media (max-width: 600px) {
     font-size: 16px !important;
     line-height: normal;

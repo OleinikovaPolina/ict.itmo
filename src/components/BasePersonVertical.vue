@@ -1,7 +1,7 @@
 <template>
   <v-sheet
     class="person rounded-pill mx-auto section-background"
-    :max-width="$vuetify.breakpoint.sm?250:300"
+    :max-width="$vuetify.breakpoint.sm?250:280"
   >
     <div class="person-img-container rounded-circle">
       <v-img
@@ -10,12 +10,12 @@
         :src="person.img"
       />
     </div>
-    <div class="px-2 px-md-5 pb-12 pb-md-16 pt-1 pt-md-3 text-center">
-      <div class="text-h6">
+    <div class="px-2 px-md-5 pb-12 pb-md-12 pt-1 pt-md-3 text-center">
+      <div class="text-h6 pb-1">
         {{ person.name }}
       </div>
       <div>{{ person.position }}</div>
-      <div class="d-flex align-center person-link px-1">
+      <div class="d-flex align-center person-link px-1 pb-md-2">
         <v-icon
           class="mr-1 person-link-icon"
           :small="$vuetify.breakpoint.smAndDown"
@@ -53,14 +53,35 @@ export default {
 
   .text-h6 {
     line-height: normal;
+    font-size: 30px !important;
+    @media (max-width: 1904px) {
+      font-size: 20px !important;
+    }
+    @media (max-width: 1264px) {
+      font-size: 18px !important;
+    }
+    @media (max-width: 955.5px) {
+      font-size: 24px !important;
+    }
     @media (max-width: 600px) {
-      font-size: 16px !important;
+      font-size: 12px !important;
     }
   }
 
   * {
+    line-height: normal;
+    font-size: 21px;
+    @media (max-width: 1904px) {
+      font-size: 16px ;
+    }
+    @media (max-width: 1264px) {
+      font-size: 12px ;
+    }
+    @media (max-width: 955.5px) {
+      font-size: 18px ;
+    }
     @media (max-width: 600px) {
-      font-size: 12px;
+      font-size: 10px ;
     }
   }
 
@@ -86,7 +107,7 @@ export default {
     text-overflow: ellipsis;
     width: calc(100% - 40px);
     position: relative;
-    @media (max-width: 600px) {
+    @media (max-width: 1264px) {
       width: calc(100% - 16px);
     }
   }

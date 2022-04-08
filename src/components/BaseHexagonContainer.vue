@@ -125,13 +125,17 @@ export default {
     height: 240px;
     width: 180px;
   }
-  @media (max-width: 1024px) {
+  @media (max-width: 1280px) {
     height: 200px;
     width: 150px;
   }
-  @media (max-width: 600px) {
-    height: 160px;
+  @media (max-width: 960px) {
+    height: 150px;
     width: 120px;
+  }
+  @media (max-width: 600px) {
+    height: 130px;
+    width: 100px;
   }
   @media (max-width: 480px) {
     height: 110px;

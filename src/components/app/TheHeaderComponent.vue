@@ -5,21 +5,18 @@
         class="d-flex align-center"
         style="background-color: inherit; box-shadow: none"
       >
-        <v-col
-          cols
-        >
+        <div class="pa-3 pr-lg-8 pr-xl-12">
           <router-link to="/">
             <img
               alt="logo"
               class="logo"
-              src="../../assets/images/logo.png"
+              src="../../assets/images/logo.svg"
             >
           </router-link>
-        </v-col>
+        </div>
 
         <v-col
           v-if="$vuetify.breakpoint.mdAndUp"
-          cols
           class="d-flex align-center"
         >
           <template
@@ -29,7 +26,7 @@
               v-if="i!==3"
               :key="i"
               :to="'/'+link.path"
-              class="header-link mr-3"
+              class="header-link mr-2 mr-lg-4  mr-xl-8"
               :class="link.name.filter(x=>x===$route.name).length>0?'link--active':''"
             >
               {{ link.text }}
@@ -47,7 +44,7 @@
               >
                 <template #activator="{ on,attrs }">
                   <div
-                    class="header-link mr-3 d-flex align-center"
+                    class="header-link mr-2 mr-lg-4 mr-xl-8 d-flex align-center"
                     v-bind="attrs"
                     v-on="on"
                   >
@@ -89,17 +86,15 @@
         <v-col
           :style="{opacity:show||$vuetify.breakpoint.mdAndUp?1:0,zIndex:show|| $vuetify.breakpoint.mdAndUp?1:-1}"
           style="transition: all .4s"
-          cols
+          cols="2"
+          md="1"
         >
           <SwitchComponent class="ml-lg-4" />
         </v-col>
 
         <v-spacer />
 
-        <v-col
-          v-if="$vuetify.breakpoint.mdAndUp"
-          cols
-        >
+        <v-col v-if="$vuetify.breakpoint.mdAndUp">
           <v-text-field
             :dark="theme==='dark'"
             dense
@@ -108,15 +103,14 @@
             outlined
             append-icon="mdi-magnify"
             color="#2DC0C5"
-            class="search-input"
-            style="min-width: 175px;"
+            class="search-input search-input-header"
             @click:append="()=>{}"
           />
         </v-col>
 
         <v-col
           v-if="$vuetify.breakpoint.smAndDown"
-          cols="5"
+          cols="4"
           class="d-flex justify-end"
         >
           <v-btn
@@ -175,7 +169,7 @@
                   :key="i"
                   style="min-height: 33px"
                   class="d-flex justify-center"
-                  @click="show=false"
+                  @click="closeMenu"
                 >
                   <router-link
                     :to="'/'+link.path"
@@ -216,7 +210,7 @@
                         <v-list-item
                           style="min-height: 33px"
                           class="d-flex justify-center"
-                          @click="show=false"
+                          @click="closeMenu"
                         >
                           <router-link
                             to="/baccalaureate"
@@ -229,7 +223,7 @@
                         <v-list-item
                           style="min-height: 33px"
                           class="d-flex justify-center"
-                          @click="show=false"
+                          @click="closeMenu"
                         >
                           <router-link
                             to="/magistracy"
@@ -269,13 +263,31 @@ export default {
     ]
   }),
   computed: mapState('app', ['theme']),
+  created() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   methods: {
+    handleScroll() {
+      let { top } = document.body.getBoundingClientRect()
+      if (top === 0) {
+        document.querySelector('.navbar-container').classList.remove('shadow')
+      } else {
+        document.querySelector('.navbar-container').classList.add('shadow')
+      }
+    },
     clickSearchIcon() {
       document.querySelector('.menu').classList.toggle('active')
       this.show = true
       setTimeout(() => {
         this.$refs['search'].$refs.input.focus()
       })
+    },
+    closeMenu() {
+      document.querySelector('.menu').classList.remove('active')
+      this.show = false
     },
     clickMenu() {
       document.querySelector('.menu').classList.toggle('active')
@@ -296,9 +308,13 @@ export default {
   z-index: 100
 }
 
+.navbar-container.shadow {
+  box-shadow: 0 5px 5px -5px #333;
+}
+
 .header-link {
   text-decoration: none;
-  font-size: 22px;
+  font-size: 24px;
   @media (max-width: 1904px) {
     font-size: 18px;
   }
@@ -321,6 +337,9 @@ export default {
 .logo {
   height: 3rem;
   object-fit: contain;
+  @media (min-width: 1904px) {
+    height: 4rem;
+  }
 }
 
 .v-menu__content {

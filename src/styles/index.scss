@@ -164,6 +164,10 @@ body .v-application .text-subtitle-1 {
     font-size: 24px !important;
     line-height: 28px;
   }
+  @media (max-width: 1264px) {
+    font-size: 18px !important;
+    line-height: 22px;
+  }
   @media (max-width: 600px) {
     font-size: 14px !important;
     line-height: 19px;
@@ -177,10 +181,10 @@ body .v-application .text-subtitle-1 {
   li::before {
     content: " ";
     display: inline-block;
-    border: 1px solid $ict-blue-green;
+    border: 2px solid $ict-blue-green;
     border-radius: 50%;
-    height: 8px;
-    width: 8px;
+    height: 12px;
+    width: 12px;
     margin-inline-end: 7px;
     margin-bottom: 2px;
   }
@@ -225,7 +229,10 @@ body .v-application a:hover {
 }
 
 .breadcrumbs * {
-  @media (max-width: 600px) {
+  @media (min-width: 1904px) {
+    font-size: 20px;
+  }
+  @media (max-width: 1264px) {
     font-size: 12px;
   }
 }
@@ -234,7 +241,38 @@ body .v-application a:hover {
   color: white !important;
 }
 
-
 .slick-track, .slick-slide, .slick-slide > div {
   height: 100%;
+}
+
+.container {
+  @media (min-width: 960px) {
+    max-width: 810px !important;
+  }
+  @media (min-width: 1110px) {
+    max-width: 900px !important;
+  }
+  @media (min-width: 1264px) {
+    max-width: 1064px !important;
+  }
+  @media (min-width: 1514px) {
+    max-width: 1185px !important;
+  }
+  @media (min-width: 1904px) {
+    max-width: 1585px !important;
+  }
+  @media (min-width: 2204px) {
+    max-width: 1785px !important;
+  }
+}
+
+.search-input-header {
+  min-width: 140px;
+  @media (min-width: 1264px) {
+    min-width: 175px;
+  }
+
+  input:focus {
+    min-width: 300px;
+  }
 }

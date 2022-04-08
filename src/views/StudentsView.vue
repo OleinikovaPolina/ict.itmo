@@ -2,7 +2,7 @@
   <div>
     <!-- header -->
     <v-container>
-      <v-row class="d-flex align-stretch justify-center">
+      <v-row class="d-flex align-stretch justify-center pt-xl-8">
         <v-col class="text-center d-md-none">
           <div class="text-h5 text-sm-h4">
             Хакатоны ICT & Info Lab
@@ -43,7 +43,7 @@
                 <div>
                   <v-img
                     width="100%"
-                    :height="$vuetify.breakpoint.xs?200:400"
+                    :height="$vuetify.breakpoint.xs?200:$vuetify.breakpoint.xl?600:400"
                     cover
                     :src="slotProps.item.img"
                   />
@@ -339,12 +339,25 @@ export default {
 .hex-section {
   width: 100%;
   background-size: cover;
-  background-position: 0;
-  margin-top: -8em;
-  padding-top: 14em;
+  background-position: top left;
+  margin-top: -14em;
+  padding-top: 22em;
+  @media (max-width: 1904px) {
+    margin-top: -11em;
+    padding-top: 16em;
+  }
+  @media (max-width: 1280px) {
+    margin-top: -7em;
+    padding-top: 14em;
+  }
+  @media (max-width: 960px) {
+    background-position: 25% 0;
+    margin-top: -9em;
+    padding-top: 12em;
+  }
   @media (max-width: 600px) {
     background-position: 25% 0;
-    margin-top: -8em;
+    margin-top: -6em;
     padding-top: 8em;
   }
 }
@@ -353,6 +366,10 @@ export default {
 .hex-subtitle {
   font-size: 24px;
   line-height: 33px;
+  @media (max-width: 1264px) {
+    font-size: 20px;
+    line-height: 28px;
+  }
   @media (max-width: 600px) {
     font-size: 14px;
     line-height: 18px;

@@ -1,61 +1,68 @@
 <template>
   <v-sheet
-    class="person person-horizontal rounded-pill mx-auto"
+    class="person person-horizontal rounded-pill mx-auto d-flex"
     :class="{'person-small':smallPerson}"
     :max-width="smallPerson?520:700"
   >
-    <div class="d-flex">
-      <div>
-        <v-img
-          :src="person.img"
-          :width="$vuetify.breakpoint.mdAndUp?smallPerson?200:300:150"
-          :height="$vuetify.breakpoint.mdAndUp?smallPerson?200:300:150"
-          class="rounded-circle"
-          cover
-        />
-      </div>
+    <v-col
+      cols="6"
+      md="5"
+      class="pa-0 "
+    >
+      <v-img
+        :src="person.img"
+        class="rounded-circle person-img-container"
+        width="100%"
+        height="100%"
+        position="center"
+        cover
+      />
+    </v-col>
+    <v-col
+      cols="6"
+      md="7"
+      class="pa-4 pl-2 pl-md-4 d-flex flex-column justify-center"
+    >
       <div
-        class="pa-4 pl-2 pl-md-4 d-flex flex-column justify-center"
+        class="text-h6"
+        :class="smallPerson?'text-md-h5':'text-md-h4'"
       >
-        <div
-          class="text-h6 "
-          :class="smallPerson?'text-md-h5':'text-md-h4'"
-        >
-          {{ person.name }}
-        </div>
-        <div class="py-2">
-          {{ person.position }}
-        </div>
-        <div class="d-flex align-center person-link">
-          <v-icon
-            class="mr-1 mr-md-2"
-            color="white"
-            :small="$vuetify.breakpoint.smAndDown"
-          >
-            mdi-email-outline
-          </v-icon>
-          <a
-            href="mailto: kapitonov.aleksandr@itmo.ru"
-          >
-            <div>{{ person.email }}</div>
-          </a>
-        </div>
-        <div class="d-flex align-center person-link pt-1">
-          <v-icon
-            class="mr-1 mr-md-2"
-            color="white"
-            :small="$vuetify.breakpoint.smAndDown"
-          >
-            mdi-phone
-          </v-icon>
-          <a
-            href="tel: +7 920-457-85-96"
-          >
-            <div>{{ person.tel }}</div>
-          </a>
-        </div>
+        {{ person.name }}
       </div>
-    </div>
+      <div class="py-2">
+        {{ person.position }}
+      </div>
+      <div class="d-flex align-center person-link">
+        <v-icon
+          class="mr-1 mr-md-2"
+          color="white"
+          :small="$vuetify.breakpoint.smAndDown"
+        >
+          mdi-email-outline
+        </v-icon>
+        <a
+          href="mailto: kapitonov.aleksandr@itmo.ru"
+          class="person-ellipses"
+        >
+          {{ person.email }}
+        </a>
+      </div>
+      <div class="d-flex align-center person-link pt-1 pr-1">
+        <v-icon
+          class="mr-1 mr-md-2"
+          color="white"
+          :small="$vuetify.breakpoint.smAndDown"
+        >
+          mdi-phone
+        </v-icon>
+        <a
+          href="tel: +7 920-457-85-96"
+          class="person-ellipses"
+        >
+          {{ person.tel }}
+        </a>
+      </div>
+    </v-col>
   </v-sheet>
 </template>
 
@@ -79,12 +86,22 @@ export default {
 @import "../styles/variables.scss";
 
 .person {
-  background-color: #00A1FF;
+  background-color: #00A1FF !important;
+
+
+  .person-img-container {
+    width: 300px;
+    height: 300px;
+    @media (max-width: 600px) {
+      width: 150px;
+      height: 150px;
+    }
+  }
 
   .text-h6 {
     line-height: normal;
     @media (max-width: 600px) {
-      font-size: 16px !important;
+      font-size: 15px !important;
     }
   }
 
@@ -92,17 +109,28 @@ export default {
     color: white;
     font-size: 18px;
     @media (max-width: 600px) {
-      font-size: 12px;
+      font-size: 11px;
     }
   }
 
-  .person-link a div {
+  .person-link a {
+    color: white;
     opacity: 0.8;
     transition: all .4s;
   }
 
-  .person-link a div:hover {
+  .person-link a:hover {
     opacity: 1;
+  }
+
+  .person-ellipses {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100% - 40px);
+    white-space: nowrap;
+    @media (max-width: 600px) {
+      width: calc(100% - 16px);
+    }
   }
 }
 
@@ -115,6 +143,15 @@ export default {
     }
     @media (max-width: 600px) {
       font-size: 10px;
+    }
+  }
+
+  .person-img-container {
+    width: 200px;
+    height: 200px;
+    @media (max-width: 600px) {
+      width: 150px;
+      height: 150px;
     }
   }
 }

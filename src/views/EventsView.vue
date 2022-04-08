@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Carousel  -->
-    <v-container>
+    <v-container class="pb-2 pb-md-4 pb-xl-8">
       <CarouselComponent
         :slider="slider"
         :columns="1"
@@ -35,7 +35,7 @@
       position="right"
       top="20px"
     />
-    <div class="section-background py-4 py-md-8 mt-2">
+    <div class="section-background py-4 py-md-8 py-xl-14">
       <v-container>
         <div class="pb-2 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Анонсы
@@ -66,7 +66,7 @@
       top="10px"
     />
     <!--  News  -->
-    <NewsComponent />
+    <NewsComponent class="pb-2 pb-md-8 pb-xl-12"/>
     <!-- events   -->
     <LineComponent
       id="5"
@@ -81,7 +81,7 @@
       position="right"
       top="20px"
     />
-    <div class="section-background py-4 py-md-8 mt-2">
+    <div class="section-background py-4 py-md-8 py-xl-14">
       <v-container>
         <div class="text-center mx-auto pb-2 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Мероприятия

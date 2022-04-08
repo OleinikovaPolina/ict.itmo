@@ -11,7 +11,7 @@
         cols="12"
         md="10"
       >
-        <v-row class="px-4 py-2">
+        <v-row class="px-4 py-2 px-lg-6 py-lg-4">
           <v-col cols="3">
             <div class="admission-title">
               Направление
@@ -34,12 +34,12 @@
           :key="i"
           cols="12"
           md="10"
-          class="mb-4 program-block py-2 px-4 item-background"
+          class="mb-4 program-block px-4 py-2 px-lg-6 py-lg-4 item-background"
         >
           <div class="program-code">
             {{ program.code }}
           </div>
-          <v-row>
+          <v-row no-gutters>
             <v-col cols="3">
               <div>{{ program.name }}</div>
             </v-col>
