@@ -8,11 +8,98 @@
       class="hex-block"
       :class="'hex-'+i"
     >
-      <div
-        class="hex"
-      />
+      <div class="hex">
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 208 268"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g :filter="'url(#filter0_dd_1_5122'+i+')'">
+            <path
+              d="M91.6282 17.3119C99.2839 12.896 108.716 12.896 116.372 17.3119L181.628 54.9518C189.284 59.3676 194 67.5284 194 76.36V191.64C194 200.472 189.284 208.632 181.628 213.048L116.372 250.688C108.716 255.104 99.2839 255.104 91.6282 250.688L26.3718 213.048C18.7161 208.632 14 200.472 14 191.64V76.36C14 67.5284 18.7161 59.3676 26.3718 54.9518L91.6282 17.3119Z"
+              :fill="theme==='dark'?'#070C2D':'white'"
+            />
+            <path
+              d="M92.3777 18.6112C99.5695 14.4629 108.43 14.4629 115.622 18.6112L180.879 56.2512C188.07 60.3994 192.5 68.065 192.5 76.36V191.64C192.5 199.935 188.07 207.601 180.879 211.749L115.622 249.389C108.43 253.537 99.5695 253.537 92.3777 249.389L27.1213 211.749C19.9296 207.601 15.5 199.935 15.5 191.64V76.36C15.5 68.065 19.9296 60.3994 27.1213 56.2512L92.3777 18.6112Z"
+              :stroke="theme==='dark'?'#070C2D':'white'"
+              stroke-width="3"
+            />
+          </g>
+          <defs>
+            <filter
+              :id="'filter0_dd_1_5122'+i"
+              x="0"
+              y="0"
+              width="208"
+              height="268"
+              filterUnits="userSpaceOnUse"
+              color-interpolation-filters="sRGB"
+            >
+              <feFlood
+                flood-opacity="0"
+                result="BackgroundImageFix"
+              />
+              <feColorMatrix
+                in="SourceAlpha"
+                type="matrix"
+                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                result="hardAlpha"
+              />
+              <feOffset />
+              <feGaussianBlur stdDeviation="7" />
+              <feComposite
+                in2="hardAlpha"
+                operator="out"
+              />
+              <feColorMatrix
+                type="matrix"
+                values="0 0 0 0 0.0119097 0 0 0 0 0.263132 0 0 0 0 0.408333 0 0 0 0.1 0"
+              />
+              <feBlend
+                mode="normal"
+                in2="BackgroundImageFix"
+                result="effect1_dropShadow_1_5122"
+              />
+              <feColorMatrix
+                in="SourceAlpha"
+                type="matrix"
+                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                result="hardAlpha"
+              />
+              <feOffset />
+              <feGaussianBlur
+                :id="'ict-feGaussianBlur-' + i"
+                stdDeviation="2.5"
+              />
+              <feComposite
+                in2="hardAlpha"
+                operator="out"
+              />
+              <feColorMatrix
+                type="matrix"
+                values="0 0 0 0 0 0 0 0 0 0.427451 0 0 0 0 0.67451 0 0 0 0.2 0"
+              />
+              <feBlend
+                mode="normal"
+                in2="effect1_dropShadow_1_5122"
+                result=""
+              />
+              <feBlend
+                mode="normal"
+                in="SourceGraphic"
+                in2="effect2_dropShadow_1_5122"
+                result="shape"
+              />
+            </filter>
+          </defs>
+        </svg>
+      </div>
       <div
         class="hex-content text-center d-flex flex-column align-center justify-center"
+        @mouseout="hexHoverNot(i)"
+        @mouseover="hexHover(i)"
       >
         <v-img
           width="100%"
@@ -35,6 +122,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'BaseHexagonContainer',
   components: { BaseButton: () => import('@/components/BaseButton') },
@@ -51,11 +140,15 @@ export default {
   data: () => ({
     scrolled: false
   }),
+  computed: mapState('app', ['theme']),
   watch: {
     scrolled(val) {
       if (val) {
         document.querySelectorAll('.hex-container').forEach(function(one) {
-          one.classList.add('activeAnim')
+          one.classList.add('active-animation')
+          setTimeout(() => {
+            one.classList.add('active-animation--finished')
+          }, 3000)
         })
       }
     }
@@ -73,6 +166,18 @@ export default {
       let height = document.documentElement.clientHeight
       if (!this.scrolled) {
         this.scrolled = bottom < height && bottom > 0
+      }
+    },
+    hexHover(i) {
+      const block = document.querySelector('.active-animation--finished #ict-feGaussianBlur-' + i)
+      if (block) {
+        block.setAttribute('stdDeviation', '10')
+      }
+    },
+    hexHoverNot(i) {
+      const block = document.querySelector('.active-animation--finished #ict-feGaussianBlur-' + i)
+      if (block) {
+        block.setAttribute('stdDeviation', '2.5')
       }
     }
   }
@@ -102,7 +207,7 @@ export default {
 
 .hex-container {
   position: relative;
-  height:600px;
+  height: 600px;
   @media (max-width: 1904px) {
     height: 450px;
   }
@@ -170,12 +275,20 @@ export default {
   line-height: 22px;
   font-family: "OpenSans-Bold", sans-serif !important;
   @media (max-width: 1904px) {
-    font-size: 14px;
-    line-height: 15px;
+    font-size: 15px;
+    line-height: 18px;
+  }
+  @media (max-width: 1264px) {
+    font-size: 12px;
+    line-height: 14px;
   }
   @media (max-width: 600px) {
     font-size: 10px;
     line-height: 12px;
+  }
+  @media (max-width: 480px) {
+    font-size: 8px;
+    line-height: 9px;
   }
   opacity: 0;
   height: 0;
@@ -524,7 +637,7 @@ export default {
   }
 }
 
-.hex-container.activeAnim {
+.hex-container.active-animation {
   .hex {
     animation: hexScale 1s 1.5s forwards;
   }
@@ -573,6 +686,16 @@ export default {
     @media (max-width: 600px) {
       animation: 1.5s hex5MoveSm linear forwards;
     }
+  }
+}
+
+.active-animation--finished {
+  .hex-block {
+    transition: all .5s;
+  }
+
+  .hex-block:hover {
+    transform: scale(1.1);
   }
 }
 </style>

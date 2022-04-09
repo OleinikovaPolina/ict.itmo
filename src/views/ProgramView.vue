@@ -42,7 +42,7 @@
           lg="7"
           class="d-flex justify-center"
         >
-          <BaseHeaderAnimation />
+          <HeaderAnimation :animation-header="animationHeader" />
         </v-col>
       </v-row>
     </v-container>
@@ -318,9 +318,10 @@ export default {
     BaseUlBlock: () => import('@/components/BaseUlBlock'),
     BaseButton: () => import('@/components/BaseButton'),
     CarouselLeadersComponent: () => import('@/components/CarouselLeadersComponent'),
-    BaseHeaderAnimation: () => import('@/components/BaseHeaderAnimation'),
+    HeaderAnimation: () => import('@/components/HeaderAnimation'),
     BaseHexagonContainer: () => import('@/components/BaseHexagonContainer')
   },
+  props: { animationHeader: { type: Boolean, default: false } },
   data: () => ({
     hexArray: [
       { img: require('@/assets/images/home/Vector.svg'), text: 'Архитектура баз данных' },

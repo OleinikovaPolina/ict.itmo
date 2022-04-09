@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <div class="d-flex justify-space-between align-center pb-md-2">
       <div class="text-h6 text-sm-h4 text-xl-h3">
         {{ data.name }}
@@ -16,7 +16,10 @@
         </div>
       </div>
     </div>
-    <div class="d-flex flex-wrap pb-md-2">
+    <div
+      v-if="data.tags"
+      class="d-flex flex-wrap pb-md-2"
+    >
       <BaseChip
         v-for="(item,i) in data.tags"
         :key="i"
@@ -24,7 +27,9 @@
         :item="item"
       />
     </div>
-    <div><b>Место проведения: </b>{{ data.place }}</div>
+    <div v-if="data.place">
+      <b>Место проведения: </b>{{ data.place }}
+    </div>
     <div>
       <b>Дата проведения: </b>
       <span v-if="data.timeStart">{{ data.timeStart }} </span>
@@ -38,7 +43,7 @@
     >
       <BaseNewsBlocks :block="block" />
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>

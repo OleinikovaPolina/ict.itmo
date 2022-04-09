@@ -79,6 +79,12 @@ const routes = [
     component: () => import('../views/AdminFavoritesView.vue')
   },
   {
+    path: '/favorites/:id',
+    name: 'favoritesChange',
+    auth: true,
+    component: () => import('../views/AdminFavoritesChangeView.vue')
+  },
+  {
     path: '/tags',
     name: 'tags',
     auth: true,

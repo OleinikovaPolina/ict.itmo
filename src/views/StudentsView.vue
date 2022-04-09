@@ -57,22 +57,11 @@
     <!-- competition -->
     <div class="hex-section">
       <v-container>
-        <div class=" text-center mx-auto text-h5 text-sm-h4 text-xl-h3">
-          Конкурс “Горизонт”
-        </div>
-        <v-col
-          cols="12"
-          md="8"
-          class="text-center mx-auto py-2 py-md-6 hex-subtitle"
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non accumsan nulla quis porttitor. Nisl turpis
-          natoque nunc, tellus tincidunt aliquet. Aliquam eu tincidunt nibh suscipit urna, sollicitudin.
-        </v-col>
-        <div class=" text-center mx-auto text-h6 text-sm-h5 text-xl-h4">
-          Победители 2021 года
-        </div>
-        <BaseHexagonContainer
+        <BaseStudentsCompetition
           :hex-array="hexArray"
+          title="Конкурс “Горизонт”"
+          subtitle="Победители 2021 года"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non accumsan nulla quis porttitor. Nisl turpis natoque nunc, tellus tincidunt aliquet. Aliquam eu tincidunt nibh suscipit urna, sollicitudin."
         />
       </v-container>
       <LineComponent
@@ -238,17 +227,19 @@
 </template>
 
 <script>
+import BaseStudentsCompetition from '@/components/students/BaseStudentsCompetition'
+
 export default {
   name: 'StudentsView',
   components: {
-    LineComponent:()=>import('@/components/LineComponent'),
+    BaseStudentsCompetition,
+    LineComponent: () => import('@/components/LineComponent'),
     TheStudentsTwoPhotoComponent: () => import('@/components/students/TheStudentsTwoPhotoComponent'),
     TheStudentsVideoComponent: () => import('@/components/students/TheStudentsVideoComponent'),
     BaseUlBlock: () => import('@/components/BaseUlBlock'),
     BaseButton: () => import('@/components/BaseButton'),
     CarouselLeadersComponent: () => import('@/components/CarouselLeadersComponent'),
-    CarouselComponent: () => import('@/components/CarouselComponent'),
-    BaseHexagonContainer: () => import('@/components/BaseHexagonContainer')
+    CarouselComponent: () => import('@/components/CarouselComponent')
   },
   data: () => ({
     hexArray: [
@@ -359,20 +350,6 @@ export default {
     background-position: 25% 0;
     margin-top: -6em;
     padding-top: 8em;
-  }
-}
-
-
-.hex-subtitle {
-  font-size: 24px;
-  line-height: 33px;
-  @media (max-width: 1264px) {
-    font-size: 20px;
-    line-height: 28px;
-  }
-  @media (max-width: 600px) {
-    font-size: 14px;
-    line-height: 18px;
   }
 }
 </style>

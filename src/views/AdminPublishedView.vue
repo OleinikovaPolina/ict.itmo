@@ -65,11 +65,12 @@
 </template>
 
 <script>
-import BaseBlock from '@/components/admin/BaseBlock'
-
 export default {
   name: 'AdminPublishedView',
-  components: { BaseBlock, BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined') },
+  components: {
+    BaseBlock: () => import('@/components/admin/BaseBlock'),
+    BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined')
+  },
   data: () => ({
     infos: [
       {

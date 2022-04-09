@@ -44,7 +44,7 @@
           >
             <v-btn
               text
-              class="text-capitalize header-link text-center"
+              class="pa-0 text-capitalize header-link text-center"
             >
               Выйти
               <v-icon
@@ -123,7 +123,7 @@ export default {
     links: [
       { text: 'Опубликованное', name: ['published'], path: 'published' },
       { text: 'Создать запись', name: ['createEntry'], path: 'createEntry' },
-      { text: 'Избранное', name: ['favorites'], path: 'favorites' },
+      { text: 'Избранное', name: ['favorites','favoritesChange'], path: 'favorites' },
       { text: 'Теги', name: ['tags'], path: 'tags' }
     ]
   })

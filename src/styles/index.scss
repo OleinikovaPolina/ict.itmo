@@ -60,16 +60,12 @@
       background-color: map-get($theme, "bg-dropdown") !important;
     }
 
-    .link-arrow:after {
+    a.link-arrow:after, .link-arrow a:after {
       content: map-get($theme, "img-arrow");
     }
 
     .hex-section {
       background-image: map-get($theme, "img-hex-container");
-    }
-
-    .hex {
-      background-image: map-get($theme, "img-hex");
     }
 
     .v-application .header-link, .btn-nav-nums span {
@@ -148,7 +144,9 @@ input[type=time]::-webkit-calendar-picker-indicator {
   border-width: 1.5px;
 }
 
-.v-application .input-border-0.v-text-field--outlined fieldset {
+.v-application .input-border-0.v-text-field--outlined fieldset,
+.v-application .v-text-field > .v-input__control > .v-input__slot:before,
+.v-application .v-text-field > .v-input__control > .v-input__slot:after {
   border-width: 0;
 }
 
@@ -186,7 +184,13 @@ body .v-application .text-subtitle-1 {
     height: 12px;
     width: 12px;
     margin-inline-end: 7px;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
+    @media (max-width: 600px) {
+      border: 1px solid $ict-blue-green;
+      height: 5px;
+      width: 5px;
+      margin-inline-end: 3px;
+    }
   }
 }
 
@@ -199,7 +203,7 @@ body .v-application a:hover {
   text-decoration-thickness: 1px;
 }
 
-.link-arrow {
+a.link-arrow, .link-arrow a {
   text-decoration: none;
   font-size: 18px;
   @media (max-width: 1904px) {
@@ -210,7 +214,7 @@ body .v-application a:hover {
   }
 }
 
-.link-arrow:after {
+a.link-arrow:after, .link-arrow a:after {
   display: inline-block;
   width: 10px;
   height: 10px;
@@ -274,5 +278,38 @@ body .v-application a:hover {
 
   input:focus {
     min-width: 300px;
+  }
+}
+
+.quillWrapper {
+  &.custom {
+    @media (min-width: 960px) {
+      margin-top: -2.5em;
+      .ql-snow.ql-toolbar button {
+        margin-left: 1em;
+        margin-right: 0;
+      }
+    }
+  }
+
+  .ql-snow.ql-toolbar button {
+    height: 36px;
+    width: 36px;
+    border: 2px solid #0071B2;
+    border-radius: 25px;
+    margin-right: 1em;
+  }
+
+  .ql-snow.ql-toolbar button.ql-active {
+    background-color: #0071B2;
+
+    .ql-stroke, {
+      stroke: #000;
+      stroke-width: 1.7px;
+    }
+  }
+
+  .ql-toolbar.ql-snow {
+    border: none
   }
 }

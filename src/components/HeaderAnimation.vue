@@ -9,30 +9,18 @@
     <div class="anim-orange rounded-pill" />
     <div
       class="anim-img-1 rounded-circle"
-      @mouseover="mouseOver('.anim-img-1')"
-      @mouseleave="mouseLeave('.anim-img-1')"
+      @mouseover="mouseOver(1)"
+      @mouseout="mouseOut(1)"
     />
     <div class="anim-pink rounded-pill" />
     <div class="anim-purple rounded-pill" />
     <div
-      class="anim-img-2 rounded-circle"
-      @mouseover="mouseOver('.anim-img-2')"
-      @mouseleave="mouseLeave('.anim-img-2')"
-    />
-    <div
-      class="anim-img-3 rounded-circle"
-      @mouseover="mouseOver('.anim-img-3')"
-      @mouseleave="mouseLeave('.anim-img-3')"
-    />
-    <div
-      class="anim-img-4 rounded-circle"
-      @mouseover="mouseOver('.anim-img-4')"
-      @mouseleave="mouseLeave('.anim-img-4')"
-    />
-    <div
-      class="anim-img-5 rounded-circle"
-      @mouseover="mouseOver('.anim-img-5')"
-      @mouseleave="mouseLeave('.anim-img-5')"
+      v-for="i in 4"
+      :key="i"
+      class=" rounded-circle"
+      :class="'anim-img-'+(i+1)"
+      @mouseover="mouseOver(i+1)"
+      @mouseout="mouseOut(i+1)"
     />
   </div>
 </template>
@@ -40,19 +28,67 @@
 <script>
 export default {
   name: 'BaseHeaderAnimation',
+  props: { animationHeader: { type: Boolean, default: false } },
+  data: () => ({ times: [4, 3, 2, 2, 2] }),
+  watch: {
+    animationHeader: function(val) {
+      if (!val && localStorage.getItem('theme')) {
+        setTimeout(() => {
+          if (document.querySelector('.anim-container')) {
+            document.querySelector('.anim-container').classList.add('active-animation-header--finished')
+          }
+        }, 4000)
+      }
+    }
+  },
+  mounted() {
+    if (localStorage.getItem('theme')) {
+      setTimeout(() => {
+        document.querySelector('.anim-container').classList.add('active-animation-header--finished')
+      }, 4000)
+    }
+  },
   methods: {
-    mouseOver(name) {
-      if (!document.querySelector(name).classList.contains('active-animation')) {
-        document.querySelector(name).classList.add('active-animation')
-      } else {
-        document.querySelector(name).style.animationPlayState = 'running'
+    mouseOver(i) {
+      const block = document.querySelector('.active-animation-header--finished .anim-img-' + i)
+      if (block) {
+        if (!block.classList.contains('active-animation')) {
+          switch (i) {
+            case 1:
+              block.style.top = '8%'
+              break
+            case 2:
+              block.style.bottom = '8%'
+              break
+            case 3:
+              block.style.top = '0'
+              break
+            case 4:
+              block.style.bottom = '0'
+              break
+            case 5:
+              block.style.top = '17.5%'
+              break
+          }
+          block.classList.add('active-animation')
+          block.style.animationName = 'anim' + i + '2-data-v-6fde9df7'
+          block.style.animationDirection = 'alternate'
+          block.style.animationIterationCount = 'infinite'
+          block.style.animationTimingFunction = 'ease-in-out'
+          block.style.animationDuration = this.times[i - 1] + 's'
+        } else {
+          block.style.animationPlayState = 'running'
+        }
       }
     },
-    mouseLeave(name) {
-      if (document.querySelector(name).classList.contains('active-animation')) {
-        setTimeout(() => {
-          document.querySelector(name).style.animationPlayState = 'paused'
-        }, 2500)
+    mouseOut(i) {
+      const block = document.querySelector('.active-animation-header--finished .anim-img-' + i)
+      if (block) {
+        if (block.classList.contains('active-animation')) {
+          setTimeout(() => {
+            block.style.animationPlayState = 'paused'
+          }, 4000)
+        }
       }
     }
   }
@@ -60,6 +96,102 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@keyframes anim1 {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: 17.5%;
+  }
+  100% {
+    top: 8%;
+  }
+}
+
+@keyframes anim2 {
+  0% {
+    bottom: 25.5%;
+  }
+  100% {
+    bottom: 8%;
+  }
+}
+
+@keyframes anim3 {
+  0% {
+    top: 17.5%;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes anim4 {
+  0% {
+    bottom: 10%;
+  }
+  100% {
+    bottom: 0;
+  }
+}
+
+@keyframes anim5 {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 17.5%;
+  }
+}
+
+@keyframes anim12 {
+  0% {
+    top: 8%;
+  }
+  50% {
+    top: 17.5%;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes anim22 {
+  0% {
+    bottom: 8%;
+  }
+  100% {
+    bottom: 25.5%;
+  }
+}
+
+@keyframes anim32 {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 17.5%;
+  }
+}
+
+@keyframes anim42 {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: 10%;
+  }
+}
+
+@keyframes anim52 {
+  0% {
+    top: 17.5%;
+  }
+  100% {
+    top: 0;
+  }
+}
+
 .anim-container {
   width: 300px;
   height: 272.5px;
@@ -117,15 +249,6 @@ export default {
   }
 }
 
-.anim-container .active-animation {
-  animation-name: anim1;
-  animation-direction: alternate-reverse;
-  animation-iteration-count: infinite;
-  animation-duration: 4s;
-  animation-timing-function: ease-in-out;
-  animation-play-state: running;
-}
-
 .anim-green {
   top: 0;
   left: 0;
@@ -167,18 +290,6 @@ export default {
   background-color: #6A30F4;
 }
 
-@keyframes anim1 {
-  0% {
-    top: 0;
-  }
-  50% {
-    top: 17.5%;
-  }
-  100% {
-    top: 8%;
-  }
-}
-
 .anim-img-1 {
   top: 0;
   left: 0;
@@ -187,15 +298,6 @@ export default {
   background-color: #020202;
   background-image: url("../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png");
   background-size: cover;
-}
-
-@keyframes anim2 {
-  0% {
-    bottom: 25.5%;
-  }
-  100% {
-    bottom: 8%;
-  }
 }
 
 .anim-img-2 {
@@ -208,15 +310,6 @@ export default {
   background-size: cover;
 }
 
-@keyframes anim3 {
-  0% {
-    top: 17.5%;
-  }
-  100% {
-    top: 0;
-  }
-}
-
 .anim-img-3 {
   top: 17.5%;
   right: 31.5%;
@@ -227,15 +320,6 @@ export default {
   background-size: cover;
 }
 
-@keyframes anim4 {
-  0% {
-    bottom: 10%;
-  }
-  100% {
-    bottom: 0;
-  }
-}
-
 .anim-img-4 {
   bottom: 10%;
   right: 12%;
@@ -244,15 +328,6 @@ export default {
   background-color: #020202;
   background-image: url("../assets/images/home/homeHeader/unsplash_98Elr-LIvD8.png");
   background-size: cover;
-}
-
-@keyframes anim5 {
-  0% {
-    top: 0;
-  }
-  100% {
-    top: 17.5%;
-  }
 }
 
 .anim-img-5 {

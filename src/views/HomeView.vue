@@ -22,7 +22,7 @@
           sm="6"
           class="d-flex justify-center"
         >
-          <BaseHeaderAnimation />
+          <HeaderAnimation :animation-header="animationHeader" />
         </v-col>
       </v-row>
     </v-container>
@@ -217,13 +217,14 @@ export default {
   components: {
     LineComponent: () => import('@/components/LineComponent'),
     CarouselLeadersComponent: () => import('@/components/CarouselLeadersComponent'),
-    BaseHeaderAnimation: () => import('@/components/BaseHeaderAnimation'),
+    HeaderAnimation: () => import('@/components/HeaderAnimation'),
     TheEthicsComponent: () => import('@/components/home/TheEthicsComponent'),
     TheEthicsMobileComponent: () => import('@/components/home/TheEthicsMobileComponent'),
     NewsComponent: () => import('@/components/events/NewsComponent'),
     PartnersComponent: () => import('@/components/home/ThePartnersComponent'),
     BaseHexagonContainer: () => import('@/components/BaseHexagonContainer')
   },
+  props: { animationHeader: { type: Boolean, default: false } },
   data: () => ({
     hexArray: [
       { img: require('../assets/images/home/Vector.svg'), text: 'Архитектура баз данных' },

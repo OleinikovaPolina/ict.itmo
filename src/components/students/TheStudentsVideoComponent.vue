@@ -114,7 +114,7 @@ export default {
 
 .anim-video-btn button {
   color: #2DC0C5;
-  font-size: 35px;
+  font-size: 40px;
   height: 100px;
   width: 100px;
   border: 3px solid #FFFFFF;
@@ -124,6 +124,9 @@ export default {
     font-size: 25px;
     height: 50px;
     width: 50px;
+  }
+  @media (max-width: 600px) {
+    border: 2.5px solid #FFFFFF;
   }
 }
 
@@ -143,6 +146,11 @@ export default {
     height: 60px;
     width: 60px;
   }
+  @media (max-width: 600px) {
+    top: -7.5px;
+    left: -7.5px;
+    border: 1.5px solid #FFFFFF;
+  }
 }
 
 .anim-video-btn button:before {
@@ -160,6 +168,9 @@ export default {
     left: -13px;
     height: 70px;
     width: 70px;
+  }
+  @media (max-width: 600px) {
+    border: 1px solid #FFFFFF;
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="link-arrow">
     <div
       v-if="block.type===0"
       style="min-height: 0"
@@ -16,9 +16,7 @@
         <BaseNewsBlocks :block="block2" />
       </v-col>
     </v-row>
-    <div
-      v-if="block.type===2"
-    >
+    <div v-if="block.type===2">
       <v-img
         width="100%"
         max-height="300"
@@ -32,9 +30,7 @@
         {{ block.content.text }}
       </div>
     </div>
-    <div
-      v-if="block.type===3"
-    >
+    <div v-if="block.type===3">
       <CarouselComponent
         :slider="block.content.imagesName"
         :columns="1"

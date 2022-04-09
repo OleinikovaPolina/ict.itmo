@@ -200,7 +200,7 @@ export default {
     line-height: normal;
     font-size: 21px;
     @media (max-width: 1904px) {
-      font-size: 16px ;
+      font-size: 15px ;
     }
     @media (max-width: 1264px) {
       font-size: 12px ;

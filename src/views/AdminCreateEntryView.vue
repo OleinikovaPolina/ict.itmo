@@ -34,6 +34,8 @@
       <!--  changing blocks  -->
       <DraggableInputs
         :blocks="form.blocks"
+        @changeDialogContent="changeDialogContent"
+        @changeDialog="changeDialog"
         @updateProp="updateProp"
       />
       <!--  cover  -->
@@ -335,12 +337,17 @@
     <div v-else>
       <BaseNews :data="previewData" />
       <BaseButtonOutlined
-        class="ml-3"
         text="Назад"
         :click-btn="true"
         @clickBtnCallback="isPreview = false"
       />
     </div>
+    <!--  dialog  -->
+    <DialogPreviewComponent
+      :dialog="dialog"
+      :dialog-content="dialogContent"
+      @changeDialog="changeDialog"
+    />
   </v-container>
 </template>
 
@@ -350,6 +357,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'AdminCreateEntryView',
   components: {
+    DialogPreviewComponent: () => import('@/components/admin/DialogPreviewComponent'),
     BaseNews: () => import('@/components/events/BaseNews'),
     DraggableInputs: () => import('@/components/admin/DraggableInputs'),
     BaseChip: () => import('@/components/BaseChip'),
@@ -357,10 +365,12 @@ export default {
     BaseButton: () => import('@/components/admin/BaseButton')
   },
   data: () => ({
+    dialog: false,
+    dialogContent: {},
     typeDate: 0,
     isPreview: false,
     previewData: {},
-    count:1,
+    count: 1,
     form: {
       name: '', dateStart: null, dateEnd: null, timeStart: null, datePublish: null, timePublish: null, place: '',
       tags: [], isSlider: false, sliderImg: null, cover: null,
@@ -376,9 +386,15 @@ export default {
     ...mapState('app', ['theme'])
   },
   methods: {
+    changeDialog(val) {
+      this.dialog = val
+    },
+    changeDialogContent(val) {
+      this.dialogContent = val
+    },
     canBePublished() {
       let k = true
-      if (this.typeDate===1&& !this.form.cover) {
+      if (this.typeDate === 1 && !this.form.cover) {
         k = false
       }
       if (this.form.isSlider && !this.form.sliderImg) {
@@ -397,16 +413,16 @@ export default {
     updateProp(val) {
       this.form.blocks = val
     },
-    addBlock() {
-      this.form.blocks.push({ id: this.count, type: -1, content: null })
-      this.count++
-    },
     changeTypeData(val) {
       this.typeDate = val
     },
     removeTag(item) {
       const index = this.form.tags.indexOf(item.id)
       if (index >= 0) this.form.tags.splice(index, 1)
+    },
+    addBlock() {
+      this.form.blocks.push({ id: this.count, type: -1, content: null })
+      this.count++
     },
     publish() {
       console.log(this.form)

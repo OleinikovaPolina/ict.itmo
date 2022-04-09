@@ -7,7 +7,7 @@
       <TheHeaderComponent v-if="pageAdmin.filter(x=>x===$route.name).length===0" />
       <TheHeaderAdminComponent v-else />
       <v-main class="mt-header">
-        <router-view />
+        <router-view :animation-header="dialog" />
       </v-main>
       <TheFooterComponent v-if="pageNoFooter.filter(x=>x===$route.name).length===0" />
       <TheDialogThemeComponent
@@ -31,8 +31,8 @@ export default {
   },
   data: () => ({
     dialog: false,
-    pageAdmin: ['login', 'published', 'createEntry', 'favorites', 'tags'],
-    pageNoFooter: ['notFound', 'login', 'published', 'createEntry', 'favorites', 'tags']
+    pageAdmin: ['login', 'published', 'createEntry', 'favorites','favoritesChange', 'tags'],
+    pageNoFooter: ['notFound', 'login', 'published', 'createEntry', 'favorites','favoritesChange', 'tags']
   }),
   computed: mapState('app', ['theme']),
   mounted() {
