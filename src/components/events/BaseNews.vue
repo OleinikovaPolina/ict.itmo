@@ -30,7 +30,7 @@
     <div v-if="data.place">
       <b>Место проведения: </b>{{ data.place }}
     </div>
-    <div>
+    <div v-if="data.dateStart">
       <b>Дата проведения: </b>
       <span v-if="data.timeStart">{{ data.timeStart }} </span>
       <span v-if="data.dateStart">{{ $moment(data.dateStart).format('DD MMMM YYYY года') }}</span>

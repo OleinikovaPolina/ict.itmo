@@ -6,7 +6,7 @@
     >
       <v-card class="py-6">
         <v-btn
-          class="btn-close mr-1 mt-1"
+          class="btn-dialog-close mr-1 mt-1"
           icon
           large
           @click="$emit('changeDialog',false)"
@@ -26,17 +26,18 @@
         </v-card-title>
 
         <v-card-text>
-          <v-row
-            v-if="dialogContent.type===1"
-            no-gutters
-          >
+          <v-row v-if="dialogContent.type===1">
             <v-col
               v-for="(block2,i) in dialogContent.content.blocks"
               :key="i"
               cols="12"
               md="6"
             >
-              <BaseNewsBlocks :block="block2" />
+              <BaseNewsBlocks
+                :block="block2"
+                :edit="true"
+                @beforeCropInsert="$emit('beforeCropInsert',block2)"
+              />
             </v-col>
           </v-row>
           <div v-if="dialogContent.type===3">
@@ -67,27 +68,18 @@
             </CarouselComponent>
           </div>
         </v-card-text>
-
-        <v-card-actions>
-          <v-spacer />
-          <BaseButton
-            text="Сохранить"
-            :click-btn="true"
-            @clickBtnCallback="$emit('changeDialog',false)"
-          />
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
 </template>
 
 <script>
-import BaseNewsBlocks from '@/components/events/BaseNewsBlocks'
-import CarouselComponent from '@/components/CarouselComponent'
-
 export default {
   name: 'DialogPreviewComponent',
-  components: { CarouselComponent, BaseNewsBlocks, BaseButton: () => import('@/components/admin/BaseButton') },
+  components: {
+    CarouselComponent: () => import('@/components/CarouselComponent'),
+    BaseNewsBlocks: () => import('@/components/events/BaseNewsBlocks')
+  },
   props: {
     dialog: {
       type: Boolean,
@@ -98,14 +90,6 @@ export default {
       default: null
     }
   },
-  emits: ['changeDialog']
+  emits: ['changeDialog', 'beforeCropInsert']
 }
 </script>
-
-<style scoped>
-.btn-close {
-  position: absolute;
-  right: 0;
-  top:0;
-}
-</style>

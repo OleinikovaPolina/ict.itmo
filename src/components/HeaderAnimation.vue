@@ -71,7 +71,7 @@ export default {
               break
           }
           block.classList.add('active-animation')
-          block.style.animationName = 'anim' + i + '2-data-v-6fde9df7'
+          block.style.animationName = 'anim' + i + '2'
           block.style.animationDirection = 'alternate'
           block.style.animationIterationCount = 'infinite'
           block.style.animationTimingFunction = 'ease-in-out'
@@ -96,6 +96,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import url('../styles/headerAnimation.scss');
+
 @keyframes anim1 {
   0% {
     top: 0;
@@ -141,54 +143,6 @@ export default {
   }
   100% {
     top: 17.5%;
-  }
-}
-
-@keyframes anim12 {
-  0% {
-    top: 8%;
-  }
-  50% {
-    top: 17.5%;
-  }
-  100% {
-    top: 0;
-  }
-}
-
-@keyframes anim22 {
-  0% {
-    bottom: 8%;
-  }
-  100% {
-    bottom: 25.5%;
-  }
-}
-
-@keyframes anim32 {
-  0% {
-    top: 0;
-  }
-  100% {
-    top: 17.5%;
-  }
-}
-
-@keyframes anim42 {
-  0% {
-    bottom: 0;
-  }
-  100% {
-    bottom: 10%;
-  }
-}
-
-@keyframes anim52 {
-  0% {
-    top: 17.5%;
-  }
-  100% {
-    top: 0;
   }
 }
 

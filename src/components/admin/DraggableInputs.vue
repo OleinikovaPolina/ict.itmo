@@ -4,7 +4,7 @@
     class="d-flex flex-wrap"
   >
     <v-col
-      v-for="element in blocks"
+      v-for="(element,z) in blocks"
       :key="element.id"
       cols="12"
       :md="sizeBlock"
@@ -86,9 +86,10 @@
       <template v-if="element.type===1">
         <div class="pt-8 px-4">
           <DraggableInputs
-            :blocks="element.content.blocks"
+            :blocks="blocks[z].content.blocks"
             :size-block="6"
             @updateProp="function(val){element.content.blocks=val}"
+            @beforeCropInsert="(el)=>{$emit('beforeCropInsert',el)}"
           />
         </div>
       </template>
@@ -270,13 +271,10 @@ export default {
       default: 12
     }
   },
-  emits: ['updateProp', 'changeDialog', 'changeDialogContent'],
+  emits: ['updateProp', 'changeDialog', 'changeDialogContent', 'beforeCropInsert'],
   data: () => ({
     customToolbar: [{ align: '' }, { align: 'center' }, { align: 'justify' },
-      { list: 'ordered' }, { list: 'bullet' },
-      'bold', 'italic', 'underline',
-      'link',
-      'clean']
+      { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline', 'link', 'clean']
   }),
   computed: {
     typesInput() {
@@ -309,8 +307,7 @@ export default {
       this.changeBlocks(this.blocks.map(o => o.id === i ? newVal : o))
     },
     eyeBlock(el) {
-      let newVal = JSON.parse(JSON.stringify(el))
-      this.$emit('changeDialogContent', newVal)
+      this.$emit('changeDialogContent', el)
       this.$emit('changeDialog', true)
     },
     deleteBlock(i) {
@@ -323,11 +320,15 @@ export default {
       if (val.type.match('image.*')) {
         let reader = new FileReader()
         reader.onload = (e) => {
-          newVal.content.imgName = e.target.result
+          newVal.content.imgName.original = e.target.result
+          newVal.content.imgName.croppie = e.target.result
         }
         reader.readAsDataURL(val)
       }
       this.changeBlocks(this.blocks.map(o => o.id === i ? newVal : o))
+      setTimeout(() => {
+        this.$emit('beforeCropInsert', newVal)
+      }, 300)
     },
     changeContentImagesBlock(i, name, vals) {
       let newVal = this.blocks.find(x => x.id === i)
@@ -364,7 +365,7 @@ export default {
           newVal.content = { type: 1, blocks: [{ id: 1000, type: -1 }, { id: 2000, type: -1 }] }
           break
         case 2:
-          newVal.content = { type: 2, img: null, imgName: '', text: '' }
+          newVal.content = { type: 2, img: null, imgName: { original: '', croppie: '' }, text: '' }
           break
         case 3:
           newVal.content = { type: 3, images: [], imagesName: [], text: '' }

@@ -26,7 +26,7 @@
           :placeholder="`Название ${typeDate===1?'новости':'анонса'}`"
           outlined
           dense
-          class="input-border-0 text-h6 input-blue"
+          class="input-border-0 text-h6 input-blue font-weight-bold"
           :dark="theme==='dark'"
           hide-details
         />
@@ -37,6 +37,7 @@
         @changeDialogContent="changeDialogContent"
         @changeDialog="changeDialog"
         @updateProp="updateProp"
+        @beforeCropInsert="beforeCropInsert"
       />
       <!--  cover  -->
       <div
@@ -54,12 +55,12 @@
           <input
             id="cover"
             type="file"
-            @change="(e)=>{form.cover = e.target.files[0]}"
+            @change="(e)=>{beforeCrop('cover',{w:200,h:260},'Обложка новости',e.target.files[0])}"
           >
           <label
             for="cover"
             class="d-flex align-center py-6 px-12 text-center"
-            @drop="(e)=>{form.cover = e.dataTransfer.files[0]}"
+            @change="(e)=>{beforeCrop('cover',{w:200,h:260},'Обложка новости',e.dataTransfer.files[0])}"
           >
             <v-img
               style="z-index: 0"
@@ -99,12 +100,12 @@
             <input
               id="sliderImg"
               type="file"
-              @change="(e)=>{form.sliderImg = e.target.files[0]}"
+              @change="(e)=>{beforeCrop('sliderImg',{w:1140,h:400},'Слайдер',e.target.files[0])}"
             >
             <label
               for="sliderImg"
               class="d-flex align-center py-6 px-12 text-center"
-              @drop="(e)=>{form.sliderImg = e.dataTransfer.files[0]}"
+              @change="(e)=>{beforeCrop('sliderImg',{w:1140,h:400},'Слайдер',e.dataTransfer.files[0])}"
             >
               <v-img
                 style="z-index: 0"
@@ -347,16 +348,28 @@
       :dialog="dialog"
       :dialog-content="dialogContent"
       @changeDialog="changeDialog"
+      @beforeCropInsert="beforeCropInsert"
+    />
+    <DialogCroppieComponent
+      :dialog="dialogCroppie"
+      :title="dialogCroppieOptions.title"
+      :size="dialogCroppieOptions.size"
+      :data-img="dialogCroppieDataImg"
+      :enable-resize="dialogCroppieOptions.enableResize"
+      @changeDialog="changeDialogCroppie"
+      @changeCroppie="changeCroppie"
     />
   </v-container>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import mixin from '../mixins/croppieMixin'
 
 export default {
   name: 'AdminCreateEntryView',
   components: {
+    DialogCroppieComponent: () => import('@/components/admin/DialogCroppieComponent'),
     DialogPreviewComponent: () => import('@/components/admin/DialogPreviewComponent'),
     BaseNews: () => import('@/components/events/BaseNews'),
     DraggableInputs: () => import('@/components/admin/DraggableInputs'),
@@ -364,6 +377,7 @@ export default {
     BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined'),
     BaseButton: () => import('@/components/admin/BaseButton')
   },
+  mixins: [mixin],
   data: () => ({
     dialog: false,
     dialogContent: {},
@@ -372,9 +386,10 @@ export default {
     previewData: {},
     count: 1,
     form: {
-      name: '', dateStart: null, dateEnd: null, timeStart: null, datePublish: null, timePublish: null, place: '',
-      tags: [], isSlider: false, sliderImg: null, cover: null,
-      blocks: [{ id: 0, type: -1, content: null }]
+      name: '', dateStart: null, dateEnd: null, timeStart: null,
+      datePublish: null, timePublish: null, place: '', tags: [],
+      isSlider: false, sliderImg: null, sliderImgCroppie: null, cover: null,
+      coverCroppie: null, blocks: [{ id: 0, type: -1, content: null }]
     },
     tags: [{ id: 1, type: 0, name: 'Название 1' },
       { id: 2, type: 1, name: 'Название 2' },
@@ -390,7 +405,8 @@ export default {
       this.dialog = val
     },
     changeDialogContent(val) {
-      this.dialogContent = val
+      this.form=JSON.parse(JSON.stringify(this.form))
+      this.dialogContent = this.form.blocks.find(x=>x.id===val.id)
     },
     canBePublished() {
       let k = true

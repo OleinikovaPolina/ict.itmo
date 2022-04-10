@@ -1,0 +1,47 @@
+@keyframes anim12 {
+  0% {
+    top: 8%;
+  }
+  50% {
+    top: 17.5%;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes anim22 {
+  0% {
+    bottom: 8%;
+  }
+  100% {
+    bottom: 25.5%;
+  }
+}
+
+@keyframes anim32 {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 17.5%;
+  }
+}
+
+@keyframes anim42 {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: 10%;
+  }
+}
+
+@keyframes anim52 {
+  0% {
+    top: 17.5%;
+  }
+  100% {
+    top: 0;
+  }
+}

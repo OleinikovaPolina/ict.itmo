@@ -16,12 +16,13 @@
         <BaseNewsBlocks :block="block2" />
       </v-col>
     </v-row>
-    <div v-if="block.type===2">
+    <div
+      v-if="block.type===2"
+      style="position: relative"
+    >
       <v-img
         width="100%"
-        max-height="300"
-        cover
-        :src="block.content.imgName"
+        :src="block.content.imgName.croppie"
       />
       <div
         class="text-body-1 pt-2"
@@ -29,6 +30,17 @@
       >
         {{ block.content.text }}
       </div>
+      <v-btn
+        v-if="edit"
+        icon
+        color="white"
+        class="rounded-0 rounded-bl-circle btn-edit"
+        @click="$emit('beforeCropInsert')"
+      >
+        <v-icon color="#0071B2">
+          mdi-pencil
+        </v-icon>
+      </v-btn>
     </div>
     <div v-if="block.type===3">
       <CarouselComponent
@@ -95,11 +107,24 @@ export default {
     block: {
       type: Object,
       default: null
+    },
+    edit: {
+      type: Boolean,
+      default: false
     }
-  }
+  },
+  emits: ['beforeCropInsert']
 }
 </script>
 
 <style lang="css">
 @import "~vue2-editor/dist/vue2-editor.css";
+
+.btn-edit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 3px solid #0071B2;
+  background-color: white
+}
 </style>
