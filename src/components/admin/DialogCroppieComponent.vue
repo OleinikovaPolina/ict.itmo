@@ -17,7 +17,7 @@
             :class="enableResize.w?'':'enable-resize-x-false'"
             :enable-orientation="true"
             :enable-resize="enableResize.h"
-            :boundary="{ width: size.w, height: size.h}"
+            :boundary="{ width: '100%', height: size.h}"
             :viewport="{ width:size.w, height:size.h, 'type':'square' }"
           />
         </v-card-text>
@@ -82,8 +82,14 @@ export default {
       if (this.enableResize.x && this.enableResize.y) {
         options.size = { width: this.size.w, height: this.size.w }
       }
+      let res = []
       this.$refs.croppieRef.result(options, output => {
-        this.$emit('changeCroppie', output)
+        res.push(output)
+        options.type = 'blob'
+        this.$refs.croppieRef.result(options, output => {
+          res.push(output)
+          this.$emit('changeCroppie', res)
+        })
       })
       this.$emit('changeDialog', false)
     }

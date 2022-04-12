@@ -1,11 +1,9 @@
 export default {
-  data: function() {
-    return {
-      dialogCroppieDataImg: '',
-      dialogCroppie: false,
-      dialogCroppieOptions: { title: '', size: { w: 0, h: 0 }, enableResize: { x: false, y: false } }
-    }
-  },
+  data: () => ({
+    dialogCroppieDataImg: '',
+    dialogCroppie: false,
+    dialogCroppieOptions: { title: '', size: { w: 0, h: 0 }, enableResize: { x: false, y: false } }
+  }),
   methods: {
     changeDialogCroppie(val) {
       this.dialogCroppie = val
@@ -23,7 +21,8 @@ export default {
         enableResize: { w: false, h: false }
       }
       this.changeCroppie = (e) => {
-        this.form[name + 'Croppie'] = e
+        this.form[name + 'Croppie'] = e[0]
+        this.form[name + 'Blob'] = e[1]
       }
       this.dialogCroppie = true
     },
@@ -37,7 +36,8 @@ export default {
         enableResize: { w: true, h: true }
       }
       this.changeCroppie = (e) => {
-        el.content.imgName.croppie = e
+        el.content.imgName.croppie = e[0]
+        el.content.imgName.blob = e[1]
       }
       this.dialogCroppie = true
     }

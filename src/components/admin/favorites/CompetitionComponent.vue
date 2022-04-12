@@ -18,7 +18,7 @@
         />
       </div>
       <!--  description  -->
-      <div class="input-bordered mb-6 pt-3">
+      <div class="input-bordered pt-3">
         <div class="input-bordered-label app-background">
           Описание статьи <span class="error--text">*</span>
         </div>
@@ -28,6 +28,12 @@
           placeholder="Введите текст"
           class="custom"
         />
+      </div>
+      <div
+        class="text-end mb-6"
+        :style="{color:cutTegs(form.description).length>165?'red':'#0071B2'}"
+      >
+        {{ cutTegs(form.description).length }}/165
       </div>
       <!--   winners   -->
       <div class="input-bordered mb-6 pt-3">
@@ -53,6 +59,7 @@
             <input
               id="winners"
               type="file"
+              accept="image/*"
               multiple
               @change="(e)=>{changeContentImagesBlock(form.winners.concat(Array.from(e.target.files)))}"
             >
@@ -120,8 +127,9 @@
         :blocks="form.blocks"
         @changeDialogContent="changeDialogContent"
         @changeDialog="changeDialog"
-        @updateProp="updateProp"
         @beforeCropInsert="beforeCropInsert"
+        @deleteBlock="deleteBlock"
+        @updateBlock="updateBlock"
       />
       <!--   add block   -->
       <div
@@ -232,7 +240,8 @@
 import { mapState } from 'vuex'
 import { VueEditor } from 'vue2-editor'
 import draggable from 'vuedraggable'
-import mixin from '../../../mixins/croppieMixin'
+import croppieMixin from '../../../mixins/croppieMixin'
+import formMixin from '../../../mixins/formMixin'
 
 export default {
   name: 'CompetitionComponent',
@@ -246,7 +255,7 @@ export default {
     BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined'),
     BaseButton: () => import('@/components/admin/BaseButton')
   },
-  mixins: [mixin],
+  mixins: [croppieMixin, formMixin],
   data: () => ({
     customToolbar: [{ align: '' }, { align: 'center' }, { align: 'justify' },
       { list: 'ordered' }, { list: 'bullet' },
@@ -263,20 +272,11 @@ export default {
       blocks: [{ id: 0, type: -1, content: null }]
     }
   }),
-  computed: {
-    ...mapState('app', ['theme'])
-  },
+  computed: mapState('app', ['theme']),
   methods: {
-    changeDialog(val) {
-      this.dialog = val
-    },
-    changeDialogContent(val) {
-      this.form=JSON.parse(JSON.stringify(this.form))
-      this.dialogContent = this.form.blocks.find(x=>x.id===val.id)
-    },
-    addBlock() {
-      this.form.blocks.push({ id: this.count, type: -1, content: null })
-      this.count++
+    cutTegs(str) {
+      let regex = /( |<([^>]+)>)/ig
+      return str.replace(regex, '')
     },
     publish() {
       console.log(this.form)
@@ -284,9 +284,6 @@ export default {
     preview() {
       this.previewData = this.form
       this.isPreview = true
-    },
-    updateProp(val) {
-      this.form.blocks = val
     },
     changeContentImagesBlock(values) {
       this.form.winnersHex = []

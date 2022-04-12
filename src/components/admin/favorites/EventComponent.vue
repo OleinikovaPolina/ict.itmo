@@ -30,6 +30,7 @@
           <input
             id="cover"
             type="file"
+            accept="image/*"
             @change="(e)=>{beforeCrop('cover',coverSizes[$route.params.id],'Обложка мероприятия',e.target.files[0])}"
           >
           <label
@@ -59,8 +60,9 @@
         :blocks="form.blocks"
         @changeDialogContent="changeDialogContent"
         @changeDialog="changeDialog"
-        @updateProp="updateProp"
         @beforeCropInsert="beforeCropInsert"
+        @deleteBlock="deleteBlock"
+        @updateBlock="updateBlock"
       />
       <!--   add block   -->
       <div
@@ -187,7 +189,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import mixin from '../../../mixins/croppieMixin'
+import croppieMixin from '../../../mixins/croppieMixin'
+import formMixin from '../../../mixins/formMixin'
 
 export default {
   name: 'HackathonCompetition',
@@ -199,17 +202,16 @@ export default {
     BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined'),
     BaseButton: () => import('@/components/admin/BaseButton')
   },
-  mixins: [mixin],
+  mixins: [croppieMixin, formMixin],
   data: () => ({
     coverSizes: [{ w: 400, h: 400 }, { w: 300, h: 190 }, { w: 190, h: 190 },
       { w: 190, h: 190 }, { w: 190, h: 190 }, { w: 190, h: 190 }, { w: 300, h: 190 }],
-    dialog: false,
-    dialogContent: {},
+
     isPreview: false,
     previewData: {},
     form: {
       name: '', dateStart: null, dateEnd: null, timeStart: null,
-      cover: null, coverCroppie: null, blocks: [{ id: 0, type: -1, content: null }]
+      cover: null, coverCroppie: null, coverBlob: null, blocks: [{ id: 0, type: -1, content: null }]
     }
   }),
   computed: mapState('app', ['theme']),
@@ -217,27 +219,13 @@ export default {
     getCoverSize() {
       return this.coverSizes[this.$route.params.id].w + '*' + this.coverSizes[this.$route.params.id].h + 'px'
     },
-    changeDialog(val) {
-      this.dialog = val
-    },
-    changeDialogContent(val) {
-      this.form=JSON.parse(JSON.stringify(this.form))
-      this.dialogContent = this.form.blocks.find(x=>x.id===val.id)
-    },
-    addBlock() {
-      this.form.blocks.push({ id: this.count, type: -1, content: null })
-      this.count++
-    },
     publish() {
       console.log(this.form)
     },
     preview() {
       this.previewData = this.form
       this.isPreview = true
-    },
-    updateProp(val) {
-      this.form.blocks = val
-    },
+    }
   }
 }
 </script>

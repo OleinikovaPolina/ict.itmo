@@ -10,7 +10,6 @@
     <div
       class="anim-img-1 rounded-circle"
       @mouseover="mouseOver(1)"
-      @mouseout="mouseOut(1)"
     />
     <div class="anim-pink rounded-pill" />
     <div class="anim-purple rounded-pill" />
@@ -20,7 +19,6 @@
       class=" rounded-circle"
       :class="'anim-img-'+(i+1)"
       @mouseover="mouseOver(i+1)"
-      @mouseout="mouseOut(i+1)"
     />
   </div>
 </template>
@@ -29,7 +27,7 @@
 export default {
   name: 'BaseHeaderAnimation',
   props: { animationHeader: { type: Boolean, default: false } },
-  data: () => ({ times: [4, 3, 2, 2, 2] }),
+  data: () => ({ times: [4, 3, 2, 2, 2], status: [0, 0, 0, 0, 0] }),
   watch: {
     animationHeader: function(val) {
       if (!val && localStorage.getItem('theme')) {
@@ -44,7 +42,14 @@ export default {
   mounted() {
     if (localStorage.getItem('theme')) {
       setTimeout(() => {
-        document.querySelector('.anim-container').classList.add('active-animation-header--finished')
+        if (document.querySelector('.anim-container')) {
+          document.querySelector('.anim-container').classList.add('active-animation-header--finished')
+          document.querySelector('.anim-img-1').style.top = '8%'
+          document.querySelector('.anim-img-2').style.bottom = '8%'
+          document.querySelector('.anim-img-3').style.top = '0'
+          document.querySelector('.anim-img-4').style.bottom = '0'
+          document.querySelector('.anim-img-5').style.top = '17.5%'
+        }
       }, 4000)
     }
   },
@@ -52,47 +57,18 @@ export default {
     mouseOver(i) {
       const block = document.querySelector('.active-animation-header--finished .anim-img-' + i)
       if (block) {
-        if (!block.classList.contains('active-animation')) {
-          switch (i) {
-            case 1:
-              block.style.top = '8%'
-              break
-            case 2:
-              block.style.bottom = '8%'
-              break
-            case 3:
-              block.style.top = '0'
-              break
-            case 4:
-              block.style.bottom = '0'
-              break
-            case 5:
-              block.style.top = '17.5%'
-              break
-          }
-          block.classList.add('active-animation')
-          block.style.animationName = 'anim' + i + '2'
-          block.style.animationDirection = 'alternate'
-          block.style.animationIterationCount = 'infinite'
-          block.style.animationTimingFunction = 'ease-in-out'
-          block.style.animationDuration = this.times[i - 1] + 's'
-        } else {
-          block.style.animationPlayState = 'running'
-        }
-      }
-    },
-    mouseOut(i) {
-      const block = document.querySelector('.active-animation-header--finished .anim-img-' + i)
-      if (block) {
-        if (block.classList.contains('active-animation')) {
+        if ((new Date().getTime() - this.status[i - 1]) > this.times[i - 1] * 2000) {
+          block.classList.remove('active-animation-' + i)
           setTimeout(() => {
-            block.style.animationPlayState = 'paused'
-          }, 4000)
+            block.classList.add('active-animation-' + i)
+            this.status[i - 1] = new Date().getTime()
+          }, 100)
         }
       }
     }
   }
 }
+
 </script>
 
 <style scoped lang="scss">
@@ -182,24 +158,26 @@ export default {
 }
 
 .active-animation-header {
-  .anim-img-1 {
-    animation: anim1 4s ease-in-out forwards;
-  }
+  .anim-container:not(.active-animation-header--finished) {
+    .anim-img-1 {
+      animation: anim1 4s ease-in-out forwards;
+    }
 
-  .anim-img-2 {
-    animation: anim2 3s ease-in-out forwards;
-  }
+    .anim-img-2 {
+      animation: anim2 3s ease-in-out forwards;
+    }
 
-  .anim-img-3 {
-    animation: anim3 2s 0.5s ease-in-out forwards;
-  }
+    .anim-img-3 {
+      animation: anim3 2s 0.5s ease-in-out forwards;
+    }
 
-  .anim-img-4 {
-    animation: anim4 2s 1s ease-in-out forwards;
-  }
+    .anim-img-4 {
+      animation: anim4 2s 1s ease-in-out forwards;
+    }
 
-  .anim-img-5 {
-    animation: anim5 2s ease-in-out forwards;
+    .anim-img-5 {
+      animation: anim5 2s ease-in-out forwards;
+    }
   }
 }
 
@@ -324,5 +302,28 @@ export default {
   width: 11%;
   height: 12.1%;
   background-color: #835FFE;
+}
+
+.v-application .active-animation-header--finished {
+  .active-animation-1 {
+    animation: 4s ease-in-out 0s 2 alternate none anim12;
+  }
+
+  .active-animation-2 {
+    animation: 3s ease-in-out 0s 2 alternate none anim22;
+  }
+
+  .active-animation-3 {
+    animation: 2s ease-in-out 0s 2 alternate none anim32;
+  }
+
+  .active-animation-4 {
+    animation: 2s ease-in-out 0s 2 alternate none anim42;
+  }
+
+  .active-animation-5 {
+    animation: 2s ease-in-out 0s 2 alternate none anim52;
+  }
+
 }
 </style>

@@ -18,7 +18,7 @@
         />
       </div>
       <!--  description  -->
-      <div class="input-bordered mb-6 pt-3">
+      <div class="input-bordered pt-3">
         <div class="input-bordered-label app-background">
           Описание статьи <span class="error--text">*</span>
         </div>
@@ -28,6 +28,12 @@
           placeholder="Введите текст"
           class="custom"
         />
+      </div>
+      <div
+        class="text-end mb-6"
+        :style="{color:cutTegs(form.description).length>165?'red':'#0071B2'}"
+      >
+        {{ cutTegs(form.description).length }}/165
       </div>
       <!--  slider  -->
       <div class="input-bordered mb-6 pt-3">
@@ -54,6 +60,7 @@
               id="slider"
               type="file"
               multiple
+              accept="image/*"
               @change="(e)=>{changeContentImagesBlock(form.slider.concat(Array.from(e.target.files)))}"
             >
             <label
@@ -116,8 +123,9 @@
         :blocks="form.blocks"
         @changeDialogContent="changeDialogContent"
         @changeDialog="changeDialog"
-        @updateProp="updateProp"
         @beforeCropInsert="beforeCropInsert"
+        @deleteBlock="deleteBlock"
+        @updateBlock="updateBlock"
       />
       <!--   add block   -->
       <div
@@ -213,56 +221,12 @@
     </div>
     <!--  Preview  -->
     <div v-else>
-      <v-row class="d-flex align-stretch justify-center pt-xl-8">
-        <v-col class="text-center d-md-none">
-          <div class="text-h5 text-sm-h4">
-            {{ form.name }}
-          </div>
-        </v-col>
-        <v-col
-          cols="12"
-          md="6"
-          lg="5"
-          :class="$vuetify.breakpoint.smAndDown?'text-center':''"
-          class="d-flex flex-column justify-space-around order-2 order-md-0 "
-        >
-          <div>
-            <div class="pb-8 text-h4 text-xl-h3 d-none d-md-block">
-              {{ form.name }}
-            </div>
-            <div
-              class="text-subtitle-1 pb-6"
-              v-html="form.description"
-            />
-          </div>
-          <div class="mx-auto mx-md-0">
-            <BaseButton2 link="/" />
-          </div>
-        </v-col>
-        <v-col
-          cols="12"
-          md="6"
-          lg="7"
-        >
-          <CarouselComponent
-            :slider="form.sliderImagesNames"
-            :columns="1"
-          >
-            <template #item="slotProps">
-              <v-col cols="12">
-                <div>
-                  <v-img
-                    width="100%"
-                    :height="$vuetify.breakpoint.xs?200:$vuetify.breakpoint.xl?600:400"
-                    cover
-                    :src="slotProps.item"
-                  />
-                </div>
-              </v-col>
-            </template>
-          </CarouselComponent>
-        </v-col>
-      </v-row>
+      <BaseStudentsHackathon
+        :name="form.name"
+        :description="form.description"
+        :slider-images-names="form.sliderImagesNames"
+        :text="form.sliderText"
+      />
       <BaseNews
         :data="previewData"
         class="mt-16"
@@ -296,22 +260,22 @@
 import { mapState } from 'vuex'
 import { VueEditor } from 'vue2-editor'
 import draggable from 'vuedraggable'
-import mixin from '../../../mixins/croppieMixin'
+import croppieMixin from '../../../mixins/croppieMixin'
+import formMixin from '../../../mixins/formMixin'
 
 export default {
   name: 'HackathonCompetition',
   components: {
     VueEditor, draggable,
+    BaseStudentsHackathon: () => import('@/components/students/BaseStudentsHackathon'),
     DialogCroppieComponent: () => import('@/components/admin/DialogCroppieComponent'),
-    CarouselComponent: () => import('@/components/CarouselComponent'),
     DialogPreviewComponent: () => import('@/components/admin/DialogPreviewComponent'),
     BaseNews: () => import('@/components/events/BaseNews'),
     DraggableInputs: () => import('@/components/admin/DraggableInputs'),
     BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined'),
-    BaseButton: () => import('@/components/admin/BaseButton'),
-    BaseButton2: () => import('@/components/BaseButton')
+    BaseButton: () => import('@/components/admin/BaseButton')
   },
-  mixins: [mixin],
+  mixins: [croppieMixin, formMixin],
   data: () => ({
     customToolbar: [{ align: '' }, { align: 'center' }, { align: 'justify' },
       { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline', 'link', 'clean'],
@@ -327,16 +291,9 @@ export default {
   }),
   computed: mapState('app', ['theme']),
   methods: {
-    changeDialog(val) {
-      this.dialog = val
-    },
-    changeDialogContent(val) {
-      this.form=JSON.parse(JSON.stringify(this.form))
-      this.dialogContent = this.form.blocks.find(x=>x.id===val.id)
-    },
-    addBlock() {
-      this.form.blocks.push({ id: this.count, type: -1, content: null })
-      this.count++
+    cutTegs(str) {
+      let regex = /( |<([^>]+)>)/ig
+      return str.replace(regex, '')
     },
     publish() {
       console.log(this.form)
@@ -344,9 +301,6 @@ export default {
     preview() {
       this.previewData = this.form
       this.isPreview = true
-    },
-    updateProp(val) {
-      this.form.blocks = val
     },
     changeContentImagesBlock(values) {
       this.form.sliderImagesNames = []

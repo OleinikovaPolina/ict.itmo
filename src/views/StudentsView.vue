@@ -2,62 +2,19 @@
   <div>
     <!-- header -->
     <v-container>
-      <v-row class="d-flex align-stretch justify-center pt-xl-8">
-        <v-col class="text-center d-md-none">
-          <div class="text-h5 text-sm-h4">
-            Хакатоны ICT & Info Lab
-          </div>
-        </v-col>
-        <v-col
-          cols="12"
-          md="6"
-          lg="5"
-          :class="$vuetify.breakpoint.smAndDown?'text-center':''"
-          class="d-flex flex-column justify-space-around order-2 order-md-0 "
-        >
-          <div>
-            <div class="pb-8 text-h4 text-xl-h3 d-none d-md-block">
-              Хакатоны ICT & Info Lab
-            </div>
-            <div class="text-subtitle-1 pb-6">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Enim dictum mattis nec eu erat iaculis nullam
+      <BaseStudentsHackathon
+        :text="''"
+        :slider-images-names="slider"
+        :name="'Хакатоны ICT & Info Lab'"
+        :description="`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Enim dictum mattis nec eu erat iaculis nullam
               luctus. Nunc sed interdum adipiscing aliquet placerat. Varius aliquet porta volutpat, aenean in. Ultricies
-              neque proin ac ante suspendisse.
-            </div>
-          </div>
-          <div class="mx-auto mx-md-0">
-            <BaseButton link="/" />
-          </div>
-        </v-col>
-        <v-col
-          cols="12"
-          md="6"
-          lg="7"
-        >
-          <CarouselComponent
-            :slider="slider"
-            :columns="1"
-          >
-            <template #item="slotProps">
-              <v-col cols="12">
-                <div>
-                  <v-img
-                    width="100%"
-                    :height="$vuetify.breakpoint.xs?200:$vuetify.breakpoint.xl?600:400"
-                    cover
-                    :src="slotProps.item.img"
-                  />
-                </div>
-              </v-col>
-            </template>
-          </CarouselComponent>
-        </v-col>
-      </v-row>
+              neque proin ac ante suspendisse.`"
+      />
     </v-container>
     <!-- competition -->
     <div class="hex-section">
       <v-container>
-        <BaseStudentsCompetition
+        <BaseStudentsHackathon
           :hex-array="hexArray"
           title="Конкурс “Горизонт”"
           subtitle="Победители 2021 года"
@@ -227,19 +184,16 @@
 </template>
 
 <script>
-import BaseStudentsCompetition from '@/components/students/BaseStudentsCompetition'
-
 export default {
   name: 'StudentsView',
   components: {
-    BaseStudentsCompetition,
+    BaseStudentsHackathon: () => import('@/components/students/BaseStudentsHackathon'),
     LineComponent: () => import('@/components/LineComponent'),
     TheStudentsTwoPhotoComponent: () => import('@/components/students/TheStudentsTwoPhotoComponent'),
     TheStudentsVideoComponent: () => import('@/components/students/TheStudentsVideoComponent'),
     BaseUlBlock: () => import('@/components/BaseUlBlock'),
     BaseButton: () => import('@/components/BaseButton'),
-    CarouselLeadersComponent: () => import('@/components/CarouselLeadersComponent'),
-    CarouselComponent: () => import('@/components/CarouselComponent')
+    CarouselLeadersComponent: () => import('@/components/CarouselLeadersComponent')
   },
   data: () => ({
     hexArray: [
@@ -251,9 +205,9 @@ export default {
       { img: require('@/assets/images/home/Vector5.svg'), text: 'Геймификация' }
     ],
     slider: [
-      { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') },
-      { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') },
-      { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') }
+      require('../assets/images/delete/unsplash_JjjSPPzzpkU.png'),
+      require('../assets/images/delete/unsplash_JjjSPPzzpkU.png'),
+      require('../assets/images/delete/unsplash_JjjSPPzzpkU.png')
     ],
     persons: [
       {

@@ -36,8 +36,9 @@
         :blocks="form.blocks"
         @changeDialogContent="changeDialogContent"
         @changeDialog="changeDialog"
-        @updateProp="updateProp"
         @beforeCropInsert="beforeCropInsert"
+        @deleteBlock="deleteBlock"
+        @updateBlock="updateBlock"
       />
       <!--  cover  -->
       <div
@@ -55,6 +56,7 @@
           <input
             id="cover"
             type="file"
+            accept="image/*"
             @change="(e)=>{beforeCrop('cover',{w:200,h:260},'Обложка новости',e.target.files[0])}"
           >
           <label
@@ -100,6 +102,7 @@
             <input
               id="sliderImg"
               type="file"
+              accept="image/*"
               @change="(e)=>{beforeCrop('sliderImg',{w:1140,h:400},'Слайдер',e.target.files[0])}"
             >
             <label
@@ -364,7 +367,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import mixin from '../mixins/croppieMixin'
+import croppieMixin from '@/mixins/croppieMixin'
+import formMixin from '@/mixins/formMixin'
 
 export default {
   name: 'AdminCreateEntryView',
@@ -377,7 +381,7 @@ export default {
     BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined'),
     BaseButton: () => import('@/components/admin/BaseButton')
   },
-  mixins: [mixin],
+  mixins: [croppieMixin, formMixin],
   data: () => ({
     dialog: false,
     dialogContent: {},
@@ -388,8 +392,9 @@ export default {
     form: {
       name: '', dateStart: null, dateEnd: null, timeStart: null,
       datePublish: null, timePublish: null, place: '', tags: [],
-      isSlider: false, sliderImg: null, sliderImgCroppie: null, cover: null,
-      coverCroppie: null, blocks: [{ id: 0, type: -1, content: null }]
+      isSlider: false, sliderImg: null, sliderImgCroppie: null, sliderImgBlob: null,
+      cover: null, coverCroppie: null, coverBlob: null,
+      blocks: [{ id: 0, type: -1, content: null }]
     },
     tags: [{ id: 1, type: 0, name: 'Название 1' },
       { id: 2, type: 1, name: 'Название 2' },
@@ -397,17 +402,8 @@ export default {
       { id: 4, type: 2, name: 'Название 4' },
       { id: 5, type: 3, name: 'Название 5' }]
   }),
-  computed: {
-    ...mapState('app', ['theme'])
-  },
+  computed: mapState('app', ['theme']),
   methods: {
-    changeDialog(val) {
-      this.dialog = val
-    },
-    changeDialogContent(val) {
-      this.form=JSON.parse(JSON.stringify(this.form))
-      this.dialogContent = this.form.blocks.find(x=>x.id===val.id)
-    },
     canBePublished() {
       let k = true
       if (this.typeDate === 1 && !this.form.cover) {
@@ -426,19 +422,12 @@ export default {
         && this.form.timePublish && this.form.place && this.form.tags.length
         && this.form.blocks.length && k)
     },
-    updateProp(val) {
-      this.form.blocks = val
-    },
     changeTypeData(val) {
       this.typeDate = val
     },
     removeTag(item) {
       const index = this.form.tags.indexOf(item.id)
       if (index >= 0) this.form.tags.splice(index, 1)
-    },
-    addBlock() {
-      this.form.blocks.push({ id: this.count, type: -1, content: null })
-      this.count++
     },
     publish() {
       console.log(this.form)
@@ -453,7 +442,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-
-</style>

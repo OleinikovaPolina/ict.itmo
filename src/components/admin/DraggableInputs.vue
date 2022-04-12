@@ -4,15 +4,14 @@
     class="d-flex flex-wrap"
   >
     <v-col
-      v-for="(element,z) in blocks"
+      v-for="(element) in blocks"
       :key="element.id"
       cols="12"
-      :md="sizeBlock"
       class="input-bordered mb-6 pa-0 pt-4"
       style="min-height: 60px"
     >
       <div
-        v-if="sizeBlock!==6&&(element.type===1||element.type===3)"
+        v-if="element.type===1||element.type===3"
         class="input-bordered-label eye-block app-background pa-0"
       >
         <v-btn
@@ -25,10 +24,7 @@
           </v-icon>
         </v-btn>
       </div>
-      <div
-        v-if="sizeBlock!==6"
-        class="input-bordered-label delete-block app-background pa-0"
-      >
+      <div class="input-bordered-label delete-block app-background pa-0">
         <v-btn
           icon
           small
@@ -63,7 +59,7 @@
               hide-details
               :value="element.type"
               :dark="theme==='dark'"
-              @change="changeTypeBlock(element.id,$event)"
+              @change="changeTypeBlock(element,$event)"
             >
               <v-radio
                 v-for="item in typesInput"
@@ -81,16 +77,223 @@
         v-model="element.content.text"
         :editor-toolbar="customToolbar"
         placeholder="Введите текст"
-        :class="{custom: sizeBlock!==6}"
+        class="custom"
       />
       <template v-if="element.type===1">
         <div class="pt-8 px-4">
-          <DraggableInputs
-            :blocks="blocks[z].content.blocks"
-            :size-block="6"
-            @updateProp="function(val){element.content.blocks=val}"
-            @beforeCropInsert="(el)=>{$emit('beforeCropInsert',el)}"
-          />
+          <draggable
+            :list="element.content.blocks"
+            class="d-flex flex-wrap"
+          >
+            <v-col
+              v-for="element2 in element.content.blocks"
+              :key="element2.id"
+              cols="12"
+              md="6"
+              class="input-bordered mb-6 pa-0 pt-4"
+              style="min-height: 60px"
+            >
+              <div class="input-bordered-label app-background pa-0">
+                <v-menu offset-y>
+                  <template #activator="{ on, attrs }">
+                    <div
+                      v-bind="attrs"
+                      class="input-border-0 input-blue px-2 py-1 d-flex justify-space-between"
+                      style="width: 180px"
+                      v-on="on"
+                    >
+                      {{ getTextType(element2) }}
+                      <v-icon
+                        color="#0071B2"
+                        :style="{transform: attrs['aria-expanded']==='true'?'rotate(180deg)':''}"
+                      >
+                        mdi-chevron-down
+                      </v-icon>
+                    </div>
+                  </template>
+                  <v-list class="app-background">
+                    <v-radio-group
+                      class="ma-0"
+                      hide-details
+                      :value="element2.type"
+                      :dark="theme==='dark'"
+                      @change="changeTypeBlock(element2,$event)"
+                    >
+                      <v-radio
+                        v-for="item in typesInput.filter(x=>x.id!==1)"
+                        :key="item.id"
+                        :value="item.id"
+                        :label="item.text"
+                        class="px-2"
+                      />
+                    </v-radio-group>
+                  </v-list>
+                </v-menu>
+              </div>
+              <vue-editor
+                v-if="element2.type===0"
+                v-model="element2.content.text"
+                :editor-toolbar="customToolbar"
+                placeholder="Введите текст"
+              />
+              <template v-if="element2.type===2">
+                <v-text-field
+                  v-model="element2.content.text"
+                  placeholder="Название картинки"
+                  outlined
+                  dense
+                  class="mx-6 my-2 input-light-blue"
+                  :dark="theme==='dark'"
+                  hide-details
+                />
+                <div class="mx-6 pb-4">
+                  <div class="d-flex">
+                    <div
+                      class="input-file-container mx-auto"
+                      @dragover.prevent
+                      @drop.prevent
+                    >
+                      <input
+                        :id="'img-' +6+'-'+ element2.id"
+                        type="file"
+                        accept="image/*"
+                        @change="(e)=>{changeContentImgBlock(element2,e.target.files[0])}"
+                      >
+                      <label
+                        :for="'img-' +6+'-'+ element2.id"
+                        class="d-flex align-center justify-center py-6 px-12 text-center"
+                        @drop="(e)=>{changeContentImgBlock(element2,e.dataTransfer.files[0])}"
+                      >
+                        <v-img
+                          style="z-index: 0"
+                          width="80"
+                          height="80"
+                          contain
+                          src="../../assets/images/admin/ep_picture.svg"
+                        />
+                        Выберите изображение или перетащите файл
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    v-if="element2.content.img"
+                    class="text-center"
+                  >
+                    {{ element2.content.img.name }}
+                  </div>
+                </div>
+              </template>
+              <template v-if="element2.type===3">
+                <v-text-field
+                  v-model="element2.content.text"
+                  placeholder="Название слайдера"
+                  outlined
+                  dense
+                  :dark="theme==='dark'"
+                  hide-details
+                  class="mx-6 my-2 input-light-blue"
+                />
+                <div class="mx-6 pb-4 d-flex flex-wrap">
+                  <v-col
+                    cols="12"
+                    class="input-file-container"
+                    @dragover.prevent
+                    @drop.prevent
+                  >
+                    <input
+                      :id="'images-' +6+'-'+ element2.id"
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      @change="(e)=>{changeContentImagesBlock(element2,element2.content.images.concat(Array.from(e.target.files)))}"
+                    >
+                    <label
+                      :for="'images-' +6+'-'+ element2.id"
+                      class="d-flex align-center py-md-6 px-md-12 text-center"
+                      @drop="(e)=>{changeContentImagesBlock(element2,element2.content.images.concat(Array.from(e.dataTransfer.files)))}"
+                    >
+                      <span>
+                        <v-img
+                          style="z-index: 0"
+                          width="80"
+                          height="80"
+                          contain
+                          src="../../assets/images/admin/ep_picture.svg"
+                        />
+                      </span>
+                      Выберите изображение или перетащите файл
+                    </label>
+                  </v-col>
+                  <v-col
+                    v-if="element2.content.images.length"
+                    cols="12"
+                    class="pl-6 py-0 d-flex flex-wrap align-start justify-space-between"
+                  >
+                    <draggable
+                      :list="element2.content.images"
+                      class="d-flex flex-wrap"
+                      @change="function(e){changeList(element2,e)}"
+                    >
+                      <v-col
+                        v-for="(img,j) in element2.content.images"
+                        :key="j"
+                        cols="12"
+                        md="6"
+                        class="d-flex mt-2 pa-0"
+                      >
+                        <div>{{ j + 1 }}.</div>
+                        <div class="input-slider-img-block px-2 ml-2">
+                          {{ img.name }}
+                          <v-btn
+                            icon
+                            x-small
+                            color="#0071B2"
+                            @click="deleteContentImgBlock(element2,j)"
+                          >
+                            <v-icon small>
+                              mdi-close-circle-outline
+                            </v-icon>
+                          </v-btn>
+                        </div>
+                      </v-col>
+                    </draggable>
+                  </v-col>
+                </div>
+              </template>
+              <div v-if="element2.type===4">
+                <div class="ict-border-bottom">
+                  <v-textarea
+                    v-model="element2.content.text"
+                    placeholder="Введите цитату"
+                    outlined
+                    dense
+                    class="input-border-0"
+                    :dark="theme==='dark'"
+                    hide-details
+                  />
+                </div>
+                <v-text-field
+                  v-model="element2.content.author"
+                  placeholder="Введите ФИО человека, должность"
+                  outlined
+                  dense
+                  class="input-border-0"
+                  :dark="theme==='dark'"
+                  hide-details
+                />
+              </div>
+              <v-text-field
+                v-if="element2.type===5"
+                v-model="element2.content.text"
+                placeholder="Введите подзаголовок"
+                outlined
+                dense
+                class="input-border-0"
+                :dark="theme==='dark'"
+                hide-details
+              />
+            </v-col>
+          </draggable>
         </div>
       </template>
       <template v-if="element.type===2">
@@ -113,12 +316,13 @@
               <input
                 :id="'img-' +sizeBlock+'-'+ element.id"
                 type="file"
-                @change="(e)=>{changeContentImgBlock(element.id,'img',e.target.files[0])}"
+                accept="image/*"
+                @change="(e)=>{changeContentImgBlock(element,e.target.files[0])}"
               >
               <label
                 :for="'img-' +sizeBlock+'-'+ element.id"
                 class="d-flex align-center justify-center py-6 px-12 text-center"
-                @drop="(e)=>{changeContentImgBlock(element.id,'img',e.dataTransfer.files[0])}"
+                @drop="(e)=>{changeContentImgBlock(element,e.dataTransfer.files[0])}"
               >
                 <v-img
                   style="z-index: 0"
@@ -159,13 +363,14 @@
             <input
               :id="'images-' +sizeBlock+'-'+ element.id"
               type="file"
+              accept="image/*"
               multiple
-              @change="(e)=>{changeContentImagesBlock(element.id,'images',element.content.images.concat(Array.from(e.target.files)))}"
+              @change="(e)=>{changeContentImagesBlock(element,element.content.images.concat(Array.from(e.target.files)))}"
             >
             <label
               :for="'images-' +sizeBlock+'-'+ element.id"
               class="d-flex align-center py-md-6 px-md-12 text-center"
-              @drop="(e)=>{changeContentImagesBlock(element.id,'images',element.content.images.concat(Array.from(e.dataTransfer.files)))}"
+              @drop="(e)=>{changeContentImagesBlock(element,element.content.images.concat(Array.from(e.dataTransfer.files)))}"
             >
               <span>
                 <v-img
@@ -187,7 +392,7 @@
             <draggable
               :list="element.content.images"
               class="d-flex flex-wrap"
-              @change="function(e){changeList(element.id,e)}"
+              @change="function(e){changeList(element,e)}"
             >
               <v-col
                 v-for="(img,j) in element.content.images"
@@ -203,7 +408,7 @@
                     icon
                     x-small
                     color="#0071B2"
-                    @click="deleteContentImgBlock(element.id,j)"
+                    @click="deleteContentImgBlock(element,j)"
                   >
                     <v-icon small>
                       mdi-close-circle-outline
@@ -271,67 +476,51 @@ export default {
       default: 12
     }
   },
-  emits: ['updateProp', 'changeDialog', 'changeDialogContent', 'beforeCropInsert'],
+  emits: ['updateBlock', 'deleteBlock', 'changeDialog', 'changeDialogContent', 'beforeCropInsert'],
   data: () => ({
     customToolbar: [{ align: '' }, { align: 'center' }, { align: 'justify' },
-      { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline', 'link', 'clean']
+      { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline', 'link', 'clean'],
+    typesInput: [
+      { id: 0, text: 'Текстовый блок' },
+      { id: 1, text: 'Два блока' },
+      { id: 2, text: 'Изображение' },
+      { id: 3, text: 'Слайдер' },
+      { id: 4, text: 'Цитата' },
+      { id: 5, text: 'Подзаголовок' }
+    ]
   }),
   computed: {
-    typesInput() {
-      if (this.sizeBlock === 6) {
-        return [
-          { id: 0, text: 'Текстовый блок' },
-          { id: 2, text: 'Изображение' },
-          { id: 3, text: 'Слайдер' },
-          { id: 4, text: 'Цитата' },
-          { id: 5, text: 'Подзаголовок' }
-        ]
-      } else {
-        return [
-          { id: 0, text: 'Текстовый блок' },
-          { id: 1, text: 'Два блока' },
-          { id: 2, text: 'Изображение' },
-          { id: 3, text: 'Слайдер' },
-          { id: 4, text: 'Цитата' },
-          { id: 5, text: 'Подзаголовок' }
-        ]
-      }
-
-    }, ...mapState('app', { theme: 'theme' })
+    ...mapState('app', { theme: 'theme' })
   },
   methods: {
     changeList(i, val) {
-      let newVal = this.blocks.find(x => x.id === i)
-      let oldImgName = newVal.content.imagesName.splice(val.moved.oldIndex, 1)[0]
-      newVal.content.imagesName.splice(val.moved.newIndex, 0, oldImgName)
-      this.changeBlocks(this.blocks.map(o => o.id === i ? newVal : o))
+      let oldImgName = i.content.imagesName.splice(val.moved.oldIndex, 1)[0]
+      i.content.imagesName.splice(val.moved.newIndex, 0, oldImgName)
     },
     eyeBlock(el) {
+      this.$emit('updateBlock')
       this.$emit('changeDialogContent', el)
       this.$emit('changeDialog', true)
     },
     deleteBlock(i) {
-      let newVal = this.blocks.filter(x => x.id !== i)
-      this.changeBlocks(newVal)
+      this.$emit('deleteBlock', i)
     },
-    changeContentImgBlock(i, name, val) {
-      let newVal = this.blocks.find(x => x.id === i)
-      newVal.content.img = val
+    changeContentImgBlock(i, val) {
+      i.content.img = val
       if (val.type.match('image.*')) {
         let reader = new FileReader()
         reader.onload = (e) => {
-          newVal.content.imgName.original = e.target.result
-          newVal.content.imgName.croppie = e.target.result
+          i.content.imgName.original = e.target.result
+          i.content.imgName.croppie = e.target.result
         }
         reader.readAsDataURL(val)
       }
-      this.changeBlocks(this.blocks.map(o => o.id === i ? newVal : o))
       setTimeout(() => {
-        this.$emit('beforeCropInsert', newVal)
+        this.$emit('beforeCropInsert', i)
       }, 300)
     },
-    changeContentImagesBlock(i, name, vals) {
-      let newVal = this.blocks.find(x => x.id === i)
+    changeContentImagesBlock(i, vals) {
+      let newVal = i
       newVal.content.images = vals
       newVal.content.imagesName = []
       vals.forEach(val => {
@@ -343,43 +532,36 @@ export default {
           reader.readAsDataURL(val)
         }
       })
-      this.changeBlocks(this.blocks.map(o => o.id === i ? newVal : o))
     },
     deleteContentImgBlock(i, j) {
-      let newVal = this.blocks.find(x => x.id === i)
-      newVal.content.images.splice(j, 1)
-      newVal.content.imagesName.splice(j, 1)
-      this.changeBlocks(this.blocks.map(o => o.id === i ? newVal : o))
-    },
-    changeBlocks(newBlocks) {
-      this.$emit('updateProp', newBlocks)
+      i.content.images.splice(j, 1)
+      i.content.imagesName.splice(j, 1)
     },
     changeTypeBlock(i, type) {
-      let newVal = this.blocks.find(x => x.id === i)
-      newVal.type = type
+      i.type = type
       switch (type) {
         case 0:
-          newVal.content = { type: 0, text: '' }
+          i.content = { type: 0, text: '' }
           break
         case 1:
-          newVal.content = { type: 1, blocks: [{ id: 1000, type: -1 }, { id: 2000, type: -1 }] }
+          i.content = { type: 1, blocks: [{ id: 1000, type: -1 }, { id: 2000, type: -1 }] }
           break
         case 2:
-          newVal.content = { type: 2, img: null, imgName: { original: '', croppie: '' }, text: '' }
+          i.content = { type: 2, img: null, imgName: { original: '', croppie: '', blob: null }, text: '' }
           break
         case 3:
-          newVal.content = { type: 3, images: [], imagesName: [], text: '' }
+          i.content = { type: 3, images: [], imagesName: [], text: '' }
           break
         case 4:
-          newVal.content = { type: 4, text: '', author: '' }
+          i.content = { type: 4, text: '', author: '' }
           break
         case 5:
-          newVal.content = { type: 5, text: '' }
+          i.content = { type: 5, text: '' }
           break
         default:
-          newVal.content = { type: -1 }
+          i.content = { type: -1 }
       }
-      this.changeBlocks(this.blocks.map(o => o.id === i ? newVal : o))
+      this.$emit('updateBlock')
     },
     getTextType(element) {
       const res = this.typesInput.find(x => x.id === element.type)
