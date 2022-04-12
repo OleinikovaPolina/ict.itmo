@@ -11,14 +11,15 @@
           </div>
         </v-card-title>
 
-        <v-card-text v-if="dialog">
+        <v-card-text v-if="dialog&&heightImg">
+          {{ heightImg }}
           <vue-croppie
             ref="croppieRef"
-            :class="enableResize.w?'':'enable-resize-x-false'"
+            class="enable-resize-x-false"
             :enable-orientation="true"
-            :enable-resize="enableResize.h"
-            :boundary="{ width: size.w, height: size.h}"
-            :viewport="{ width:size.w, height:size.h, 'type':'square' }"
+            :enable-resize="enableResize.w"
+            :boundary="{ width: size.w, height: heightImg}"
+            :viewport="{ width:size.w, height:heightImg, 'type':'square' }"
           />
         </v-card-text>
 
@@ -27,7 +28,7 @@
           <BaseButton
             text="Обрезать"
             :click-btn="true"
-            @clickBtnCallback="crop"
+            @clickBtnCallback="crop(index)"
           />
         </v-card-actions>
       </v-card>
@@ -37,7 +38,7 @@
 
 <script>
 export default {
-  name: 'DialogCroppieComponent',
+  name: 'DialogCroppieMultipleComponent',
   components: { BaseButton: () => import('@/components/admin/BaseButton') },
   props: {
     title: {
@@ -45,8 +46,8 @@ export default {
       default: ''
     },
     dataImg: {
-      type: String,
-      default: ''
+      type: Array,
+      default: null
     },
     dialog: {
       type: Boolean,
@@ -59,28 +60,39 @@ export default {
     enableResize: {
       type: Object,
       default: null
+    },
+    heightImg: {
+      type: Number,
+      default: 0
     }
   },
   emits: ['changeDialog', 'changeCroppie'],
+  data: () => ({ res: [], index: 0 }),
   watch: {
     dialog(newValue) {
       if (newValue) {
-        setTimeout(this.bind, 300)
+        setTimeout(() => {
+          this.bind(0)
+        },500)
       }
     }
   },
   methods: {
-    bind() {
+    bind(i) {
+      this.index = i
+      if (i === 0) {
+        this.res = []
+      }
       this.$refs.croppieRef.bind({
-        url: this.dataImg
+        url: this.dataImg[i].original
       })
     },
-    crop() {
+    crop(i) {
       let options = {
         type: 'base64'
       }
       if (this.enableResize.x && this.enableResize.y) {
-        options.size = { width: this.size.w, height: this.size.h }
+        options.size = { width: this.size.w, height: this.heightImg }
       }
       let res = []
       this.$refs.croppieRef.result(options, output => {
@@ -88,10 +100,15 @@ export default {
         options.type = 'blob'
         this.$refs.croppieRef.result(options, output => {
           res.push(output)
-          this.$emit('changeCroppie', res)
+          this.res.push(res)
+          if (i === this.dataImg.length - 1) {
+            this.$emit('changeCroppie', this.res)
+            this.$emit('changeDialog', false)
+          } else {
+            this.bind(i + 1)
+          }
         })
       })
-      this.$emit('changeDialog', false)
     }
   }
 }

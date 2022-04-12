@@ -54,7 +54,7 @@
                 width="100%"
                 height="400"
                 cover
-                :src="slotProps.item"
+                :src="slotProps.item.croppie"
               />
             </div>
           </v-col>

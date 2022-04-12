@@ -205,12 +205,12 @@
                       type="file"
                       accept="image/*"
                       multiple
-                      @change="(e)=>{changeContentImagesBlock(element2,element2.content.images.concat(Array.from(e.target.files)))}"
+                      @change="(e)=>{changeContentImagesBlock(element2,Array.from(e.target.files))}"
                     >
                     <label
                       :for="'images-' +6+'-'+ element2.id"
                       class="d-flex align-center py-md-6 px-md-12 text-center"
-                      @drop="(e)=>{changeContentImagesBlock(element2,element2.content.images.concat(Array.from(e.dataTransfer.files)))}"
+                      @drop="(e)=>{changeContentImagesBlock(element2,Array.from(e.dataTransfer.files))}"
                     >
                       <span>
                         <v-img
@@ -365,12 +365,12 @@
               type="file"
               accept="image/*"
               multiple
-              @change="(e)=>{changeContentImagesBlock(element,element.content.images.concat(Array.from(e.target.files)))}"
+              @change="(e)=>{changeContentImagesBlock(element,Array.from(e.target.files))}"
             >
             <label
               :for="'images-' +sizeBlock+'-'+ element.id"
               class="d-flex align-center py-md-6 px-md-12 text-center"
-              @drop="(e)=>{changeContentImagesBlock(element,element.content.images.concat(Array.from(e.dataTransfer.files)))}"
+              @drop="(e)=>{changeContentImagesBlock(element,Array.from(e.dataTransfer.files))}"
             >
               <span>
                 <v-img
@@ -476,7 +476,7 @@ export default {
       default: 12
     }
   },
-  emits: ['updateBlock', 'deleteBlock', 'changeDialog', 'changeDialogContent', 'beforeCropInsert'],
+  emits: ['beforeCropMultipleInsert', 'updateBlock', 'deleteBlock', 'changeDialog', 'changeDialogContent', 'beforeCropInsert'],
   data: () => ({
     customToolbar: [{ align: '' }, { align: 'center' }, { align: 'justify' },
       { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline', 'link', 'clean'],
@@ -520,18 +520,7 @@ export default {
       }, 300)
     },
     changeContentImagesBlock(i, vals) {
-      let newVal = i
-      newVal.content.images = vals
-      newVal.content.imagesName = []
-      vals.forEach(val => {
-        if (val.type.match('image.*')) {
-          let reader = new FileReader()
-          reader.onload = (e) => {
-            newVal.content.imagesName.push(e.target.result)
-          }
-          reader.readAsDataURL(val)
-        }
-      })
+      this.$emit('beforeCropMultipleInsert', i, vals)
     },
     deleteContentImgBlock(i, j) {
       i.content.images.splice(j, 1)

@@ -41,9 +41,8 @@
           <v-col cols="12">
             <div>
               <v-img
-                width="100%"
-                :height="$vuetify.breakpoint.xs?200:$vuetify.breakpoint.xl?600:400"
-                cover
+                :height="height"
+                contain
                 :src="slotProps.item"
               />
             </div>
@@ -85,6 +84,18 @@ export default {
     sliderImagesNames: {
       type: Array,
       default: null
+    }
+  },
+  data:()=>({height:100}),
+  mounted() {this.getHeight()
+  },
+  methods:{
+    getHeight() {
+      let img = new Image()
+      img.onload = () => {
+        this.height = img.height
+      }
+      img.src = this.sliderImagesNames[0]
     }
   }
 }

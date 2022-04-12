@@ -61,12 +61,12 @@
               type="file"
               multiple
               accept="image/*"
-              @change="(e)=>{changeContentImagesBlock(form.slider.concat(Array.from(e.target.files)))}"
+              @change="(e)=>{changeContentImagesBlock(Array.from(e.target.files))}"
             >
             <label
               for="slider"
               class="d-flex align-center py-md-6 px-md-12 text-center"
-              @drop="(e)=>{changeContentImagesBlock(form.slider.concat(Array.from(e.dataTransfer.files)))}"
+              @drop="(e)=>{changeContentImagesBlock(Array.from(e.dataTransfer.files))}"
             >
               <span>
                 <v-img
@@ -126,6 +126,7 @@
         @beforeCropInsert="beforeCropInsert"
         @deleteBlock="deleteBlock"
         @updateBlock="updateBlock"
+        @beforeCropMultipleInsert="beforeCropMultipleInsert"
       />
       <!--   add block   -->
       <div
@@ -224,7 +225,7 @@
       <BaseStudentsHackathon
         :name="form.name"
         :description="form.description"
-        :slider-images-names="form.sliderImagesNames"
+        :slider-images-names="form.sliderImagesNames.map(x=>x.original)"
         :text="form.sliderText"
       />
       <BaseNews
@@ -253,6 +254,16 @@
       @changeDialog="changeDialogCroppie"
       @changeCroppie="changeCroppie"
     />
+    <DialogCroppieMultipleComponent
+      :dialog="dialogCroppieMultiple"
+      :title="dialogCroppieMultipleOptions.title"
+      :size="dialogCroppieMultipleOptions.size"
+      :data-img="dialogCroppieMultipleDataImg"
+      :height-img="heightImg"
+      :enable-resize="dialogCroppieMultipleOptions.enableResize"
+      @changeDialog="changeDialogCroppieMultiple"
+      @changeCroppie="changeCroppieMultiple"
+    />
   </v-container>
 </template>
 
@@ -261,12 +272,14 @@ import { mapState } from 'vuex'
 import { VueEditor } from 'vue2-editor'
 import draggable from 'vuedraggable'
 import croppieMixin from '../../../mixins/croppieMixin'
+import croppieMultipleMixin from '../../../mixins/croppieMultipleMixin'
 import formMixin from '../../../mixins/formMixin'
 
 export default {
   name: 'HackathonCompetition',
   components: {
     VueEditor, draggable,
+    DialogCroppieMultipleComponent: () => import('@/components/admin/DialogCroppieMultipleComponent'),
     BaseStudentsHackathon: () => import('@/components/students/BaseStudentsHackathon'),
     DialogCroppieComponent: () => import('@/components/admin/DialogCroppieComponent'),
     DialogPreviewComponent: () => import('@/components/admin/DialogPreviewComponent'),
@@ -275,14 +288,11 @@ export default {
     BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined'),
     BaseButton: () => import('@/components/admin/BaseButton')
   },
-  mixins: [croppieMixin, formMixin],
+  mixins: [croppieMixin, formMixin, croppieMultipleMixin],
   data: () => ({
     customToolbar: [{ align: '' }, { align: 'center' }, { align: 'justify' },
       { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline', 'link', 'clean'],
-    dialog: false,
-    dialogContent: {},
-    isPreview: false,
-    previewData: {},
+    dialog: false, dialogContent: {}, isPreview: false, previewData: {},
     form: {
       name: '', description: '', dateStart: null, dateEnd: null, timeStart: null,
       slider: [], sliderImagesNames: [], sliderText: '',
@@ -303,17 +313,18 @@ export default {
       this.isPreview = true
     },
     changeContentImagesBlock(values) {
-      this.form.sliderImagesNames = []
-      values.forEach(val => {
-        if (val.type.match('image.*')) {
-          let reader = new FileReader()
-          reader.onload = (e) => {
-            this.form.sliderImagesNames.push(e.target.result)
-          }
-          reader.readAsDataURL(val)
-        }
-      })
-      this.form.slider = values
+      this.beforeCropMultiple('slider', 'Слайдер обложка', values)
+      // this.form.sliderImagesNames = []
+      // values.forEach(val => {
+      //   if (val.type.match('image.*')) {
+      //     let reader = new FileReader()
+      //     reader.onload = (e) => {
+      //       this.form.sliderImagesNames.push(e.target.result)
+      //     }
+      //     reader.readAsDataURL(val)
+      //   }
+      // })
+      // this.form.slider = values
     },
     deleteContentImgBlock(j) {
       this.form.slider.splice(j, 1)

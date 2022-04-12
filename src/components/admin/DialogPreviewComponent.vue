@@ -42,7 +42,7 @@
           </v-row>
           <div v-if="dialogContent.type===3">
             <CarouselComponent
-              :slider="dialogContent.content.imagesName"
+              :slider="dialogContent.content.imagesName.map(x=>x.croppie)"
               :columns="1"
             >
               <template #item="slotProps">
