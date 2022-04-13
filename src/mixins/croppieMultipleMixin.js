@@ -20,7 +20,6 @@ export default {
     },
     beforeCropMultiple(name, title, e) {
       let newValues = []
-
       e.forEach((val, i) => {
         let reader = new FileReader()
         reader.onload = (val) => {
@@ -50,6 +49,21 @@ export default {
           newValues[i].blob = x[1]
         })
         this.form[name + 'ImagesNames'] = this.form[name + 'ImagesNames'].concat(newValues)
+      }
+      this.dialogCroppieMultiple = true
+    },
+    beforeCropMultipleOne(name, i,title) {
+      let newValues = [this.form[name + 'ImagesNames'][i]]
+      this.dialogCroppieMultipleDataImg = newValues
+      this.dialogCroppieMultipleOptions = {
+        title: title,
+        size: { w: 1140, h: 400 },
+        enableResize: { w: true, h: false }
+      }
+      this.changeCroppieMultiple = (e) => {
+        newValues[0].croppie = e[0][0]
+        newValues[0].blob = e[0][1]
+        this.form[name + 'ImagesNames'][i] = newValues[0]
       }
       this.dialogCroppieMultiple = true
     },
@@ -86,6 +100,22 @@ export default {
           newValues[i].blob = x[1]
         })
         el.content.imagesName = el.content.imagesName.concat(newValues)
+      }
+      this.dialogCroppieMultiple = true
+    },
+    beforeCropMultipleInsertOne(el, i) {
+      let newValues = [el.content.imagesName[i]]
+      this.dialogCroppieMultipleDataImg = newValues
+
+      this.dialogCroppieMultipleOptions = {
+        title: 'Слайдер',
+        size: { w: 1140, h: 400 },
+        enableResize: { w: true, h: false }
+      }
+      this.changeCroppieMultiple = (e) => {
+        newValues[0].croppie = e[0][0]
+        newValues[0].blob = e[0][1]
+        el.content.imagesName[i] = newValues[0]
       }
       this.dialogCroppieMultiple = true
     }

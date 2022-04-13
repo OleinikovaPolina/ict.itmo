@@ -76,7 +76,10 @@
         Добавить поле
       </div>
       <!--  time event    -->
-      <v-row class="pt-4">
+      <v-row
+        v-if="haveDates()"
+        class="pt-4"
+      >
         <v-col
           cols="12"
           md="3"
@@ -93,8 +96,8 @@
             outlined
             dense
             class="search-input"
-            :dark="theme==='dark'"
-            :color="theme==='dark'?'#00A1FF':'#005A8E'"
+            :dark="theme === 'dark'"
+            :color="theme === 'dark'?'#00A1FF':'#005A8E'"
             hide-details
           />
         </v-col>
@@ -114,8 +117,8 @@
             outlined
             dense
             class="search-input"
-            :dark="theme==='dark'"
-            :color="theme==='dark'?'#00A1FF':'#005A8E'"
+            :dark="theme ==='dark'"
+            :color="theme ==='dark'?'#00A1FF':'#005A8E'"
             hide-details
           />
         </v-col>
@@ -216,6 +219,9 @@ export default {
   }),
   computed: mapState('app', ['theme']),
   methods: {
+    haveDates() {
+      return this.coverSizes[this.$route.params.id].w !== 190
+    },
     getCoverSize() {
       return this.coverSizes[this.$route.params.id].w + '*' + this.coverSizes[this.$route.params.id].h + 'px'
     },

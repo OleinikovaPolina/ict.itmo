@@ -37,6 +37,17 @@
       </div>
       <!--  slider  -->
       <div class="input-bordered mb-6 pt-3">
+        <div class="input-bordered-label eye-block app-background pa-0">
+          <v-btn
+            icon
+            small
+            @click="eyeBlock(form.sliderImagesNames)"
+          >
+            <v-icon>
+              mdi-eye-outline
+            </v-icon>
+          </v-btn>
+        </div>
         <div class="input-bordered-label app-background">
           Слайдер обложка <span class="error--text">*</span>
         </div>
@@ -61,12 +72,12 @@
               type="file"
               multiple
               accept="image/*"
-              @change="(e)=>{changeContentImagesBlock(Array.from(e.target.files))}"
+              @change="(e)=>{beforeCropMultiple('slider', 'Слайдер обложка',Array.from(e.target.files))}"
             >
             <label
               for="slider"
               class="d-flex align-center py-md-6 px-md-12 text-center"
-              @drop="(e)=>{changeContentImagesBlock(Array.from(e.dataTransfer.files))}"
+              @drop="(e)=>{beforeCropMultiple('slider', 'Слайдер обложка',Array.from(e.dataTransfer.files))}"
             >
               <span>
                 <v-img
@@ -225,7 +236,7 @@
       <BaseStudentsHackathon
         :name="form.name"
         :description="form.description"
-        :slider-images-names="form.sliderImagesNames.map(x=>x.original)"
+        :slider-images-names="form.sliderImagesNames.map(x=>x.croppie)"
         :text="form.sliderText"
       />
       <BaseNews
@@ -239,11 +250,18 @@
       />
     </div>
     <!--  dialogs  -->
+    <DialogPreviewSliderComponent
+      :dialog="dialogSlider"
+      :dialog-content="dialogSliderContent"
+      @changeDialog="changeDialogSlider"
+      @beforeCropMultipleOne="beforeCropMultipleOne"
+    />
     <DialogPreviewComponent
       :dialog="dialog"
       :dialog-content="dialogContent"
       @changeDialog="changeDialog"
       @beforeCropInsert="beforeCropInsert"
+      @beforeCropMultipleInsertOne="beforeCropMultipleInsertOne"
     />
     <DialogCroppieComponent
       :dialog="dialogCroppie"
@@ -278,6 +296,7 @@ import formMixin from '../../../mixins/formMixin'
 export default {
   name: 'HackathonCompetition',
   components: {
+    DialogPreviewSliderComponent: () => import('@/components/admin/DialogPreviewSliderComponent'),
     VueEditor, draggable,
     DialogCroppieMultipleComponent: () => import('@/components/admin/DialogCroppieMultipleComponent'),
     BaseStudentsHackathon: () => import('@/components/students/BaseStudentsHackathon'),
@@ -292,7 +311,7 @@ export default {
   data: () => ({
     customToolbar: [{ align: '' }, { align: 'center' }, { align: 'justify' },
       { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline', 'link', 'clean'],
-    dialog: false, dialogContent: {}, isPreview: false, previewData: {},
+    isPreview: false, previewData: {}, dialogSliderContent: [], dialogSlider: false,
     form: {
       name: '', description: '', dateStart: null, dateEnd: null, timeStart: null,
       slider: [], sliderImagesNames: [], sliderText: '',
@@ -312,20 +331,6 @@ export default {
       this.previewData = this.form
       this.isPreview = true
     },
-    changeContentImagesBlock(values) {
-      this.beforeCropMultiple('slider', 'Слайдер обложка', values)
-      // this.form.sliderImagesNames = []
-      // values.forEach(val => {
-      //   if (val.type.match('image.*')) {
-      //     let reader = new FileReader()
-      //     reader.onload = (e) => {
-      //       this.form.sliderImagesNames.push(e.target.result)
-      //     }
-      //     reader.readAsDataURL(val)
-      //   }
-      // })
-      // this.form.slider = values
-    },
     deleteContentImgBlock(j) {
       this.form.slider.splice(j, 1)
       this.form.sliderImagesNames.splice(j, 1)
@@ -333,7 +338,23 @@ export default {
     changeList(val) {
       let oldName = this.form.sliderImagesNames.splice(val.moved.oldIndex, 1)[0]
       this.form.sliderImagesNames.splice(val.moved.newIndex, 0, oldName)
+    },
+    changeDialogSliderContent(el) {
+      this.dialogSliderContent = el
+    },
+    changeDialogSlider(val) {
+      this.dialogSlider = val
+    },
+    eyeBlock(el) {
+      this.updateBlock()
+      this.changeDialogSliderContent(el)
+      this.changeDialogSlider(true)
     }
   }
 }
 </script>
+<style scoped>
+.eye-block {
+  right: 180px;
+}
+</style>

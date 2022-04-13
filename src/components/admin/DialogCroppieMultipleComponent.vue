@@ -5,6 +5,20 @@
       :width="size.w+100"
     >
       <v-card class="py-6">
+        <v-btn
+          class="btn-dialog-close mr-1 mt-1"
+          icon
+          large
+          @click="$emit('changeDialog',false)"
+        >
+          <v-icon
+            large
+            color="#0071B2"
+          >
+            mdi-close
+          </v-icon>
+        </v-btn>
+
         <v-card-title>
           <div class="text-h5 text-center mx-auto pb-3">
             {{ title }}
@@ -12,10 +26,10 @@
         </v-card-title>
 
         <v-card-text v-if="dialog&&heightImg">
-          {{ heightImg }}
           <vue-croppie
             ref="croppieRef"
             class="enable-resize-x-false"
+            :enable-exif="true"
             :enable-orientation="true"
             :enable-resize="enableResize.w"
             :boundary="{ width: size.w, height: heightImg}"

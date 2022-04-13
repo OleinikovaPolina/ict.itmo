@@ -50,22 +50,39 @@
         <template #item="slotProps">
           <v-col cols="12">
             <div class="pa-2">
-              <v-img
-                width="100%"
-                height="400"
-                cover
+              <img
+                alt=""
+                :class="'carousel-img-'+block.id"
                 :src="slotProps.item.croppie"
-              />
+                style="object-fit: contain;  width: 100%"
+                @load="getHeight()"
+              >
             </div>
           </v-col>
         </template>
         <template #subtitle>
           <div
-            class="text-body-1 pt-2 pl-2"
+            class="text-body-1 pl-2"
             style="position: absolute; opacity: 0.7"
           >
             {{ block.content.text }}
           </div>
+        </template>
+
+        <template
+          v-if="edit"
+          #index="slotProps"
+        >
+          <v-btn
+            icon
+            color="white"
+            class="rounded-0 rounded-bl-circle btn-edit"
+            @click="$emit('beforeCropMultipleInsertOne',block,slotProps.index)"
+          >
+            <v-icon color="#0071B2">
+              mdi-pencil
+            </v-icon>
+          </v-btn>
         </template>
       </CarouselComponent>
     </div>
@@ -113,7 +130,15 @@ export default {
       default: false
     }
   },
-  emits: ['beforeCropInsert']
+  emits: ['beforeCropInsert', 'beforeCropMultipleInsertOne'],
+  methods: {
+    getHeight() {
+      if (document.querySelectorAll('.carousel-img-' + this.block.id).length) {
+        let height = document.querySelectorAll('.carousel-img-' + this.block.id)[0].height
+        document.querySelectorAll('.carousel-img-' + this.block.id).forEach(x => x.height = height)
+      }
+    }
+  }
 }
 </script>
 

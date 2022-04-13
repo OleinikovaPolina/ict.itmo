@@ -21,32 +21,16 @@
 
         <v-card-title>
           <div class="text-h5 text-center mx-auto pb-3">
-            {{ dialogContent.type === 3 ? 'Просмотр слайдера' : 'Просмотр двойного блока' }}
+            Просмотр слайдера
           </div>
         </v-card-title>
 
         <v-card-text>
-          <v-row v-if="dialogContent.type===1">
-            <v-col
-              v-for="(block2,i) in dialogContent.content.blocks"
-              :key="i"
-              cols="12"
-              md="6"
-            >
-              <BaseNewsBlocks
-                :block="block2"
-                :edit="true"
-                @beforeCropMultipleInsertOne="(el,index)=>{$emit('beforeCropMultipleInsertOne',el,index)}"
-                @beforeCropInsert="$emit('beforeCropInsert',block2)"
-              />
-            </v-col>
-          </v-row>
           <div
-            v-if="dialogContent.type===3"
             style="position: relative"
           >
             <CarouselComponent
-              :slider="dialogContent.content.imagesName.map(x=>x.croppie)"
+              :slider="dialogContent.map(x=>x.croppie)"
               :columns="1"
             >
               <template #item="slotProps">
@@ -62,20 +46,12 @@
                   </div>
                 </v-col>
               </template>
-              <template #subtitle>
-                <div
-                  class="text-body-1 pl-2"
-                  style="position: absolute; opacity: 0.7"
-                >
-                  {{ dialogContent.content.text }}
-                </div>
-              </template>
               <template #index="slotProps">
                 <v-btn
                   icon
                   color="white"
                   class="rounded-0 rounded-bl-circle btn-edit"
-                  @click="$emit('beforeCropMultipleInsertOne',dialogContent,slotProps.index)"
+                  @click="$emit('beforeCropMultipleOne','slider',slotProps.index,'Слайдер обложка')"
                 >
                   <v-icon color="#0071B2">
                     mdi-pencil
@@ -92,10 +68,9 @@
 
 <script>
 export default {
-  name: 'DialogPreviewComponent',
+  name: 'DialogPreviewSliderComponent',
   components: {
-    CarouselComponent: () => import('@/components/CarouselComponent'),
-    BaseNewsBlocks: () => import('@/components/events/BaseNewsBlocks')
+    CarouselComponent: () => import('@/components/CarouselComponent')
   },
   props: {
     dialog: {
@@ -103,14 +78,14 @@ export default {
       default: false
     },
     dialogContent: {
-      type: Object,
+      type: Array,
       default: null
     }
   },
-  emits: ['changeDialog', 'beforeCropInsert', 'beforeCropMultipleInsertOne'],
+  emits: ['changeDialog', 'beforeCropMultipleOne'],
   methods: {
     getHeight() {
-      console.log(document.querySelectorAll('.carousel-img')[0].height)
+      console.log(document.querySelectorAll('.carousel-img'))
       if (document.querySelectorAll('.carousel-img').length) {
         let height = document.querySelectorAll('.carousel-img')[0].height
         document.querySelectorAll('.carousel-img').forEach(x => x.height = height)

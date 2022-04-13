@@ -22,6 +22,10 @@
                   :index="i"
                   name="item"
                 />
+                <slot
+                  :index="index+i-2"
+                  name="index"
+                />
               </template>
             </template>
           </v-row>

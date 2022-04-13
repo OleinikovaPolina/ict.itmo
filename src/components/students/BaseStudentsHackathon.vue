@@ -40,17 +40,19 @@
         <template #item="slotProps">
           <v-col cols="12">
             <div>
-              <v-img
-                :height="height"
-                contain
+              <img
+                alt=""
+                class="carousel-img"
                 :src="slotProps.item"
-              />
+                style="object-fit: contain;  width: 100%"
+                @load="getHeight()"
+              >
             </div>
           </v-col>
         </template>
         <template #subtitle>
           <div
-            class="text-body-1 pt-2"
+            class="text-body-1"
             style="position: absolute; opacity: 0.7"
           >
             {{ text }}
@@ -86,21 +88,13 @@ export default {
       default: null
     }
   },
-  data:()=>({height:100}),
-  mounted() {this.getHeight()
-  },
-  methods:{
+  methods: {
     getHeight() {
-      let img = new Image()
-      img.onload = () => {
-        this.height = img.height
+      if (document.querySelectorAll('.carousel-img').length) {
+        let height = document.querySelectorAll('.carousel-img')[0].height
+        document.querySelectorAll('.carousel-img').forEach(x => x.height = height)
       }
-      img.src = this.sliderImagesNames[0]
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>
