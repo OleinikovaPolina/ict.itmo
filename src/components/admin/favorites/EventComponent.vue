@@ -63,6 +63,7 @@
         @beforeCropInsert="beforeCropInsert"
         @deleteBlock="deleteBlock"
         @updateBlock="updateBlock"
+        @beforeCropMultipleInsert="beforeCropMultipleInsert"
       />
       <!--   add block   -->
       <div
@@ -177,6 +178,7 @@
       :dialog-content="dialogContent"
       @changeDialog="changeDialog"
       @beforeCropInsert="beforeCropInsert"
+      @beforeCropMultipleInsertOne="beforeCropMultipleInsertOne"
     />
     <DialogCroppieComponent
       :dialog="dialogCroppie"
@@ -187,6 +189,17 @@
       @changeDialog="changeDialogCroppie"
       @changeCroppie="changeCroppie"
     />
+    <DialogCroppieMultipleComponent
+      :dialog="dialogCroppieMultiple"
+      :title="dialogCroppieMultipleOptions.title"
+      :size="dialogCroppieMultipleOptions.size"
+      :data-img="dialogCroppieMultipleDataImg"
+      :height-img="heightImg"
+      :enable-resize="dialogCroppieMultipleOptions.enableResize"
+      :edit="dialogCroppieMultipleEdit"
+      @changeDialog="changeDialogCroppieMultiple"
+      @changeCroppie="changeCroppieMultiple"
+    />
   </v-container>
 </template>
 
@@ -194,10 +207,12 @@
 import { mapState } from 'vuex'
 import croppieMixin from '../../../mixins/croppieMixin'
 import formMixin from '../../../mixins/formMixin'
+import croppieMultipleMixin from '@/mixins/croppieMultipleMixin'
 
 export default {
   name: 'HackathonCompetition',
   components: {
+    DialogCroppieMultipleComponent: () => import('@/components/admin/DialogCroppieMultipleComponent'),
     DialogCroppieComponent: () => import('@/components/admin/DialogCroppieComponent'),
     DialogPreviewComponent: () => import('@/components/admin/DialogPreviewComponent'),
     BaseNews: () => import('@/components/events/BaseNews'),
@@ -205,7 +220,7 @@ export default {
     BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined'),
     BaseButton: () => import('@/components/admin/BaseButton')
   },
-  mixins: [croppieMixin, formMixin],
+  mixins: [croppieMixin, formMixin, croppieMultipleMixin],
   data: () => ({
     coverSizes: [{ w: 400, h: 400 }, { w: 300, h: 190 }, { w: 190, h: 190 },
       { w: 190, h: 190 }, { w: 190, h: 190 }, { w: 190, h: 190 }, { w: 300, h: 190 }],

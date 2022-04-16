@@ -13,8 +13,101 @@
     </v-container>
     <!-- competition -->
     <div class="hex-section">
+      <svg
+        v-if="scrolledHexLines"
+        class="hex-section-line"
+        width="100%"
+        height="100%"
+        viewBox="0 0 1440 812"
+        fill="none"
+        preserveAspectRatio="xMinYMin slice"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M-6 1C64.8333 46.1667 238.502 138.878 415.5 175C472.674 186.668 575.485 189.732 691.5 188.004"
+          stroke="url(#Gradient1)"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+        <defs>
+          <linearGradient id="Gradient1">
+            <stop
+              class="line-stop-1"
+              offset="0"
+              stop-color="#6A30F4"
+            >
+              <animate
+                attributeName="offset"
+                values="0;1"
+                dur="1.5s"
+                begin="0.5s"
+                fill="freeze"
+              />
+            </stop>
+            <stop
+              offset="0"
+              class="line-stop-2"
+              stop-opacity="0"
+            >
+              <animate
+                attributeName="offset"
+                values="0;1"
+                dur="1.5s"
+                begin="0.5s"
+                fill="freeze"
+              />
+            </stop>
+          </linearGradient>
+        </defs>
+      </svg>
+      <svg
+        v-if="scrolledHexLines"
+        class="hex-section-line"
+        width="100%"
+        height="100%"
+        viewBox="0 0 1440 812"
+        fill="none"
+        preserveAspectRatio="xMinYMin slice"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          id="one"
+          d="M-6 13C64.8333 58.1667 238.502 148.878 415.5 185C506.728 203.618 714.147 200.329 906 190.621"
+          stroke="url(#Gradient2)"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+        <defs>
+          <linearGradient id="Gradient2">
+            <stop
+              class="line-stop-1"
+              offset="0"
+              stop-color="#18FFBA"
+            >
+              <animate
+                attributeName="offset"
+                values="0;1"
+                dur="1.5s"
+                fill="freeze"
+              />
+            </stop>
+            <stop
+              offset="0"
+              class="line-stop-2"
+              stop-opacity="0"
+            >
+              <animate
+                attributeName="offset"
+                values="0;1"
+                dur="1.5s"
+                fill="freeze"
+              />
+            </stop>
+          </linearGradient>
+        </defs>
+      </svg>
       <v-container>
-        <BaseStudentsHackathon
+        <BaseStudentsCompetition
           :hex-array="hexArray"
           title="Конкурс “Горизонт”"
           subtitle="Победители 2021 года"
@@ -187,6 +280,7 @@
 export default {
   name: 'StudentsView',
   components: {
+    BaseStudentsCompetition: () => import('@/components/students/BaseStudentsCompetition'),
     BaseStudentsHackathon: () => import('@/components/students/BaseStudentsHackathon'),
     LineComponent: () => import('@/components/LineComponent'),
     TheStudentsTwoPhotoComponent: () => import('@/components/students/TheStudentsTwoPhotoComponent'),
@@ -196,6 +290,7 @@ export default {
     CarouselLeadersComponent: () => import('@/components/CarouselLeadersComponent')
   },
   data: () => ({
+    scrolledHexLines: false,
     hexArray: [
       { img: require('@/assets/images/home/Vector.svg'), text: 'Архитектура баз данных' },
       { img: require('@/assets/images/home/Vector1.svg'), text: 'Облачные технологии' },
@@ -205,9 +300,9 @@ export default {
       { img: require('@/assets/images/home/Vector5.svg'), text: 'Геймификация' }
     ],
     slider: [
-      require('../assets/images/delete/unsplash_JjjSPPzzpkU.png'),
-      require('../assets/images/delete/unsplash_JjjSPPzzpkU.png'),
-      require('../assets/images/delete/unsplash_JjjSPPzzpkU.png')
+      require('../assets/images/delete/unsplash_JjjSPPzzpkU2.png'),
+      require('../assets/images/delete/unsplash_JjjSPPzzpkU2.png'),
+      require('../assets/images/delete/unsplash_JjjSPPzzpkU2.png')
     ],
     persons: [
       {
@@ -276,7 +371,27 @@ export default {
           { name: 'Telegram-канал ППА', href: '#' }]
       }
     ]
-  })
+  }),
+  created() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll() {
+      if (!this.scrolledHexLines) {
+        let height = document.documentElement.clientHeight
+        let line = document.querySelector('.hex-section')
+        if (line) {
+          let bottomLine = line.getBoundingClientRect().top + 150
+          if (bottomLine < height && bottomLine > 0) {
+            this.scrolledHexLines = true
+          }
+        }
+      }
+    }
+  }
 }
 </script>
 
@@ -285,25 +400,47 @@ export default {
   width: 100%;
   background-size: cover;
   background-position: top left;
-  margin-top: -14em;
-  padding-top: 22em;
+  margin-top: -8em;
+  padding-top: 23em;
+  position: relative;
   @media (max-width: 1904px) {
-    margin-top: -11em;
+    margin-top: -10em;
     padding-top: 16em;
   }
   @media (max-width: 1280px) {
-    margin-top: -7em;
-    padding-top: 14em;
+    margin-top: -6em;
+    padding-top: 16em;
   }
   @media (max-width: 960px) {
     background-position: 25% 0;
     margin-top: -9em;
-    padding-top: 12em;
+    padding-top: 14em;
   }
   @media (max-width: 600px) {
     background-position: 25% 0;
     margin-top: -6em;
-    padding-top: 8em;
+    padding-top: 10em;
+  }
+
+  .hex-section-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    @media (max-width: 960px) {
+      left: -10%;
+    }
+    @media (max-width: 800px) {
+      left: -25%;
+      width: 125%;
+    }
+    @media (max-width: 600px) {
+      left: -20%;
+      width: 120%;
+    }
+    @media (max-width: 480px) {
+      left: -50%;
+      width: 150%;
+    }
   }
 }
 </style>

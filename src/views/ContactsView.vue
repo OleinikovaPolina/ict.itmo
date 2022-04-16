@@ -73,7 +73,7 @@
         <v-row>
           <v-col
             cols="12"
-            md="6"
+            md="5"
           >
             <v-list
               style="background: none!important;"
@@ -145,8 +145,18 @@
           </v-col>
           <v-col
             cols="12"
-            md="6"
-          />
+            md="7"
+          >
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1998.2597637846309!2d30.292978715440658!3d59.94442446859473!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4696313cde0dee4d%3A0xabce3576e7e58178!2z0JHQuNGA0LbQtdCy0LDRjyDQu9C40L3QuNGPLCAxNCwg0KHQsNC90LrRgi3Qn9C10YLQtdGA0LHRg9GA0LMsIDE5OTAzNA!5e0!3m2!1sru!2sru!4v1650138750227!5m2!1sru!2sru"
+              width="100%"
+              height="350"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            />
+          </v-col>
         </v-row>
       </v-container>
     </div>
@@ -211,6 +221,7 @@ export default {
   })
 }
 </script>
+
 <style scoped lang="scss">
 * {
   @media (min-width: 1904px) {

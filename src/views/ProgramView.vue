@@ -196,8 +196,99 @@
     </v-container>
     <!-- Дисциплины -->
     <div class="hex-section">
-      <div class="hex-section-line hex-section-line-1" />
-      <div class="hex-section-line hex-section-line-2" />
+      <svg
+        v-if="scrolledHexLines"
+        class="hex-section-line"
+        width="100%"
+        height="100%"
+        viewBox="0 0 1440 812"
+        fill="none"
+        preserveAspectRatio="xMinYMin slice"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M-6 1C64.8333 46.1667 238.502 138.878 415.5 175C472.674 186.668 575.485 189.732 691.5 188.004"
+          stroke="url(#Gradient1)"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+        <defs>
+          <linearGradient id="Gradient1">
+            <stop
+              class="line-stop-1"
+              offset="0"
+              stop-color="#6A30F4"
+            >
+              <animate
+                attributeName="offset"
+                values="0;1"
+                dur="1.5s"
+                begin="0.5s"
+                fill="freeze"
+              />
+            </stop>
+            <stop
+              offset="0"
+              class="line-stop-2"
+              stop-opacity="0"
+            >
+              <animate
+                attributeName="offset"
+                values="0;1"
+                dur="1.5s"
+                begin="0.5s"
+                fill="freeze"
+              />
+            </stop>
+          </linearGradient>
+        </defs>
+      </svg>
+      <svg
+        v-if="scrolledHexLines"
+        class="hex-section-line"
+        width="100%"
+        height="100%"
+        viewBox="0 0 1440 812"
+        fill="none"
+        preserveAspectRatio="xMinYMin slice"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          id="one"
+          d="M-6 13C64.8333 58.1667 238.502 148.878 415.5 185C506.728 203.618 714.147 200.329 906 190.621"
+          stroke="url(#Gradient2)"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+        <defs>
+          <linearGradient id="Gradient2">
+            <stop
+              class="line-stop-1"
+              offset="0"
+              stop-color="#18FFBA"
+            >
+              <animate
+                attributeName="offset"
+                values="0;1"
+                dur="1.5s"
+                fill="freeze"
+              />
+            </stop>
+            <stop
+              offset="0"
+              class="line-stop-2"
+              stop-opacity="0"
+            >
+              <animate
+                attributeName="offset"
+                values="0;1"
+                dur="1.5s"
+                fill="freeze"
+              />
+            </stop>
+          </linearGradient>
+        </defs>
+      </svg>
       <v-container>
         <div
           class=" text-center mx-auto text-h5 text-sm-h4 text-xl-h3"
@@ -325,6 +416,7 @@ export default {
   },
   props: { animationHeader: { type: Boolean, default: false } },
   data: () => ({
+    scrolledHexLines: false,
     hexArray: [
       { img: require('@/assets/images/home/Vector.svg'), text: 'Архитектура баз данных' },
       { img: require('@/assets/images/home/Vector1.svg'), text: 'Облачные технологии' },
@@ -443,13 +535,14 @@ export default {
   },
   methods: {
     handleScroll() {
-      let height = document.documentElement.clientHeight
-      let line = document.querySelectorAll('.hex-section-line:not(.active-line)')
-      if (line.length) {
-        let bottomLine = line[0].getBoundingClientRect().top + 150
-        if (bottomLine < height && bottomLine > 0) {
-          line.forEach(x =>
-            x.classList.add('active-line'))
+      if (!this.scrolledHexLines) {
+        let height = document.documentElement.clientHeight
+        let line = document.querySelector('.hex-section')
+        if (line) {
+          let bottomLine = line.getBoundingClientRect().top + 150
+          if (bottomLine < height && bottomLine > 0) {
+            this.scrolledHexLines = true
+          }
         }
       }
     }
@@ -462,8 +555,8 @@ export default {
   width: 100%;
   background-size: cover;
   background-position: top left;
-  margin-top: -14em;
-  padding-top: 20em;
+  margin-top: -10em;
+  padding-top: 21em;
   position: relative;
   @media (max-width: 1904px) {
     margin-top: -11em;
@@ -475,12 +568,12 @@ export default {
   }
   @media (max-width: 960px) {
     background-position: 25% 0;
-    margin-top: -5em;
-    padding-top: 8em;
+    margin-top: -4em;
+    padding-top: 10em;
   }
   @media (max-width: 600px) {
     background-position: 25% 0;
-    margin-top: -7em;
+    margin-top: -4em;
     padding-top: 7em;
   }
 
@@ -488,44 +581,18 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    width: 0;
-    height: 100%;
-  }
-
-  .hex-section-line-1 {
-    background-image: url('../assets/images/sectionLine1.svg');
-    background-position: top left;
-    width: 0;
-    background-size: cover;
     @media (max-width: 960px) {
-      background-position: 25% 0;
+      left: -8%;
     }
-
-    &.active-line {
-      animation: hex-section-lines 1.5s 0.5s ease-in-out forwards;
+    @media (max-width: 800px) {
+      left: -13%;
     }
-  }
-
-  .hex-section-line-2 {
-    background-image: url('../assets/images/sectionLine2.svg');
-    background-size: 100vw 100%;
-    background-position: top left;
-    @media (max-width: 960px) {
-      background-position: 25% 0;
+    @media (max-width: 600px) {
+      left: -13%;
     }
-
-    &.active-line {
-      animation: hex-section-lines 1.5s 0.8s ease-in-out forwards;
+    @media (max-width: 480px) {
+      left: -25%;
     }
-  }
-}
-
-@keyframes hex-section-lines {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 100vw;
   }
 }
 

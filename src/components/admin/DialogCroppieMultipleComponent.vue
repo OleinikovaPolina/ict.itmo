@@ -3,9 +3,11 @@
     <v-dialog
       :value="dialog"
       :width="size.w+100"
+      persistent
     >
       <v-card class="py-6">
         <v-btn
+          v-if="edit"
           class="btn-dialog-close mr-1 mt-1"
           icon
           large
@@ -32,8 +34,8 @@
             :enable-exif="true"
             :enable-orientation="true"
             :enable-resize="enableResize.w"
-            :boundary="{ width: size.w, height: heightImg}"
-            :viewport="{ width:size.w, height:heightImg, 'type':'square' }"
+            :boundary="{ width: heightImg*2.5, height: heightImg}"
+            :viewport="{ width: heightImg*2.5, height:heightImg, 'type':'square' }"
           />
         </v-card-text>
 
@@ -78,14 +80,20 @@ export default {
     heightImg: {
       type: Number,
       default: 0
-    }
+    },
+    edit: {
+      type: Boolean,
+      default: false
+    },
   },
   emits: ['changeDialog', 'changeCroppie'],
   data: () => ({ res: [], index: 0 }),
   watch: {
     dialog(newValue) {
       if (newValue) {
-        setTimeout(()=>{this.bind(0)},500)
+        setTimeout(() => {
+          this.bind(0)
+        }, 500)
       }
     }
   },
@@ -102,9 +110,6 @@ export default {
     crop(i) {
       let options = {
         type: 'base64'
-      }
-      if (this.enableResize.x && this.enableResize.y) {
-        options.size = { width: this.size.w, height: this.heightImg }
       }
       let res = []
       this.$refs.croppieRef.result(options, output => {

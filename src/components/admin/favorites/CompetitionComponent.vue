@@ -130,6 +130,7 @@
         @beforeCropInsert="beforeCropInsert"
         @deleteBlock="deleteBlock"
         @updateBlock="updateBlock"
+        @beforeCropMultipleInsert="beforeCropMultipleInsert"
       />
       <!--   add block   -->
       <div
@@ -223,6 +224,7 @@
       :dialog-content="dialogContent"
       @changeDialog="changeDialog"
       @beforeCropInsert="beforeCropInsert"
+      @beforeCropMultipleInsertOne="beforeCropMultipleInsertOne"
     />
     <DialogCroppieComponent
       :dialog="dialogCroppie"
@@ -233,6 +235,17 @@
       @changeDialog="changeDialogCroppie"
       @changeCroppie="changeCroppie"
     />
+    <DialogCroppieMultipleComponent
+      :dialog="dialogCroppieMultiple"
+      :title="dialogCroppieMultipleOptions.title"
+      :size="dialogCroppieMultipleOptions.size"
+      :data-img="dialogCroppieMultipleDataImg"
+      :height-img="heightImg"
+      :enable-resize="dialogCroppieMultipleOptions.enableResize"
+      :edit="dialogCroppieMultipleEdit"
+      @changeDialog="changeDialogCroppieMultiple"
+      @changeCroppie="changeCroppieMultiple"
+    />
   </v-container>
 </template>
 
@@ -242,11 +255,13 @@ import { VueEditor } from 'vue2-editor'
 import draggable from 'vuedraggable'
 import croppieMixin from '../../../mixins/croppieMixin'
 import formMixin from '../../../mixins/formMixin'
+import croppieMultipleMixin from '@/mixins/croppieMultipleMixin'
 
 export default {
   name: 'CompetitionComponent',
   components: {
     VueEditor, draggable,
+    DialogCroppieMultipleComponent: () => import('@/components/admin/DialogCroppieMultipleComponent'),
     DialogCroppieComponent: () => import('@/components/admin/DialogCroppieComponent'),
     BaseStudentsCompetition: () => import('@/components/students/BaseStudentsCompetition'),
     DialogPreviewComponent: () => import('@/components/admin/DialogPreviewComponent'),
@@ -255,7 +270,7 @@ export default {
     BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined'),
     BaseButton: () => import('@/components/admin/BaseButton')
   },
-  mixins: [croppieMixin, formMixin],
+  mixins: [croppieMixin, formMixin,croppieMultipleMixin],
   data: () => ({
     customToolbar: [{ align: '' }, { align: 'center' }, { align: 'justify' },
       { list: 'ordered' }, { list: 'bullet' },

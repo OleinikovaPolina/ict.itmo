@@ -282,6 +282,7 @@
       :data-img="dialogCroppieMultipleDataImg"
       :height-img="heightImg"
       :enable-resize="dialogCroppieMultipleOptions.enableResize"
+      :edit="dialogCroppieMultipleEdit"
       @changeDialog="changeDialogCroppieMultiple"
       @changeCroppie="changeCroppieMultiple"
     />
@@ -299,8 +300,8 @@ import formMixin from '../../../mixins/formMixin'
 export default {
   name: 'HackathonCompetition',
   components: {
-    DialogPreviewSliderComponent: () => import('@/components/admin/DialogPreviewSliderComponent'),
     VueEditor, draggable,
+    DialogPreviewSliderComponent: () => import('@/components/admin/DialogPreviewSliderComponent'),
     DialogCroppieMultipleComponent: () => import('@/components/admin/DialogCroppieMultipleComponent'),
     BaseStudentsHackathon: () => import('@/components/students/BaseStudentsHackathon'),
     DialogCroppieComponent: () => import('@/components/admin/DialogCroppieComponent'),

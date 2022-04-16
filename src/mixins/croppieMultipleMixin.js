@@ -1,6 +1,7 @@
 export default {
   data: () => ({
     heightImg: 0,
+    dialogCroppieMultipleEdit: false,
     dialogCroppieMultipleDataImg: null,
     dialogCroppieMultiple: false,
     dialogCroppieMultipleOptions: { title: '', size: { w: 0, h: 0 }, enableResize: { x: false, y: false } }
@@ -47,12 +48,14 @@ export default {
         size: { w: 1140 },
         enableResize: { w: true, h: false }
       }
+      this.dialogCroppieMultipleEdit = false
       this.changeCroppieMultiple = (e) => {
         e.forEach((x, i) => {
           newValues[i].croppie = x[0]
           newValues[i].blob = x[1]
         })
         this.form[name + 'ImagesNames'] = this.form[name + 'ImagesNames'].concat(newValues)
+        console.log(this.form)
       }
       this.dialogCroppieMultiple = true
     },
@@ -67,6 +70,7 @@ export default {
         size: { w: 1140 },
         enableResize: { w: true, h: false }
       }
+      this.dialogCroppieMultipleEdit = true
       this.changeCroppieMultiple = (e) => {
         newValues[0].croppie = e[0][0]
         newValues[0].blob = e[0][1]
@@ -112,6 +116,7 @@ export default {
         size: { w: 1140 },
         enableResize: { w: true, h: false }
       }
+      this.dialogCroppieMultipleEdit = false
       this.changeCroppieMultiple = (e) => {
         e.forEach((x, i) => {
           newValues[i].croppie = x[0]
@@ -133,6 +138,7 @@ export default {
         size: { w: 1140 },
         enableResize: { w: true, h: false }
       }
+      this.dialogCroppieMultipleEdit = true
       this.changeCroppieMultiple = (e) => {
         newValues[0].croppie = e[0][0]
         newValues[0].blob = e[0][1]

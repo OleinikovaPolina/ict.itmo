@@ -39,6 +39,7 @@
         @beforeCropInsert="beforeCropInsert"
         @deleteBlock="deleteBlock"
         @updateBlock="updateBlock"
+        @beforeCropMultipleInsert="beforeCropMultipleInsert"
       />
       <!--  cover  -->
       <div
@@ -352,6 +353,7 @@
       :dialog-content="dialogContent"
       @changeDialog="changeDialog"
       @beforeCropInsert="beforeCropInsert"
+      @beforeCropMultipleInsertOne="beforeCropMultipleInsertOne"
     />
     <DialogCroppieComponent
       :dialog="dialogCroppie"
@@ -362,6 +364,17 @@
       @changeDialog="changeDialogCroppie"
       @changeCroppie="changeCroppie"
     />
+    <DialogCroppieMultipleComponent
+      :dialog="dialogCroppieMultiple"
+      :title="dialogCroppieMultipleOptions.title"
+      :size="dialogCroppieMultipleOptions.size"
+      :data-img="dialogCroppieMultipleDataImg"
+      :height-img="heightImg"
+      :enable-resize="dialogCroppieMultipleOptions.enableResize"
+      :edit="dialogCroppieMultipleEdit"
+      @changeDialog="changeDialogCroppieMultiple"
+      @changeCroppie="changeCroppieMultiple"
+    />
   </v-container>
 </template>
 
@@ -369,10 +382,12 @@
 import { mapState } from 'vuex'
 import croppieMixin from '@/mixins/croppieMixin'
 import formMixin from '@/mixins/formMixin'
+import croppieMultipleMixin from '@/mixins/croppieMultipleMixin'
 
 export default {
   name: 'AdminCreateEntryView',
   components: {
+    DialogCroppieMultipleComponent: () => import('@/components/admin/DialogCroppieMultipleComponent'),
     DialogCroppieComponent: () => import('@/components/admin/DialogCroppieComponent'),
     DialogPreviewComponent: () => import('@/components/admin/DialogPreviewComponent'),
     BaseNews: () => import('@/components/events/BaseNews'),
@@ -381,7 +396,7 @@ export default {
     BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined'),
     BaseButton: () => import('@/components/admin/BaseButton')
   },
-  mixins: [croppieMixin, formMixin],
+  mixins: [croppieMixin, formMixin, croppieMultipleMixin],
   data: () => ({
     dialog: false,
     dialogContent: {},

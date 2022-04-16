@@ -1,7 +1,7 @@
 <template>
   <v-row
     v-if="name&&description&&sliderImagesNames"
-    class="d-flex align-stretch justify-center pt-xl-8"
+    class="d-flex align-center justify-center pt-xl-8"
   >
     <v-col class="text-center d-md-none">
       <div class="text-h5 text-sm-h4">
@@ -38,7 +38,9 @@
         :columns="1"
       >
         <template #item="slotProps">
-          <v-col cols="12">
+          <v-col
+            cols="12"
+          >
             <div>
               <img
                 alt=""
@@ -95,7 +97,7 @@ export default {
         img.onload = () => {
           let height = img.height
           if (document.querySelectorAll('.carousel-img').length) {
-            height = Math.min(height,document.querySelectorAll('.carousel-img')[0].height)
+            height = Math.min(height, document.querySelectorAll('.carousel-img')[0].height)
             document.querySelectorAll('.carousel-img').forEach(x => x.height = height)
           }
         }

@@ -29,6 +29,7 @@
     <!-- What can you learn at the Faculty of ICT -->
     <div class="hex-section">
       <svg
+        v-if="scrolledHexLines"
         class="hex-section-line"
         width="100%"
         height="100%"
@@ -75,6 +76,7 @@
         </defs>
       </svg>
       <svg
+        v-if="scrolledHexLines"
         class="hex-section-line"
         width="100%"
         height="100%"
@@ -406,7 +408,8 @@ export default {
       }
     ],
     scrolledClub: [{ type: false }, { type: false }, { type: false }, { type: false }],
-    scrolledNumbers: false
+    scrolledNumbers: false,
+    scrolledHexLines: false
   }),
   watch: {
     scrolledClub: {
@@ -445,12 +448,13 @@ export default {
         this.scrolledNumbers = bottomNumbers < height && bottomNumbers > 0
       }
 
-      let line = document.querySelectorAll('.hex-section-line:not(.active-line)')
-      if (line.length) {
-        let bottomLine = line[0].getBoundingClientRect().top + 150
-        if (bottomLine < height && bottomLine > 0) {
-          line.forEach(x =>
-            x.classList.add('active-line'))
+      if (!this.scrolledHexLines) {
+        let line = document.querySelector('.hex-section')
+        if (line) {
+          let bottomLine = line.getBoundingClientRect().top + 150
+          if (bottomLine < height && bottomLine > 0) {
+            this.scrolledHexLines = true
+          }
         }
       }
     }
@@ -591,13 +595,23 @@ export default {
     padding-top: 7em;
   }
 
-
   .hex-section-line {
     position: absolute;
     top: 0;
     left: 0;
+    @media (max-width: 960px) {
+      left: -8%;
+    }
+    @media (max-width: 800px) {
+      left: -13%;
+    }
+    @media (max-width: 600px) {
+      left: -13%;
+    }
+    @media (max-width: 480px) {
+      left: -25%;
+    }
   }
-
 }
 
 .ethics {
