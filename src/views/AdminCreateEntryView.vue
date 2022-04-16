@@ -388,7 +388,6 @@ export default {
     typeDate: 0,
     isPreview: false,
     previewData: {},
-    count: 1,
     form: {
       name: '', dateStart: null, dateEnd: null, timeStart: null,
       datePublish: null, timePublish: null, place: '', tags: [],

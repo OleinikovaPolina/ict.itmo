@@ -85,9 +85,7 @@ export default {
   watch: {
     dialog(newValue) {
       if (newValue) {
-        setTimeout(() => {
-          this.bind(0)
-        },500)
+        setTimeout(()=>{this.bind(0)},500)
       }
     }
   },

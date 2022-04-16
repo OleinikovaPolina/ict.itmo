@@ -8,7 +8,7 @@
           sm="6"
           :class="$vuetify.breakpoint.xs?'text-center':''"
         >
-          <div class="pb-6 pb-md-10 text-h4 text-sm-h3 text-md-h2 text-xl-h1">
+          <div class="pb-6 pb-md-4 pb-lg-10 text-h4 text-sm-h3 text-md-h2 text-xl-h1">
             Факультет ИКТ
           </div>
           <div class="text-subtitle-1">
@@ -28,6 +28,97 @@
     </v-container>
     <!-- What can you learn at the Faculty of ICT -->
     <div class="hex-section">
+      <svg
+        class="hex-section-line"
+        width="100%"
+        height="100%"
+        viewBox="0 0 1440 812"
+        fill="none"
+        preserveAspectRatio="xMinYMin slice"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M-6 1C64.8333 46.1667 238.502 138.878 415.5 175C472.674 186.668 575.485 189.732 691.5 188.004"
+          stroke="url(#Gradient1)"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+        <defs>
+          <linearGradient id="Gradient1">
+            <stop
+              class="line-stop-1"
+              offset="0"
+              stop-color="#6A30F4"
+            >
+              <animate
+                attributeName="offset"
+                values="0;1"
+                dur="1.5s"
+                begin="0.5s"
+                fill="freeze"
+              />
+            </stop>
+            <stop
+              offset="0"
+              class="line-stop-2"
+              stop-opacity="0"
+            >
+              <animate
+                attributeName="offset"
+                values="0;1"
+                dur="1.5s"
+                begin="0.5s"
+                fill="freeze"
+              />
+            </stop>
+          </linearGradient>
+        </defs>
+      </svg>
+      <svg
+        class="hex-section-line"
+        width="100%"
+        height="100%"
+        viewBox="0 0 1440 812"
+        fill="none"
+        preserveAspectRatio="xMinYMin slice"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          id="one"
+          d="M-6 13C64.8333 58.1667 238.502 148.878 415.5 185C506.728 203.618 714.147 200.329 906 190.621"
+          stroke="url(#Gradient2)"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+        <defs>
+          <linearGradient id="Gradient2">
+            <stop
+              class="line-stop-1"
+              offset="0"
+              stop-color="#18FFBA"
+            >
+              <animate
+                attributeName="offset"
+                values="0;1"
+                dur="1.5s"
+                fill="freeze"
+              />
+            </stop>
+            <stop
+              offset="0"
+              class="line-stop-2"
+              stop-opacity="0"
+            >
+              <animate
+                attributeName="offset"
+                values="0;1"
+                dur="1.5s"
+                fill="freeze"
+              />
+            </stop>
+          </linearGradient>
+        </defs>
+      </svg>
       <v-container>
         <div class=" text-center mx-auto text-h6 text-sm-h5 text-md-h4 text-xl-h3">
           Что вы сможете изучить<br> на факультете ИКТ
@@ -353,6 +444,15 @@ export default {
         let bottomNumbers = document.querySelector('.animation-numbers').getBoundingClientRect().bottom
         this.scrolledNumbers = bottomNumbers < height && bottomNumbers > 0
       }
+
+      let line = document.querySelectorAll('.hex-section-line:not(.active-line)')
+      if (line.length) {
+        let bottomLine = line[0].getBoundingClientRect().top + 150
+        if (bottomLine < height && bottomLine > 0) {
+          line.forEach(x =>
+            x.classList.add('active-line'))
+        }
+      }
     }
   }
 }
@@ -469,8 +569,9 @@ export default {
   width: 100%;
   background-size: cover;
   background-position: top left;
-  margin-top: -14em;
-  padding-top: 20em;
+  margin-top: -15em;
+  padding-top: 23em;
+  position: relative;
   @media (max-width: 1904px) {
     margin-top: -11em;
     padding-top: 14em;
@@ -482,13 +583,21 @@ export default {
   @media (max-width: 960px) {
     background-position: 25% 0;
     margin-top: -5em;
-    padding-top: 8em;
+    padding-top: 10em;
   }
   @media (max-width: 600px) {
     background-position: 25% 0;
     margin-top: -7em;
     padding-top: 7em;
   }
+
+
+  .hex-section-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
 }
 
 .ethics {

@@ -8,39 +8,43 @@ export default {
   methods: {
     getHeight(e) {
       if (e) {
-        let img = new Image()
-        img.onload = () => {
-          this.heightImg = img.height
-        }
-        img.src = e
+        return new Promise((resolve, reject) => {
+          let img = new Image()
+          img.onload = () => resolve(img.height)
+          img.onerror = reject
+          img.src = e
+        })
       }
     },
     changeDialogCroppieMultiple(val) {
       this.dialogCroppieMultiple = val
     },
-    beforeCropMultiple(name, title, e) {
+    async beforeCropMultiple(name, title, e) {
       let newValues = []
-      e.forEach((val, i) => {
-        let reader = new FileReader()
-        reader.onload = (val) => {
+      for (let i = 0; i < e.length; i++) {
+        let val = e[i]
+        await this.onloadReader(val).then(async (v) => {
           if (i === 0) {
             if (this.form[name + 'ImagesNames'].length === 0) {
-              this.getHeight(val.target.result)
+              await this.getHeight(v.target.result).then((h) => {
+                this.heightImg = h
+              })
             } else {
               let o = Object.assign({}, this.form[name + 'ImagesNames'][0])
-              this.getHeight(o.original)
+              await this.getHeight(o.original).then((h) => {
+                this.heightImg = h
+              })
             }
           }
-          newValues.push({ original: val.target.result, croppie: val.target.result, blob: null })
-        }
-        reader.readAsDataURL(val)
-      })
+          newValues.push({ original: v.target.result, croppie: v.target.result, blob: null })
+        })
+      }
       this.dialogCroppieMultipleDataImg = newValues
       this.form[name] = this.form[name].concat(e)
 
       this.dialogCroppieMultipleOptions = {
         title: title,
-        size: { w: 1140, h: 400 },
+        size: { w: 1140 },
         enableResize: { w: true, h: false }
       }
       this.changeCroppieMultiple = (e) => {
@@ -52,12 +56,15 @@ export default {
       }
       this.dialogCroppieMultiple = true
     },
-    beforeCropMultipleOne(name, i,title) {
+    async beforeCropMultipleOne(name, i, title) {
       let newValues = [this.form[name + 'ImagesNames'][i]]
+      await this.getHeight(this.form[name + 'ImagesNames'][0].original).then((h) => {
+        this.heightImg = h
+      })
       this.dialogCroppieMultipleDataImg = newValues
       this.dialogCroppieMultipleOptions = {
         title: title,
-        size: { w: 1140, h: 400 },
+        size: { w: 1140 },
         enableResize: { w: true, h: false }
       }
       this.changeCroppieMultiple = (e) => {
@@ -69,29 +76,40 @@ export default {
     },
     changeCroppieMultiple() {
     },
-    beforeCropMultipleInsert(el, e) {
-      let newValues = []
-      e.forEach((val, i) => {
+    onloadReader(val) {
+      return new Promise((resolve, reject) => {
         let reader = new FileReader()
-        reader.onload = (e) => {
-          if (i === 0) {
-            if (el.content.imagesName.length === 0) {
-              this.getHeight(e.target.result)
-            } else {
-              let o = Object.assign({}, el.content.imagesName[0])
-              this.getHeight(o.original)
-            }
-          }
-          newValues.push({ original: e.target.result, croppie: e.target.result, blob: null })
-        }
+        reader.onload = (e) => resolve(e)
+        reader.onerror = reject
         reader.readAsDataURL(val)
       })
+    },
+    async beforeCropMultipleInsert(el, e) {
+      let newValues = []
+      for (let i = 0; i < e.length; i++) {
+        let val = e[i]
+        await this.onloadReader(val).then(async (v) => {
+          if (i === 0) {
+            if (el.content.imagesName.length === 0) {
+              await this.getHeight(v.target.result).then(h => {
+                this.heightImg = h
+              })
+            } else {
+              let o = Object.assign({}, el.content.imagesName[0])
+              await this.getHeight(o.original).then(h => {
+                this.heightImg = h
+              })
+            }
+          }
+          newValues.push({ original: v.target.result, croppie: v.target.result, blob: null })
+        })
+      }
       this.dialogCroppieMultipleDataImg = newValues
       el.content.images = el.content.images.concat(e)
 
       this.dialogCroppieMultipleOptions = {
         title: 'Слайдер',
-        size: { w: 1140, h: 400 },
+        size: { w: 1140 },
         enableResize: { w: true, h: false }
       }
       this.changeCroppieMultiple = (e) => {
@@ -103,13 +121,16 @@ export default {
       }
       this.dialogCroppieMultiple = true
     },
-    beforeCropMultipleInsertOne(el, i) {
+    async beforeCropMultipleInsertOne(el, i) {
       let newValues = [el.content.imagesName[i]]
+      await this.getHeight(el.content.imagesName[0].original).then((h) => {
+        this.heightImg = h
+      })
       this.dialogCroppieMultipleDataImg = newValues
 
       this.dialogCroppieMultipleOptions = {
         title: 'Слайдер',
-        size: { w: 1140, h: 400 },
+        size: { w: 1140 },
         enableResize: { w: true, h: false }
       }
       this.changeCroppieMultiple = (e) => {

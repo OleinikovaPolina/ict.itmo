@@ -38,10 +38,10 @@
                   <div class="pa-2">
                     <img
                       alt=""
-                      class="carousel-img"
+                      class="carousel-img-slider"
                       :src="slotProps.item"
                       style="object-fit: contain;  width: 100%"
-                      @load="getHeight()"
+                      @load="getHeight(slotProps.item)"
                     >
                   </div>
                 </v-col>
@@ -83,12 +83,30 @@ export default {
     }
   },
   emits: ['changeDialog', 'beforeCropMultipleOne'],
+  watch: {
+    dialog: {
+      handler(newVal) {
+        if (newVal) {
+          if (this.dialogContent[0].croppie) {
+            this.getHeight(this.dialogContent[0].croppie)
+          }
+        }
+      },
+      deep: true
+    }
+  },
   methods: {
-    getHeight() {
-      console.log(document.querySelectorAll('.carousel-img'))
-      if (document.querySelectorAll('.carousel-img').length) {
-        let height = document.querySelectorAll('.carousel-img')[0].height
-        document.querySelectorAll('.carousel-img').forEach(x => x.height = height)
+    getHeight(src) {
+      if (src) {
+        let img = new Image()
+        img.onload = () => {
+          let height = img.height
+          if (document.querySelectorAll('.carousel-img-slider').length) {
+            height = Math.min(height, document.querySelectorAll('.carousel-img-slider')[0].height)
+            document.querySelectorAll('.carousel-img-slider').forEach(x => x.height = height)
+          }
+        }
+        img.src = src
       }
     }
   }

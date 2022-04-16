@@ -162,7 +162,7 @@ export default {
   color: #1E7F83 !important;
 }
 
-.carousel-container{
+.carousel-container {
   margin: -0.5em;
   @media (max-width: 960px) {
     margin: -1em;

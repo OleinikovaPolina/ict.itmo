@@ -35,7 +35,7 @@
               width="208"
               height="268"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              :color-interpolation-filters="theme==='dark'?'white':'sRGB'"
             >
               <feFlood
                 flood-opacity="0"

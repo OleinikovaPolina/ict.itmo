@@ -90,9 +90,16 @@ export default {
   },
   methods: {
     getHeight() {
-      if (document.querySelectorAll('.carousel-img').length) {
-        let height = document.querySelectorAll('.carousel-img')[0].height
-        document.querySelectorAll('.carousel-img').forEach(x => x.height = height)
+      if (this.sliderImagesNames[0]) {
+        let img = new Image()
+        img.onload = () => {
+          let height = img.height
+          if (document.querySelectorAll('.carousel-img').length) {
+            height = Math.min(height,document.querySelectorAll('.carousel-img')[0].height)
+            document.querySelectorAll('.carousel-img').forEach(x => x.height = height)
+          }
+        }
+        img.src = this.sliderImagesNames[0]
       }
     }
   }

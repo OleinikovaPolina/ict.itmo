@@ -2,6 +2,7 @@ export default {
   data: () => ({
     dialog: false,
     dialogContent: {},
+    count: 1,
   }),
   methods: {
     changeDialog(val) {

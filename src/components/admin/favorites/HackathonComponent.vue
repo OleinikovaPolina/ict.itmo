@@ -37,7 +37,10 @@
       </div>
       <!--  slider  -->
       <div class="input-bordered mb-6 pt-3">
-        <div class="input-bordered-label eye-block app-background pa-0">
+        <div
+          v-if="form.slider.length"
+          class="input-bordered-label eye-block app-background pa-0"
+        >
           <v-btn
             icon
             small

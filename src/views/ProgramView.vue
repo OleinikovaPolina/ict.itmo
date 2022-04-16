@@ -98,13 +98,13 @@
                 class="program-info px-4 py-6 d-flex flex-column justify-center item-background"
                 style="height: 100%"
               >
-                <div class="subtitle-color pb-3">
+                <div class="subtitle-color pb-1 pb-md-3">
                   Количество мест - <b>30</b>
                 </div>
-                <div class="subtitle-color pb-3">
+                <div class="subtitle-color pb-1 pb-md-3">
                   Проходной балл прошлого года - <b>300</b>
                 </div>
-                <div class="subtitle-color pb-3">
+                <div class="subtitle-color pb-1 pb-md-3">
                   Язык обучения - <b>русский</b>
                 </div>
                 <div class="subtitle-color">
@@ -126,7 +126,7 @@
                 class="subtitle-color program-info px-6 py-4 d-flex flex-column justify-center item-background"
                 style="height: 100%"
               >
-                <div class="text-h6 text-xl-h5 text-center pb-3">
+                <div class="text-h6 text-xl-h5 text-center pb-1 pb-md-3">
                   Полезные ссылки
                 </div>
                 <div
@@ -134,11 +134,11 @@
                   class="d-flex flex-column pl-xl-4"
                 >
                   <a
-                    class="link-arrow pb-2"
+                    class="link-arrow pb-1 pb-md-2"
                     href="#"
                   >Страница программы </a>
                   <a
-                    class="link-arrow pb-2"
+                    class="link-arrow pb-1 pb-md-2"
                     href="#"
                   >Правила приема 2022 </a>
                   <a
@@ -196,6 +196,8 @@
     </v-container>
     <!-- Дисциплины -->
     <div class="hex-section">
+      <div class="hex-section-line hex-section-line-1" />
+      <div class="hex-section-line hex-section-line-2" />
       <v-container>
         <div
           class=" text-center mx-auto text-h5 text-sm-h4 text-xl-h3"
@@ -432,6 +434,25 @@ export default {
     programAreasImg() {
       return this.theme === 'dark' ? require('../assets/images/program/Vector.svg') : require('../assets/images/program/VectorLight.svg')
     }
+  },
+  created() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll() {
+      let height = document.documentElement.clientHeight
+      let line = document.querySelectorAll('.hex-section-line:not(.active-line)')
+      if (line.length) {
+        let bottomLine = line[0].getBoundingClientRect().top + 150
+        if (bottomLine < height && bottomLine > 0) {
+          line.forEach(x =>
+            x.classList.add('active-line'))
+        }
+      }
+    }
   }
 }
 </script>
@@ -443,6 +464,7 @@ export default {
   background-position: top left;
   margin-top: -14em;
   padding-top: 20em;
+  position: relative;
   @media (max-width: 1904px) {
     margin-top: -11em;
     padding-top: 14em;
@@ -460,6 +482,50 @@ export default {
     background-position: 25% 0;
     margin-top: -7em;
     padding-top: 7em;
+  }
+
+  .hex-section-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+  }
+
+  .hex-section-line-1 {
+    background-image: url('../assets/images/sectionLine1.svg');
+    background-position: top left;
+    width: 0;
+    background-size: cover;
+    @media (max-width: 960px) {
+      background-position: 25% 0;
+    }
+
+    &.active-line {
+      animation: hex-section-lines 1.5s 0.5s ease-in-out forwards;
+    }
+  }
+
+  .hex-section-line-2 {
+    background-image: url('../assets/images/sectionLine2.svg');
+    background-size: 100vw 100%;
+    background-position: top left;
+    @media (max-width: 960px) {
+      background-position: 25% 0;
+    }
+
+    &.active-line {
+      animation: hex-section-lines 1.5s 0.8s ease-in-out forwards;
+    }
+  }
+}
+
+@keyframes hex-section-lines {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100vw;
   }
 }
 
@@ -500,7 +566,7 @@ export default {
     font-size: 28px !important;
   }
   @media (max-width: 600px) {
-    font-size: 16px !important;
+    font-size: 15px !important;
     line-height: normal;
   }
 }

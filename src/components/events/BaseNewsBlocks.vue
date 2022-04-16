@@ -55,7 +55,7 @@
                 :class="'carousel-img-'+block.id"
                 :src="slotProps.item.croppie"
                 style="object-fit: contain;  width: 100%"
-                @load="getHeight()"
+                @load="getHeight(slotProps.item.croppie)"
               >
             </div>
           </v-col>
@@ -132,10 +132,17 @@ export default {
   },
   emits: ['beforeCropInsert', 'beforeCropMultipleInsertOne'],
   methods: {
-    getHeight() {
-      if (document.querySelectorAll('.carousel-img-' + this.block.id).length) {
-        let height = document.querySelectorAll('.carousel-img-' + this.block.id)[0].height
-        document.querySelectorAll('.carousel-img-' + this.block.id).forEach(x => x.height = height)
+    getHeight(src) {
+      if (src) {
+        let img = new Image()
+        img.onload = () => {
+          let height = img.height
+          if (document.querySelectorAll('.carousel-img-' + this.block.id).length) {
+            height = Math.min(height, document.querySelectorAll('.carousel-img-' + this.block.id)[0].height)
+            document.querySelectorAll('.carousel-img-' + this.block.id).forEach(x => x.height = height)
+          }
+        }
+        img.src = src
       }
     }
   }
