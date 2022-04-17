@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Carousel  -->
-    <v-container class="pb-2 pb-md-4 pb-xl-8">
+    <v-container class="pb-6 pb-xl-8">
       <CarouselComponent
         :slider="slider"
         :columns="1"
@@ -26,14 +26,14 @@
       color="#18FFBA"
       width="40%"
       position="left"
-      top="15px"
+      top="10px"
     />
     <LineComponent
       id="2"
       color="#FF0281"
       width="70%"
       position="right"
-      top="20px"
+      top="17.5px"
     />
     <div class="section-background py-4 py-md-8 py-xl-14">
       <v-container>

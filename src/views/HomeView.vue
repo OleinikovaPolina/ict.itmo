@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- header -->
-    <v-container>
+    <v-container style="z-index: 1;position: relative">
       <v-row class="d-flex align-center justify-center">
         <v-col
           cols="12"
@@ -27,7 +27,10 @@
       </v-row>
     </v-container>
     <!-- What can you learn at the Faculty of ICT -->
-    <div class="hex-section">
+    <div
+      style="z-index: 0;position: relative"
+      class="hex-section"
+    >
       <svg
         v-if="scrolledHexLines"
         class="hex-section-line"
@@ -145,7 +148,7 @@
       />
     </div>
     <!--  News  -->
-    <NewsComponent class="pb-4 pb-md-8 pb-xl-12" />
+    <NewsComponent class="pb-8 pb-xl-12" />
     <!--  Leaders  -->
     <LineComponent
       id="3"
@@ -591,7 +594,7 @@ export default {
   }
   @media (max-width: 600px) {
     background-position: 25% 0;
-    margin-top: -7em;
+    margin-top: -6em;
     padding-top: 7em;
   }
 

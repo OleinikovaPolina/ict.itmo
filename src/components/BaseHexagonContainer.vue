@@ -211,14 +211,17 @@ export default {
   @media (max-width: 1904px) {
     height: 450px;
   }
-  @media (max-width: 1024px) {
+  @media (max-width: 1280px) {
     height: 400px;
   }
+  @media (max-width: 960px) {
+    height: 320px;
+  }
   @media (max-width: 600px) {
-    height: 300px;
+    height: 260px;
   }
   @media (max-width: 480px) {
-    height: 260px;
+    height: 220px;
   }
 }
 
@@ -243,7 +246,7 @@ export default {
     width: 100px;
   }
   @media (max-width: 480px) {
-    height: 110px;
+    height: 100px;
     width: 80px;
   }
 }
@@ -288,7 +291,7 @@ export default {
   }
   @media (max-width: 480px) {
     font-size: 8px;
-    line-height: 9px;
+    line-height: 10px;
   }
   opacity: 0;
   height: 0;

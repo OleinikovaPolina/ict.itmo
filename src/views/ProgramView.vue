@@ -348,7 +348,7 @@
     />
     <!-- Где работают выпускники ИКТ -->
     <div class="section-background job">
-      <v-container class="py-6 py-md-12 py-xl-16">
+      <v-container class="py-10 py-md-12 py-xl-16">
         <div class="text-center mx-auto pb-6 pb-md-8 text-h6 text-sm-h4 text-xl-h3">
           Где работают выпускники ИКТ
         </div>
@@ -564,7 +564,7 @@ export default {
   }
   @media (max-width: 1280px) {
     margin-top: -7.5em;
-    padding-top: 11em;
+    padding-top: 12em;
   }
   @media (max-width: 960px) {
     background-position: 25% 0;

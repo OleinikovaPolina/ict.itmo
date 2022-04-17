@@ -32,9 +32,7 @@ export default {
     animationHeader: function(val) {
       if (!val && localStorage.getItem('theme')) {
         setTimeout(() => {
-          if (document.querySelector('.anim-container')) {
-            document.querySelector('.anim-container').classList.add('active-animation-header--finished')
-          }
+          this.fixPosition()
         }, 4000)
       }
     }
@@ -42,18 +40,21 @@ export default {
   mounted() {
     if (localStorage.getItem('theme')) {
       setTimeout(() => {
-        if (document.querySelector('.anim-container')) {
-          document.querySelector('.anim-container').classList.add('active-animation-header--finished')
-          document.querySelector('.anim-img-1').style.top = '8%'
-          document.querySelector('.anim-img-2').style.bottom = '8%'
-          document.querySelector('.anim-img-3').style.top = '0'
-          document.querySelector('.anim-img-4').style.bottom = '0'
-          document.querySelector('.anim-img-5').style.top = '17.5%'
-        }
+        this.fixPosition()
       }, 4000)
     }
   },
   methods: {
+    fixPosition() {
+      if (document.querySelector('.anim-container')) {
+        document.querySelector('.anim-container').classList.add('active-animation-header--finished')
+        document.querySelector('.anim-img-1').style.top = '8%'
+        document.querySelector('.anim-img-2').style.bottom = '8%'
+        document.querySelector('.anim-img-3').style.top = '0'
+        document.querySelector('.anim-img-4').style.bottom = '0'
+        document.querySelector('.anim-img-5').style.top = '17.5%'
+      }
+    },
     mouseOver(i) {
       const block = document.querySelector('.active-animation-header--finished .anim-img-' + i)
       if (block) {
