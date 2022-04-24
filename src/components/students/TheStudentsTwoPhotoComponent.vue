@@ -1,5 +1,8 @@
 <template>
-  <div class="anim-container">
+  <div
+    class="anim-container students-two-photo"
+    :class="{'animation--active':scrolled}"
+  >
     <div class="anim-pink rounded-pill" />
     <div class="anim-green rounded-pill" />
     <div class="anim-img-1 rounded-pill" />
@@ -13,11 +16,47 @@
 
 <script>
 export default {
-  name: 'TheStudentsTwoPhotoComponent'
+  name: 'TheStudentsTwoPhotoComponent',
+  data: () => ({
+    scrolled: false
+  }),
+  created() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll() {
+      if (!this.scrolled) {
+        let clientHeight = document.documentElement.clientHeight
+        let { bottom, height } = document.querySelector('.students-two-photo').getBoundingClientRect()
+        this.scrolled = (bottom - height / 2) < clientHeight && bottom > 0
+      }
+    }
+  }
 }
 </script>
 
 <style scoped lang="scss">
+@keyframes anim-pink {
+  0% {
+    width: 58%;
+  }
+  100% {
+    width: 87%;
+  }
+}
+
+@keyframes anim-green {
+  0% {
+    width: 43.5%
+  }
+  100% {
+    width: 65%;
+  }
+}
+
 .anim-container {
   width: 300px;
   height: 195px;
@@ -60,17 +99,27 @@ export default {
 .anim-pink {
   top: 0;
   left: 0;
-  width: 87%;
+  width: 58%;
   height: 66.67%;
   background-color: #FF0281;
 }
 
 .anim-green {
   top: 22%;
-  right: 0;
-  width: 65%;
+  left: 35%;
+  width: 43.5%;
   height: 66.67%;
   background-color: #18FFBA;
+}
+
+.students-two-photo.animation--active {
+  .anim-pink {
+    animation: anim-pink .7s forwards;
+  }
+
+  .anim-green {
+    animation: anim-green .7s .25s forwards;
+  }
 }
 
 .anim-img-1 {

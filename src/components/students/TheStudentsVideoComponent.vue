@@ -120,6 +120,7 @@ export default {
   border: 3px solid #FFFFFF;
   border-radius: 50%;
   position: relative;
+  transition: all .5s;
   @media (max-width: 1264px) {
     font-size: 25px;
     height: 50px;
@@ -127,6 +128,10 @@ export default {
   }
   @media (max-width: 600px) {
     border: 2.5px solid #FFFFFF;
+  }
+
+  &:hover{
+    background: white;
   }
 }
 

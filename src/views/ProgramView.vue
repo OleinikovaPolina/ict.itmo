@@ -61,18 +61,17 @@
             cols="6"
             md="4"
             xl="3"
+            class="px-2 px-lg-4 px-xl-8"
           >
             <div
-              class="px-md-4"
               style="height: 100%"
             >
               <div
                 class="program-info pa-2 py-6 d-flex flex-column align-center justify-center item-background"
                 style="height: 100%"
               >
-                <div class="text-h6 text-xl-h5 text-center pb-2 subtitle-color">
-                  Вступительные испытания
-                  и минимальные баллы ЕГЭ
+                <div class="program-info-title text-center pb-2 subtitle-color">
+                  Вступительные испытания и минимальные баллы&nbsp;ЕГЭ
                 </div>
                 <div
                   class="subtitle-color"
@@ -89,22 +88,22 @@
             cols="6"
             md="4"
             xl="3"
+            class="px-2 px-lg-4 px-xl-8"
           >
             <div
-              class="px-md-4"
               style="height: 100%"
             >
               <div
                 class="program-info px-4 py-6 d-flex flex-column justify-center item-background"
                 style="height: 100%"
               >
-                <div class="subtitle-color pb-1 pb-md-3">
+                <div class="subtitle-color pb-1 pb-md-2 pb-lg-3">
                   Количество мест - <b>30</b>
                 </div>
-                <div class="subtitle-color pb-1 pb-md-3">
+                <div class="subtitle-color pb-1 pb-md-2 pb-lg-3">
                   Проходной балл прошлого года - <b>300</b>
                 </div>
-                <div class="subtitle-color pb-1 pb-md-3">
+                <div class="subtitle-color pb-1 pb-md-2 pb-lg-3">
                   Язык обучения - <b>русский</b>
                 </div>
                 <div class="subtitle-color">
@@ -117,9 +116,9 @@
             cols="8"
             md="4"
             xl="3"
+            class="px-2 px-lg-4 px-xl-8"
           >
             <div
-              class="px-md-4"
               style="height: 100%"
             >
               <div
@@ -134,11 +133,11 @@
                   class="d-flex flex-column pl-xl-4"
                 >
                   <a
-                    class="link-arrow pb-1 pb-md-2"
+                    class="link-arrow mb-1 mb-md-2"
                     href="#"
                   >Страница программы </a>
                   <a
-                    class="link-arrow pb-1 pb-md-2"
+                    class="link-arrow mb-1 mb-md-2"
                     href="#"
                   >Правила приема 2022 </a>
                   <a
@@ -618,12 +617,31 @@ export default {
   border-radius: 30px;
 
   * {
+    line-height: normal;
     font-size: 24px;
     @media (max-width: 1904px) {
       font-size: 16px;
     }
     @media (max-width: 600px) {
       font-size: 12px;
+    }
+  }
+
+  .program-info-title{
+    font-family: "Rubik-Medium", sans-serif !important;
+    font-weight: 500;
+    font-size: 24px;
+    @media (max-width: 1904px) {
+      font-size: 20px;
+    }
+    @media (max-width: 1440px) {
+      font-size: 19px;
+    }
+    @media (max-width: 1024px) {
+      font-size: 16px;
+    }
+    @media (max-width: 600px) {
+      font-size: 13px;
     }
   }
 }

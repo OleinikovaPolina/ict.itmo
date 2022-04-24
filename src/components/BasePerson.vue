@@ -137,8 +137,8 @@ export default {
 .person.person-small {
   * {
     color: white;
-    font-size: 14px;
-    @media (max-width: 960px) {
+    font-size: 17px;
+    @media (max-width: 1024px) {
       font-size: 11px;
     }
     @media (max-width: 600px) {

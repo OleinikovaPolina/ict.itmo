@@ -64,9 +64,9 @@ export default {
   },
   methods: {
     handleScroll() {
-      let height = document.documentElement.clientHeight
-      let { bottom } = document.querySelector('#ict-line-' + this.id).getBoundingClientRect()
-      if (!this.scrolledClub) {
+      if (!this.scrolled) {
+        let height = document.documentElement.clientHeight
+        let { bottom } = document.querySelector('#ict-line-' + this.id).getBoundingClientRect()
         this.scrolled = bottom < height && bottom > 0
       }
     }

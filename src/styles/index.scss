@@ -61,7 +61,7 @@
     }
 
     a.link-arrow:after, .link-arrow a:after {
-      content: map-get($theme, "img-arrow");
+      background-image: map-get($theme, "img-arrow");
     }
 
     .hex-section {
@@ -139,6 +139,10 @@ input[type=time]::-webkit-calendar-picker-indicator {
   color: #0071B2 !important;
 }
 
+.v-application .input-blue.v-input input::placeholder, {
+  opacity: 0.7;
+}
+
 .v-application .input-light-blue.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset {
   color: #00A1FF !important;
   border-width: 1.5px;
@@ -184,12 +188,13 @@ body .v-application .text-subtitle-1 {
     height: 12px;
     width: 12px;
     margin-inline-end: 7px;
-    margin-bottom: 1px;
+    margin-bottom: -1px;
     @media (max-width: 600px) {
       border: 1px solid $ict-blue-green;
       height: 5px;
       width: 5px;
       margin-inline-end: 3px;
+      margin-bottom: 1px;
     }
   }
 }
@@ -206,6 +211,7 @@ body .v-application a:hover {
 a.link-arrow, .link-arrow a {
   text-decoration: none;
   font-size: 18px;
+  position: relative;
   @media (max-width: 1904px) {
     font-size: 14px;
   }
@@ -215,9 +221,23 @@ a.link-arrow, .link-arrow a {
 }
 
 a.link-arrow:after, .link-arrow a:after {
+  content: '';
   display: inline-block;
-  width: 15px;
-  height: 15px;
+  position: absolute;
+  background-size: 16px;
+  width: 16px;
+  height: 16px;
+  bottom: 3px;
+  @media (max-width: 1904px) {
+    background-size: 12px;
+    width: 12px;
+    height: 12px;
+  }
+  @media (max-width: 600px) {
+    background-size: 10px;
+    width: 10px;
+    height: 10px;
+  }
 }
 
 .v-application .navbar-container .v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset {

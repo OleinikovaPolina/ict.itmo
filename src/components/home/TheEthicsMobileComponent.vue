@@ -234,7 +234,7 @@ export default {
       let { bottom, height } = obj.getBoundingClientRect()
       let clientHeight = document.documentElement.clientHeight
       if (!this.scrolled) {
-        this.scrolled = bottom - height / 3 < clientHeight && bottom > 0
+        this.scrolled = bottom - height *2/ 3 < clientHeight && bottom > 0
       }
     }
   }

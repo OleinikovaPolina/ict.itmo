@@ -50,7 +50,7 @@
       <div class="pt-6">
         <BaseButton
           class="mx-auto"
-          text="Сохранить"
+          text="Войти"
           :click-btn="true"
         />
       </div>

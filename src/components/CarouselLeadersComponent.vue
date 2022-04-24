@@ -198,18 +198,18 @@ export default {
 
   * {
     line-height: normal;
-    font-size: 21px;
+    font-size: 19px;
     @media (max-width: 1904px) {
-      font-size: 15px ;
+      font-size: 13px ;
     }
     @media (max-width: 1264px) {
-      font-size: 12px ;
+      font-size: 10px ;
     }
     @media (max-width: 955.5px) {
-      font-size: 18px ;
+      font-size: 16px ;
     }
     @media (max-width: 600px) {
-      font-size: 10px ;
+      font-size: 8px ;
     }
   }
 
@@ -234,6 +234,20 @@ export default {
 
   * {
     color: white;
+    line-height: normal;
+    font-size: 21px;
+    @media (max-width: 1904px) {
+      font-size: 15px ;
+    }
+    @media (max-width: 1264px) {
+      font-size: 12px ;
+    }
+    @media (max-width: 955.5px) {
+      font-size: 18px ;
+    }
+    @media (max-width: 600px) {
+      font-size: 10px ;
+    }
   }
 
   .person-email {

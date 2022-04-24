@@ -194,7 +194,7 @@
                     dense
                     :dark="theme==='dark'"
                     hide-details
-                    class="mx-6 my-2 input-light-blue"
+                    class="mx-6 mt-6 mb-2 input-light-blue"
                   />
                   <div class="mx-6 pb-4 d-flex flex-wrap">
                     <v-col

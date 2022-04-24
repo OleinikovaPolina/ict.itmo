@@ -3,6 +3,7 @@
     <v-row
       no-gutters
       class="flex-nowrap"
+      align="stretch"
     >
       <div class="pr-3">
         <v-sheet class="announ-calendar d-flex flex-column justify-center align-center">
@@ -21,17 +22,19 @@
           </div>
         </v-sheet>
       </div>
-      <div class="announ-text">
+      <div class="announ-text d-flex flex-column justify-space-between">
         <div>
-          <router-link
-            :to="'/new/'+announ.id"
-            style="color: inherit"
-            class="text-decoration-none"
-          >
-            {{ announ.name }}
-          </router-link>
+          <div>
+            <router-link
+              :to="'/new/'+announ.id"
+              style="color: inherit"
+              class="text-decoration-none"
+            >
+              {{ announ.name }}
+            </router-link>
+          </div>
+          <div>{{ `${announ.place}, ${announ.date.getHours()}:${announ.date.getMinutes()} ` }}</div>
         </div>
-        <div>{{ `${announ.place}, ${announ.date.getHours()}:${announ.date.getMinutes()} ` }}</div>
         <div class="d-flex flex-wrap">
           <BaseChip
             v-for="(item,i) in announ.items"
