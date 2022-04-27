@@ -20,7 +20,7 @@
             <span>/ Прикладная информатика</span>
           </div>
           <div>
-            <div class="pb-8 text-h4 text-xl-h3">
+            <div class="pb-4 pb-lg-8 text-h4 text-xl-h3">
               Прикладная информатика
             </div>
             <div class="text-subtitle-1 pb-6">
@@ -468,39 +468,44 @@ export default {
     ],
     usefulLinks: [
       {
-        name: 'Инвестиционный и банковский сектор', img: require('../assets/images/students/building.svg'),
+        name: 'Инвестиционный и банковский сектор',
+        img: require('@/assets/images/program/job/Vector.svg'),
         links: [
-          { name: 'Студенческий офис' },
-          { name: 'Интернет-портал ИСУ' },
-          { name: 'Личный кабинет my.itmo' }]
+          { name: 'Сбербанк Технологии' },
+          { name: 'Intercontinental Exchange' }]
       },
       {
-        name: 'Информационные', img: require('../assets/images/students/news.svg'),
+        name: 'Информационная безопасность',
+        img: require('@/assets/images/program/job/Vector1.svg'),
         links: [
-          { name: 'Telegram-канал ИКТ' },
-          { name: 'Telegram-канал ITMOLNIA' },
-          { name: 'Сайт ИТМО' }]
+          { name: 'Dr.Web' },
+          { name: 'Avast Software' },
+          { name: 'Диджитал Секьюрити' }]
       },
       {
-        name: 'Другое', img: require('../assets/images/students/calendar.svg'),
+        name: 'Компании, занимающиеся автоматизацией бизнеса',
+        img: require('@/assets/images/program/job/Vector2.svg'),
         links: [
-          { name: 'Центр Карьеры' },
-          { name: 'ITMO.Students' },
-          { name: 'Telegram-канал ППА' }]
+          { name: 'T-Systems' },
+          { name: 'Luxoft' },
+          { name: 'KORUS Consulting' },
+          { name: 'Горизонты Роста' }]
       },
       {
-        name: 'Административные', img: require('../assets/images/students/building.svg'),
+        name: 'Ведущие международные IT‑компании',
+        img: require('@/assets/images/program/job/Vector3.svg'),
         links: [
-          { name: 'Студенческий офис' },
-          { name: 'Интернет-портал ИСУ' },
-          { name: 'Личный кабинет my.itmo' }]
+          { name: 'Microsoft' },
+          { name: 'EMC Corporation' },
+          { name: 'Интермедиа' }]
       },
       {
-        name: 'Информационные', img: require('../assets/images/students/news.svg'),
+        name: 'Телекоммуникационные компании',
+        img: require('@/assets/images/program/job/Vector4.svg'),
         links: [
-          { name: 'Telegram-канал ИКТ' },
-          { name: 'Telegram-канал ITMOLNIA' },
-          { name: 'Сайт ИТМО' }]
+          { name: 'Alcatel-Lucent' },
+          { name: 'Мегафон' },
+          { name: 'GS Group' }]
       }
     ],
     contactPersons: [
@@ -558,7 +563,11 @@ export default {
   padding-top: 21em;
   position: relative;
   @media (max-width: 1904px) {
-    margin-top: -11em;
+    margin-top: -10em;
+    padding-top: 18em;
+  }
+  @media (max-width: 1600px) {
+    margin-top: -8em;
     padding-top: 14em;
   }
   @media (max-width: 1280px) {
@@ -627,7 +636,7 @@ export default {
     }
   }
 
-  .program-info-title{
+  .program-info-title {
     font-family: "Rubik-Medium", sans-serif !important;
     font-weight: 500;
     font-size: 24px;

@@ -15,14 +15,16 @@
         {{ person.name }}
       </div>
       <div>{{ person.position }}</div>
-      <div class="d-flex align-center person-link px-1 pb-md-2">
+      <div class="d-flex align-center justify-center person-link px-1 pb-md-2">
         <v-icon
+          right
           class="mr-1 person-link-icon"
           :small="$vuetify.breakpoint.smAndDown"
         >
           mdi-email-outline
         </v-icon>
         <a
+          :title="person.email"
           :href="'mailto: '+person.email"
           class="person-email subtitle-color"
         >
@@ -53,15 +55,15 @@ export default {
 
   .text-h6 {
     line-height: normal;
-    font-size: 30px !important;
+    font-size: 28px !important;
     @media (max-width: 1904px) {
-      font-size: 20px !important;
-    }
-    @media (max-width: 1264px) {
       font-size: 18px !important;
     }
+    @media (max-width: 1264px) {
+      font-size: 16px !important;
+    }
     @media (max-width: 955.5px) {
-      font-size: 24px !important;
+      font-size: 22px !important;
     }
     @media (max-width: 600px) {
       font-size: 12px !important;
@@ -70,18 +72,18 @@ export default {
 
   * {
     line-height: normal;
-    font-size: 21px;
+    font-size: 19px;
     @media (max-width: 1904px) {
-      font-size: 16px ;
+      font-size: 14px ;
     }
     @media (max-width: 1264px) {
-      font-size: 12px ;
+      font-size: 10px ;
     }
     @media (max-width: 955.5px) {
-      font-size: 18px ;
+      font-size: 16px ;
     }
     @media (max-width: 600px) {
-      font-size: 10px ;
+      font-size: 9.5px ;
     }
   }
 
@@ -105,11 +107,7 @@ export default {
   .person-email {
     overflow: hidden;
     text-overflow: ellipsis;
-    width: calc(100% - 40px);
     position: relative;
-    @media (max-width: 1264px) {
-      width: calc(100% - 16px);
-    }
   }
 }
 </style>

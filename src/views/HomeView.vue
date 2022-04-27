@@ -584,17 +584,17 @@ export default {
     padding-top: 14em;
   }
   @media (max-width: 1280px) {
-    margin-top: -7.5em;
+    margin-top: -6em;
     padding-top: 11em;
   }
   @media (max-width: 960px) {
     background-position: 25% 0;
-    margin-top: -5em;
+    margin-top: -4em;
     padding-top: 10em;
   }
   @media (max-width: 600px) {
     background-position: 25% 0;
-    margin-top: -6em;
+    margin-top: -4.5em;
     padding-top: 7em;
   }
 

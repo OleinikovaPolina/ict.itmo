@@ -4,7 +4,7 @@
       Этика факультета
     </div>
     <div
-      class="ethics-mobile-container"
+      class="ethics-mobile-container mx-auto"
       :class="{'ethics-active':scrolled}"
     >
       <svg
@@ -16,7 +16,7 @@
       >
         <path
           d="M146.417 11.9961L241.064 59.1555C292.992 85.0294 290.328 160.001 236.695 182.124L222.117 188.137C168.156 210.395 172.062 288.094 227.984 304.828L247.722 310.735C298.252 325.856 300.649 396.519 251.259 415.029V415.029C210.652 430.248 209.258 487.175 249.072 504.363L263.01 510.381C310.332 530.811 305.218 599.506 255.393 612.704L240.773 616.577C173.828 634.31 173.1 729.065 239.765 747.824L247.5 750C297.166 764.093 278.5 789 261.5 802.5"
-          stroke="#CFCFCF"
+          :stroke="theme==='dark'?'#97CDF7':'#CFCFCF'"
           stroke-width="20"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -33,7 +33,7 @@
           cy="11.9961"
           r="9"
           transform="rotate(90 146 11.9961)"
-          fill="white"
+          :fill="theme==='dark'?'#97CDF7':'white'"
           stroke="#B0AFAF"
           stroke-width="2"
         />
@@ -42,7 +42,7 @@
             cx="282"
             cy="118"
             r="13"
-            fill="white"
+            :fill="theme==='dark'?'#97CDF7':'white'"
             stroke="#2DC0C5"
             stroke-width="4"
           />
@@ -62,7 +62,7 @@
             cx="181"
             cy="245"
             r="13"
-            fill="white"
+            :fill="theme==='dark'?'#97CDF7':'white'"
             stroke="#2DC0C5"
             stroke-width="4"
           />
@@ -82,7 +82,7 @@
             cx="288"
             cy="362"
             r="13"
-            fill="white"
+            :fill="theme==='dark'?'#97CDF7':'white'"
             stroke="#2DC0C5"
             stroke-width="4"
           />
@@ -102,7 +102,7 @@
             cx="219"
             cy="457"
             r="13"
-            fill="white"
+            :fill="theme==='dark'?'#97CDF7':'white'"
             stroke="#2DC0C5"
             stroke-width="4"
           />
@@ -122,7 +122,7 @@
             cx="297"
             cy="561"
             r="13"
-            fill="white"
+            :fill="theme==='dark'?'#97CDF7':'white'"
             stroke="#2DC0C5"
             stroke-width="4"
           />
@@ -142,7 +142,7 @@
             cx="196"
             cy="670"
             r="13"
-            fill="white"
+            :fill="theme==='dark'?'#97CDF7':'white'"
             stroke="#2DC0C5"
             stroke-width="4"
           />
@@ -160,14 +160,10 @@
         <path
           class="ethics-arrow"
           d="M4.29744 11.8578L40.7167 2.22361L26.5725 37.1396L22.2847 24.3987C21.2994 21.4707 19.1774 19.0624 16.3969 17.7161L4.29744 11.8578Z"
-          fill="white"
+          :fill="theme==='dark'?'#261967':'white'"
           stroke="#2DC0C5"
           stroke-width="3"
-        >
-          <!--          <animateMotion dur="7s" fill="freeze">-->
-          <!--            <mpath xlink:href="#llll"></mpath>-->
-          <!--          </animateMotion>-->
-        </path>
+        />
       </svg>
       <!--  book  -->
       <div class="ethics-book text-center">
@@ -195,33 +191,46 @@
         :class="'ethics-item-'+i"
         :style="{transform: `translateY(${i%2===0?'-':''}20px)`}"
       >
-        <div :class="'order-'+(i%2+1)">
+        <div :class="`order-${i%2+1} p${i%2===0?'b':'t'}-1`">
           {{ item.text }}
         </div>
-        <v-img
-          class="order-1 ethics-item-img"
-          :src="item.img"
-          contain
-        />
+        <div class="text-center order-1">
+          <component
+            :is="item.img"
+            class="ethics-item-img"
+            :height="$vuetify.breakpoint.xl?70:$vuetify.breakpoint.lgAndUp?40:35"
+          />
+        </div>
       </div>
     </div>
   </v-container>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'TheEthicsMobileComponent',
+  components: {
+    EthicsItem1: () => import('@/assets/images/ethics/item1'),
+    EthicsItem2: () => import('@/assets/images/ethics/item2'),
+    EthicsItem3: () => import('@/assets/images/ethics/item3'),
+    EthicsItem4: () => import('@/assets/images/ethics/item4'),
+    EthicsItem5: () => import('@/assets/images/ethics/item5'),
+    EthicsItem6: () => import('@/assets/images/ethics/item6'),
+  },
   data: () => ({
     items: [
-      { img: require('../../assets/images/ethics/Vector (7).svg'), text: 'Кооперация' },
-      { img: require('../../assets/images/ethics/Vector (8).svg'), text: 'Open Source' },
-      { img: require('../../assets/images/ethics/Vector (9).svg'), text: 'Прозрачность' },
-      { img: require('../../assets/images/ethics/Vector (10).svg'), text: 'Рациональность' },
-      { img: require('../../assets/images/ethics/Vector (11).svg'), text: 'Свобода и ответственность' },
-      { img: require('../../assets/images/ethics/Union.svg'), text: 'Самообразование' }
+      { img: 'EthicsItem1', text: 'Кооперация' },
+      { img: 'EthicsItem2', text: 'Open Source' },
+      { img: 'EthicsItem3', text: 'Прозрачность' },
+      { img: 'EthicsItem4', text: 'Рациональность' },
+      { img: 'EthicsItem5', text: 'Свобода и ответственность' },
+      { img: 'EthicsItem6', text: 'Самообразование' }
     ],
     scrolled: false
   }),
+  computed: mapState('app', ['theme']),
   created() {
     window.addEventListener('scroll', this.handleScroll)
   },
@@ -291,11 +300,14 @@ export default {
 .ethics-mobile-container {
   position: relative;
   padding-bottom: 8em;
+  width: 300px;
   @media (min-width: 480px) {
     padding-bottom: 12em;
+    width: 440px;
   }
   @media (min-width: 600px) {
     padding-bottom: 18em;
+    width: 550px;
   }
 }
 
@@ -308,10 +320,12 @@ export default {
   width: 202px;
   @media (min-width: 480px) {
     width: 280px;
+    bottom: 1%;
   }
   @media (min-width: 600px) {
     width: 400px;
-    bottom: 2%;
+    left: 25%;
+    bottom: 1.5%;
   }
 
   .ethics-book-text {
@@ -361,19 +375,16 @@ export default {
   box-shadow: 0 0 5px rgba(0, 109, 172, 0.2), 0 0 14px rgba(3, 67, 104, 0.1);
   border-radius: 10px;
   opacity: 0;
-  max-height: 100px;
-  max-width: 115px;
-  font-size: 11px;
+  max-width: 100px;
+  font-size: 10px;
   line-height: 15px;
-  padding: 1em;
+  padding: 0.5em;
   @media (min-width: 480px) {
-    max-height: 140px;
-    max-width: 160px;
+    max-width: 140px;
     font-size: 14px;
   }
   @media (min-width: 600px) {
-    max-height: 180px;
-    max-width: 220px;
+    max-width: 180px;
     font-size: 18px;
   }
 
@@ -389,8 +400,11 @@ export default {
 }
 
 .ethics-item-0 {
-  top: 4%;
+  top: 5%;
   right: 5%;
+  @media (min-width: 480px) {
+    top: 6%;
+  }
 }
 
 .ethics-item-1 {
@@ -406,16 +420,26 @@ export default {
 .ethics-item-3 {
   top: 39%;
   left: 3%;
+  @media (min-width: 600px) {
+    top: 38.5%;
+  }
 }
 
 .ethics-item-4 {
   top: 48%;
   right: 1%;
+  @media (min-width: 600px) {
+    top: 47%;
+    right: -1%;
+  }
 }
 
 .ethics-item-5 {
   top: 59%;
   left: 0;
+  @media (min-width: 600px) {
+    top: 58%;
+  }
 }
 
 .ethics-arrow {

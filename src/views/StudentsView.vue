@@ -400,12 +400,16 @@ export default {
   width: 100%;
   background-size: cover;
   background-position: top left;
-  margin-top: -8em;
-  padding-top: 23em;
+  margin-top: -6em;
+  padding-top: 25em;
   position: relative;
   @media (max-width: 1904px) {
-    margin-top: -10em;
-    padding-top: 16em;
+    margin-top: -8em;
+    padding-top: 18em;
+  }
+  @media (max-width: 1440px) {
+    margin-top: -6em;
+    padding-top: 18em;
   }
   @media (max-width: 1280px) {
     margin-top: -6em;

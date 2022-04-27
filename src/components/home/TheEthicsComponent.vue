@@ -35,7 +35,7 @@
       >
         <path
           d="M10 333L78.7061 279.017C132.922 236.418 210.007 236.898 264.393 279.28V279.28C314.54 318.36 387.247 312.155 429.163 264.354L439.493 252.573C473.925 213.307 532.774 207.148 574.589 238.436L587.963 248.442C620.366 272.687 664.188 275.012 698.974 254.331L741.939 228.788C779.024 206.741 826.467 213.564 855.835 245.17L869.846 260.249C915.061 308.909 994.906 297.717 1025 238.5V238.5C1037.5 213 1058 188.5 1073.5 190.5"
-          stroke="#CFCFCF"
+          :stroke="theme==='dark'?'#97CDF7':'#CFCFCF'"
           stroke-width="20"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -52,7 +52,7 @@
           cx="10"
           cy="333"
           r="9"
-          fill="white"
+          :fill="theme==='dark'?'#97CDF7':'white'"
           stroke="#B0AFAF"
           stroke-width="2"
         />
@@ -61,7 +61,7 @@
             cx="170"
             cy="247"
             r="13"
-            fill="white"
+            :fill="theme==='dark'?'#97CDF7':'white'"
             stroke="#2DC0C5"
             stroke-width="4"
           />
@@ -81,7 +81,7 @@
             cx="333"
             cy="304"
             r="13"
-            fill="white"
+            :fill="theme==='dark'?'#97CDF7':'white'"
             stroke="#2DC0C5"
             stroke-width="4"
           />
@@ -101,7 +101,7 @@
             cx="512"
             cy="218"
             r="13"
-            fill="white"
+            :fill="theme==='dark'?'#97CDF7':'white'"
             stroke="#2DC0C5"
             stroke-width="4"
           />
@@ -121,7 +121,7 @@
             cx="642"
             cy="268"
             r="13"
-            fill="white"
+            :fill="theme==='dark'?'#97CDF7':'white'"
             stroke="#2DC0C5"
             stroke-width="4"
           />
@@ -141,7 +141,7 @@
             cx="788"
             cy="217"
             r="13"
-            fill="white"
+            :fill="theme==='dark'?'#97CDF7':'white'"
             stroke="#2DC0C5"
             stroke-width="4"
           />
@@ -161,7 +161,7 @@
             cx="933"
             cy="290"
             r="13"
-            fill="white"
+            :fill="theme==='dark'?'#97CDF7':'white'"
             stroke="#2DC0C5"
             stroke-width="4"
           />
@@ -179,7 +179,7 @@
         <path
           class="ethics-arrow"
           d="M4.29744 11.8578L40.7167 2.22361L26.5725 37.1396L22.2847 24.3987C21.2994 21.4707 19.1774 19.0624 16.3969 17.7161L4.29744 11.8578Z"
-          fill="white"
+          :fill="theme==='dark'?'#261967':'white'"
           stroke="#2DC0C5"
           stroke-width="3"
         />
@@ -192,34 +192,45 @@
         :class="'ethics-item-'+i"
         :style="{transform: `translateY(${i%2===0?'-':''}20px)`}"
       >
-        <div :class="'order-'+(i%2+1)">
+        <div :class="`order-${i%2+1} p${i%2===0?'b':'t'}-1  p${i%2===0?'b':'t'}-lg-2`">
           {{ item.text }}
         </div>
-        <v-img
-          class="order-1"
-          :height="$vuetify.breakpoint.xl?70:$vuetify.breakpoint.mdAndUp?40:35"
-          :src="item.img"
-          contain
-        />
+        <div class="text-center order-1">
+          <component
+            :is="item.img"
+            :height="$vuetify.breakpoint.xl?70:$vuetify.breakpoint.lgAndUp?40:35"
+          />
+        </div>
       </div>
     </div>
   </v-container>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'TheEthicsComponent',
+  components: {
+    EthicsItem1: () => import('@/assets/images/ethics/item1'),
+    EthicsItem2: () => import('@/assets/images/ethics/item2'),
+    EthicsItem3: () => import('@/assets/images/ethics/item3'),
+    EthicsItem4: () => import('@/assets/images/ethics/item4'),
+    EthicsItem5: () => import('@/assets/images/ethics/item5'),
+    EthicsItem6: () => import('@/assets/images/ethics/item6')
+  },
   data: () => ({
     items: [
-      { img: require('../../assets/images/ethics/Vector (7).svg'), text: 'Кооперация' },
-      { img: require('../../assets/images/ethics/Vector (8).svg'), text: 'Open Source' },
-      { img: require('../../assets/images/ethics/Vector (9).svg'), text: 'Прозрачность' },
-      { img: require('../../assets/images/ethics/Vector (10).svg'), text: 'Рациональность' },
-      { img: require('../../assets/images/ethics/Vector (11).svg'), text: 'Свобода и ответственность' },
-      { img: require('../../assets/images/ethics/Union.svg'), text: 'Самообразование' }
+      { img: 'EthicsItem1', text: 'Кооперация' },
+      { img: 'EthicsItem2', text: 'Open Source' },
+      { img: 'EthicsItem3', text: 'Прозрачность' },
+      { img: 'EthicsItem4', text: 'Рациональность' },
+      { img: 'EthicsItem5', text: 'Свобода и ответственность' },
+      { img: 'EthicsItem6', text: 'Самообразование' }
     ],
     scrolled: false
   }),
+  computed: mapState('app', ['theme']),
   created() {
     window.addEventListener('scroll', this.handleScroll)
   },
@@ -282,7 +293,7 @@ export default {
     offset-distance: 0;
   }
   100% {
-    offset-distance: 98%;
+    offset-distance: 97%;
   }
 }
 
@@ -295,25 +306,31 @@ export default {
   position: absolute;
   transform: rotate(-29deg);
   right: -1%;
-  bottom: 10%;
+  bottom: 14%;
   width: 192px;
   @media (min-width: 960px) {
     bottom: 16%;
     width: 170px;
   }
-  @media (min-width: 1280px) {
-    bottom: 14%;
+  @media (min-width: 1110px) {
+    right: -2%;
+    bottom: 15%;
+    width: 200px;
+  }
+  @media (min-width: 1264px) {
+    right: -1%;
+    bottom: 16%;
     width: 220px;
   }
   @media (min-width: 1514px) {
-    right: -4%;
-    bottom: 12%;
-    width: 300px;
+    right: -3%;
+    bottom: 10%;
+    width: 280px;
   }
   @media (min-width: 1904px) {
     right: -3%;
-    bottom: 14%;
-    width: 400px;
+    bottom: 12%;
+    width: 380px;
   }
 
   .ethics-book-text {
@@ -327,11 +344,14 @@ export default {
     @media (min-width: 960px) {
       font-size: 7px;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 1110px) {
+      font-size: 8px;
+    }
+    @media (min-width: 1264px) {
       font-size: 9px;
     }
     @media (min-width: 1514px) {
-      font-size: 13px;
+      font-size: 12px;
     }
     @media (min-width: 1904px) {
       font-size: 17px;
@@ -353,12 +373,18 @@ export default {
     left: 35%;
     top: 40%;
     padding: 10px 5px;
-    font-size: 10px;
-    @media (min-width: 1280px) {
+    font-size: 12px;
+    @media (min-width: 960px) {
+      font-size: 10px;
+    }
+    @media (min-width: 1110px) {
+      font-size: 12.5px;
+    }
+    @media (min-width: 1264px) {
       font-size: 14px;
     }
     @media (min-width: 1514px) {
-      font-size: 20px;
+      font-size: 19px;
     }
     @media (min-width: 1904px) {
       font-size: 26px;
@@ -369,56 +395,119 @@ export default {
 .ethics-item {
   position: absolute;
   width: fit-content;
-  max-height: 140px;
-  max-width: 190px;
-  font-size: 19px;
-  line-height: 23px;
   box-shadow: 0 0 5px rgba(0, 109, 172, 0.2), 0 0 14px rgba(3, 67, 104, 0.1);
   border-radius: 10px;
   padding: 1em;
   opacity: 0;
-  @media (max-width: 1904px) {
+  max-height: 100px;
+  max-width: 105px;
+  font-size: 10px;
+  line-height: 15px;
+  @media (min-width: 1264px) {
     max-height: 110px;
     max-width: 150px;
     font-size: 14px;
     line-height: 19px;
   }
-  @media (max-width: 1264px) {
-    max-height: 100px;
-    max-width: 100px;
-    font-size: 10px;
-    line-height: 15px;
+  @media (min-width: 1904px) {
+    max-height: 140px;
+    max-width: 190px;
+    font-size: 19px;
+    line-height: 23px;
   }
 }
 
 .ethics-item-0 {
   bottom: 0;
   left: 8.5%;
+  @media (min-width: 960px) {
+    left: 7.5%;
+  }
+  @media (min-width: 1264px) {
+    left: 8.5%;
+  }
+  @media (min-width: 1514px) {
+    left: 9%;
+  }
+  @media (min-width: 1904px) {
+    left: 7.5%;
+  }
 }
 
 .ethics-item-1 {
   top: 28%;
-  left: 21%;
+  left: 22%;
+  @media (min-width: 960px) {
+    left: 21.5%;
+  }
+  @media (min-width: 1264px) {
+    left: 21.5%;
+  }
+  @media (min-width: 1514px) {
+    left: 21.8%;
+  }
+  @media (min-width: 1904px) {
+    left: 21.5%;
+  }
 }
 
 .ethics-item-2 {
   bottom: 3%;
-  left: 36%;
+  left: 37%;
+  @media (min-width: 960px) {
+    left: 36%;
+  }
+  @media (min-width: 1264px) {
+    left: 35.5%;
+  }
+  @media (min-width: 1514px) {
+    left: 36%;
+  }
 }
 
 .ethics-item-3 {
   top: 20%;
-  left: 45.5%;
+  left: 46%;
+  @media (min-width: 960px) {
+    left: 45.5%;
+  }
+  @media (min-width: 1264px) {
+    left: 44.5%;
+  }
+  @media (min-width: 1514px) {
+    left: 45.5%;
+  }
 }
 
 .ethics-item-4 {
   bottom: -3%;
-  left: 55%;
+  left: 58%;
+  @media (min-width: 960px) {
+    left: 57%;
+  }
+  @media (min-width: 1264px) {
+    left: 56.5%;
+  }
+  @media (min-width: 1514px) {
+    left: 57%;
+  }
 }
 
 .ethics-item-5 {
   top: 25%;
-  left: 68%;
+  left: 69%;
+  @media (min-width: 960px) {
+    left: 68%;
+  }
+  @media (min-width: 1264px) {
+    left: 68%;
+  }
+  @media (min-width: 1514px) {
+    left: 68.5%;
+  }
+  @media (min-width: 1904px) {
+    left: 68%;
+  }
 }
 
 .ethics-arrow {

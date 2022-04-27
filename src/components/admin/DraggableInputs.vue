@@ -8,7 +8,7 @@
       :key="element.id"
       cols="12"
       class="input-bordered mb-6 pa-0 pt-4"
-      style="min-height: 60px"
+      style="min-height: 60px;cursor: move"
     >
       <div
         v-if="(element.type===1||element.type===3)&&!(element.type===3 && element.content.imagesName.length===0)"
@@ -145,7 +145,7 @@
                     placeholder="Название картинки"
                     outlined
                     dense
-                    class="mx-6 my-2 input-light-blue"
+                    class="mx-6 mt-6 mb-2 input-light-blue"
                     :dark="theme==='dark'"
                     hide-details
                   />

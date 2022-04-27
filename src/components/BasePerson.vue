@@ -41,6 +41,7 @@
           mdi-email-outline
         </v-icon>
         <a
+          :title="person.email"
           href="mailto: kapitonov.aleksandr@itmo.ru"
           class="person-ellipses"
         >
@@ -56,6 +57,7 @@
           mdi-phone
         </v-icon>
         <a
+          :title="person.tel"
           href="tel: +7 920-457-85-96"
           class="person-ellipses"
         >

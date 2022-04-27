@@ -33,6 +33,7 @@
               {{ person.position2 }}
             </div>
             <a
+              :title="person.email"
               :href="'mailto: '+person.email"
               class="person-email px-1 px-md-2"
             >
