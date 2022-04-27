@@ -191,14 +191,7 @@ export default {
     activeIndex: 0,
     isLoad: false,
   }),
-  computed: {
-    ...mapState('app', ['theme'])
-  },
-  watch: {
-    // tagsSelected(val) {
-    //   console.log(val)
-    // }
-  },
+  computed: mapState('app', {theme:'theme'}),
   mounted() {
     this.isLoad = true
   },

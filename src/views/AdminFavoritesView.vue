@@ -27,7 +27,7 @@
         md="6"
       >
         <BaseBlock
-          :info="Object.assign(info,{position:eventsPosition[i]})"
+          :info="Object.assign(info,{position: eventsPosition[i]})"
           :link="'favorites/'+i"
         />
       </v-col>
@@ -103,7 +103,3 @@ export default {
   })
 }
 </script>
-
-<style scoped>
-
-</style>

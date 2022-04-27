@@ -291,7 +291,7 @@
       <v-container>
         <div
           class=" text-center mx-auto text-h5 text-sm-h4 text-xl-h3"
-          :style="{width: $vuetify.breakpoint.smAndDown?'275px':'450px'}"
+          :style="{width:$vuetify.breakpoint.smAndDown?'275px':'450px'}"
         >
           Дисциплины
         </div>
@@ -468,14 +468,14 @@ export default {
     ],
     usefulLinks: [
       {
-        name: 'Инвестиционный и банковский сектор',
+        name: 'Инвестиционный</br>и банковский сектор',
         img: require('@/assets/images/program/job/Vector.svg'),
         links: [
           { name: 'Сбербанк Технологии' },
           { name: 'Intercontinental Exchange' }]
       },
       {
-        name: 'Информационная безопасность',
+        name: 'Информационная</br>безопасность',
         img: require('@/assets/images/program/job/Vector1.svg'),
         links: [
           { name: 'Dr.Web' },
@@ -483,7 +483,7 @@ export default {
           { name: 'Диджитал Секьюрити' }]
       },
       {
-        name: 'Компании, занимающиеся автоматизацией бизнеса',
+        name: 'Компании, занимающиеся</br>автоматизацией бизнеса',
         img: require('@/assets/images/program/job/Vector2.svg'),
         links: [
           { name: 'T-Systems' },
@@ -492,7 +492,7 @@ export default {
           { name: 'Горизонты Роста' }]
       },
       {
-        name: 'Ведущие международные IT‑компании',
+        name: 'Ведущие международные</br>IT‑компании',
         img: require('@/assets/images/program/job/Vector3.svg'),
         links: [
           { name: 'Microsoft' },
@@ -500,7 +500,7 @@ export default {
           { name: 'Интермедиа' }]
       },
       {
-        name: 'Телекоммуникационные компании',
+        name: 'Телекоммуникационные</br>компании',
         img: require('@/assets/images/program/job/Vector4.svg'),
         links: [
           { name: 'Alcatel-Lucent' },

@@ -1,6 +1,8 @@
 <template>
   <v-sheet
-    class="person rounded-pill mx-auto section-background"
+    ref="person"
+    class="person rounded-pill mx-auto"
+    :class="{'animation--active':scrolled}"
     :max-width="$vuetify.breakpoint.sm?250:280"
   >
     <div class="person-img-container rounded-circle">
@@ -10,8 +12,8 @@
         :src="person.img"
       />
     </div>
-    <div class="px-2 px-md-5 pb-12 pb-md-12 pt-1 pt-md-3 text-center">
-      <div class="text-h6 pb-1">
+    <div class="person-text px-2 px-md-5 pb-12 pb-md-12 text-center">
+      <div class="text-h6 pb-1 pt-1 pt-md-3">
         {{ person.name }}
       </div>
       <div>{{ person.position }}</div>
@@ -32,6 +34,7 @@
         </a>
       </div>
     </div>
+    <div class="person-pill rounded-b-pill section-background" />
   </v-sheet>
 </template>
 
@@ -43,19 +46,55 @@ export default {
       type: Object,
       default: null
     }
+  },
+  data: () => ({
+    scrolled: false
+  }),
+  created() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll() {
+      if (!this.scrolled) {
+        let height = document.documentElement.clientHeight
+        let { bottom } = this.$refs.person.$el.getBoundingClientRect()
+        this.scrolled = bottom < height && bottom > 0
+      }else{
+        window.removeEventListener('scroll', this.handleScroll)
+      }
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
-@import "../styles/variables.scss";
+@keyframes personPill {
+  0%{
+    height: 0;
+  }
+  100% {
+    height: 70%;
+  }
+}
+
+@keyframes personText {
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 .person {
   width: 100%;
+  position: relative;
+  background: rgba(0,0,0,0);
 
   .text-h6 {
     line-height: normal;
-    font-size: 28px !important;
+    font-size: 26px !important;
     @media (max-width: 1904px) {
       font-size: 18px !important;
     }
@@ -72,23 +111,36 @@ export default {
 
   * {
     line-height: normal;
-    font-size: 19px;
+    font-size: 17px;
     @media (max-width: 1904px) {
-      font-size: 14px ;
+      font-size: 14px;
     }
     @media (max-width: 1264px) {
-      font-size: 10px ;
+      font-size: 10px;
     }
     @media (max-width: 955.5px) {
-      font-size: 16px ;
+      font-size: 16px;
     }
     @media (max-width: 600px) {
-      font-size: 9.5px ;
+      font-size: 9.5px;
     }
   }
 
   .person-img-container {
     width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .person-pill {
+    position: absolute;
+    width: 100%;
+    top:30%;
+  }
+
+  .person-text {
+    opacity: 0;
+    transform: translateY(15px);
   }
 
   .person-link a div {
@@ -108,6 +160,16 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     position: relative;
+  }
+
+  &.animation--active{
+    .person-pill {
+      animation: personPill 1s forwards;
+    }
+
+    .person-text {
+      animation: personText 1s .7s forwards;
+    }
   }
 }
 </style>

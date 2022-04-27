@@ -1,11 +1,15 @@
 <template>
-  <div>
+  <div
+    ref="persons"
+    :class="{'animation--active':scrolled}"
+  >
     <VueSlickCarousel
       ref="carousel"
       v-bind="settings"
       :style="{height: $vuetify.breakpoint.xl?'570px':$vuetify.breakpoint.lg?'410px':$vuetify.breakpoint.md?'310px':$vuetify.breakpoint.sm?'460px':'240px'}"
       :slides-to-show="$vuetify.breakpoint.mdAndUp?5:3"
-      @beforeChange="(oldSlideIndex, newSlideIndex)=>{changeActiveIndex(newSlideIndex)}"
+      @beforeChange="(oldSlideIndex, newSlideIndex)=>changeActiveIndex(newSlideIndex)"
+      @afterChange="canChange=true"
     >
       <div
         v-for="(person,i) in slider"
@@ -13,9 +17,7 @@
         class="person-container mx-auto"
         :style="{maxWidth: $vuetify.breakpoint.mdAndUp?'auto':$vuetify.breakpoint.xs?'150px':'250px'}"
       >
-        <div
-          class="person"
-        >
+        <div class="person">
           <div class="person-img mx-auto">
             <v-img
               width="100%"
@@ -40,6 +42,7 @@
               {{ person.email }}
             </a>
           </div>
+          <div class="person-pill rounded-b-pill" />
         </div>
       </div>
     </VueSlickCarousel>
@@ -48,6 +51,7 @@
     >
       <button
         class="btn-nav mr-3 d-flex justify-center align-center"
+        :disabled="!canChange"
         @click="prev"
       >
         <v-icon
@@ -64,6 +68,7 @@
         icon
         class="btn-nav-circle"
         :class="((n-1)===activeIndex?'is-active':'')+($vuetify.breakpoint.xl?' mx-1':' ')"
+        :disabled="!canChange"
         @click="clickDelimiters(n-1)"
       >
         <v-icon :x-small="$vuetify.breakpoint.lgAndDown">
@@ -72,6 +77,7 @@
       </v-btn>
       <button
         class="btn-nav ml-3"
+        :disabled="!canChange"
         @click="next"
       >
         <v-icon
@@ -107,9 +113,26 @@ export default {
       'speed': 500,
       'arrows': false
     },
-    activeIndex: 0
+    activeIndex: 0,
+    scrolled: false,
+    canChange: true
   }),
+  created() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   methods: {
+    handleScroll() {
+      if (!this.scrolled) {
+        let height = document.documentElement.clientHeight
+        let { bottom } = this.$refs.persons.getBoundingClientRect()
+        this.scrolled = bottom - 100 < height && bottom > 0
+      } else {
+        window.removeEventListener('scroll', this.handleScroll)
+      }
+    },
     next() {
       this.$refs.carousel.next()
       this.activeIndex = this.activeIndex < this.slider.length - 1 ? this.activeIndex + 1 : 0
@@ -124,41 +147,60 @@ export default {
     },
     changeActiveIndex(i) {
       this.activeIndex = i
+      this.canChange = false
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-@import "../styles/variables.scss";
+@import "../styles/colors.scss";
 
-.btn-nav {
-  background-color: $ict-blue-green;
-  transition: all .3s ease-in-out;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  @media (max-width: 600px) {
-    width: 30px;
-    height: 30px;
+@keyframes personPill {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 72%;
   }
 }
 
-.btn-nav:hover {
-  transform: scale(1.15);
+@keyframes personText {
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.btn-nav:active {
-  background-color: #1E7F83;
-}
+.v-application {
+  .btn-nav {
+    background-color: $ict-blue-green;
+    transition: all .3s ease-in-out;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    @media (max-width: 600px) {
+      width: 30px;
+      height: 30px;
+    }
+  }
 
-.btn-nav-circle {
-  color: $ict-blue-green !important;
-}
+  .btn-nav:hover {
+    transform: scale(1.15);
+  }
 
-.btn-nav-circle.is-active {
-  color: #1E7F83 !important;
+  .btn-nav:active {
+    background-color: #1E7F83;
+  }
+
+  .btn-nav-circle .v-icon {
+    color: $ict-blue-green !important;
+  }
+
+  .btn-nav-circle.is-active .v-icon {
+    color: #1E7F83 !important;
+  }
 }
 
 .person-container {
@@ -201,16 +243,16 @@ export default {
     line-height: normal;
     font-size: 19px;
     @media (max-width: 1904px) {
-      font-size: 13px ;
+      font-size: 13px;
     }
     @media (max-width: 1264px) {
-      font-size: 10px ;
+      font-size: 10px;
     }
     @media (max-width: 955.5px) {
-      font-size: 16px ;
+      font-size: 16px;
     }
     @media (max-width: 600px) {
-      font-size: 8px ;
+      font-size: 8px;
     }
   }
 
@@ -229,40 +271,66 @@ export default {
   .person {
     height: 100%;
     transition: background-color .3s;
-    background-color: #00A1FF;
-    border-radius: 9999px;
+    position: relative;
+
+    * {
+      color: white;
+      line-height: normal;
+      font-size: 21px;
+      @media (max-width: 1904px) {
+        font-size: 15px;
+      }
+      @media (max-width: 1264px) {
+        font-size: 12px;
+      }
+      @media (max-width: 955.5px) {
+        font-size: 18px;
+      }
+      @media (max-width: 600px) {
+        font-size: 10px;
+      }
+    }
+
+    .person-pill {
+      background-color: #00A1FF;
+      position: absolute;
+      z-index: 0;
+      width: 100%;
+      top: 28%;
+    }
+
+    .person-text {
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    .person-email {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .person-position-2 {
+      display: block;
+    }
+
+    .person-img {
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+
+.animation--active .slick-slide.slick-center {
+  .person-pill {
+    animation: personPill 1s forwards;
   }
 
-  * {
-    color: white;
-    line-height: normal;
-    font-size: 21px;
-    @media (max-width: 1904px) {
-      font-size: 15px ;
-    }
-    @media (max-width: 1264px) {
-      font-size: 12px ;
-    }
-    @media (max-width: 955.5px) {
-      font-size: 18px ;
-    }
-    @media (max-width: 600px) {
-      font-size: 10px ;
-    }
-  }
-
-  .person-email {
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .person-position-2 {
-    display: block;
-  }
-
-  .person-img {
-    width: 100%;
+  .person-text {
+    animation: personText .6s .6s forwards;
   }
 }
 </style>

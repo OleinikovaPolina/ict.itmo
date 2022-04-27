@@ -147,8 +147,6 @@ export default {
       { id: 2, name: 'Конференции' }, { id: 3, name: 'Студ. жизнь:' }],
     tagForm: {}
   }),
-  computed: {
-    ...mapState('app', ['theme'])
-  }
+  computed: mapState('app', {theme:'theme'})
 }
 </script>

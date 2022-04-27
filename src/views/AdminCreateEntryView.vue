@@ -322,7 +322,7 @@
           </template>
         </v-autocomplete>
       </v-col>
-      <!--   btns  -->
+      <!--   buttons  -->
       <div class="d-flex pt-6">
         <BaseButton
           text="Опубликовать"
@@ -416,7 +416,7 @@ export default {
       { id: 4, type: 2, name: 'Название 4' },
       { id: 5, type: 3, name: 'Название 5' }]
   }),
-  computed: mapState('app', ['theme']),
+  computed: mapState('app', { theme: 'theme' }),
   methods: {
     canBePublished() {
       let k = true

@@ -3,9 +3,12 @@
     class="useful-block pa-3"
     :class="background"
   >
-    <div class="text-center pb-2 useful-block-title">
-      {{ item.name }}
-    </div>
+    <!-- eslint-disable vue/no-v-html -->
+    <div
+      class="text-center pb-2 useful-block-title"
+      v-html="item.name"
+    />
+    <!--eslint-enable-->
     <v-row>
       <v-col
         cols="3"
@@ -29,9 +32,16 @@
             :key="i"
           >
             <a
+              v-if="link.href"
               :class="link.href?'link-arrow':''"
               :href="link.href"
             >{{ link.name }} </a>
+            <span
+              v-if="!link.href"
+              class="subtitle-color"
+            >
+              {{ link.name }}
+            </span>
           </li>
         </ul>
       </v-col>

@@ -2,7 +2,7 @@
   <div>
     <HackathonComponent v-if="$route.params.id==='7'" />
     <CompetitionComponent v-if="$route.params.id==='8'" />
-    <EventComponent v-if="parseInt($route.params.id)<7"/>
+    <EventComponent v-if="parseInt($route.params.id)<7" />
   </div>
 </template>
 
