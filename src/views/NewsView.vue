@@ -19,6 +19,7 @@
       class="pl-0"
     >
       <v-text-field
+        v-model="search"
         :dark="theme==='dark'"
         :color="theme==='dark'?'#00A1FF':'#005A8E'"
         class="search-input"
@@ -28,7 +29,8 @@
         dense
         outlined
         clearable
-        @click:append="()=>{}"
+        @keyup.enter="clickTagSearch"
+        @click:append="clickTagSearch"
       />
     </v-col>
     <div class="py-3 py-md-6">
@@ -36,34 +38,40 @@
         Популярные теги
       </div>
       <div
-        v-for="(tag,i) in tags"
+        v-for="(category,i) in tagsCategories"
         :key="i"
         class="d-flex pt-md-2 align-center"
       >
         <div class="pr-4">
-          {{ tag.name }}
+          {{ category.name }}
         </div>
         <v-chip-group
-          v-model="tagsSelected[i]"
+          v-model="tagsSelected"
           multiple
+          column
+          @change="clickTagSearch"
         >
           <BaseChipSelected
-            v-for="(item,j) in tag.items"
-            :key="j"
-            :item="{type:i,name:item}"
+            v-for="item in tags.filter(tag=>tag.category.id===category.id)"
+            :key="item.id"
+            :item="item"
             class="mr-2"
           />
         </v-chip-group>
       </div>
     </div>
     <!-- result of searching   -->
-    <div v-if="news.length===0 && isLoad">
+    <div v-if="isLoad && news.results && news.results.length===0">
       По вашему запросу ничего не найдено
     </div>
-    <div v-else-if="news.length>0">
+    <div
+      v-else-if="news.results && news.results.length>0"
+      id="news"
+      :style="{opacity: isLoad?1:0.5}"
+    >
       <v-row>
         <v-col
-          v-for="(item,i) in news"
+          v-for="(item,i) in news.results"
           :key="i"
           cols="6"
           md="3"
@@ -90,7 +98,7 @@
           icon
           :small="$vuetify.breakpoint.smAndDown"
           class="btn-nav-nums"
-          :class="(n-1)===activeIndex?'is-active':''"
+          :class="(n-1)===page?'is-active':''"
           @click="clickDelimiters(n-1)"
         >
           <span>{{ n }}</span>
@@ -112,8 +120,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import img from '@/assets/images/delete/home-1.png'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'NewsView',
@@ -122,88 +129,80 @@ export default {
     BaseNews: () => import('@/components/events/BaseNewsSmall')
   },
   data: () => ({
-    news: [
-      {
-        id: 1,
-        img: img,
-        date: '12 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '13 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '14 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '15 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '16 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '17 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '18 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '19 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      }
-    ],
-    tags: [
-      { name: 'Факультет:', items: ['Факультет', 'Декан', 'ППА'] },
-      { name: 'Хакатоны:', items: ['Факультет', 'Декан', 'ППА'] },
-      { name: 'Конференции:', items: ['Факультет', 'Декан', 'ППА'] },
-      { name: 'Студ. жизнь:', items: ['Факультет', 'Декан', 'ППА'] }
-    ],
-    tagsSelected: [[], [], [], []],
+    tagsSelected: [],
+    search: '',
     pages: 3,
-    activeIndex: 0,
-    isLoad: false,
+    page: 0,
+    isLoad: false
   }),
-  computed: mapState('app', {theme:'theme'}),
-  mounted() {
-    this.isLoad = true
+  computed: {
+    ...mapState('app', { theme: 'theme' }),
+    ...mapState('news', ['tags', 'tagsCategories', 'news'])
+  },
+  watch: {
+    '$route.params': {
+      handler: function() {
+        this.getRouterQuery()
+        this.changeNews()
+      },
+      deep: true,
+      immediate: true
+    }
+  },
+  async mounted() {
+    await this.getTags()
   },
   methods: {
-    next() {
-      this.activeIndex = this.activeIndex < this.pages - 1 ? this.activeIndex + 1 : 0
+    ...mapActions('news', ['getNews', 'getTags']),
+    clickTagSearch() {
+      this.page = 0
+      this.changeRoute()
     },
-    prev() {
-      this.activeIndex = this.activeIndex > 0 ? this.activeIndex - 1 : this.pages - 1
+    getRouterQuery() {
+      let pageQuery = parseInt(this.$route.query.page?.toString()) - 1
+      this.page = pageQuery > -1 ? pageQuery : 0
+      this.search = this.$route.query.search?.toString()
+      this.tagsSelected = this.$route.query.tags?.toString().split(',').map(x => parseInt(x)) || []
     },
-    clickDelimiters(i) {
-      this.activeIndex = i
+    changeRoute() {
+      let query = { page: (this.page + 1).toString() }
+      if (this.tagsSelected.length) {
+        query.tags = this.tagsSelected.toString()
+      }
+      if (this.search) {
+        query.search = this.search
+      }
+      this.$router
+        .push({ query: query })
+        .catch(() => ({}))
+    },
+    async changeNews() {
+      this.isLoad = false
+      await this.getNews({ page: this.page, search: this.search, tags: this.tagsSelected })
+      this.pages = Math.ceil(this.news.count / 16)
+      this.isLoad = true
+    },
+    scrollPage(){
+      const top = window.scrollY + document.getElementById('news')?.getBoundingClientRect().y -document.querySelector('.navbar-container')?.clientHeight
+      window.scrollTo({
+        top: top,
+        behavior: 'smooth'
+      })
+    },
+    async next() {
+      this.page = this.page < this.pages - 1 ? this.page + 1 : 0
+      this.scrollPage()
+      this.changeRoute()
+    },
+    async prev() {
+      this.page = this.page > 0 ? this.page - 1 : this.pages - 1
+      this.scrollPage()
+      this.changeRoute()
+    },
+    async clickDelimiters(i) {
+      this.page = i
+      this.scrollPage()
+      this.changeRoute()
     }
   }
 }

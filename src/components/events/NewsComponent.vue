@@ -10,7 +10,8 @@
       />
     </div>
     <CarouselComponent
-      :slider="slider"
+      v-if="news"
+      :slider="news"
       :columns="columns"
     >
       <template #item="slotProps">
@@ -19,7 +20,7 @@
           md="3"
           class="pa-1 news-hover"
         >
-          <BaseNews :news="slotProps.item" />
+          <BaseNewsSmall :news="slotProps.item" />
         </v-col>
       </template>
     </CarouselComponent>
@@ -27,76 +28,19 @@
 </template>
 
 <script>
-import img from '../../assets/images/delete/home-1.png'
-
 export default {
   name: 'NewsComponent',
   components: {
     CarouselComponent: () => import('@/components/CarouselComponent'),
     BaseButtonOutlined: () => import('@/components/BaseButtonOutlined'),
-    BaseNews: () => import('@/components/events/BaseNewsSmall')
+    BaseNewsSmall: () => import('@/components/events/BaseNewsSmall')
   },
-  data: () => ({
-    activeIndex: 0,
-    slider: [
-      {
-        id: 1,
-        img: img,
-        date: '12 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '13 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '14 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '15 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '16 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '17 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '18 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        id: 1,
-        img: img,
-        date: '19 января 2022',
-        name: 'Название мероприятия или новости',
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      }
-    ]
-  }),
+  props: {
+    news: {
+      type: Array,
+      default: null
+    }
+  },
   computed: {
     columns() {
       return this.$vuetify.breakpoint.mdAndUp ? 4 : 2
@@ -108,6 +52,7 @@ export default {
 .news-hover {
   transition: all .5s;
   transform: scale(.85);
+  border: 2px solid transparent;
 }
 
 .carousel-component:hover {

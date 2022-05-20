@@ -1,9 +1,10 @@
 <template>
-  <div
-    :class="'ict-chip-'+item.type"
-  >
+  <div>
     <v-chip
       class="rounded ict-chip"
+      :value="item.id"
+      :color="item.category.color"
+      :style="{border: `1px solid ${item.category.color} !important`}"
     >
       {{ item.name }}
     </v-chip>
@@ -53,6 +54,7 @@ html body .v-application {
   .v-chip:not(.v-chip--active) .v-chip__content {
     color: #0071B2 !important;
   }
+
   .v-chip--active .v-chip__content {
     color: white;
   }
@@ -66,31 +68,5 @@ html body .v-application {
   .v-chip--active .v-chip__content {
     color: #070C2D;
   }
-}
-
-@mixin content($color-default) {
-  .v-chip:not(.v-chip--active) {
-    border: 1px solid $color-default !important;
-  }
-
-  .v-chip--active {
-    background-color: $color-default !important;
-  }
-}
-
-.ict-chip-0 {
-  @include content(#00A1FF);
-}
-
-.ict-chip-1 {
-  @include content(#FF776E);
-}
-
-.ict-chip-2 {
-  @include content(#6A30F4);
-}
-
-.ict-chip-3 {
-  @include content(#00DEA9);
 }
 </style>

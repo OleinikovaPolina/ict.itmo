@@ -148,7 +148,10 @@
       />
     </div>
     <!--  News  -->
-    <NewsComponent class="pb-8 pb-xl-12" />
+    <NewsComponent
+      class="pb-8 pb-xl-12"
+      :news="news.results"
+    />
     <!--  Leaders  -->
     <LineComponent
       id="3"
@@ -308,6 +311,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+
 export default {
   name: 'HomeView',
   components: {
@@ -414,6 +419,7 @@ export default {
     scrolledNumbers: false,
     scrolledHexLines: false
   }),
+  computed: mapState('news', ['news']),
   watch: {
     scrolledClub: {
       handler: function(vals) {
@@ -431,6 +437,9 @@ export default {
       }
     }
   },
+  async mounted() {
+    await this.getNews()
+  },
   created() {
     window.addEventListener('scroll', this.handleScroll)
   },
@@ -438,6 +447,7 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
+    ...mapActions('news', ['getNews']),
     handleScroll() {
       let height = document.documentElement.clientHeight
       document.querySelectorAll('.animation-club').forEach((obj, i) => {

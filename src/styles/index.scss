@@ -24,7 +24,7 @@
       color: map-get($theme, "h-color");
     }
 
-    .subtitle-color, .subtitle-color *, .v-application a {
+    .subtitle-color, .subtitle-color *, .v-application a, .link-arrow a * {
       color: map-get($theme, "subtitle-color");
     }
 
@@ -212,10 +212,13 @@ a.link-arrow, .link-arrow a {
   text-decoration: none;
   font-size: 18px;
   position: relative;
+  margin-right: 16px;
   @media (max-width: 1904px) {
+    margin-right: 12px;
     font-size: 14px;
   }
   @media (max-width: 600px) {
+    margin-right: 10px;
     font-size: 12px;
   }
 }

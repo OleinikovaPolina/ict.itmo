@@ -72,7 +72,8 @@
               </v-list-item>
               <v-list-item :style="{minHeight: $vuetify.breakpoint.smAndDown ?'2em':'2.75em'}">
                 <a
-                  href="#"
+                  target="_blank"
+                  href="https://itmo.ru/file/pages/79/personal_data_policy.pdf"
                   class="link font-weight-light text-decoration-underline"
                 >
                   Политика по обработке персональных данных
@@ -80,7 +81,8 @@
               </v-list-item>
               <v-list-item :style="{minHeight: $vuetify.breakpoint.smAndDown ?'2em':'2.75em'}">
                 <a
-                  href="#"
+                  target="_blank"
+                  href="https://itmo.ru/images/pages/79/Pravila_ispolzovanija_informacii.pdf"
                   class="link font-weight-thin text-decoration-underline"
                 >
                   Правила использования контента
@@ -156,6 +158,7 @@
               rounded
               link
               :href="link.link"
+              target="_blank"
               class="ml-4"
             >
               <v-img :src="link.icon" />
@@ -275,6 +278,7 @@
                 rounded
                 link
                 :href="link.link"
+                target="_blank"
                 class="ml-2"
               >
                 <v-img
@@ -307,9 +311,9 @@ export default {
   name: 'TheFooterComponent',
   data: () => ({
     social: [
-      { icon: iconYT, link: 'https://itmo.ru/ru/' },
-      { icon: iconVk, link: 'https://itmo.ru/ru/' },
-      { icon: iconTe, link: 'https://itmo.ru/ru/' }
+      { icon: iconYT, link: 'https://www.youtube.com/channel/UC7cJ1RBFsZ7WWjoXV_5Vl1A' },
+      { icon: iconVk, link: 'https://vk.com/dict_itmo' },
+      { icon: iconTe, link: 'https://t.me/itmoict' }
     ]
   })
 }

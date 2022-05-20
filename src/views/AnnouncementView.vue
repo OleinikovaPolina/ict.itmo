@@ -1,8 +1,8 @@
 <template>
-  <v-container v-if="loading && Object.keys(newsOne).length">
+  <v-container v-if="loading && Object.keys(announcement).length">
     <BaseNews
-      v-if="loading && newsOne"
-      :data="newsOne"
+      v-if="loading && announcement"
+      :data="announcement"
     />
   </v-container>
   <BaseNotFound v-else-if="loading" />
@@ -12,18 +12,18 @@
 import { mapActions, mapState } from 'vuex'
 
 export default {
-  name: 'NewView',
+  name: 'AnnouncementView',
   components: {
     BaseNotFound: () => import('@/components/app/BaseNotFound'),
     BaseNews: () => import('@/components/events/BaseNews')
   },
   data: () => ({ loading: false }),
-  computed: mapState('news', ['newsOne']),
+  computed: mapState('news', ['announcement']),
   watch: {
     '$route.params': {
       handler: async function() {
         this.loading = false
-        await this.getNew(this.$route.params.id)
+        await this.getAnnouncement(this.$route.params.id)
         this.loading = true
       },
       deep: true,
@@ -31,9 +31,9 @@ export default {
     }
   },
   async mounted() {
-    await this.getNew(this.$route.params.id)
+    await this.getAnnouncement(this.$route.params.id)
     this.loading = true
   },
-  methods: mapActions('news', ['getNew'])
+  methods: mapActions('news', ['getAnnouncement'])
 }
 </script>

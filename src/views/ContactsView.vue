@@ -18,10 +18,10 @@
           <BasePerson :person="dean" />
         </v-col>
       </v-row>
-      <!--  people  -->
+      <!--  contacts  -->
       <v-row justify="center">
         <v-col
-          v-for="(person,i) in persons"
+          v-for="(person,i) in contacts"
           :key="i"
           cols="6"
           sm="5"
@@ -34,13 +34,13 @@
       <div class="text-center mx-auto pt-6 pb-6 pt-md-10 text-h6 text-sm-h5 text-xl-h4">
         Офис образовательных программ
       </div>
-      <!--  people  -->
+      <!--  office  -->
       <v-row
         justify="center"
         class="pb-6 pb-md-10"
       >
         <v-col
-          v-for="(person,i) in persons"
+          v-for="(person,i) in office"
           :key="i"
           cols="6"
           sm="5"
@@ -110,9 +110,9 @@
                 </v-list-item-icon>
                 <div>
                   <a
-                    href="tel:+78124571536"
+                    href="tel:+7 (812) 480-04-96"
                     style="color: inherit"
-                  >+7 (812) 457-15-36 </a>
+                  >+7 (812) 480-04-96</a>
                   <span
                     class="pl-1"
                     style="opacity: 0.7"
@@ -177,6 +177,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'ContactsView',
   components: {
@@ -184,41 +186,7 @@ export default {
     BasePersonVertical: () => import('@/components/BasePersonVertical'),
     BasePerson: () => import('@/components/BasePerson')
   },
-  data: () => ({
-    persons: [
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      }
-    ],
-    dean: {
-      img: require('../assets/images/contacts/unsplash_v2aKnjMbP_k.png'),
-      name: 'Капитонов Александр Александрович',
-      position: 'Декан факультета',
-      email: 'kapitonov.aleksandr@itmo.ru',
-      tel: '+7 920-457-85-96'
-    }
-  })
+  computed: mapState('contacts', ['dean', 'contacts', 'office'])
 }
 </script>
 

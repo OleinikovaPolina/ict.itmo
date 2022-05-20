@@ -33,7 +33,7 @@
           >
             <a
               v-if="link.href"
-              :class="link.href?'link-arrow':''"
+              :class="link.href?'link-arrow mr-0':''"
               :href="link.href"
             >{{ link.name }} </a>
             <span

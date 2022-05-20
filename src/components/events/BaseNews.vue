@@ -1,15 +1,21 @@
 <template>
   <div>
     <div class="d-flex justify-space-between align-center pb-md-2">
-      <div class="text-h6 text-sm-h4 text-xl-h3">
-        {{ data.name }}
+      <div
+        class="text-h6 text-sm-h4 text-xl-h3"
+        style="line-height: normal"
+      >
+        {{ data.title }}
       </div>
       <div class="d-flex">
         <div v-if="data.datePublish">
           {{ $moment(data.datePublish).format('DD.MM.YYYY') + ', ' + data.timePublish }}
         </div>
-        <div class="pl-6">
-          <v-icon color="#00A1FF">
+        <div class="pl-6 d-flex align-center">
+          <v-icon
+            color="#00A1FF"
+            class="mr-1"
+          >
             mdi-eye
           </v-icon>
           0
@@ -30,10 +36,11 @@
     <div v-if="data.place">
       <b>Место проведения: </b>{{ data.place }}
     </div>
-    <div v-if="data.dateStart">
+    <div v-if="data.dateStart||data.date">
       <b>Дата проведения: </b>
       <span v-if="data.timeStart">{{ data.timeStart }} </span>
-      <span v-if="data.dateStart">{{ $moment(data.dateStart).format('DD MMMM YYYY года') }}</span>
+      <span v-if="data.dateStart||data.date">{{ $moment(data.dateStart || data.date).format('DD MMMM YYYY года')
+      }}</span>
     </div>
 
     <div
@@ -61,7 +68,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -21,9 +21,13 @@
         <div class="ethics-book-text ethics-book-text-2">
           Руководство<br>факультета
         </div>
-        <div class="ethics-book-text ethics-book-text-3">
+        <a
+          class="ethics-book-text ethics-book-text-3"
+          target="_blank"
+          href="https://github.com/itmo-ict-faculty/ict-guidebook"
+        >
           ОТКРЫТЬ
-        </div>
+        </a>
       </div>
       <!--  road, arrow, markers    -->
       <svg
@@ -258,13 +262,22 @@ export default {
 }
 
 @keyframes BookText12Animation {
+  99%{
+    transform: scaleY(1);
+    opacity: 0;
+  }
   100% {
+    transform: scaleY(0);
     opacity: 0;
   }
 }
 
 @keyframes BookText3Animation {
+  0% {
+    transform: scaleY(1)
+  }
   100% {
+    transform: scaleY(1);
     opacity: 1;
   }
 }
@@ -369,6 +382,7 @@ export default {
   }
 
   .ethics-book-text-3 {
+    transform: scaleY(0);
     opacity: 0;
     left: 35%;
     top: 40%;

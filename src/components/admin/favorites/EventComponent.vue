@@ -224,7 +224,6 @@ export default {
   data: () => ({
     coverSizes: [{ w: 400, h: 400 }, { w: 300, h: 190 }, { w: 190, h: 190 },
       { w: 190, h: 190 }, { w: 190, h: 190 }, { w: 190, h: 190 }, { w: 300, h: 190 }],
-
     isPreview: false,
     previewData: {},
     form: {

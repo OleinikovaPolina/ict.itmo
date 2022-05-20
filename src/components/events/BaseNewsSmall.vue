@@ -2,25 +2,26 @@
   <router-link
     :to="'/new/'+news.id"
     class="text-decoration-none"
+    style="height: 100%"
   >
     <v-img
       class="mb-4"
-      :height="$vuetify.breakpoint.xl?'300':$vuetify.breakpoint.smAndUp?'200':'160'"
       width="100%"
-      :src="news.img"
+      :min-height="$vuetify.breakpoint.xsOnly?100:100"
+      :src="news.image['url']"
     />
     <div class="news-subtitle mb-1">
-      {{ news.date }}
+      {{ $moment(news.date).format('DD.MM.YYYY') }}
     </div>
     <div class="news-name subtitle-color">
-      {{ news.name }}
+      {{ news.title }}
     </div>
     <div class="d-flex flex-wrap pt-md-2">
       <BaseChip
-        v-for="(item,i) in news.items"
+        v-for="(tag,i) in news.tags"
         :key="i"
         class="mt-2"
-        :item="item"
+        :item="tag"
       />
     </div>
   </router-link>

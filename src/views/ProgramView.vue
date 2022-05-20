@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="program">
     <!-- header -->
     <v-container>
       <v-row class="d-flex align-stretch justify-center">
@@ -13,20 +13,25 @@
           <div class="pb-4 pb-md-4 text-body-2 breadcrumbs text-start">
             <span>Поступление /</span>
             <router-link
+              v-if="program.type===0"
               to="/baccalaureate"
             >
               Бакалавриат
             </router-link>
-            <span>/ Прикладная информатика</span>
+            <router-link
+              v-if="program.type===1"
+              to="/magistracy"
+            >
+              Магистратура
+            </router-link>
+            <span>/ {{ program.direction }}</span>
           </div>
           <div>
             <div class="pb-4 pb-lg-8 text-h4 text-xl-h3">
-              Прикладная информатика
+              {{ program.direction }}
             </div>
             <div class="text-subtitle-1 pb-6">
-              Образовательная программа направлена на подготовку специалистов широкого профиля, владеющих технологиями
-              разработки мобильных и веб-приложений. Обучение включает в себя активную самостоятельную,
-              научно-исследовательскую и проектную работу.
+              {{ program.description }}
             </div>
           </div>
           <div :class="$vuetify.breakpoint.smAndDown?'mx-auto':''">
@@ -77,9 +82,13 @@
                   class="subtitle-color"
                   style="width: fit-content"
                 >
-                  Математика - 60<br>
-                  Информатика - 60<br>
-                  Русский язык - 60
+                  <p
+                    v-for="exam in program.exams"
+                    :key="exam"
+                    class="mb-0"
+                  >
+                    {{ exam }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -98,16 +107,16 @@
                 style="height: 100%"
               >
                 <div class="subtitle-color pb-1 pb-md-2 pb-lg-3">
-                  Количество мест - <b>30</b>
+                  Количество мест - <b>{{ program.numbers }}</b>
                 </div>
                 <div class="subtitle-color pb-1 pb-md-2 pb-lg-3">
-                  Проходной балл прошлого года - <b>300</b>
+                  Проходной балл прошлого года - <b>{{ program.score }}</b>
                 </div>
                 <div class="subtitle-color pb-1 pb-md-2 pb-lg-3">
-                  Язык обучения - <b>русский</b>
+                  Язык обучения - <b>{{ program.language }}</b>
                 </div>
                 <div class="subtitle-color">
-                  Форма обучения - <b>очная</b>
+                  Форма обучения - <b>{{ program.form }}</b>
                 </div>
               </div>
             </div>
@@ -133,16 +142,21 @@
                   class="d-flex flex-column pl-xl-4"
                 >
                   <a
-                    class="link-arrow mb-1 mb-md-2"
-                    href="#"
-                  >Страница программы </a>
+                    v-for="link in program.links"
+                    :key="link.link"
+                    class="link-arrow mb-1 mb-md-2 mr-0"
+                    :href="link.link"
+                    target="_blank"
+                  >{{ link.name }}</a>
                   <a
-                    class="link-arrow mb-1 mb-md-2"
-                    href="#"
+                    class="link-arrow mb-1 mb-md-2 mr-0"
+                    href="https://abit.itmo.ru/page/66"
+                    target="_blank"
                   >Правила приема 2022 </a>
                   <a
-                    class="link-arrow"
-                    href="#"
+                    class="link-arrow mr-0"
+                    :href="`https://abit.itmo.ru/${program.type===0?'bachelor':'master'}#scholarship`"
+                    target="_blank"
                   >Стипендии </a>
                 </div>
               </div>
@@ -182,12 +196,11 @@
           class="py-0"
         >
           <ul class="ict-ul">
-            <li>телекоммуникационные системы;</li>
-            <li>сети связи и системы коммутации;</li>
-            <li>интеллектуальные сети и системы связи;</li>
-            <li>системы централизованной обработки данных в инфокоммуникационных сетях;</li>
-            <li>
-              мультимедийные технологии;
+            <li
+              v-for="area in program.areas[n-1]"
+              :key="n+area"
+            >
+              {{ area }}
             </li>
           </ul>
         </v-col>
@@ -296,7 +309,7 @@
           Дисциплины
         </div>
         <BaseHexagonContainer
-          :link="'/disciplines/'+1"
+          :link="'/disciplines/'+program.code"
           :hex-array="hexArray"
         />
       </v-container>
@@ -319,7 +332,7 @@
     <v-container class="py-8 py-md-16">
       <v-row justify="center">
         <v-col
-          v-for="(person,i) in contactPersons"
+          v-for="(person,i) in program.contacts"
           :key="i"
           cols="12"
           sm="6"
@@ -393,10 +406,14 @@
         <div class="text-center mx-auto pb-4 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Преподаватели
         </div>
-        <CarouselLeadersComponent :slider="persons" />
+        <CarouselLeadersComponent
+          v-if="program.teachers.length"
+          :slider="program.teachers"
+        />
       </v-container>
     </div>
   </div>
+  <BaseNotFound v-else />
 </template>
 
 <script>
@@ -405,6 +422,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'ProgramView',
   components: {
+    BaseNotFound: () => import('@/components/app/BaseNotFound'),
     BasePerson: () => import('@/components/BasePerson'),
     LineComponent: () => import('@/components/LineComponent'),
     BaseUlBlock: () => import('@/components/BaseUlBlock'),
@@ -428,43 +446,6 @@ export default {
       { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') },
       { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') },
       { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') }
-    ],
-    persons: [
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Александрова А.А.',
-        position2: 'Инфокоммуникационые системы и технологии, Проектная документация'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position2: 'Заместитель декана факультета'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Александрова А.А.',
-        position2: 'Заместитель декана факультета'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position2: 'Заместитель декана факультета'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position2: 'Заместитель декана факультета'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position2: 'Заместитель декана факультета'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position2: 'Заместитель декана факультета'
-      }
     ],
     usefulLinks: [
       {
@@ -507,26 +488,13 @@ export default {
           { name: 'Мегафон' },
           { name: 'GS Group' }]
       }
-    ],
-    contactPersons: [
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        position: 'Дергунская Светлана Александровна',
-        name: 'Контактное лицо',
-        email: 'sderkunskaia@itmo.ru',
-        tel: '+7 920-457-85-96'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        position: 'Ватьян Александра Сергеевна',
-        name: 'Руководитель программы',
-        email: 'asvatian@itmo.ru',
-        tel: '+7 920-457-85-96'
-      }
     ]
   }),
   computed: {
     ...mapState('app', ['theme']),
+    program() {
+      return this.$store.getters['programs/program'](this.$route.params.id)
+    },
     programAreasImg() {
       return this.theme === 'dark' ? require('../assets/images/program/Vector.svg') : require('../assets/images/program/VectorLight.svg')
     }

@@ -42,7 +42,7 @@
         </div>
         <v-row>
           <v-col
-            v-for="(item,i) in items.slice(0,6)"
+            v-for="(item,i) in announcements.results"
             :key="i"
             cols="6"
             md="4"
@@ -66,7 +66,11 @@
       top="10px"
     />
     <!--  News  -->
-    <NewsComponent class="pb-2 pb-md-8 pb-xl-12"/>
+    <NewsComponent
+      v-if="news"
+      class="pb-2 pb-md-8 pb-xl-12"
+      :news="news.results"
+    />
     <!-- events   -->
     <LineComponent
       id="5"
@@ -160,6 +164,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+
 export default {
   name: 'EventsView',
   components: {
@@ -212,7 +218,14 @@ export default {
         items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
       }
     ]
-  })
+  }),
+  computed: mapState('news', ['news', 'announcements', 'events']),
+  async mounted() {
+    await this.getNews()
+    await this.getAnnouncements()
+    await this.getEvents()
+  },
+  methods: mapActions('news', ['getNews', 'getAnnouncements', 'getEvents'])
 }
 </script>
 

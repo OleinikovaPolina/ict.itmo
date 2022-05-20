@@ -20,6 +20,11 @@ const routes = [
     component: () => import('../views/NewView.vue')
   },
   {
+    path: '/announcement/:id',
+    name: 'announcement',
+    component: () => import('../views/AnnouncementView.vue')
+  },
+  {
     path: '/baccalaureate',
     name: 'baccalaureate',
     component: () => import('../views/BaccalaureateView.vue')
@@ -102,8 +107,10 @@ const router = new VueRouter({
   // base: process.env.BASE_URL,
   mode: 'hash',
   routes,
-  scrollBehavior() {
-    document.getElementById('app').scrollIntoView()
+  scrollBehavior(to, from) {
+    if (to.name !== from.name) {
+      document.getElementById('app').scrollIntoView()
+    }
   }
 })
 

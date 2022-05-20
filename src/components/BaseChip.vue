@@ -1,7 +1,8 @@
 <template>
   <div
+    v-if="item.category"
     class="mr-1 rounded px-2 px-md-3 chip-text"
-    :style="{backgroundColor: colors[item.type]}"
+    :style="{backgroundColor: item.category.color}"
   >
     {{ item.name }}
     <slot name="chip-btns" />
@@ -16,10 +17,7 @@ export default {
       type: Object,
       default: null
     }
-  },
-  data: () => ({
-    colors: ['#00A1FF', '#FF776E', '#6A30F4', '#00DEA9']
-  })
+  }
 }
 </script>
 <style scoped lang="scss">

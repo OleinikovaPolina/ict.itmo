@@ -19,10 +19,10 @@
           @clickBtnCallback="changeTypeData(1)"
         />
       </div>
-      <!--  name  -->
+      <!--  title  -->
       <div class="input-bordered mb-6">
         <v-text-field
-          v-model="form.name"
+          v-model="form.title"
           :placeholder="`Название ${typeDate===1?'новости':'анонса'}`"
           outlined
           dense
@@ -404,7 +404,7 @@ export default {
     isPreview: false,
     previewData: {},
     form: {
-      name: '', dateStart: null, dateEnd: null, timeStart: null,
+      title: '', dateStart: null, dateEnd: null, timeStart: null,
       datePublish: null, timePublish: null, place: '', tags: [],
       isSlider: false, sliderImg: null, sliderImgCroppie: null, sliderImgBlob: null,
       cover: null, coverCroppie: null, coverBlob: null,
@@ -432,7 +432,7 @@ export default {
           break
         }
       }
-      return !(this.form.name && this.form.dateStart && this.form.datePublish
+      return !(this.form.title && this.form.dateStart && this.form.datePublish
         && this.form.timePublish && this.form.place && this.form.tags.length
         && this.form.blocks.length && k)
     },

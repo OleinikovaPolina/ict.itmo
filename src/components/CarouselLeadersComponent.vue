@@ -23,7 +23,7 @@
               width="100%"
               height="100%"
               class="rounded-circle"
-              :src="person.img"
+              :src="person.img||require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png')"
             />
           </div>
           <div class="person-text pt-1 pt-md-2 px-1 px-sm-4 text-center">

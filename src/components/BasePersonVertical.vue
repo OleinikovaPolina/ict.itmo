@@ -50,6 +50,9 @@ export default {
   data: () => ({
     scrolled: false
   }),
+  mounted() {
+    this.handleScroll()
+  },
   created() {
     window.addEventListener('scroll', this.handleScroll)
   },
@@ -62,7 +65,7 @@ export default {
         let height = document.documentElement.clientHeight
         let { bottom } = this.$refs.person.$el.getBoundingClientRect()
         this.scrolled = bottom < height && bottom > 0
-      }else{
+      } else {
         window.removeEventListener('scroll', this.handleScroll)
       }
     }
@@ -72,7 +75,7 @@ export default {
 
 <style scoped lang="scss">
 @keyframes personPill {
-  0%{
+  0% {
     height: 0;
   }
   100% {
@@ -89,8 +92,9 @@ export default {
 
 .person {
   width: 100%;
+  height: 100%;
   position: relative;
-  background: rgba(0,0,0,0);
+  background: rgba(0, 0, 0, 0);
 
   .text-h6 {
     line-height: normal;
@@ -135,10 +139,12 @@ export default {
   .person-pill {
     position: absolute;
     width: 100%;
-    top:30%;
+    top: 30%;
   }
 
   .person-text {
+    z-index: 10;
+    position: relative;
     opacity: 0;
     transform: translateY(15px);
   }
@@ -162,7 +168,7 @@ export default {
     position: relative;
   }
 
-  &.animation--active{
+  &.animation--active {
     .person-pill {
       animation: personPill 1s forwards;
     }

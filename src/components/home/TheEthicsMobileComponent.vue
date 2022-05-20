@@ -179,9 +179,13 @@
         <div class="ethics-book-text ethics-book-text-2">
           Руководство<br>факультета
         </div>
-        <div class="ethics-book-text ethics-book-text-3">
+        <a
+          class="ethics-book-text ethics-book-text-3"
+          target="_blank"
+          href="https://github.com/itmo-ict-faculty/ict-guidebook"
+        >
           ОТКРЫТЬ
-        </div>
+        </a>
       </div>
       <!--  items  -->
       <div
@@ -217,7 +221,7 @@ export default {
     EthicsItem3: () => import('@/assets/images/ethics/item3'),
     EthicsItem4: () => import('@/assets/images/ethics/item4'),
     EthicsItem5: () => import('@/assets/images/ethics/item5'),
-    EthicsItem6: () => import('@/assets/images/ethics/item6'),
+    EthicsItem6: () => import('@/assets/images/ethics/item6')
   },
   data: () => ({
     items: [
@@ -243,7 +247,7 @@ export default {
       let { bottom, height } = obj.getBoundingClientRect()
       let clientHeight = document.documentElement.clientHeight
       if (!this.scrolled) {
-        this.scrolled = bottom - height *2/ 3 < clientHeight && bottom > 0
+        this.scrolled = bottom - height * 2 / 3 < clientHeight && bottom > 0
       }
     }
   }
@@ -258,13 +262,22 @@ export default {
 }
 
 @keyframes BookText12Animation {
+  99% {
+    transform: scaleY(1);
+    opacity: 0;
+  }
   100% {
+    transform: scaleY(0);
     opacity: 0;
   }
 }
 
 @keyframes BookText3Animation {
+  0% {
+    transform: scaleY(1)
+  }
   100% {
+    transform: scaleY(1);
     opacity: 1;
   }
 }
@@ -355,6 +368,7 @@ export default {
   }
 
   .ethics-book-text-3 {
+    transform: scaleY(0);
     opacity: 0;
     left: 36%;
     top: 40%;

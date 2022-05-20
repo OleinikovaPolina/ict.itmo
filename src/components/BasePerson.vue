@@ -42,7 +42,7 @@
         </v-icon>
         <a
           :title="person.email"
-          href="mailto: kapitonov.aleksandr@itmo.ru"
+          :href="'mailto: '+person.email"
           class="person-ellipses"
         >
           {{ person.email }}
@@ -58,7 +58,7 @@
         </v-icon>
         <a
           :title="person.tel"
-          href="tel: +7 920-457-85-96"
+          :href="'tel: '+person.tel"
           class="person-ellipses"
         >
           {{ person.tel }}

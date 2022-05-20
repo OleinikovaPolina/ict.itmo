@@ -15,10 +15,10 @@
             />
           </div>
           <div class="announ-calendar-day pt-1">
-            {{ announ.date.getDate() }}
+            {{ $moment(announ.dateStart).format('DD') }}
           </div>
           <div class="announ-calendar-month">
-            {{ announ.month }}
+            {{ $moment(announ.dateStart).format('MMMM') }}
           </div>
         </v-sheet>
       </div>
@@ -26,18 +26,18 @@
         <div>
           <div>
             <router-link
-              :to="'/new/'+announ.id"
+              :to="'/announcement/'+announ.id"
               style="color: inherit"
               class="text-decoration-none"
             >
-              {{ announ.name }}
+              {{ announ.title }}
             </router-link>
           </div>
-          <div>{{ `${announ.place}, ${announ.date.getHours()}:${announ.date.getMinutes()} ` }}</div>
+          <div>{{ `${announ.place}, ${ $moment(announ.dateStart).format('HH:mm') } ` }}</div>
         </div>
         <div class="d-flex flex-wrap">
           <BaseChip
-            v-for="(item,i) in announ.items"
+            v-for="(item,i) in announ.tags"
             :key="i"
             class="mt-1"
             :item="item"
@@ -84,8 +84,8 @@ export default {
 .announ-calendar-month {
   line-height: 19px;
   @media (max-width: 600px) {
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 12px;
+    line-height: 14px;
   }
 }
 
