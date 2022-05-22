@@ -11,7 +11,7 @@
       :src="news.image['url']"
     />
     <div class="news-subtitle mb-1">
-      {{ $moment(news.date).format('DD.MM.YYYY') }}
+      {{ $moment(news.date).format('D MMMM YYYY') }}
     </div>
     <div class="news-name subtitle-color">
       {{ news.title }}
@@ -45,13 +45,14 @@ export default {
   font-size: 30px;
   line-height: 34px;
   font-family: "OpenSans-Bold", sans-serif !important;
+  word-wrap: break-word;
   @media (max-width: 1904px) {
     font-size: 20px;
     line-height: 22px;
   }
   @media (max-width: 600px) {
-    font-size: 16px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 16px;
   }
 }
 

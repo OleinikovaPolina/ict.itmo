@@ -27,7 +27,7 @@
             <span>/ {{ program.direction }}</span>
           </div>
           <div>
-            <div class="pb-4 pb-lg-8 text-h4 text-xl-h3">
+            <div class="pb-4 pb-lg-8  text-h5 text-sm-h4 text-xl-h3">
               {{ program.direction }}
             </div>
             <div class="text-subtitle-1 pb-6">
@@ -72,16 +72,13 @@
               style="height: 100%"
             >
               <div
-                class="program-info pa-2 py-6 d-flex flex-column align-center justify-center item-background"
+                class="program-info pa-2 py-6 d-flex flex-column justify-center item-background"
                 style="height: 100%"
               >
                 <div class="program-info-title text-center pb-2 subtitle-color">
                   Вступительные испытания и минимальные баллы&nbsp;ЕГЭ
                 </div>
-                <div
-                  class="subtitle-color"
-                  style="width: fit-content"
-                >
+                <div class="subtitle-color text-center">
                   <p
                     v-for="exam in program.exams"
                     :key="exam"

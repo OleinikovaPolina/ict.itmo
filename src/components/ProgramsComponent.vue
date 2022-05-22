@@ -85,6 +85,7 @@ export default {
 .program-block {
   box-shadow: 0 0 5px rgba(0, 109, 172, 0.2), 0 0 14px rgba(3, 67, 104, 0.1);
   border-radius: 20px;
+  word-wrap: break-word;
 }
 
 .program-code {

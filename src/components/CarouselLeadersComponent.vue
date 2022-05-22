@@ -333,4 +333,14 @@ export default {
     animation: personText .6s .6s forwards;
   }
 }
+
+.theme-dark {
+  .person-container .text-h6 {
+    color: inherit;
+  }
+
+  .slick-slide.slick-center .text-h6 {
+    color: #070C2D;
+  }
+}
 </style>

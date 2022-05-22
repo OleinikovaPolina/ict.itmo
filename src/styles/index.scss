@@ -36,7 +36,7 @@
       background-color: map-get($theme, "bg-color") !important;
     }
 
-    .news-hover, .dialog-theme, .announ-calendar-circles div, .quillWrapper .ql-snow.ql-toolbar button {
+    .news-hover, .dialog-theme, .announcement-calendar-circles div, .quillWrapper .ql-snow.ql-toolbar button {
       background-color: map-get($theme, "bg-color");
     }
 
@@ -44,7 +44,7 @@
       border: 1px solid map-get($theme, "bg-color");
     }
 
-    .events-item-footer *, .slick-slide.slick-center .text-h6, .notfound-nums, .announ-calendar *, .chip-text, .v-application .person-horizontal .text-h6 {
+    .events-item-footer *, .slick-slide.slick-center .text-h6, .notfound-nums, .announcement-calendar *, .chip-text, .v-application .person-horizontal .text-h6 {
       color: map-get($theme, "bg-color");
     }
 
@@ -210,8 +210,8 @@ body .v-application a:hover {
 
 a.link-arrow, .link-arrow a {
   text-decoration: none;
-  font-size: 18px;
   position: relative;
+  font-size: 18px;
   margin-right: 16px;
   @media (max-width: 1904px) {
     margin-right: 12px;
@@ -221,6 +221,10 @@ a.link-arrow, .link-arrow a {
     margin-right: 10px;
     font-size: 12px;
   }
+}
+
+.link-arrow .ql-editor a {
+  font-size: inherit;
 }
 
 a.link-arrow:after, .link-arrow a:after {

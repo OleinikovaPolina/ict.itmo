@@ -11,8 +11,6 @@
             <div>
               <v-img
                 width="100%"
-                height="400"
-                cover
                 :src="slotProps.item.img"
               />
             </div>
@@ -47,7 +45,7 @@
             cols="6"
             md="4"
           >
-            <EventsAnnouncements :announ="item" />
+            <EventsAnnouncements :announcement="item" />
           </v-col>
         </v-row>
       </v-container>

@@ -39,7 +39,7 @@
     <div v-if="data.dateStart||data.date">
       <b>Дата проведения: </b>
       <span v-if="data.timeStart">{{ data.timeStart }} </span>
-      <span v-if="data.dateStart||data.date">{{ $moment(data.dateStart || data.date).format('DD MMMM YYYY года')
+      <span v-if="data.dateStart||data.date">{{ $moment(data.dateStart || data.date).format('D MMMM YYYY года')
       }}</span>
     </div>
 

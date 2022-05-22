@@ -80,41 +80,22 @@
           <BaseNews :news="item" />
         </v-col>
       </v-row>
-      <div class="d-flex justify-center align-center pt-4 pt-md-8">
-        <button
-          class="btn-nav mr-3"
-          @click="prev"
+      <v-row justify="center">
+        <v-col
+          cols="12"
+          sm="8"
+          md="5"
         >
-          <v-icon
-            :large="$vuetify.breakpoint.mdAndUp"
-            color="white"
-          >
-            mdi-chevron-left
-          </v-icon>
-        </button>
-        <v-btn
-          v-for="n in pages"
-          :key="n"
-          icon
-          :small="$vuetify.breakpoint.smAndDown"
-          class="btn-nav-nums"
-          :class="(n-1)===page?'is-active':''"
-          @click="clickDelimiters(n-1)"
-        >
-          <span>{{ n }}</span>
-        </v-btn>
-        <button
-          class="btn-nav ml-3"
-          @click="next"
-        >
-          <v-icon
-            :large="$vuetify.breakpoint.mdAndUp"
-            color="white"
-          >
-            mdi-chevron-right
-          </v-icon>
-        </button>
-      </div>
+          <v-pagination
+            v-model="page"
+            :length="pages"
+            :total-visible="7"
+            circle
+            dark
+            @input="changePage"
+          />
+        </v-col>
+      </v-row>
     </div>
   </v-container>
 </template>
@@ -132,7 +113,7 @@ export default {
     tagsSelected: [],
     search: '',
     pages: 3,
-    page: 0,
+    page: 1,
     isLoad: false
   }),
   computed: {
@@ -155,17 +136,17 @@ export default {
   methods: {
     ...mapActions('news', ['getNews', 'getTags']),
     clickTagSearch() {
-      this.page = 0
+      this.page = 1
       this.changeRoute()
     },
     getRouterQuery() {
-      let pageQuery = parseInt(this.$route.query.page?.toString()) - 1
-      this.page = pageQuery > -1 ? pageQuery : 0
+      let pageQuery = parseInt(this.$route.query.page?.toString())
+      this.page = pageQuery > 0 ? pageQuery : 1
       this.search = this.$route.query.search?.toString()
       this.tagsSelected = this.$route.query.tags?.toString().split(',').map(x => parseInt(x)) || []
     },
     changeRoute() {
-      let query = { page: (this.page + 1).toString() }
+      let query = { page: (this.page).toString() }
       if (this.tagsSelected.length) {
         query.tags = this.tagsSelected.toString()
       }
@@ -178,29 +159,18 @@ export default {
     },
     async changeNews() {
       this.isLoad = false
-      await this.getNews({ page: this.page, search: this.search, tags: this.tagsSelected })
+      await this.getNews({ page: this.page - 1, search: this.search, tags: this.tagsSelected })
       this.pages = Math.ceil(this.news.count / 16)
       this.isLoad = true
     },
-    scrollPage(){
-      const top = window.scrollY + document.getElementById('news')?.getBoundingClientRect().y -document.querySelector('.navbar-container')?.clientHeight
+    scrollPage() {
+      const top = window.scrollY + document.getElementById('news')?.getBoundingClientRect().y - document.querySelector('.navbar-container')?.clientHeight
       window.scrollTo({
         top: top,
         behavior: 'smooth'
       })
     },
-    async next() {
-      this.page = this.page < this.pages - 1 ? this.page + 1 : 0
-      this.scrollPage()
-      this.changeRoute()
-    },
-    async prev() {
-      this.page = this.page > 0 ? this.page - 1 : this.pages - 1
-      this.scrollPage()
-      this.changeRoute()
-    },
-    async clickDelimiters(i) {
-      this.page = i
+    changePage() {
       this.scrollPage()
       this.changeRoute()
     }
@@ -208,55 +178,61 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-.btn-nav {
-  background-color: #2DC0C5;
-  transition: all .3s ease-in-out;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  @media (max-width: 600px) {
-    width: 30px;
-    height: 30px;
+<style lang="scss">
+.v-application div .v-pagination {
+  .v-pagination__navigation {
+    background-color: #2DC0C5;
+    box-shadow: none;
+    transition: all .3s ease-in-out;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    @media (max-width: 600px) {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .v-pagination__navigation:hover {
+    transform: scale(1.15);
+  }
+
+  .v-pagination__navigation:active {
+    background-color: #1E7F83;
+  }
+
+  .v-pagination__more {
+    opacity: 0.6;
+  }
+
+  .v-pagination__item {
+    color: inherit;
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0) !important;
+    font-size: 22px;
+    line-height: 24px;
+    font-family: "OpenSans-Bold", sans-serif !important;
+    opacity: 0.6;
+    @media (max-width: 1904px) {
+      font-size: 18px;
+      line-height: 20px;
+    }
+    @media (max-width: 600px) {
+      font-size: 14px;
+      line-height: 16px;
+    }
+  }
+
+  .v-pagination__item.v-pagination__item--active {
+    color: #2DC0C5 !important;
+    opacity: 1;
   }
 }
 
-.btn-nav:hover {
-  transform: scale(1.15);
-}
-
-.btn-nav:active {
-  background-color: #1E7F83;
-}
-
-.btn-nav.is-active {
-  background-color: #1E7F83;
-}
-
-.btn-nav-nums span {
-  font-size: 22px;
-  line-height: 24px;
-  font-family: "OpenSans-Bold", sans-serif !important;
-  opacity: 0.6;
-  @media (max-width: 1904px) {
-    font-size: 18px;
-    line-height: 20px;
-  }
-  @media (max-width: 600px) {
-    font-size: 14px;
-    line-height: 16px;
-  }
-}
-
-.theme-dark {
-  .btn-nav-nums span {
+.theme-dark .v-application div .v-pagination {
+  .v-pagination__more, .v-pagination__item:not(.v-pagination__item--active) {
     opacity: 0.8;
   }
 }
 
-.btn-nav-nums.is-active span {
-  color: #2DC0C5 !important;
-  opacity: 1;
-}
 </style>
