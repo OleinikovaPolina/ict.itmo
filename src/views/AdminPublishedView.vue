@@ -4,21 +4,25 @@
       <BaseButtonOutlined
         text="Анонсы"
         class="rounded-r-0"
-        :active="typeDate===0"
+        :active="typeData===0"
         :click-btn="true"
         @clickBtnCallback="changeTypeData(0)"
       />
       <BaseButtonOutlined
         text="Новости"
         class="rounded-l-0 ml-2"
-        :active="typeDate===1"
+        :active="typeData===1"
         :click-btn="true"
         @clickBtnCallback="changeTypeData(1)"
       />
     </div>
-    <v-row class="flex-wrap pt-6">
+    <v-row
+      v-if="isLoad"
+      class="pt-6"
+      align="stretch"
+    >
       <v-col
-        v-for="(info,i) in infos"
+        v-for="(info,i) in typeData===1?news.results:announcements.results"
         :key="i"
         cols="12"
         md="6"
@@ -26,45 +30,38 @@
         <BaseBlock :info="info" />
       </v-col>
     </v-row>
-    <div class="d-flex justify-center align-center pt-4 pt-md-8">
-      <button
-        class="btn-nav mr-3"
-        @click="prev"
+    <v-row
+      v-if="isLoad"
+      justify="center"
+    >
+      <v-col
+        cols="12"
+        sm="8"
+        md="5"
       >
-        <v-icon
-          :large="$vuetify.breakpoint.mdAndUp"
-          color="white"
-        >
-          mdi-chevron-left
-        </v-icon>
-      </button>
-      <v-btn
-        v-for="n in pages"
-        :key="n"
-        icon
-        :small="$vuetify.breakpoint.smAndDown"
-        class="btn-nav-nums"
-        :class="(n-1)===activeIndex?'is-active':''"
-        @click="clickDelimiters(n-1)"
-      >
-        <span>{{ n }}</span>
-      </v-btn>
-      <button
-        class="btn-nav ml-3"
-        @click="next"
-      >
-        <v-icon
-          :large="$vuetify.breakpoint.mdAndUp"
-          color="white"
-        >
-          mdi-chevron-right
-        </v-icon>
-      </button>
+        <v-pagination
+          v-model="page"
+          :length="pages"
+          :total-visible="7"
+          circle
+          dark
+          @input="changeRoute"
+        />
+      </v-col>
+    </v-row>
+    <div
+      v-if="!isLoad"
+      class="d-flex justify-center align-center"
+      style="min-height: 75vh"
+    >
+      <v-progress-circular indeterminate />
     </div>
   </v-container>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+
 export default {
   name: 'AdminPublishedView',
   components: {
@@ -72,98 +69,62 @@ export default {
     BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined')
   },
   data: () => ({
-    infos: [
-      {
-        id: 1,
-        tags: ['название 1', 'название 2'],
-        name: 'Название анонса',
-        date: '12.01.2021',
-        time: '17:00',
-        datePublish: '12.01.2021'
-      },
-      {
-        id: 1,
-        tags: ['название 1', 'название 2'],
-        name: 'Название анонса',
-        date: '12.01.2021',
-        time: '17:00',
-        datePublish: '12.01.2021'
-      },
-      {
-        id: 1,
-        tags: ['название 1', 'название 2'],
-        name: 'Название анонса',
-        date: '12.01.2021',
-        time: '17:00',
-        datePublish: '12.01.2021'
-      }
-    ],
-    typeDate: 0,
+    typeData: 0,
     pages: 3,
-    activeIndex: 0
+    page: 1,
+    isLoad: false
   }),
+  computed: {
+    ...mapState('news', ['tags', 'tagsCategories', 'news', 'announcements'])
+  },
+  watch: {
+    '$route.params': {
+      handler: function() {
+        this.getRouterQuery()
+        this.changeNews()
+      },
+      deep: true,
+      immediate: true
+    }
+  },
   methods: {
+    ...mapActions('news', ['getNews', 'getAnnouncements']),
+    getRouterQuery() {
+      let pageQuery = parseInt(this.$route.query.page?.toString())
+      this.page = pageQuery > 0 ? pageQuery : 1
+      let typeDataQuery = parseInt(this.$route.query.typeData?.toString())
+      this.typeData = typeDataQuery === 1 ? 1 : 0
+    },
+    changeRoute() {
+      let query = { page: (this.page).toString() }
+      if (this.typeData) {
+        query.typeData = this.typeData
+      }
+      this.$router
+        .push({ query: query })
+        .catch(() => ({}))
+    },
+    async changeNews() {
+      this.isLoad = false
+      if (this.typeData === 1) {
+        await this.getNews({ page: this.page - 1 })
+        this.pages = Math.ceil(this.news.count / 16)
+      } else if (this.typeData === 0) {
+        await this.getAnnouncements({ page: this.page - 1 })
+        this.pages = Math.ceil(this.announcements.count / 16)
+      }
+      this.isLoad = true
+    },
     changeTypeData(val) {
-      this.typeDate = val
-    },
-    next() {
-      this.activeIndex = this.activeIndex < this.pages - 1 ? this.activeIndex + 1 : 0
-    },
-    prev() {
-      this.activeIndex = this.activeIndex > 0 ? this.activeIndex - 1 : this.pages - 1
-    },
-    clickDelimiters(i) {
-      this.activeIndex = i
+      this.typeData = val
+      this.page = 1
+      this.changeRoute()
+      this.changeNews()
     }
   }
 }
 </script>
 
-<style scoped lang="scss">
-.btn-nav {
-  background-color: #2DC0C5;
-  transition: all .3s ease-in-out;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  @media (max-width: 600px) {
-    width: 30px;
-    height: 30px;
-  }
-}
-
-.btn-nav:hover {
-  transform: scale(1.15);
-}
-
-.btn-nav:active {
-  background-color: #1E7F83;
-}
-
-.btn-nav.is-active {
-  background-color: #1E7F83;
-}
-
-.btn-nav-nums span {
-  font-size: 18px;
-  line-height: 20px;
-  font-family: "OpenSans-Bold", sans-serif !important;
-  opacity: 0.6;
-  @media (max-width: 600px) {
-    font-size: 14px;
-    line-height: 16px;
-  }
-}
-
-.theme-dark {
-  .btn-nav-nums span {
-    opacity: 0.8;
-  }
-}
-
-.btn-nav-nums.is-active span {
-  color: #2DC0C5 !important;
-  opacity: 1;
-}
+<style lang="scss">
+@import "../styles/pagination";
 </style>

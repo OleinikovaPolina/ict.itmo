@@ -62,37 +62,37 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    quest: true,
+    meta: { quest: true },
     component: () => import('../views/LoginView.vue')
   },
   {
     path: '/published',
     name: 'published',
-    auth: true,
+    meta: { requiresAuth: true },
     component: () => import('../views/AdminPublishedView.vue')
   },
   {
     path: '/createEntry',
     name: 'createEntry',
-    auth: true,
+    meta: { requiresAuth: true },
     component: () => import('../views/AdminCreateEntryView.vue')
   },
   {
     path: '/favorites',
     name: 'favorites',
-    auth: true,
+    meta: { requiresAuth: true },
     component: () => import('../views/AdminFavoritesView.vue')
   },
   {
     path: '/favorites/:id',
     name: 'favoritesChange',
-    auth: true,
+    meta: { requiresAuth: true },
     component: () => import('../views/AdminFavoritesChangeView.vue')
   },
   {
     path: '/tags',
     name: 'tags',
-    auth: true,
+    meta: { requiresAuth: true },
     component: () => import('../views/AdminTagsView.vue')
   },
   {
@@ -111,6 +111,30 @@ const router = new VueRouter({
     if (to.name !== from.name) {
       document.getElementById('app').scrollIntoView()
     }
+  }
+})
+
+router.beforeResolve(async (to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!localStorage.getItem('token')) {
+      next('/login')
+      return
+    }
+    next()
+  } else {
+    next()
+  }
+})
+
+router.beforeResolve(async (to, from, next) => {
+  if (to.matched.some((record) => record.meta.quest)) {
+    if (localStorage.getItem('token')) {
+      next('/published')
+      return
+    }
+    next()
+  } else {
+    next()
   }
 })
 

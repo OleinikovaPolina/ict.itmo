@@ -4,6 +4,7 @@ import appModule from '@/store/modules/appModule'
 import contactsModule from '@/store/modules/contactsModule'
 import programsModule from '@/store/modules/programsModule'
 import newsModule from '@/store/modules/newsModule'
+import adminModule from '@/store/modules/adminModule'
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     app: appModule,
     contacts: contactsModule,
     programs: programsModule,
-    news: newsModule
+    news: newsModule,
+    admin: adminModule
   }
 })

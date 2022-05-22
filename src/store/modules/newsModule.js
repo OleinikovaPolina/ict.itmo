@@ -1,4 +1,4 @@
-import { instance } from '@/utils/api'
+import instance from '@/utils/api'
 
 const newsModule = {
   namespaced: true,
@@ -63,7 +63,7 @@ const newsModule = {
         .then(res => {
           commit('CHANGE_TAGS', res.data)
         })
-        .catch(()=>({}))
+        .catch(() => ({}))
     },
     async getNew({ commit }, id) {
       await instance
@@ -71,7 +71,7 @@ const newsModule = {
         .then(res => {
           commit('CHANGE_NEW', res.data)
         })
-        .catch(()=>commit('CHANGE_NEW', {}))
+        .catch(() => commit('CHANGE_NEW', {}))
     },
     async getAnnouncement({ commit }, id) {
       await instance
@@ -79,7 +79,7 @@ const newsModule = {
         .then(res => {
           commit('CHANGE_ANNOUNCEMENT', res.data)
         })
-        .catch(()=>commit('CHANGE_ANNOUNCEMENT', {}))
+        .catch(() => commit('CHANGE_ANNOUNCEMENT', {}))
     },
     async getNews({ commit }, payload = {}) {
       let params = { limit: 16, offset: (payload.page | 0) * 16 }
@@ -97,7 +97,7 @@ const newsModule = {
         .then(res => {
           commit('CHANGE_NEWS', res.data)
         })
-        .catch(()=>({}))
+        .catch(() => ({}))
     },
     async getEvents({ commit }) {
       await instance
@@ -105,15 +105,19 @@ const newsModule = {
         .then(res => {
           commit('CHANGE_EVENTS', res.data)
         })
-        .catch(()=>({}))
+        .catch(() => ({}))
     },
-    async getAnnouncements({ commit }) {
+    async getAnnouncements({ commit }, payload = {}) {
+      let params = { limit: 6 }
+      if (payload.page) {
+        params = { limit: 16, offset: (payload.page | 0) * 16 }
+      }
       await instance
-        .get('/announcements', { params: { limit: 6 } })
+        .get('/announcements', { params: params })
         .then(res => {
           commit('CHANGE_ANNOUNCEMENTS', res.data)
         })
-        .catch(()=>({}))
+        .catch(() => ({}))
     }
   }
 }

@@ -45,6 +45,7 @@
             <v-btn
               text
               class="pa-0 text-capitalize header-link text-center"
+              @click="logoutFunction"
             >
               Выйти
               <v-icon
@@ -115,6 +116,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'TheHeaderComponent',
   components: {},
@@ -123,10 +126,17 @@ export default {
     links: [
       { text: 'Опубликованное', name: ['published'], path: 'published' },
       { text: 'Создать запись', name: ['createEntry'], path: 'createEntry' },
-      { text: 'Избранное', name: ['favorites','favoritesChange'], path: 'favorites' },
+      { text: 'Избранное', name: ['favorites', 'favoritesChange'], path: 'favorites' },
       { text: 'Теги', name: ['tags'], path: 'tags' }
     ]
-  })
+  }),
+  methods: {
+    ...mapActions('admin', ['logout']),
+    logoutFunction() {
+      this.logout()
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 

@@ -18,6 +18,7 @@
           Логин<span class="error--text">*</span>
         </div>
         <v-text-field
+          v-model="form.username"
           placeholder="Введите логин"
           outlined
           dense
@@ -35,6 +36,7 @@
           Пароль<span class="error--text">*</span>
         </div>
         <v-text-field
+          v-model="form.password"
           placeholder="Введите пароль"
           outlined
           dense
@@ -52,6 +54,7 @@
           class="mx-auto"
           text="Войти"
           :click-btn="true"
+          @clickBtnCallback="loginFunction"
         />
       </div>
     </v-col>
@@ -59,20 +62,23 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'LoginView',
   components: {
     BaseButton: () => import('@/components/admin/BaseButton')
   },
-  data: () => ({ show1: false }),
-  computed: {
-    ...mapState('app', {theme:'theme'})
+  data: () => ({ show1: false, form: { username: '', password: '' } }),
+  computed: mapState('app', { theme: 'theme' }),
+  methods: {
+    ...mapActions('admin', ['login']),
+    async loginFunction() {
+      await this.login(this.form)
+      if (localStorage.getItem('token')) {
+        this.$router.push('published').then()
+      }
+    }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

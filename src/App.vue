@@ -31,24 +31,28 @@ export default {
   },
   data: () => ({
     dialog: false,
-    pageAdmin: ['login', 'published', 'createEntry', 'favorites','favoritesChange', 'tags'],
-    pageNoFooter: ['notFound', 'login', 'published', 'createEntry', 'favorites','favoritesChange', 'tags']
+    pageAdmin: ['login', 'published', 'createEntry', 'favorites', 'favoritesChange', 'tags'],
+    pageNoFooter: ['notFound', 'login', 'published', 'createEntry', 'favorites', 'favoritesChange', 'tags']
   }),
   computed: mapState('app', ['theme']),
-  mounted() {
+  async mounted() {
     const localTheme = localStorage.getItem('theme')
     if (localTheme === 'dark') {
       this.changeTheme(localTheme)
     } else if (!localTheme) {
       this.dialog = true
     }
+    const token = localStorage.getItem('token')
+    if (token) {
+      await this.verify()
+    }
   },
   methods: {
     changeDialog(val) {
       this.dialog = val
     },
-    ...mapActions('app', ['changeTheme']
-    )
+    ...mapActions('app', ['changeTheme']),
+    ...mapActions('admin', ['verify'])
   }
 }
 </script>

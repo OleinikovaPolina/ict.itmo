@@ -12,8 +12,8 @@
           Раздел тега<span class="error--text">*</span>
         </div>
         <v-select
-          v-model="tagForm.type"
-          :items="tagsNames"
+          v-model="tagForm.categoryId"
+          :items="tagsCategories"
           placeholder="Введите пароль"
           item-value="id"
           item-text="name"
@@ -54,11 +54,15 @@
             v-if="tagForm.id"
             text="Изменить"
             :click-btn="true"
+            :disabled="!isLoad"
+            @clickBtnCallback="updateTagFunction"
           />
           <BaseButton
             v-else
             text="Сохранить"
             :click-btn="true"
+            :disabled="!isLoad"
+            @clickBtnCallback="addTagFunction"
           />
         </div>
       </v-col>
@@ -68,15 +72,15 @@
         Существуюшие теги
       </div>
       <div
-        v-for="(tag,i) in tags"
+        v-for="(category,i) in tagsCategories"
         :key="i"
         class="d-flex pt-md-2 align-center flex-wrap"
       >
         <div class="pr-4">
-          {{ tag.name }}
+          {{ category.name }}
         </div>
         <BaseChip
-          v-for="(item,j) in tag.items"
+          v-for="(item,j) in tags.filter(tag=>tag.category.id===category.id)"
           :key="j"
           :item="item"
         >
@@ -85,7 +89,7 @@
               icon
               dark
               x-small
-              @click="tagForm = item"
+              @click="clickTagToUpdate(item)"
             >
               <v-icon small>
                 mdi-pencil-outline
@@ -95,6 +99,7 @@
               icon
               dark
               x-small
+              @click="deleteTagFunction(item.id)"
             >
               <v-icon small>
                 mdi-close-circle-outline
@@ -108,7 +113,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'AdminTagsView',
@@ -117,36 +122,40 @@ export default {
     BaseButton: () => import('@/components/admin/BaseButton')
   },
   data: () => ({
-    tags: [
-      {
-        name: 'Факультет',
-        items: [{ id: 1, type: 0, name: 'Факультет' },
-          { id: 1, type: 0, name: 'Факультет' },
-          { id: 1, type: 0, name: 'Факультет' }]
-      },
-      {
-        name: 'Хакатоны',
-        items: [{ id: 1, type: 1, name: 'Факультет' },
-          { id: 1, type: 1, name: 'Факультет' },
-          { id: 1, type: 1, name: 'Факультет' }]
-      },
-      {
-        name: 'Конференции',
-        items: [{ id: 1, type: 2, name: 'Факультет' },
-          { id: 1, type: 2, name: 'Факультет' },
-          { id: 1, type: 2, name: 'Факультет' }]
-      },
-      {
-        name: 'Студ. жизнь',
-        items: [{ id: 1, type: 3, name: 'Факультет' },
-          { id: 1, type: 3, name: 'Факультет' },
-          { id: 1, type: 3, name: 'Факультет' }]
-      }
-    ],
-    tagsNames: [{ id: 0, name: 'Факультет' }, { id: 1, name: 'Хакатоны' },
-      { id: 2, name: 'Конференции' }, { id: 3, name: 'Студ. жизнь:' }],
-    tagForm: {}
+    tagForm: { name: '', categoryId: -1 },
+    isLoad: true
   }),
-  computed: mapState('app', {theme:'theme'})
+  computed: {
+    ...mapState('app', { theme: 'theme' }),
+    ...mapState('news', ['tags', 'tagsCategories', 'news'])
+  },
+  async mounted() {
+    await this.getTags()
+  },
+  methods: {
+    ...mapActions('news', ['getNews', 'getTags']),
+    ...mapActions('admin', ['addTag', 'updateTag']),
+    clickTagToUpdate(tag) {
+      this.tagForm = {}
+      this.tagForm.id = tag.id
+      this.tagForm.name = tag.name
+      this.tagForm.categoryId = tag.category.id
+    },
+    async updateTagFunction() {
+      this.isLoad = false
+      await this.updateTag(this.tagForm)
+      this.tagForm = {}
+      this.isLoad = true
+    },
+    async addTagFunction() {
+      this.isLoad = false
+      await this.addTag(this.tagForm)
+      this.tagForm = {}
+      this.isLoad = true
+    },
+    async deleteTagFunction(id) {
+      await this.addTag(id)
+    }
+  }
 }
 </script>
