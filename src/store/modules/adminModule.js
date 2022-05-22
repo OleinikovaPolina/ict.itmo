@@ -39,51 +39,51 @@ const adminModule = {
       bodyFormData.append('file', payload)
       instance.defaults.headers['Content-Type'] = 'multipart/form-data'
       return await instance
-        .post('/attachments', bodyFormData)
+        .post('/attachments/', bodyFormData)
     },
     async addAnnouncement(context, payload) {
       await instance
-        .post('/announcements', payload)
+        .post('/announcements/', payload)
         .then(() => ({}))
         .catch(() => ({}))
     },
     async updateAnnouncement(context, payload) {
       await instance
-        .put('/announcements/' + payload.id, payload)
+        .put('/announcements/' + payload.id + '/', payload)
         .then(() => ({}))
         .catch(() => ({}))
     },
 
     async addNews(context, payload) {
       await instance
-        .post('/news', payload)
+        .post('/news/', payload)
         .then(() => ({}))
         .catch(() => ({}))
     },
     async updateNews(context, payload) {
       await instance
-        .put('/news/' + payload.id, payload)
+        .put('/news/' + payload.id + '/', payload)
         .then(() => ({}))
         .catch(() => ({}))
     },
 
     async addTag({ dispatch }, payload) {
       await instance
-        .post('/tags', payload)
+        .post('/tags/', payload)
         .then(() => ({}))
         .catch(() => ({}))
       dispatch('news/getTags', null, { root: true })
     },
     async updateTag({ dispatch }, payload) {
       await instance
-        .put('/tags/' + payload.id, payload)
+        .put('/tags/' + payload.id + '/', payload)
         .then(() => ({}))
         .catch(() => ({}))
       dispatch('news/getTags', null, { root: true })
     },
     async deleteTag({ dispatch }, id) {
       await instance
-        .delete('/tags/' + id)
+        .delete('/tags/' + id + '/')
         .then(() => ({}))
         .catch(() => ({}))
       dispatch('news/getTags', null, { root: true })

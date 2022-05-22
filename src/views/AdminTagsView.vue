@@ -134,7 +134,7 @@ export default {
   },
   methods: {
     ...mapActions('news', ['getNews', 'getTags']),
-    ...mapActions('admin', ['addTag', 'updateTag']),
+    ...mapActions('admin', ['addTag', 'updateTag','deleteTag']),
     clickTagToUpdate(tag) {
       this.tagForm = {}
       this.tagForm.id = tag.id
@@ -154,7 +154,7 @@ export default {
       this.isLoad = true
     },
     async deleteTagFunction(id) {
-      await this.addTag(id)
+      await this.deleteTag(id)
     }
   }
 }
