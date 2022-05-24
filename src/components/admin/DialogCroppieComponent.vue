@@ -3,6 +3,7 @@
     <v-dialog
       :value="dialog"
       :width="size.w+100"
+      persistent
     >
       <v-card class="py-6">
         <v-card-title>

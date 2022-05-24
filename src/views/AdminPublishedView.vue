@@ -27,7 +27,10 @@
         cols="12"
         md="6"
       >
-        <BaseBlock :info="info" />
+        <BaseBlock
+          :info="info"
+          :link="(typeData?'/updateNews/':'/updateAnnouncements/')+info.id"
+        />
       </v-col>
     </v-row>
     <v-row

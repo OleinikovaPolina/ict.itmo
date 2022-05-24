@@ -37,15 +37,16 @@ const adminModule = {
     async addAttachment(context, payload) {
       let bodyFormData = new FormData()
       bodyFormData.append('file', payload)
-      instance.defaults.headers['Content-Type'] = 'multipart/form-data'
       return await instance
-        .post('/attachments/', bodyFormData)
+        .post('/attachments/', bodyFormData,
+          { headers: { 'Content-Type': 'multipart/form-data' } }
+        )
     },
     async addAnnouncement(context, payload) {
       await instance
         .post('/announcements/', payload)
-        .then(() => ({}))
-        .catch(() => ({}))
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
     },
     async updateAnnouncement(context, payload) {
       await instance
@@ -57,14 +58,14 @@ const adminModule = {
     async addNews(context, payload) {
       await instance
         .post('/news/', payload)
-        .then(() => ({}))
-        .catch(() => ({}))
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
     },
     async updateNews(context, payload) {
       await instance
         .put('/news/' + payload.id + '/', payload)
-        .then(() => ({}))
-        .catch(() => ({}))
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
     },
 
     async addTag({ dispatch }, payload) {

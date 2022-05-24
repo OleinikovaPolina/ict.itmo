@@ -223,10 +223,6 @@ a.link-arrow, .link-arrow a {
   }
 }
 
-.link-arrow .ql-editor a {
-  font-size: inherit;
-}
-
 a.link-arrow:after, .link-arrow a:after {
   content: '';
   display: inline-block;
@@ -245,6 +241,21 @@ a.link-arrow:after, .link-arrow a:after {
     width: 10px;
     height: 10px;
   }
+}
+
+.ql-editor {
+  p {
+    margin-bottom: 0;
+  }
+
+  .ql-video {
+    width: min(100%, 560px);
+    height: 315px;
+  }
+}
+
+.link-arrow .ql-editor a {
+  font-size: inherit;
 }
 
 .v-application .navbar-container .v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset {

@@ -39,8 +39,16 @@
     <div v-if="data.dateStart||data.date">
       <b>Дата проведения: </b>
       <span v-if="data.timeStart">{{ data.timeStart }} </span>
-      <span v-if="data.dateStart||data.date">
+      <span v-if="$moment(data.dateStart || data.date).format('HH')!=='00'">
+        {{ $moment(data.dateStart || data.date).format('HH:mm') }} </span>
+      <span>
         {{ $moment(data.dateStart || data.date).format('D MMMM YYYY года') }}
+      </span>
+      <span
+        v-if="data.dateEnd && $moment(data.dateStart).format('D MMMM YYYY года')!==$moment(data.dateEnd).format('D MMMM YYYY года')"
+      >
+        -
+        {{ $moment(data.dateEnd).format('D MMMM YYYY года') }}
       </span>
     </div>
 
@@ -49,7 +57,10 @@
       :key="i"
       class="pt-6"
     >
-      <BaseNewsBlocks :block="block" />
+      <BaseNewsBlocks
+        :block="block"
+        :index="i"
+      />
     </div>
   </div>
 </template>

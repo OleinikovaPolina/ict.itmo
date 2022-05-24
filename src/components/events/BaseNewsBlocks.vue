@@ -1,5 +1,6 @@
 <template>
   <div class="link-arrow">
+    <!-- eslint-disable vue/no-v-html -->
     <div
       v-if="block.type===0"
       style="min-height: 0"
@@ -20,12 +21,13 @@
       v-if="block.type===2"
       style="position: relative"
     >
-      <v-img
-        width="100%"
+      <img
+        alt="..."
+        style="width: 100%"
         :src="block.content.imgName.croppie"
-      />
+      >
       <div
-        class="text-body-1 pt-2"
+        class="text-body-1"
         style="opacity: 0.7"
       >
         {{ block.content.text }}
@@ -49,10 +51,10 @@
       >
         <template #item="slotProps">
           <v-col cols="12">
-            <div class="pa-2">
+            <div>
               <img
                 alt=""
-                :class="'carousel-img-'+block.id"
+                :class="'carousel-img-'+(block.id||index)"
                 :src="slotProps.item.croppie"
                 style="object-fit: contain;  width: 100%"
                 @load="getHeight(slotProps.item.croppie)"
@@ -62,7 +64,7 @@
         </template>
         <template #subtitle>
           <div
-            class="text-body-1 pl-2"
+            class="text-body-1"
             style="position: absolute; opacity: 0.7"
           >
             {{ block.content.text }}
@@ -128,6 +130,10 @@ export default {
     edit: {
       type: Boolean,
       default: false
+    },
+    index: {
+      type: Number,
+      default: 0
     }
   },
   emits: ['beforeCropInsert', 'beforeCropMultipleInsertOne'],
@@ -137,9 +143,10 @@ export default {
         let img = new Image()
         img.onload = () => {
           let height = img.height
-          if (document.querySelectorAll('.carousel-img-' + this.block.id).length) {
-            height = Math.min(height, document.querySelectorAll('.carousel-img-' + this.block.id)[0].height)
-            document.querySelectorAll('.carousel-img-' + this.block.id).forEach(x => x.height = height)
+          let blocks = document.querySelectorAll('.carousel-img-' + (this.block.id || this.index))
+          if (blocks.length) {
+            height = Math.min(height, blocks[0].height)
+            blocks.forEach(x => x.height = height)
           }
         }
         img.src = src

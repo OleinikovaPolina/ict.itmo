@@ -1,29 +1,12 @@
 <template>
-  <v-container>
+  <v-container v-if="loading && Object.keys(newsOne).length">
     <!--  Form  -->
     <div v-if="!isPreview">
-      <!--  news or annotations  -->
-      <div class="d-flex pb-6">
-        <BaseButtonOutlined
-          text="Анонсы"
-          class="rounded-r-0"
-          :active="typeData===0"
-          :click-btn="true"
-          @clickBtnCallback="changeTypeData(0)"
-        />
-        <BaseButtonOutlined
-          text="Новости"
-          class="rounded-l-0 ml-2"
-          :active="typeData===1"
-          :click-btn="true"
-          @clickBtnCallback="changeTypeData(1)"
-        />
-      </div>
       <!--  title  -->
       <div class="input-bordered mb-6">
         <v-text-field
           v-model="form.title"
-          :placeholder="`Название ${typeData===1?'новости':'анонса'}`"
+          placeholder="Название новости"
           outlined
           dense
           class="input-border-0 text-h6 input-blue font-weight-bold"
@@ -42,10 +25,7 @@
         @beforeCropMultipleInsert="beforeCropMultipleInsert"
       />
       <!--  cover  -->
-      <div
-        v-if="typeData===1"
-        class="input-bordered mb-6 py-6"
-      >
+      <div class="input-bordered mb-6 py-6">
         <div class="input-bordered-label app-background">
           Обложка новости<span class="error--text">*</span>
         </div>
@@ -164,28 +144,6 @@
           />
         </v-col>
         <v-col
-          v-if="typeData===0"
-          cols="12"
-          md="3"
-        >
-          <div
-            class="pl-4 subtitle-color text-body-2"
-            style="opacity: 0.7"
-          >
-            Дата конца мероприятия
-          </div>
-          <v-text-field
-            v-model="form.dateEnd"
-            type="date"
-            outlined
-            dense
-            class="search-input"
-            :dark="theme==='dark'"
-            :color="theme==='dark'?'#00A1FF':'#005A8E'"
-            hide-details
-          />
-        </v-col>
-        <v-col
           cols="12"
           md="2"
         >
@@ -252,30 +210,6 @@
           />
         </v-col>
       </v-row>
-      <!--  place  -->
-      <v-col
-        v-if="typeData===0"
-        cols="12"
-        md="4"
-        class="px-0"
-      >
-        <div
-          class="pl-4 subtitle-color text-body-2"
-          style="opacity: 0.7"
-        >
-          Место проведения<span class="error--text">*</span>
-        </div>
-        <v-text-field
-          v-model="form.place"
-          placeholder="Введите место мероприятия"
-          outlined
-          dense
-          class="search-input"
-          :dark="theme==='dark'"
-          :color="theme==='dark'?'#00A1FF':'#005A8E'"
-          hide-details
-        />
-      </v-col>
       <!--  tags  -->
       <v-col
         cols="12"
@@ -378,6 +312,13 @@
       @changeCroppie="changeCroppieMultiple"
     />
   </v-container>
+  <BaseNotFound v-else-if="loading" />
+  <div
+    v-else
+    class="d-flex justify-center fill-height align-center"
+  >
+    <v-progress-circular indeterminate />
+  </div>
 </template>
 
 <script>
@@ -387,8 +328,9 @@ import formMixin from '@/mixins/formMixin'
 import croppieMultipleMixin from '@/mixins/croppieMultipleMixin'
 
 export default {
-  name: 'AdminCreateEntryView',
+  name: 'AdminUpdateNewsView',
   components: {
+    BaseNotFound: () => import('@/components/app/BaseNotFound'),
     DialogCroppieMultipleComponent: () => import('@/components/admin/DialogCroppieMultipleComponent'),
     DialogCroppieComponent: () => import('@/components/admin/DialogCroppieComponent'),
     DialogPreviewComponent: () => import('@/components/admin/DialogPreviewComponent'),
@@ -400,14 +342,14 @@ export default {
   },
   mixins: [croppieMixin, formMixin, croppieMultipleMixin],
   data: () => ({
+    loading: false,
     dialog: false,
     dialogContent: {},
-    typeData: 0,
     isPreview: false,
     previewData: {},
     form: {
-      title: '', dateStart: null, dateEnd: null, timeStart: null,
-      datePublish: null, timePublish: null, place: '', tagsIds: [],
+      title: '', dateStart: null, timeStart: null,
+      datePublish: null, timePublish: null, tagsIds: [],
       isSlider: false, sliderImg: null, sliderImgCroppie: null, sliderImgBlob: null,
       cover: null, coverCroppie: null, coverBlob: null,
       blocks: [{ id: 0, type: -1, content: null }], attachmentsIds: []
@@ -415,22 +357,76 @@ export default {
   }),
   computed: {
     ...mapState('app', ['theme']),
-    ...mapState('news', ['tagsCategories', 'tags'])
+    ...mapState('news', ['tagsCategories', 'tags', 'newsOne'])
   },
   async mounted() {
     await this.getTags()
+    await this.getNew(this.$route.params.id)
+    if (Object.keys(this.newsOne).length) {
+      this.dataToForm()
+    }
+    this.loading = true
   },
   methods: {
-    ...mapActions('news', ['getTags']),
-    ...mapActions('admin', ['addAttachment', 'addNews', 'addAnnouncement']),
+    ...mapActions('news', ['getTags', 'getNew']),
+    ...mapActions('admin', ['addAttachment', 'updateNews']),
+    dataToForm() {
+      this.form.id = this.newsOne.id
+      this.form.title = this.newsOne.title
+      this.form.dateStart = this.$moment(this.newsOne.date).format('YYYY-MM-DD')
+      this.form.timeStart = this.$moment(this.newsOne.date).format('HH:mm')
+      this.form.tagsIds = this.newsOne.tags.map(tag => tag.id)
+      this.form.coverCroppie = this.newsOne.image.url
+      this.form.blocks = this.newsOne.blocks
+      for (let i = 0; i < this.form.blocks.length; i++) {
+        this.form.blocks[i].id = i
+        if (this.form.blocks[i].type === 0) {
+          this.form.blocks[i].content.text = this.form.blocks[i].content.text.replace('<div>', '').replace('</div>', '')
+          const parser = new DOMParser()
+          this.form.blocks[i].content.text = parser.parseFromString(this.form.blocks[i].content.text, 'text/html').body.innerHTML
+          this.form.blocks[i].content.text = this.form.blocks[i].content.text.replace(/\r/g, '').replace(/\n/g, '')
+        }
+        if (this.form.blocks[i].type === 1) {
+          this.form.blocks[i].content.blocks[0].id = (i + 1) * 1000 + 1
+          this.form.blocks[i].content.blocks[1].id = (i + 1) * 1000 + 2
+          for (let argument of this.form.blocks[i].content.blocks) {
+            if (argument.type === 2) {
+              argument.content.img = null
+              argument.content.imgName.blob = null
+              argument.content.imgName.original = argument.content.imgName.croppie
+            }
+            if (argument.type === 3) {
+              argument.content.images = []
+              let c = 1
+              for (let argument2 of argument.content.imagesName) {
+                argument.content.images.push({ name: c + ' img' })
+                c += 1
+                argument2.original = argument2.croppie
+                argument2.blob = null
+              }
+            }
+          }
+        }
+        if (this.form.blocks[i].type === 2) {
+          this.form.blocks[i].content.img = null
+          this.form.blocks[i].content.imgName.blob = null
+          this.form.blocks[i].content.imgName.original = this.form.blocks[i].content.imgName.croppie
+        }
+        if (this.form.blocks[i].type === 3) {
+          this.form.blocks[i].content.images = []
+          let c = 1
+          for (let argument of this.form.blocks[i].content.imagesName) {
+            this.form.blocks[i].content.images.push({ name: c + ' img', id: c })
+            c += 1
+            argument.original = argument.croppie
+            argument.blob = null
+          }
+        }
+      }
+      this.count = this.form.blocks.length + 1
+    },
     canBePublished() {
       let k = true
-      if (this.typeData === 1 && !this.form.cover) {
-        k = false
-      }
-      if (this.typeData === 0 && !this.form.place) {
-        k = false
-      }
       // if (this.form.isSlider && !this.form.sliderImg) {
       //   k = false
       // }
@@ -440,13 +436,10 @@ export default {
           break
         }
       }
-      return !(this.form.title && this.form.dateStart
-        && this.form.tagsIds.length && this.form.blocks.length && k)
 
+      return !(this.form.coverCroppie && this.form.title && this.form.dateStart
+        && this.form.tagsIds.length && this.form.blocks.length && k)
       //  && this.form.datePublish && this.form.timePublish
-    },
-    changeTypeData(val) {
-      this.typeData = val
     },
     removeTag(item) {
       const index = this.form.tagsIds.indexOf(item.id)
@@ -460,18 +453,14 @@ export default {
         formPublish.dateStart = new Date(formPublish.dateStart)
         formPublish.dateStart.setHours(parseInt(timeStart[0]), parseInt(timeStart[1]))
       }
-      formPublish.dateStart = this.$moment(formPublish.dateStart).format()
-      if (this.typeData === 0 && formPublish.dateEnd) {
-        formPublish.dateEnd = this.$moment(formPublish.dateEnd).format()
-      }
-      if (this.typeData === 1) {
-        formPublish.date = formPublish.dateStart
-      }
+      formPublish.date = this.$moment(formPublish.dateStart).format()
       //cover news
-      if (this.typeData === 1) {
+      if (formPublish.coverBlob) {
         await this.addAttachment(formPublish.coverBlob).then(res => {
           formPublish.imageId = res.data.id
         }).catch(() => ({}))
+      } else {
+        formPublish.imageId = this.newsOne.image.id
       }
       //blocks
       for (let block of formPublish.blocks) {
@@ -527,12 +516,7 @@ export default {
         }
       }
       //publish
-      if (this.typeData === 1) {
-        await this.addNews(formPublish)
-      }
-      if (this.typeData === 0) {
-        await this.addAnnouncement(formPublish)
-      }
+      await this.updateNews(formPublish)
       this.$router.push('/published').then()
     },
     preview() {

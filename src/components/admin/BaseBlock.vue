@@ -10,7 +10,7 @@
       Теги: {{ info.tags.map(tag => tag.name).join(', ') }}
     </div>
     <div v-if=" info.date||info.dateStart">
-      Дата: {{ $moment(info.date | info.dateStart).format('DD.MM.YYYY') }}
+      Дата: {{ $moment(info.date || info.dateStart).format('DD.MM.YYYY') }}
     </div>
     <div v-if=" info.time">
       Время: {{ info.time }}

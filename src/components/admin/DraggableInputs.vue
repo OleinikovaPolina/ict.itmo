@@ -4,7 +4,7 @@
     class="d-flex flex-wrap"
   >
     <v-col
-      v-for="(element) in blocks"
+      v-for="element in blocks"
       :key="element.id"
       cols="12"
       class="input-bordered mb-6 pa-0 pt-4"
@@ -35,7 +35,7 @@
           </v-icon>
         </v-btn>
       </div>
-      <div class="input-bordered-label app-background pa-0">
+      <div class="input-bordered-label app-background pa-0 mb-4">
         <v-menu offset-y>
           <template #activator="{ on, attrs }">
             <div
@@ -138,6 +138,7 @@
                   v-model="element2.content.text"
                   :editor-toolbar="customToolbar"
                   placeholder="Введите текст"
+                  class="mt-4"
                 />
                 <template v-if="element2.type===2">
                   <v-text-field
@@ -483,7 +484,7 @@ export default {
   emits: ['beforeCropMultipleInsert', 'updateBlock', 'deleteBlock', 'changeDialog', 'changeDialogContent', 'beforeCropInsert'],
   data: () => ({
     customToolbar: [{ align: '' }, { align: 'center' }, { align: 'justify' },
-      { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline', 'link', 'clean'],
+      { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline', 'link', 'clean', 'video'],
     typesInput: [
       { id: 0, text: 'Текстовый блок' },
       { id: 1, text: 'Два блока' },
@@ -534,25 +535,25 @@ export default {
       i.type = type
       switch (type) {
         case 0:
-          i.content = { type: 0, text: '' }
+          i.content = { text: '' }
           break
         case 1:
-          i.content = { type: 1, blocks: [{ id: 1000, type: -1 }, { id: 2000, type: -1 }] }
+          i.content = { blocks: [{ id: 1000, type: -1 }, { id: 2000, type: -1 }] }
           break
         case 2:
-          i.content = { type: 2, img: null, imgName: { original: '', croppie: '', blob: null }, text: '' }
+          i.content = { img: null, imgName: { original: '', croppie: '', blob: null }, text: '' }
           break
         case 3:
-          i.content = { type: 3, images: [], imagesName: [], text: '' }
+          i.content = { images: [], imagesName: [], text: '' }
           break
         case 4:
-          i.content = { type: 4, text: '', author: '' }
+          i.content = { text: '', author: '' }
           break
         case 5:
-          i.content = { type: 5, text: '' }
+          i.content = { text: '' }
           break
         default:
-          i.content = { type: -1 }
+          i.content = {}
       }
       this.$emit('updateBlock')
     },
@@ -586,6 +587,7 @@ export default {
 }
 
 .input-bordered-label {
+  z-index: 100;
   position: absolute;
   padding: 2.5px 10px;
   right: 0;

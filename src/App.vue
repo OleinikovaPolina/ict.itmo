@@ -31,8 +31,14 @@ export default {
   },
   data: () => ({
     dialog: false,
-    pageAdmin: ['login', 'published', 'createEntry', 'favorites', 'favoritesChange', 'tags'],
-    pageNoFooter: ['notFound', 'login', 'published', 'createEntry', 'favorites', 'favoritesChange', 'tags']
+    pageAdmin: [
+      'login', 'published', 'createEntry', 'favorites',
+      'favoritesChange', 'tags', 'updateAnnouncement', 'updateNew'
+    ],
+    pageNoFooter: [
+      'notFound', 'login', 'published', 'createEntry',
+      'favorites', 'favoritesChange', 'tags', 'updateAnnouncement', 'updateNew'
+    ]
   }),
   computed: mapState('app', ['theme']),
   async mounted() {
@@ -56,6 +62,7 @@ export default {
   }
 }
 </script>
+
 <style scoped lang="scss">
 .mt-header {
   margin-top: 4.5em;

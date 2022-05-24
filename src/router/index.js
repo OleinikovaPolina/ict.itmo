@@ -78,6 +78,18 @@ const routes = [
     component: () => import('../views/AdminCreateEntryView.vue')
   },
   {
+    path: '/updateAnnouncements/:id',
+    name: 'updateAnnouncement',
+    meta: { requiresAuth: true },
+    component: () => import('../views/AdminUpdateAnnouncementView.vue')
+  },
+  {
+    path: '/updateNews/:id',
+    name: 'updateNew',
+    meta: { requiresAuth: true },
+    component: () => import('../views/AdminUpdateNewsView.vue')
+  },
+  {
     path: '/favorites',
     name: 'favorites',
     meta: { requiresAuth: true },

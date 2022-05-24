@@ -3,6 +3,7 @@
     <v-dialog
       :value="dialog"
       width="85%"
+      persistent
     >
       <v-card class="py-6">
         <v-btn
@@ -35,7 +36,7 @@
             >
               <template #item="slotProps">
                 <v-col cols="12">
-                  <div class="pa-2">
+                  <div>
                     <img
                       alt=""
                       class="carousel-img-slider"
@@ -45,6 +46,14 @@
                     >
                   </div>
                 </v-col>
+              </template>
+              <template #subtitle>
+                <div
+                  class="text-body-1"
+                  style="position: absolute; opacity: 0.7"
+                >
+                  {{ dialogContent.content.text }}
+                </div>
               </template>
               <template #index="slotProps">
                 <v-btn

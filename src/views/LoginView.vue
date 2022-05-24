@@ -49,7 +49,13 @@
           @click:append="show1 = !show1"
         />
       </v-col>
-      <div class="pt-6">
+      <div
+        class="text-center text-body-2"
+        :style="{opacity:error?1:0}"
+      >
+        Неверные данные
+      </div>
+      <div class="pt-4">
         <BaseButton
           class="mx-auto"
           text="Войти"
@@ -69,14 +75,17 @@ export default {
   components: {
     BaseButton: () => import('@/components/admin/BaseButton')
   },
-  data: () => ({ show1: false, form: { username: '', password: '' } }),
+  data: () => ({ show1: false, form: { username: '', password: '' }, error: false }),
   computed: mapState('app', { theme: 'theme' }),
   methods: {
     ...mapActions('admin', ['login']),
     async loginFunction() {
       await this.login(this.form)
       if (localStorage.getItem('token')) {
+        this.error = false
         this.$router.push('published').then()
+      } else {
+        this.error = true
       }
     }
   }

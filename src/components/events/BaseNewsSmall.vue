@@ -5,11 +5,22 @@
     style="height: 100%"
   >
     <v-img
+      v-if="isLoad"
       class="mb-4"
-      width="100%"
-      :min-height="$vuetify.breakpoint.xsOnly?100:100"
+      :style="{width: '100%'}"
       :src="news.image['url']"
-    />
+      :min-height="$vuetify.breakpoint.xsOnly?'65px':'100px'"
+    >
+      <template #placeholder>
+        <v-row
+          class="fill-height ma-0"
+          align="center"
+          justify="center"
+        >
+          <v-progress-circular indeterminate />
+        </v-row>
+      </template>
+    </v-img>
     <div class="news-subtitle mb-1">
       {{ $moment(news.date).format('D MMMM YYYY') }}
     </div>
@@ -35,6 +46,15 @@ export default {
     news: {
       type: Object,
       default: null
+    }
+  },
+  data: () => ({ isLoad: true }),
+  watch: {
+    news: function() {
+      this.isLoad = false
+      setTimeout(() => {
+        this.isLoad = true
+      })
     }
   }
 }
