@@ -124,9 +124,9 @@ export default {
   data: () => ({
     show: false,
     links: [
-      { text: 'Опубликованное', name: ['published'], path: 'published' },
+      { text: 'Опубликованное', name: ['published', 'updateAnnouncement', 'updateNew'], path: 'published' },
       { text: 'Создать запись', name: ['createEntry'], path: 'createEntry' },
-      { text: 'Избранное', name: ['favorites', 'favoritesChange'], path: 'favorites' },
+      { text: 'Избранное', name: ['favorites', 'updateEvent', 'updateArticle'], path: 'favorites' },
       { text: 'Теги', name: ['tags'], path: 'tags' }
     ]
   }),

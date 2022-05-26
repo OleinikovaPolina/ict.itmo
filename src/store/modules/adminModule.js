@@ -11,6 +11,7 @@ const adminModule = {
     }
   },
   actions: {
+    // admin
     logout({ commit }) {
       commit('CHANGE_TOKEN', null)
       localStorage.removeItem('token')
@@ -34,6 +35,7 @@ const adminModule = {
         })
     },
 
+    // attachments
     async addAttachment(context, payload) {
       let bodyFormData = new FormData()
       bodyFormData.append('file', payload)
@@ -42,11 +44,13 @@ const adminModule = {
           { headers: { 'Content-Type': 'multipart/form-data' } }
         )
     },
+
+    // announcements
     async addAnnouncement(context, payload) {
       await instance
         .post('/announcements/', payload)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
+        .then(() => ({}))
+        .catch(() => ({}))
     },
     async updateAnnouncement(context, payload) {
       await instance
@@ -55,19 +59,37 @@ const adminModule = {
         .catch(() => ({}))
     },
 
+    // news
     async addNews(context, payload) {
       await instance
         .post('/news/', payload)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
+        .then(() => ({}))
+        .catch(() => ({}))
     },
     async updateNews(context, payload) {
       await instance
         .put('/news/' + payload.id + '/', payload)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
+        .then(() => ({}))
+        .catch(() => ({}))
     },
 
+    //events
+    async updateEvent(context, payload) {
+      await instance
+        .put('/events/' + payload.id + '/', payload)
+        .then(() => ({}))
+        .catch(() => ({}))
+    },
+
+    //articles
+    async updateArticles(context, payload) {
+      await instance
+        .put('/articles/' + payload.id + '/', payload)
+        .then(() => ({}))
+        .catch(() => ({}))
+    },
+
+    // tags
     async addTag({ dispatch }, payload) {
       await instance
         .post('/tags/', payload)

@@ -1,35 +1,59 @@
 <template>
-  <v-container>
+  <v-container v-if="isLoad">
     <!--  Form  -->
     <div v-if="!isPreview">
-      <!--  news or annotations  -->
-      <div class="d-flex pb-6">
-        <BaseButtonOutlined
-          text="Анонсы"
-          class="rounded-r-0"
-          :active="typeData===0"
-          :click-btn="true"
-          @clickBtnCallback="changeTypeData(0)"
-        />
-        <BaseButtonOutlined
-          text="Новости"
-          class="rounded-l-0 ml-2"
-          :active="typeData===1"
-          :click-btn="true"
-          @clickBtnCallback="changeTypeData(1)"
-        />
+      <div class="pb-2 pb-md-4 text-h6 text-md-h5">
+        Мероприятия
       </div>
-      <!--  title  -->
+      <!--  name  -->
       <div class="input-bordered mb-6">
         <v-text-field
           v-model="form.title"
-          :placeholder="`Название ${typeData===1?'новости':'анонса'}`"
+          placeholder="Название"
           outlined
           dense
           class="input-border-0 text-h6 input-blue font-weight-bold"
           :dark="theme==='dark'"
           hide-details
         />
+      </div>
+      <!--  cover  -->
+      <div class="input-bordered mb-6 py-6">
+        <div class="input-bordered-label app-background">
+          Обложка мероприятия <span class="error--text">*</span>
+        </div>
+        <div
+          class="input-file-container mx-auto"
+          @dragover.prevent
+          @drop.prevent
+        >
+          <input
+            id="cover"
+            type="file"
+            accept="image/*"
+            @change="(e)=>{beforeCrop('cover',coverSizes[$route.params.id-1],'Обложка мероприятия',e.target.files[0])}"
+          >
+          <label
+            for="cover"
+            class="d-flex align-center py-6 px-12 text-center"
+            @drop="(e)=>{beforeCrop('cover',coverSizes[$route.params.id-1],'Обложка мероприятия',e.dataTransfer.files[0])}"
+          >
+            <v-img
+              style="z-index: 0"
+              width="80"
+              height="80"
+              src="../assets/images/admin/ep_picture.svg"
+            />
+            Выберите изображение обложки или перетащите файл<br>
+            Размер {{ getCoverSize() }}
+          </label>
+        </div>
+        <div
+          v-if="form.cover"
+          class="text-center"
+        >
+          {{ form.cover.name }}
+        </div>
       </div>
       <!--  changing blocks  -->
       <DraggableInputs
@@ -41,97 +65,9 @@
         @updateBlock="updateBlock"
         @beforeCropMultipleInsert="beforeCropMultipleInsert"
       />
-      <!--  cover  -->
-      <div
-        v-if="typeData===1"
-        class="input-bordered mb-6 py-6"
-      >
-        <div class="input-bordered-label app-background">
-          Обложка новости<span class="error--text">*</span>
-        </div>
-        <div
-          class="input-file-container mx-auto"
-          @dragover.prevent
-          @drop.prevent
-        >
-          <input
-            id="cover"
-            type="file"
-            accept="image/*"
-            @change="(e)=>{beforeCrop('cover',{w:480,h:300},'Обложка новости',e.target.files[0])}"
-          >
-          <label
-            for="cover"
-            class="d-flex align-center py-6 px-12 text-center"
-            @change="(e)=>{beforeCrop('cover',{w:480,h:300},'Обложка новости',e.dataTransfer.files[0])}"
-          >
-            <v-img
-              style="z-index: 0"
-              width="80"
-              height="80"
-              src="../assets/images/admin/ep_picture.svg"
-            />
-            Выберите изображение обложки или перетащите файл<br>
-            Размер 480*300
-          </label>
-        </div>
-        <div
-          v-if="form.cover"
-          class="text-center"
-        >
-          {{ form.cover.name }}
-        </div>
-      </div>
-      <!--  slider  -->
-      <div class="input-bordered">
-        <v-checkbox
-          v-model="form.isSlider"
-          :dark="theme==='dark'"
-          dense
-          label="Добавить в слайдер"
-          class="input-blue pl-2"
-        />
-        <div
-          v-if="form.isSlider"
-          class="py-6"
-        >
-          <div
-            class="input-file-container mx-auto"
-            @dragover.prevent
-            @drop.prevent
-          >
-            <input
-              id="sliderImg"
-              type="file"
-              accept="image/*"
-              @change="(e)=>{beforeCrop('sliderImg',{w:855,h:300},'Слайдер',e.target.files[0])}"
-            >
-            <label
-              for="sliderImg"
-              class="d-flex align-center py-6 px-12 text-center"
-              @change="(e)=>{beforeCrop('sliderImg',{w:855,h:300},'Слайдер',e.dataTransfer.files[0])}"
-            >
-              <v-img
-                style="z-index: 0"
-                width="80"
-                height="80"
-                src="../assets/images/admin/ep_picture.svg"
-              />
-              Выберите изображение обложки или перетащите файл<br>
-              Размер 1140*400
-            </label>
-          </div>
-          <div
-            v-if="form.sliderImg"
-            class="text-center"
-          >
-            {{ form.sliderImg.name }}
-          </div>
-        </div>
-      </div>
       <!--   add block   -->
       <div
-        class="px-0 mt-4 subtitle-color"
+        class="px-0 subtitle-color"
         style="cursor: pointer;width: fit-content"
         @click="addBlock"
       >
@@ -141,7 +77,10 @@
         Добавить поле
       </div>
       <!--  time event    -->
-      <v-row class="pt-4">
+      <v-row
+        v-if="haveDates()"
+        class="pt-4"
+      >
         <v-col
           cols="12"
           md="3"
@@ -158,13 +97,12 @@
             outlined
             dense
             class="search-input"
-            :dark="theme==='dark'"
-            :color="theme==='dark'?'#00A1FF':'#005A8E'"
+            :dark="theme === 'dark'"
+            :color="theme === 'dark'?'#00A1FF':'#005A8E'"
             hide-details
           />
         </v-col>
         <v-col
-          v-if="typeData===0"
           cols="12"
           md="3"
         >
@@ -180,8 +118,8 @@
             outlined
             dense
             class="search-input"
-            :dark="theme==='dark'"
-            :color="theme==='dark'?'#00A1FF':'#005A8E'"
+            :dark="theme ==='dark'"
+            :color="theme ==='dark'?'#00A1FF':'#005A8E'"
             hide-details
           />
         </v-col>
@@ -207,129 +145,11 @@
           />
         </v-col>
       </v-row>
-      <!--  time publish  -->
-      <v-row>
-        <v-col
-          cols="12"
-          md="3"
-        >
-          <div
-            class="pl-4 subtitle-color text-body-2"
-            style="opacity: 0.7"
-          >
-            Дата выхода поста<span class="error--text">*</span>
-          </div>
-          <v-text-field
-            v-model="form.datePublish"
-            type="date"
-            outlined
-            dense
-            class="search-input"
-            :dark="theme==='dark'"
-            :color="theme==='dark'?'#00A1FF':'#005A8E'"
-            hide-details
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          md="2"
-        >
-          <div
-            class="pl-4 subtitle-color text-body-2"
-            style="opacity: 0.7"
-          >
-            Время выхода<span class="error--text">*</span>
-          </div>
-          <v-text-field
-            v-model="form.timePublish"
-            type="time"
-            outlined
-            dense
-            class="search-input"
-            :dark="theme==='dark'"
-            :color="theme==='dark'?'#00A1FF':'#005A8E'"
-            hide-details
-          />
-        </v-col>
-      </v-row>
-      <!--  place  -->
-      <v-col
-        v-if="typeData===0"
-        cols="12"
-        md="4"
-        class="px-0"
-      >
-        <div
-          class="pl-4 subtitle-color text-body-2"
-          style="opacity: 0.7"
-        >
-          Место проведения<span class="error--text">*</span>
-        </div>
-        <v-text-field
-          v-model="form.place"
-          placeholder="Введите место мероприятия"
-          outlined
-          dense
-          class="search-input"
-          :dark="theme==='dark'"
-          :color="theme==='dark'?'#00A1FF':'#005A8E'"
-          hide-details
-        />
-      </v-col>
-      <!--  tags  -->
-      <v-col
-        cols="12"
-        md="4"
-        class="px-0"
-      >
-        <div
-          class="pl-4 subtitle-color  text-body-2"
-          style="opacity: 0.7"
-        >
-          Теги<span class="error--text">*</span>
-        </div>
-        <v-autocomplete
-          v-model="form.tagsIds"
-          :items="tags"
-          item-value="id"
-          item-text="name"
-          multiple
-          outlined
-          dense
-          class="search-input"
-          :dark="theme==='dark'"
-          :color="theme==='dark'?'#00A1FF':'#005A8E'"
-          hide-details
-          chips
-          append-icon="mdi-chevron-down"
-        >
-          <template #selection="{item}">
-            <BaseChip
-              :item="item"
-              class="mr-3"
-            >
-              <template #chip-btns>
-                <v-btn
-                  icon
-                  dark
-                  x-small
-                  @click="removeTag(item)"
-                >
-                  <v-icon small>
-                    mdi-close-circle-outline
-                  </v-icon>
-                </v-btn>
-              </template>
-            </BaseChip>
-          </template>
-        </v-autocomplete>
-      </v-col>
       <!--   buttons  -->
       <div class="d-flex pt-6">
         <BaseButton
           text="Опубликовать"
           :click-btn="true"
-          :disabled-btn="canBePublished()"
           @clickBtnCallback="publish"
         />
         <BaseButtonOutlined
@@ -349,7 +169,7 @@
         @clickBtnCallback="isPreview = false"
       />
     </div>
-    <!--  dialog  -->
+    <!--  dialogs  -->
     <DialogPreviewComponent
       :dialog="dialog"
       :dialog-content="dialogContent"
@@ -374,6 +194,12 @@
       @changeCroppie="changeCroppieMultiple"
     />
   </v-container>
+  <div
+    v-else
+    class="d-flex justify-center fill-height align-center"
+  >
+    <v-progress-circular indeterminate />
+  </div>
 </template>
 
 <script>
@@ -383,70 +209,103 @@ import formMixin from '@/mixins/formMixin'
 import croppieMultipleMixin from '@/mixins/croppieMultipleMixin'
 
 export default {
-  name: 'AdminCreateEntryView',
+  name: 'AdminUpdateEventView',
   components: {
     DialogCroppieMultipleComponent: () => import('@/components/admin/DialogCroppieMultipleComponent'),
     DialogCroppieComponent: () => import('@/components/admin/DialogCroppieComponent'),
     DialogPreviewComponent: () => import('@/components/admin/DialogPreviewComponent'),
     BaseNews: () => import('@/components/events/BaseNews'),
     DraggableInputs: () => import('@/components/admin/DraggableInputs'),
-    BaseChip: () => import('@/components/BaseChip'),
     BaseButtonOutlined: () => import('@/components/admin/BaseButtonOutlined'),
     BaseButton: () => import('@/components/admin/BaseButton')
   },
   mixins: [croppieMixin, formMixin, croppieMultipleMixin],
   data: () => ({
-    dialog: false,
-    dialogContent: {},
-    typeData: 0,
+    coverSizes: [{ w: 400, h: 400 }, { w: 300, h: 190 }, { w: 190, h: 190 },
+      { w: 190, h: 190 }, { w: 190, h: 190 }, { w: 190, h: 190 }, { w: 300, h: 190 }],
     isPreview: false,
     previewData: {},
     form: {
       title: '', dateStart: null, dateEnd: null, timeStart: null,
-      datePublish: null, timePublish: null, place: '', tagsIds: [],
-      isSlider: false, sliderImg: null, sliderImgCroppie: null, sliderImgBlob: null,
       cover: null, coverCroppie: null, coverBlob: null,
       blocks: [{ id: 0, type: -1, content: null }], attachmentsIds: []
-    }
+    },
+    isLoad: false
   }),
   computed: {
     ...mapState('app', ['theme']),
-    ...mapState('news', ['tagsCategories', 'tags'])
+    ...mapState('news', { 'eventOne': 'event' })
   },
   async mounted() {
-    await this.getTags()
+    await this.getEvent(this.$route.params.id)
+    if (Object.keys(this.eventOne).length) {
+      this.dataToForm()
+    }
+    this.isLoad = true
   },
   methods: {
-    ...mapActions('news', ['getTags']),
-    ...mapActions('admin', ['addAttachment', 'addNews', 'addAnnouncement']),
-    canBePublished() {
-      let k = true
-      if (this.typeData === 1 && !this.form.cover) {
-        k = false
-      }
-      if (this.typeData === 0 && !this.form.place) {
-        k = false
-      }
-      // if (this.form.isSlider && !this.form.sliderImg) {
-      //   k = false
-      // }
-      for (const block of this.form.blocks) {
-        if (block.type === -1) {
-          k = false
-          break
+    ...mapActions('news', ['getEvent']),
+    ...mapActions('admin', ['addAttachment', 'updateEvent']),
+    dataToForm() {
+      this.form.id = this.eventOne.id
+      this.form.title = this.eventOne.title
+      this.form.dateStart = this.$moment(this.eventOne.dateStart).format('YYYY-MM-DD')
+      this.form.timeStart = this.$moment(this.eventOne.dateStart).format('HH:mm')
+      this.form.dateEnd = this.eventOne.dateEnd ? this.$moment(this.eventOne.dateEnd).format('YYYY-MM-DD') : ''
+      this.form.blocks = this.eventOne.blocks
+      this.form.coverCroppie = this.eventOne.image.url
+      for (let i = 0; i < this.form.blocks.length; i++) {
+        this.form.blocks[i].id = i
+        if (this.form.blocks[i].type === 0) {
+          this.form.blocks[i].content.text = this.form.blocks[i].content.text.replace('<div>', '').replace('</div>', '')
+          const parser = new DOMParser()
+          this.form.blocks[i].content.text = parser.parseFromString(this.form.blocks[i].content.text, 'text/html').body.innerHTML
+          this.form.blocks[i].content.text = this.form.blocks[i].content.text.replace(/\r/g, '').replace(/\n/g, '')
+        }
+        if (this.form.blocks[i].type === 1) {
+          this.form.blocks[i].content.blocks[0].id = (i + 1) * 1000 + 1
+          this.form.blocks[i].content.blocks[1].id = (i + 1) * 1000 + 2
+          for (let argument of this.form.blocks[i].content.blocks) {
+            if (argument.type === 2) {
+              argument.content.img = null
+              argument.content.imgName.blob = null
+              argument.content.imgName.original = argument.content.imgName.croppie
+            }
+            if (argument.type === 3) {
+              argument.content.images = []
+              let c = 1
+              for (let argument2 of argument.content.imagesName) {
+                argument.content.images.push({ name: c + ' img' })
+                c += 1
+                argument2.original = argument2.croppie
+                argument2.blob = null
+              }
+            }
+          }
+        }
+        if (this.form.blocks[i].type === 2) {
+          this.form.blocks[i].content.img = null
+          this.form.blocks[i].content.imgName.blob = null
+          this.form.blocks[i].content.imgName.original = this.form.blocks[i].content.imgName.croppie
+        }
+        if (this.form.blocks[i].type === 3) {
+          this.form.blocks[i].content.images = []
+          let c = 1
+          for (let argument of this.form.blocks[i].content.imagesName) {
+            this.form.blocks[i].content.images.push({ name: c + ' img', id: c })
+            c += 1
+            argument.original = argument.croppie
+            argument.blob = null
+          }
         }
       }
-      return !(this.form.title && this.form.dateStart
-        && this.form.tagsIds.length && this.form.blocks.length && k)
-
-      //  && this.form.datePublish && this.form.timePublish
+      this.count = this.form.blocks.length + 1
     },
-    changeTypeData(val) {
-      this.typeData = val
+    haveDates() {
+      return this.coverSizes[this.$route.params.id - 1].w !== 190
     },
-    removeTag(item) {
-      const index = this.form.tagsIds.indexOf(item.id)
-      if (index >= 0) this.form.tagsIds.splice(index, 1)
+    getCoverSize() {
+      return this.coverSizes[this.$route.params.id - 1].w + '*' + this.coverSizes[this.$route.params.id - 1].h + 'px'
     },
     async publish() {
       let formPublish = Object.assign({}, this.form)
@@ -457,17 +316,18 @@ export default {
         formPublish.dateStart.setHours(parseInt(timeStart[0]), parseInt(timeStart[1]))
       }
       formPublish.dateStart = this.$moment(formPublish.dateStart).format()
-      if (this.typeData === 0 && formPublish.dateEnd) {
+      if (formPublish.dateEnd) {
         formPublish.dateEnd = this.$moment(formPublish.dateEnd).format()
+      } else {
+        formPublish.dateEnd = null
       }
-      if (this.typeData === 1) {
-        formPublish.date = formPublish.dateStart
-      }
-      //cover news
-      if (this.typeData === 1) {
+      //cover
+      if (formPublish.coverBlob) {
         await this.addAttachment(formPublish.coverBlob).then(res => {
           formPublish.imageId = res.data.id
         }).catch(() => ({}))
+      } else {
+        formPublish.imageId = this.eventOne.image.id
       }
       //blocks
       for (let block of formPublish.blocks) {
@@ -523,20 +383,11 @@ export default {
         }
       }
       //publish
-      if (this.typeData === 1) {
-        await this.addNews(formPublish)
-      }
-      if (this.typeData === 0) {
-        await this.addAnnouncement(formPublish)
-      }
-      this.$router.push('/published').then()
+      await this.updateEvent(formPublish)
+      this.$router.push('/favorites').then()
     },
     preview() {
       this.previewData = Object.assign({}, this.form)
-      this.previewData.tags = []
-      this.previewData.tagsIds.forEach((x, i) => {
-        this.previewData.tags[i] = this.tags.find(y => y.id === x)
-      })
       this.isPreview = true
     }
   }

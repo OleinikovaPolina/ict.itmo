@@ -237,11 +237,7 @@
     />
     <DialogCroppieMultipleComponent
       :dialog="dialogCroppieMultiple"
-      :title="dialogCroppieMultipleOptions.title"
-      :size="dialogCroppieMultipleOptions.size"
       :data-img="dialogCroppieMultipleDataImg"
-      :height-img="heightImg"
-      :enable-resize="dialogCroppieMultipleOptions.enableResize"
       :edit="dialogCroppieMultipleEdit"
       @changeDialog="changeDialogCroppieMultiple"
       @changeCroppie="changeCroppieMultiple"

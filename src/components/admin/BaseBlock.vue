@@ -25,10 +25,10 @@
       Дата публикации: {{ info.datePublish }}
     </div>
     <div
-      v-if=" info.dateChange"
+      v-if=" info.updatedAt"
       class="pb-2"
     >
-      Дата изменения: {{ info.dateChange }}
+      Дата изменения: {{ $moment(info.updatedAt).format('DD.MM.YYYY') }}
     </div>
     <div
       class="pa-3"

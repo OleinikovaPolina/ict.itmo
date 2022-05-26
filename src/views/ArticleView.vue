@@ -1,6 +1,6 @@
 <template>
-  <v-container v-if="loading && Object.keys(newsOne).length">
-    <BaseNews :data="newsOne" />
+  <v-container v-if="loading && Object.keys(article).length">
+    <BaseNews :data="article" />
   </v-container>
   <BaseNotFound v-else-if="loading" />
   <div
@@ -16,18 +16,18 @@
 import { mapActions, mapState } from 'vuex'
 
 export default {
-  name: 'NewView',
+  name: 'ArticleView',
   components: {
     BaseNotFound: () => import('@/components/app/BaseNotFound'),
     BaseNews: () => import('@/components/events/BaseNews')
   },
   data: () => ({ loading: false }),
-  computed: mapState('news', ['newsOne']),
+  computed: mapState('news', ['article']),
   watch: {
     '$route.params': {
       handler: async function() {
         this.loading = false
-        await this.getNew(this.$route.params.id)
+        await this.getArticle(this.$route.params.id)
         this.loading = true
       },
       deep: true,
@@ -35,9 +35,9 @@ export default {
     }
   },
   async mounted() {
-    await this.getNew(this.$route.params.id)
+    await this.getArticle(this.$route.params.id)
     this.loading = true
   },
-  methods: mapActions('news', ['getNew'])
+  methods: mapActions('news', ['getArticle'])
 }
 </script>

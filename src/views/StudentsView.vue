@@ -1,15 +1,8 @@
 <template>
-  <div>
+  <div v-if="isLoad">
     <!-- header -->
-    <v-container>
-      <BaseStudentsHackathon
-        :text="''"
-        :slider-images-names="slider"
-        :name="'Хакатоны ICT & Info Lab'"
-        :description="`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Enim dictum mattis nec eu erat iaculis nullam
-              luctus. Nunc sed interdum adipiscing aliquet placerat. Varius aliquet porta volutpat, aenean in. Ultricies
-              neque proin ac ante suspendisse.`"
-      />
+    <v-container style="position: relative;z-index: 1;">
+      <BaseStudentsHackathon :block="Object.assign({title:article.title},JSON.parse(article.description))" />
     </v-container>
     <!-- competition -->
     <div class="hex-section">
@@ -174,7 +167,10 @@
               технологиям
             </div>
             <div class="text-subtitle-1 pb-6">
-              Бесплатно для студентов факультета ИКТ проводится обучение от сертифицированного лектора по курсу MicroTik, Ивана Филянина. Обычно занятия проводятся 2 раза в неделю в течении месяца после пар. Студенты изучают теоретическую базу построения сетей, а также работают и настраивают маршрутизаторы от компании MicroTik, которые выдаются на занятиях.
+              Бесплатно для студентов факультета ИКТ проводится обучение от сертифицированного лектора по курсу
+              MicroTik, Ивана Филянина. Обычно занятия проводятся 2 раза в неделю в течении месяца после пар. Студенты
+              изучают теоретическую базу построения сетей, а также работают и настраивают маршрутизаторы от компании
+              MicroTik, которые выдаются на занятиях.
             </div>
           </div>
           <div :class="$vuetify.breakpoint.smAndDown?'mx-auto':''">
@@ -269,9 +265,18 @@
       </v-container>
     </div>
   </div>
+  <div
+    v-else
+    class="d-flex justify-center fill-height align-center"
+    style="min-height: 75vh"
+  >
+    <v-progress-circular indeterminate />
+  </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+
 export default {
   name: 'StudentsView',
   components: {
@@ -285,6 +290,7 @@ export default {
     CarouselLeadersComponent: () => import('@/components/CarouselLeadersComponent')
   },
   data: () => ({
+    isLoad: false,
     scrolledHexLines: false,
     hexArray: [
       { img: require('@/assets/images/home/Vector.svg'), text: 'Архитектура баз данных' },
@@ -372,6 +378,11 @@ export default {
       }
     ]
   }),
+  computed: mapState('news', ['article']),
+  async mounted() {
+    await this.getArticle(2)
+    this.isLoad = true
+  },
   created() {
     window.addEventListener('scroll', this.handleScroll)
   },
@@ -379,6 +390,7 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
+    ...mapActions('news', ['getArticle']),
     handleScroll() {
       if (!this.scrolledHexLines) {
         let height = document.documentElement.clientHeight
@@ -397,12 +409,13 @@ export default {
 
 <style scoped lang="scss">
 .hex-section {
+  position: relative;
+  z-index: 0;
   width: 100%;
   background-size: cover;
   background-position: top left;
   margin-top: -6em;
   padding-top: 25em;
-  position: relative;
   @media (max-width: 1904px) {
     margin-top: -8em;
     padding-top: 18em;

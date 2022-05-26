@@ -1,25 +1,24 @@
 <template>
-  <router-link :to="'/new/'+item.id">
+  <router-link :to="'/event/'+item.id">
     <div
       class="events-item"
     >
       <v-img
         width="100%"
-        :height="heightItem"
-        :src="item.img"
+        :src="item.image['url']"
       />
       <div class="events-item-footer px-2 py-2">
         <div
           class="events-item-footer-title"
           :class="'events-item-footer-text-'+(typeItem?'1':'2')"
         >
-          {{ item.name }}
+          {{ item.title }}
         </div>
         <div
           v-if="typeItem"
           class="events-item-footer-text-2"
         >
-          {{ item.month }}
+          {{ $moment(item.date).format('DD MMMM') }}
         </div>
       </div>
     </div>
@@ -37,10 +36,6 @@ export default {
     typeItem: {
       type: Boolean,
       default: true
-    },
-    heightItem: {
-      type: String,
-      default: '100%'
     }
   }
 }
@@ -50,7 +45,7 @@ export default {
 .events-item {
   position: relative;
   transition: all .5s;
-  height: 100%;
+  //height: 100%;
 }
 
 .events-item:hover {

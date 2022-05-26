@@ -1,11 +1,11 @@
 <template>
   <v-row
-    v-if="name&&description&&sliderImagesNames"
+    v-if="block.title&&block.description&&block.sliderImagesNames.length"
     class="d-flex align-center justify-center pt-xl-8"
   >
     <v-col class="text-center d-md-none">
       <div class="text-h5 text-sm-h4">
-        {{ name }}
+        {{ block.title }}
       </div>
     </v-col>
     <v-col
@@ -17,15 +17,15 @@
     >
       <div>
         <div class="pb-8 text-h4 text-xl-h3 d-none d-md-block">
-          {{ name }}
+          {{ block.title }}
         </div>
         <div
           class="text-subtitle-1 pb-6"
-          v-html="description"
+          v-html="block.description"
         />
       </div>
       <div class="mx-auto mx-md-0">
-        <BaseButton link="/" />
+        <BaseButton :link="'/article/2'" />
       </div>
     </v-col>
     <v-col
@@ -34,7 +34,7 @@
       lg="7"
     >
       <CarouselComponent
-        :slider="sliderImagesNames"
+        :slider="block.sliderImagesNames.map(x=>x.croppie)"
         :columns="1"
       >
         <template #item="slotProps">
@@ -57,7 +57,7 @@
             class="text-body-1"
             style="position: absolute; opacity: 0.7"
           >
-            {{ text }}
+            {{ block.sliderText }}
           </div>
         </template>
       </CarouselComponent>
@@ -73,26 +73,14 @@ export default {
     BaseButton: () => import('@/components/BaseButton')
   },
   props: {
-    name: {
-      type: String,
-      default: null
-    },
-    description: {
-      type: String,
-      default: null
-    },
-    text: {
-      type: String,
-      default: null
-    },
-    sliderImagesNames: {
-      type: Array,
+    block: {
+      type: Object,
       default: null
     }
   },
   methods: {
     getHeight() {
-      if (this.sliderImagesNames[0]) {
+      if (this.block.sliderImagesNames[0]) {
         let img = new Image()
         img.onload = () => {
           let height = img.height
@@ -101,7 +89,7 @@ export default {
             document.querySelectorAll('.carousel-img').forEach(x => x.height = height)
           }
         }
-        img.src = this.sliderImagesNames[0]
+        img.src = this.block.sliderImagesNames[0]
       }
     }
   }

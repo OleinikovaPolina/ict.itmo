@@ -28,9 +28,12 @@ const newsModule = {
     ],
     newsOne: {},
     announcement: {},
+    event: {},
+    article: {},
     news: [],
     events: [],
     announcements: [],
+    articles: [],
     slider: []
   }),
   mutations: {
@@ -44,16 +47,25 @@ const newsModule = {
       state.news = val
     },
     CHANGE_EVENTS(state, val) {
-      state.events = val
+      state.events = val.sort((a, b) => a.id - b.id)
     },
-    CHANGE_SLIDER(state, val) {
-      state.slider = val
+    CHANGE_EVENT(state, val) {
+      state.event = val
     },
     CHANGE_ANNOUNCEMENTS(state, val) {
       state.announcements = val
     },
     CHANGE_ANNOUNCEMENT(state, val) {
       state.announcement = val
+    },
+    CHANGE_ARTICLES(state, val) {
+      state.articles = val
+    },
+    CHANGE_ARTICLE(state, val) {
+      state.article = val
+    },
+    CHANGE_SLIDER(state, val) {
+      state.slider = val
     }
   },
   actions: {
@@ -65,6 +77,7 @@ const newsModule = {
         })
         .catch(() => ({}))
     },
+
     async getNew({ commit }, id) {
       await instance
         .get('/news/' + id)
@@ -81,6 +94,23 @@ const newsModule = {
         })
         .catch(() => commit('CHANGE_ANNOUNCEMENT', {}))
     },
+    async getEvent({ commit }, id) {
+      await instance
+        .get('/events/' + id)
+        .then(res => {
+          commit('CHANGE_EVENT', res.data)
+        })
+        .catch(() => commit('CHANGE_EVENT', {}))
+    },
+    async getArticle({ commit }, id) {
+      await instance
+        .get('/articles/' + id)
+        .then(res => {
+          commit('CHANGE_ARTICLE', res.data)
+        })
+        .catch(() => commit('CHANGE_ARTICLE', {}))
+    },
+
     async getNews({ commit }, payload = {}) {
       let params = { limit: 16, offset: (payload.page | 0) * 16 }
       if (payload.search) {
@@ -116,6 +146,14 @@ const newsModule = {
         .get('/announcements', { params: params })
         .then(res => {
           commit('CHANGE_ANNOUNCEMENTS', res.data)
+        })
+        .catch(() => ({}))
+    },
+    async getArticles({ commit }) {
+      await instance
+        .get('/articles')
+        .then(res => {
+          commit('CHANGE_ARTICLES', res.data)
         })
         .catch(() => ({}))
     }

@@ -2,7 +2,7 @@
   <div class="text-center">
     <v-dialog
       :value="dialog"
-      :width="size.w+100"
+      width="1100"
       persistent
     >
       <v-card class="py-6">
@@ -23,19 +23,15 @@
 
         <v-card-title>
           <div class="text-h5 text-center mx-auto pb-3">
-            {{ title }}
+            Слайдер
           </div>
         </v-card-title>
 
-        <v-card-text v-if="dialog&&heightImg">
+        <v-card-text v-if="dialog">
           <vue-croppie
             ref="croppieRef"
-            class="enable-resize-x-false"
-            :enable-exif="true"
-            :enable-orientation="true"
-            :enable-resize="enableResize.w"
-            :boundary="{ width: heightImg*2.5, height: heightImg}"
-            :viewport="{ width: heightImg*2.5, height:heightImg, 'type':'square' }"
+            :boundary="{ width: 950, height: 400}"
+            :viewport="{ width: 800, height:350, 'type':'square' }"
           />
         </v-card-text>
 
@@ -57,10 +53,6 @@ export default {
   name: 'DialogCroppieMultipleComponent',
   components: { BaseButton: () => import('@/components/admin/BaseButton') },
   props: {
-    title: {
-      type: String,
-      default: ''
-    },
     dataImg: {
       type: Array,
       default: null
@@ -68,18 +60,6 @@ export default {
     dialog: {
       type: Boolean,
       default: false
-    },
-    size: {
-      type: Object,
-      default: null
-    },
-    enableResize: {
-      type: Object,
-      default: null
-    },
-    heightImg: {
-      type: Number,
-      default: 0
     },
     edit: {
       type: Boolean,
@@ -132,10 +112,6 @@ export default {
 </script>
 
 <style>
-.croppie-container.enable-resize-x-false .cr-resizer-vertical {
-  display: none;
-}
-
 .btn-dialog-close {
   position: absolute;
   right: 0;

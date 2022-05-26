@@ -32,7 +32,7 @@ export default {
       this.dialogCroppieDataImg = el.content.imgName.original
       this.dialogCroppieOptions = {
         title: 'Изображение',
-        size: { w: 1140, h: 400 },
+        size: { w: 800, h: 350 },
         enableResize: { w: true, h: true }
       }
       this.changeCroppie = (e) => {

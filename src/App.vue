@@ -30,17 +30,9 @@ export default {
     TheFooterComponent: () => import('@/components/app/TheFooterComponent')
   },
   data: () => ({
-    dialog: false,
-    pageAdmin: [
-      'login', 'published', 'createEntry', 'favorites',
-      'favoritesChange', 'tags', 'updateAnnouncement', 'updateNew'
-    ],
-    pageNoFooter: [
-      'notFound', 'login', 'published', 'createEntry',
-      'favorites', 'favoritesChange', 'tags', 'updateAnnouncement', 'updateNew'
-    ]
+    dialog: false
   }),
-  computed: mapState('app', ['theme']),
+  computed: mapState('app', ['theme', 'pageNoFooter', 'pageAdmin']),
   async mounted() {
     const localTheme = localStorage.getItem('theme')
     if (localTheme === 'dark') {

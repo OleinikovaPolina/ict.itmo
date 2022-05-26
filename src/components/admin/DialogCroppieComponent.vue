@@ -2,12 +2,12 @@
   <div class="text-center">
     <v-dialog
       :value="dialog"
-      :width="size.w+100"
+      :width="size.w+150"
       persistent
     >
-      <v-card class="py-6">
+      <v-card class="py-2">
         <v-card-title>
-          <div class="text-h5 text-center mx-auto pb-3">
+          <div class="text-h5 text-center mx-auto">
             {{ title }}
           </div>
         </v-card-title>
@@ -18,7 +18,7 @@
             :class="enableResize.w?'':'enable-resize-x-false'"
             :enable-orientation="true"
             :enable-resize="enableResize.h"
-            :boundary="{ width: size.w, height: size.h}"
+            :boundary="{ width: size.w+50, height: size.h+50}"
             :viewport="{ width:size.w, height:size.h, 'type':'square' }"
           />
         </v-card-text>

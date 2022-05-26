@@ -47,7 +47,10 @@
                   </div>
                 </v-col>
               </template>
-              <template #subtitle>
+              <template
+                v-if="dialogContent.content"
+                #subtitle
+              >
                 <div
                   class="text-body-1"
                   style="position: absolute; opacity: 0.7"
@@ -60,7 +63,7 @@
                   icon
                   color="white"
                   class="rounded-0 rounded-bl-circle btn-edit"
-                  @click="$emit('beforeCropMultipleOne','slider',slotProps.index,'Слайдер обложка')"
+                  @click="$emit('beforeCropMultipleOne','slider',slotProps.index)"
                 >
                   <v-icon color="#0071B2">
                     mdi-pencil

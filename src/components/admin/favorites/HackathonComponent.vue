@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="isLoad && Object.keys(article).length">
     <div class="pb-2 pb-md-4 text-h6 text-md-h5">
       Статьи
     </div>
@@ -8,7 +8,7 @@
       <!--  name  -->
       <div class="input-bordered mb-6">
         <v-text-field
-          v-model="form.name"
+          v-model="form.title"
           placeholder="Название"
           outlined
           dense
@@ -110,6 +110,7 @@
                 cols="12"
                 md="6"
                 class="d-flex mt-2 pa-0"
+                style="cursor: move"
               >
                 <div class="pl-1">
                   {{ j + 1 }}.
@@ -237,10 +238,11 @@
     <!--  Preview  -->
     <div v-else>
       <BaseStudentsHackathon
-        :name="form.name"
-        :description="form.description"
-        :slider-images-names="form.sliderImagesNames.map(x=>x.croppie)"
-        :text="form.sliderText"
+        :block="{title:form.title,
+                 description:form.description,
+                 sliderImagesNames:form.sliderImagesNames,
+                 sliderText:form.sliderText
+        }"
       />
       <BaseNews
         :data="previewData"
@@ -277,20 +279,22 @@
     />
     <DialogCroppieMultipleComponent
       :dialog="dialogCroppieMultiple"
-      :title="dialogCroppieMultipleOptions.title"
-      :size="dialogCroppieMultipleOptions.size"
       :data-img="dialogCroppieMultipleDataImg"
-      :height-img="heightImg"
-      :enable-resize="dialogCroppieMultipleOptions.enableResize"
       :edit="dialogCroppieMultipleEdit"
       @changeDialog="changeDialogCroppieMultiple"
       @changeCroppie="changeCroppieMultiple"
     />
   </v-container>
+  <v-container
+    v-else
+    class="d-flex justify-center fill-height align-center"
+  >
+    <v-progress-circular indeterminate />
+  </v-container>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { VueEditor } from 'vue2-editor'
 import draggable from 'vuedraggable'
 import croppieMixin from '../../../mixins/croppieMixin'
@@ -317,19 +321,182 @@ export default {
       { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline', 'link', 'clean'],
     isPreview: false, previewData: {}, dialogSliderContent: [], dialogSlider: false,
     form: {
-      name: '', description: '', dateStart: null, dateEnd: null, timeStart: null,
+      title: '', description: '', dateStart: null, dateEnd: null, timeStart: null,
       slider: [], sliderImagesNames: [], sliderText: '',
-      blocks: [{ id: 0, type: -1, content: null }]
-    }
+      blocks: [{ id: 0, type: -1, content: null }], attachmentsIds: []
+    },
+    isLoad: false
   }),
-  computed: mapState('app', ['theme']),
+  computed: {
+    ...mapState('news', ['article']), ...mapState('app', ['theme'])
+  },
+  async mounted() {
+    await this.getArticle(this.$route.params.id)
+    if (Object.keys(this.article).length) {
+      this.dataToForm()
+    }
+    this.isLoad = true
+  },
   methods: {
+    ...mapActions('news', ['getArticle']),
+    ...mapActions('admin', ['addAttachment', 'updateArticles']),
     cutTegs(str) {
       let regex = /( |<([^>]+)>)/ig
       return str.replace(regex, '')
     },
-    publish() {
-      console.log(this.form)
+    dataToForm() {
+      this.form.id = this.article.id
+      this.form.title = this.article.title
+      this.form.dateStart = this.$moment(this.article.dateStart).format('YYYY-MM-DD')
+      this.form.dateEnd = this.article.dateEnd ? this.$moment(this.article.dateEnd).format('YYYY-MM-DD') : ''
+      this.form.timeStart = this.$moment(this.article.dateStart).format('HH:mm')
+      this.form.blocks = this.article.blocks
+      for (let i = 0; i < this.form.blocks.length; i++) {
+        this.form.blocks[i].id = i
+        if (this.form.blocks[i].type === 0) {
+          this.form.blocks[i].content.text = this.form.blocks[i].content.text.replace('<div>', '').replace('</div>', '')
+          const parser = new DOMParser()
+          this.form.blocks[i].content.text = parser.parseFromString(this.form.blocks[i].content.text, 'text/html').body.innerHTML
+          this.form.blocks[i].content.text = this.form.blocks[i].content.text.replace(/\r/g, '').replace(/\n/g, '')
+        }
+        if (this.form.blocks[i].type === 1) {
+          this.form.blocks[i].content.blocks[0].id = (i + 1) * 1000 + 1
+          this.form.blocks[i].content.blocks[1].id = (i + 1) * 1000 + 2
+          for (let argument of this.form.blocks[i].content.blocks) {
+            if (argument.type === 2) {
+              argument.content.img = null
+              argument.content.imgName.blob = null
+              argument.content.imgName.original = argument.content.imgName.croppie
+            }
+            if (argument.type === 3) {
+              argument.content.images = []
+              let c = 1
+              for (let argument2 of argument.content.imagesName) {
+                argument.content.images.push({ name: c + ' img' })
+                c += 1
+                argument2.original = argument2.croppie
+                argument2.blob = null
+              }
+            }
+          }
+        }
+        if (this.form.blocks[i].type === 2) {
+          this.form.blocks[i].content.img = null
+          this.form.blocks[i].content.imgName.blob = null
+          this.form.blocks[i].content.imgName.original = this.form.blocks[i].content.imgName.croppie
+        }
+        if (this.form.blocks[i].type === 3) {
+          this.form.blocks[i].content.images = []
+          let c = 1
+          for (let argument of this.form.blocks[i].content.imagesName) {
+            this.form.blocks[i].content.images.push({ name: c + ' img', id: c })
+            c += 1
+            argument.original = argument.croppie
+            argument.blob = null
+          }
+        }
+      }
+      this.count = this.form.blocks.length + 1
+      const blockData = JSON.parse(this.article.description)
+      this.form.sliderText = blockData.sliderText
+      this.form.description = blockData.description
+
+      this.form.sliderImagesNames = blockData.sliderImagesNames
+      this.form.slider = []
+      let c = 1
+      for (let argument of blockData.sliderImagesNames) {
+        this.form.slider.push({ name: c + ' img', id: c })
+        c += 1
+        argument.original = argument.croppie
+        argument.blob = null
+      }
+    },
+    async publish() {
+      let formPublish = Object.assign({}, this.form)
+      formPublish.page = this.article.page
+      //slider
+      for (let blockImage of formPublish.sliderImagesNames) {
+        if (blockImage['blob']) {
+          await this.addAttachment(blockImage['blob']).then(res => {
+            blockImage.croppie = res.data.url
+          }).catch(() => ({}))
+        }
+        delete blockImage.original
+        delete blockImage['blob']
+      }
+      formPublish.description = JSON.stringify({
+        description: formPublish.description,
+        sliderImagesNames: formPublish.sliderImagesNames,
+        sliderText: formPublish.sliderText
+      })
+      //date
+      if (formPublish.timeStart) {
+        let timeStart = formPublish.timeStart.split(':')
+        formPublish.dateStart = new Date(formPublish.dateStart)
+        formPublish.dateStart.setHours(parseInt(timeStart[0]), parseInt(timeStart[1]))
+      }
+      formPublish.dateStart = this.$moment(formPublish.dateStart).format()
+      if (formPublish.dateEnd) {
+        formPublish.dateEnd = this.$moment(formPublish.dateEnd).format()
+      } else {
+        formPublish.dateEnd = null
+      }
+      //blocks
+      for (let block of formPublish.blocks) {
+        if (block.type === 1) {
+          for (const blockElement of block.content.blocks) {
+            if (blockElement.type === 2 && blockElement.content.imgName.blob) {
+              await this.addAttachment(blockElement.content.imgName.blob).then(res => {
+                blockElement.content.imgName.croppie = res.data.url
+              }).catch(() => ({}))
+            }
+            if (blockElement.type === 3) {
+              for (let blockImage of blockElement.content.imagesName) {
+                if (blockImage['blob']) {
+                  await this.addAttachment(blockImage['blob']).then(res => {
+                    blockImage.croppie = res.data.url
+                  }).catch(() => ({}))
+                }
+                delete blockImage.original
+                delete blockImage['blob']
+              }
+              delete blockElement.content.images
+            }
+            delete blockElement.id
+            if (blockElement.type === 2) {
+              delete blockElement.content.img
+              delete blockElement.content.imgName.original
+              delete blockElement.content.imgName.blob
+            }
+          }
+        }
+        if (block.type === 2 && block.content.imgName.blob) {
+          await this.addAttachment(block.content.imgName.blob).then(res => {
+            block.content.imgName.croppie = res.data.url
+          }).catch(() => ({}))
+        }
+        if (block.type === 3) {
+          for (let blockImage of block.content.imagesName) {
+            if (blockImage['blob']) {
+              await this.addAttachment(blockImage['blob']).then(res => {
+                blockImage.croppie = res.data.url
+              }).catch(() => ({}))
+            }
+            delete blockImage.original
+            delete blockImage['blob']
+          }
+          delete block.content.images
+        }
+        delete block.id
+        if (block.type === 2) {
+          delete block.content.img
+          delete block.content.imgName.original
+          delete block.content.imgName.blob
+        }
+      }
+      //publish
+      await this.updateArticles(formPublish)
+      this.$router.push('/favorites').then()
     },
     preview() {
       this.previewData = this.form

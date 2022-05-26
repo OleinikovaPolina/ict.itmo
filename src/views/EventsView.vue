@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isLoad">
     <!-- Carousel  -->
     <v-container class="pb-6 pb-xl-8">
       <CarouselComponent
@@ -83,65 +83,64 @@
       position="right"
       top="20px"
     />
-    <div class="section-background py-4 py-md-8 py-xl-14">
+    <div
+      v-if="events.length"
+      class="section-background py-4 py-md-8 py-xl-14"
+    >
       <v-container>
-        <div class="text-center mx-auto pb-2 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
+        <div class="text-center mx-auto pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Мероприятия
         </div>
-        <v-row class="d-flex align-stretch justify-center">
-          <v-col
-            cols="12"
-            md="5"
-            class="px-8  pr-md-0 pl-md-3"
+        <div class="d-flex align-stretch justify-center flex-wrap">
+          <div
+            :style="{width:$vuetify.breakpoint.mdAndUp?'36%':'100%'}"
+            class="px-8 pr-md-0 pl-md-3 pb-4 pb-md-0"
             style="z-index: 1"
           >
             <EventsGalleryComponent
-              :item="items[0]"
-              :height-item="$vuetify.breakpoint.mdAndUp?'400':'250'"
+              :item="events[0]"
             />
-          </v-col>
-          <v-col
-            cols="12"
-            md="7"
+          </div>
+          <div
+            :style="{width:$vuetify.breakpoint.mdAndUp?'64%':'100%'}"
             class="pl-md-0"
             style="z-index: 0"
           >
             <div
               v-if="$vuetify.breakpoint.mdAndUp"
-              style="height: 400px"
-              class="d-flex flex-wrap align-content-space-between"
+              class="d-flex flex-wrap align-content-space-between fill-height"
             >
               <div
                 v-for="n in 6"
                 :key="n"
-                :style="{width:n===1||n===6?'44%':'28%'}"
+                :style="{width:n===1||n===6?'43%':'28%'}"
                 style="padding-left: 20px"
               >
                 <EventsGalleryComponent
-                  :item="items[n]"
+                  :item="events[n]"
                   :type-item="n===1||n===6"
-                  :height-item="'190'"
                 />
               </div>
             </div>
             <div
               v-else
-              class="d-flex flex-wrap justify-space-between"
+              class="d-flex flex-wrap justify-space-between align-stretch"
             >
               <div
                 v-for="n in 4"
                 :key="n"
-                :style="{width:n===1||n===4?'47%':'45%',height:'200px'}"
-                :class="n===1?'events-item-1':n===4?'events-item-2':''"
+                class="pt-2 pt-sm-6"
+                :style="{width:n===1||n===4?'48%':'45%'}"
+                :class="n===2?'pb-6':n===3?'pt-5 pt-sm-11':''"
               >
                 <EventsGalleryComponent
-                  :item="items[n]"
+                  :item="events[n+1]"
                   :type-item="n===1||n===4"
                 />
               </div>
             </div>
-          </v-col>
-        </v-row>
+          </div>
+        </div>
       </v-container>
     </div>
     <LineComponent
@@ -158,6 +157,13 @@
       position="right"
       top="-5px"
     />
+  </div>
+  <div
+    v-else
+    class="d-flex justify-center fill-height align-center"
+    style="min-height: 75vh"
+  >
+    <v-progress-circular indeterminate />
   </div>
 </template>
 
@@ -179,60 +185,15 @@ export default {
       { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') },
       { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') }
     ],
-    items: [
-      {
-        date: new Date(), name: 'Название мероприятия', place: 'Место', month: 'января',
-        id: 1, img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png'),
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        date: new Date(), name: 'Название мероприятия', place: 'Место', month: 'января',
-        img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png'),
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        date: new Date(), name: 'Название мероприятия', place: 'Место', month: 'января',
-        img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png'),
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        date: new Date(), name: 'Название мероприятия', place: 'Место', month: 'января',
-        img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png'),
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        date: new Date(), name: 'Название мероприятия', place: 'Место', month: 'января',
-        img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png'),
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        date: new Date(), name: 'Название мероприятия', place: 'Место', month: 'января',
-        img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png'),
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      },
-      {
-        date: new Date(), name: 'Название мероприятия', place: 'Место', month: 'января',
-        img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png'),
-        items: [{ type: 0, name: 'Образование' }, { type: 0, name: 'Blockchain' }]
-      }
-    ]
+    isLoad: false
   }),
   computed: mapState('news', ['news', 'announcements', 'events']),
   async mounted() {
     await this.getNews()
     await this.getAnnouncements()
     await this.getEvents()
+    this.isLoad = true
   },
   methods: mapActions('news', ['getNews', 'getAnnouncements', 'getEvents'])
 }
 </script>
-
-<style scoped lang="scss">
-.events-item-1 {
-  padding-bottom: 30px;
-}
-
-.events-item-2 {
-  padding-top: 30px;
-}
-</style>

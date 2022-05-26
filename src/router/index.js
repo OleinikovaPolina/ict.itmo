@@ -25,6 +25,11 @@ const routes = [
     component: () => import('../views/AnnouncementView.vue')
   },
   {
+    path: '/article/:id',
+    name: 'article',
+    component: () => import('../views/ArticleView.vue')
+  },
+  {
     path: '/baccalaureate',
     name: 'baccalaureate',
     component: () => import('../views/BaccalaureateView.vue')
@@ -58,6 +63,11 @@ const routes = [
     path: '/students',
     name: 'students',
     component: () => import('../views/StudentsView.vue')
+  },
+  {
+    path: '/event/:id',
+    name: 'event',
+    component: () => import('../views/EventView.vue')
   },
   {
     path: '/login',
@@ -96,10 +106,16 @@ const routes = [
     component: () => import('../views/AdminFavoritesView.vue')
   },
   {
-    path: '/favorites/:id',
-    name: 'favoritesChange',
+    path: '/updateEvent/:id',
+    name: 'updateEvent',
     meta: { requiresAuth: true },
-    component: () => import('../views/AdminFavoritesChangeView.vue')
+    component: () => import('../views/AdminUpdateEventView.vue')
+  },
+  {
+    path: '/updateArticle/:id',
+    name: 'updateArticle',
+    meta: { requiresAuth: true },
+    component: () => import('../views/AdminUpdateArticlesView.vue')
   },
   {
     path: '/tags',
