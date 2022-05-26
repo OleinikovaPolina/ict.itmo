@@ -1,8 +1,7 @@
 <template>
   <v-sheet
-    class="person person-horizontal rounded-pill mx-auto d-flex"
+    class="person person-horizontal rounded-pill mx-auto d-flex align-stretch"
     :class="{'person-small':smallPerson}"
-    :max-width="smallPerson?520:700"
   >
     <v-col
       cols="6"
@@ -10,9 +9,8 @@
       class="pa-0 "
     >
       <v-img
-        :src="person.img"
+        :src="person.img || require('../assets/images/people/nobody.png')"
         class="rounded-circle person-img-container"
-        width="100%"
         height="100%"
         position="center"
         cover
@@ -89,7 +87,13 @@ export default {
 
 .person {
   background-color: #00A1FF !important;
-
+  max-width: 350px;
+  @media (min-width: 600px) {
+    max-width: 650px;
+  }
+  @media (min-width: 1110px) {
+    max-width: 700px;
+  }
 
   .person-img-container {
     width: 300px;
@@ -140,7 +144,7 @@ export default {
   * {
     color: white;
     font-size: 17px;
-    @media (max-width: 1024px) {
+    @media (max-width: 1263px) {
       font-size: 11px;
     }
     @media (max-width: 600px) {
@@ -148,12 +152,30 @@ export default {
     }
   }
 
+  max-width: 350px;
+  max-height: 150px;
+  @media (min-width: 600px) {
+    max-height: 175px;
+    max-width: 400px;
+  }
+  @media (min-width: 1110px) {
+    max-width: 520px;
+    max-height: 200px;
+  }
+  @media (min-width: 1904px) {
+    max-height: 230px;
+  }
+
   .person-img-container {
-    width: 200px;
-    height: 200px;
-    @media (max-width: 600px) {
-      width: 150px;
-      height: 150px;
+    width: 140px;
+    @media (min-width: 768px) {
+      width: 175px;
+    }
+    @media (min-width: 1110px) {
+      width: 200px;
+    }
+    @media (min-width: 1904px) {
+      width: 230px;
     }
   }
 }

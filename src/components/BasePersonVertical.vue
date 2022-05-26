@@ -7,12 +7,13 @@
   >
     <div class="person-img-container rounded-circle">
       <v-img
+        class="rounded-circle"
         width="100%"
         height="100%"
-        :src="person.img"
+        :src="person.img|| require('../assets/images/people/nobody.png')"
       />
     </div>
-    <div class="person-text px-2 px-md-5 pb-12 pb-md-12 text-center">
+    <div class="person-text px-2 px-md-5 px-lg-6 pb-12 pb-md-12 text-center">
       <div class="text-h6 pb-1 pt-1 pt-md-3">
         {{ person.name }}
       </div>
@@ -100,7 +101,7 @@ export default {
     line-height: normal;
     font-size: 26px !important;
     @media (max-width: 1904px) {
-      font-size: 18px !important;
+      font-size: 22px !important;
     }
     @media (max-width: 1264px) {
       font-size: 16px !important;

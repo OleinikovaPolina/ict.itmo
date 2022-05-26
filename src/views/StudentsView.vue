@@ -174,9 +174,7 @@
               технологиям
             </div>
             <div class="text-subtitle-1 pb-6">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non accumsan nulla quis porttitor. Nisl turpis
-              natoque nunc, tellus tincidunt aliquet. Aliquam eu tincidunt nibh suscipit urna, sollicitudin. Vitae
-              blandit tristique aliquam volutpat proin maecenas elit leo. Viverra mi, platea velit facilisis.
+              Бесплатно для студентов факультета ИКТ проводится обучение от сертифицированного лектора по курсу MicroTik, Ивана Филянина. Обычно занятия проводятся 2 раза в неделю в течении месяца после пар. Студенты изучают теоретическую базу построения сетей, а также работают и настраивают маршрутизаторы от компании MicroTik, которые выдаются на занятиях.
             </div>
           </div>
           <div :class="$vuetify.breakpoint.smAndDown?'mx-auto':''">
@@ -211,8 +209,7 @@
         <v-row class="d-flex align-center justify-center">
           <v-col class="text-center d-md-none">
             <div class="text-h6 text-sm-h5">
-              Подкаст ИКТ
-              “Вопросы от декана”
+              Видео
             </div>
           </v-col>
           <v-col
@@ -223,20 +220,18 @@
           >
             <div>
               <div class="pb-8 text-h4 text-xl-h3 d-none d-md-block">
-                Подкаст ИКТ
-                “Вопросы от декана”
+                Видео
               </div>
               <div class="text-subtitle-1 pb-6">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Enim dictum mattis nec eu erat iaculis nullam
-                luctus. Nunc sed interdum adipiscing aliquet placerat. Varius aliquet porta volutpat, aenean in.
-                Ultricies
-                neque proin ac ante suspendisse.
+                Мы снимаем полезные и классные видеролики про программирование, насущные вопросы, жизнь в Университете
+                ИТМО. А также рассказываем про программы и возможности, которые реализуются у нас на факультете ИКТ.
+                Если хотите окунуться в жизнь факультета, то погружайся вместе с ИКТ!
               </div>
             </div>
             <div :class="$vuetify.breakpoint.smAndDown?'mx-auto':''">
               <BaseButton
-                href="https://www.youtube.com/channel/UC7cJ1RBFsZ7WWjoXV_5Vl1A"
-                text="Открыть YouTube"
+                href="https://vk.com/ict.itmo?w=wall-189033559_114"
+                text="Открыть"
               />
             </div>
           </v-col>
@@ -352,23 +347,28 @@ export default {
       {
         name: 'Административные', img: require('../assets/images/students/building.svg'),
         links: [
-          { name: 'Студенческий офис', href: '#' },
-          { name: 'Интернет-портал ИСУ', href: '#' },
-          { name: 'Личный кабинет my.itmo', href: '#' }]
+          { name: 'Студенческий офис', href: 'https://student.itmo.ru/ru/studoffice/' },
+          { name: 'Интернет-портал ИСУ', href: 'https://isu.ifmo.ru/' },
+          { name: 'Личный кабинет my.itmo', href: 'https://my.itmo.ru/' }]
       },
       {
         name: 'Информационные', img: require('../assets/images/students/news.svg'),
         links: [
+          { name: 'Поступление', href: 'https://abit.itmo.ru/' },
           { name: 'Telegram-канал ИКТ', href: '#' },
-          { name: 'Telegram-канал ITMOLNIA', href: '#' },
-          { name: 'Сайт ИТМО', href: '#' }]
+          { name: 'Telegram-канал ITMOLNIA', href: 'https://t.me/s/itmolnia' },
+          { name: 'Сайт ИТМО', href: 'https://itmo.ru/ru/' }]
       },
       {
         name: 'Другое', img: require('../assets/images/students/calendar.svg'),
         links: [
-          { name: 'Центр Карьеры', href: '#' },
-          { name: 'ITMO.Students', href: '#' },
-          { name: 'Telegram-канал ППА', href: '#' }]
+          { name: 'Центр Карьеры', href: 'https://careers.itmo.ru/' },
+          { name: 'ITMO.Students', href: 'https://student.itmo.ru/ru/' },
+          { name: 'Telegram-канал ППА', href: 'https://t.me/+OAOaeubBw6IzYjAy' },
+          {
+            name: 'Инструкция по прохождению практики',
+            href: 'https://docs.google.com/document/d/1BC2OQzaQ8bW3ZAfSdk8c_F1_j9JhVi3tWjeekJ_i8Fc/edit#heading=h.y9jim1888njz'
+          }]
       }
     ]
   }),

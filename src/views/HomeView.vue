@@ -8,13 +8,11 @@
           sm="6"
           :class="$vuetify.breakpoint.xs?'text-center':''"
         >
-          <div class="pb-6 pb-md-4 pb-lg-10 text-h4 text-sm-h3 text-md-h2 text-xl-h1">
+          <div class="pb-6 pb-md-4 pb-lg-10 text-h4 text-md-h3 text-xl-h1">
             Факультет ИКТ
           </div>
           <div class="text-subtitle-1">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Enim dictum mattis nec eu erat iaculis nullam
-            luctus. Nunc sed interdum adipiscing aliquet placerat. Varius aliquet porta volutpat, aenean in. Ultricies
-            neque proin ac ante suspendisse.
+            факультет Инфокоммуникационных технологий является главной отправной точкой в развитии твоих профессиональных навыков. Мы дадим тебе базовые знания в программировании, что сейчас очень востребовано и высокооплачиваемо на рынке труда, и дадим тебе практические навыки, которые ты сможешь реализовать в проектах наших партнеров.
           </div>
         </v-col>
         <v-col

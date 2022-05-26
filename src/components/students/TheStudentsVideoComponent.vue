@@ -4,19 +4,18 @@
     <div class="anim-pink rounded-pill" />
     <div class="anim-video">
       <iframe
+        src="https://vk.com/video_ext.php?oid=-189033559&id=456239039&hash=e60d13140b7b27ff"
         width="100%"
         height="100%"
-        src="https://www.youtube.com/embed/UYONUsFvxyY"
-        title="YouTube video player"
         frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
+        allowfullscreen="1"
+        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
       />
       <v-img
         class="anim-video-preview"
         width="100%"
         height="100%"
-        src="https://i.ytimg.com/vi/UYONUsFvxyY/maxresdefault.jpg"
+        src="https://sun9-38.userapi.com/impf/KYPv5d7MNu_ndqW96HlI0TSf0WHUJmtW6OXufw/6dUMFDeav9k.jpg?size=800x450&quality=96&keep_aspect_ratio=1&background=000000&sign=d75072db45214ac49f24866be615fdcf&type=video_thumb"
       />
       <div class="anim-video-btn justify-center align-center">
         <button @click="playVideo">
@@ -34,7 +33,7 @@ export default {
     playVideo() {
       document.querySelector('.anim-video-preview').classList.add('d-none')
       document.querySelector('.anim-video-btn').classList.add('d-none')
-      document.querySelector('.anim-video iframe').src += '?autoplay=1'
+      document.querySelector('.anim-video iframe').src += '&autoplay=1'
     }
   }
 }
@@ -130,7 +129,7 @@ export default {
     border: 2.5px solid #FFFFFF;
   }
 
-  &:hover{
+  &:hover {
     background: white;
   }
 }

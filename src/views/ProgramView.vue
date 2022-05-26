@@ -27,7 +27,7 @@
             <span>/ {{ program.direction }}</span>
           </div>
           <div>
-            <div class="pb-4 pb-lg-8  text-h5 text-sm-h4 text-xl-h3">
+            <div class="pb-4 pb-lg-6  text-h5 text-sm-h4 text-xl-h3">
               {{ program.direction }}
             </div>
             <div class="text-subtitle-1 pb-6">
@@ -107,7 +107,7 @@
                   Количество мест - <b>{{ program.numbers }}</b>
                 </div>
                 <div class="subtitle-color pb-1 pb-md-2 pb-lg-3">
-                  Проходной балл прошлого года - <b>{{ program.score }}</b>
+                  {{ program.type ? 'Конкурс прошлого года' : 'Проходной балл прошлого года' }}&nbsp;-&nbsp;<b>{{ program.score }}</b>
                 </div>
                 <div class="subtitle-color pb-1 pb-md-2 pb-lg-3">
                   Язык обучения - <b>{{ program.language }}</b>

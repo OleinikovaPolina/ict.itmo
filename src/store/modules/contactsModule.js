@@ -10,25 +10,25 @@ const appModule = {
     },
     contacts:[
       {
-        img: require('../../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../../assets/images/people/arsenieva.3be2db26674e.jpg'),
         name: 'Арсеньева Анна Закировна',
         position: 'Заместитель декана по учебному процессу',
         email: 'anna.z.arseneva@itmo.ru'
       },
       {
-        img: require('../../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../../assets/images/people/bashkina.690c91e2c31e.jpg'),
         name: 'Башкина Ирина Александровна',
         position: 'Помощник декана',
         email: 'bashkina@itmo.ru'
       },
       {
-        img: require('../../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../../assets/images/people/184402.jpg'),
         name: 'Кузнецов Павел Александрович',
         position: 'Ответственный за прием абитуриентов, куратор практики',
         email: 'pakuznetsov@itmo.ru'
       },
       {
-        img: require('../../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../../assets/images/people/pavlovich.eb74b9efcb8b.jpg'),
         name: 'Павлович Яна Александровна',
         position: 'Менеджер по связям с общественностью',
         email: 'yana.pavlovich@itmo.ru'
@@ -36,25 +36,25 @@ const appModule = {
     ],
     office:[
       {
-        img: require('../../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../../assets/images/people/152794.jpg'),
         name: 'Харьковская Татьяна Александровна',
         position: 'Руководитель учебного офиса',
         email: 'tatiana.kharkovskaia@itmo.ru'
       },
       {
-        img: require('../../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: '',
         name: 'Говорова Марина Михайловна',
         position: 'Менеджер',
         email: 'mmgovorova@itmo.ru'
       },
       {
-        img: require('../../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../../assets/images/people/246011.png'),
         name: 'Деркунская Светлана',
         position: 'Менеджер',
         email: 'sderkunskaia@itmo.ru'
       },
       {
-        img: require('../../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
+        img: require('../../assets/images/people/larionova.44c52f8797e2.jpg'),
         name: 'Ларионова Александра Сергеевна',
         position: 'Менеджер',
         email: 'as_larionova@itmo.ru'
