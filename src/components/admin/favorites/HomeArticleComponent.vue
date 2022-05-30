@@ -17,38 +17,11 @@
           hide-details
         />
       </div>
-      <!--  description  -->
-      <div class="input-bordered pt-3">
-        <div class="input-bordered-label app-background">
-          Описание статьи <span class="error--text">*</span>
-        </div>
-        <vue-editor
-          v-model="form.description"
-          :editor-toolbar="customToolbar"
-          placeholder="Введите текст"
-          class="custom"
-        />
-      </div>
-      <div
-        class="text-end mb-6"
-        :style="{color:cutTegs(form.description).length>165?'red':'#0071B2'}"
-      >
-        {{ cutTegs(form.description).length }}/165
-      </div>
       <!--   winners   -->
       <div class="input-bordered mb-6 pt-3">
         <div class="input-bordered-label app-background">
           Победители <span class="error--text">*</span>
         </div>
-        <v-text-field
-          v-model="form.subtitle"
-          placeholder="Название слайдера"
-          outlined
-          dense
-          :dark="theme==='dark'"
-          hide-details
-          class="mx-6 my-2 input-light-blue"
-        />
         <div class="mx-6 pb-4 d-flex flex-wrap">
           <v-col
             :cols="$vuetify.breakpoint.smAndDown?12:6"
@@ -160,14 +133,19 @@
     </div>
     <!--  Preview  -->
     <div v-else>
-      <BaseStudentsCompetition
-        :block="{
-          winnersHex:form.winnersHex,
-          subtitle:form.subtitle,
-          title:form.title,
-          description:form.description,
-        }"
-      />
+      <v-container>
+        <v-col
+          cols="10"
+          sm="7"
+          lg="6"
+          class=" text-center mx-auto text-h6 text-sm-h5 text-md-h4 text-xl-h3"
+        >
+          {{ form.title }}
+        </v-col>
+        <BaseHexagonContainer
+          :hex-array="form.winnersHex"
+        />
+      </v-container>
       <BaseNews :data="previewData" />
       <BaseButtonOutlined
         text="Назад"
@@ -210,19 +188,18 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import { VueEditor } from 'vue2-editor'
 import draggable from 'vuedraggable'
 import croppieMixin from '../../../mixins/croppieMixin'
 import formMixin from '../../../mixins/formMixin'
 import croppieMultipleMixin from '@/mixins/croppieMultipleMixin'
 
 export default {
-  name: 'CompetitionComponent',
+  name: 'HomeArticleComponent',
   components: {
-    VueEditor, draggable,
+    draggable,
     DialogCroppieMultipleComponent: () => import('@/components/admin/DialogCroppieMultipleComponent'),
     DialogCroppieComponent: () => import('@/components/admin/DialogCroppieComponent'),
-    BaseStudentsCompetition: () => import('@/components/students/BaseStudentsCompetition'),
+    BaseHexagonContainer: () => import('@/components/BaseHexagonContainer'),
     DialogPreviewComponent: () => import('@/components/admin/DialogPreviewComponent'),
     BaseNews: () => import('@/components/events/BaseNews'),
     DraggableInputs: () => import('@/components/admin/DraggableInputs'),
@@ -231,17 +208,12 @@ export default {
   },
   mixins: [croppieMixin, formMixin, croppieMultipleMixin],
   data: () => ({
-    customToolbar: [{ align: '' }, { align: 'center' }, { align: 'justify' },
-      { list: 'ordered' }, { list: 'bullet' },
-      'bold', 'italic', 'underline',
-      'link',
-      'clean'],
     dialog: false,
     dialogContent: {},
     isPreview: false,
     previewData: {},
     form: {
-      title: '', description: '', subtitle: '',
+      title: '',
       winners: [], winnersHex: [],
       blocks: [{ id: 0, type: -1, content: null }], attachmentsIds: []
     },
@@ -311,8 +283,6 @@ export default {
       }
       this.count = this.form.blocks.length + 1
       const blockData = JSON.parse(this.article.description)
-      this.form.subtitle = blockData.subtitle
-      this.form.description = blockData.description
       this.form.winnersHex = blockData.winnersHex
       this.form.winners = []
       for (let i = 0; i < blockData.winnersHex.length; i++) {
@@ -331,8 +301,6 @@ export default {
         }
       }
       formPublish.description = JSON.stringify({
-        description: formPublish.description,
-        subtitle: formPublish.subtitle,
         winnersHex: formPublish.winnersHex
       })
       //blocks

@@ -1,7 +1,7 @@
 <template>
   <div v-if="isLoad">
     <!-- Carousel  -->
-    <v-container class="pb-6 pb-xl-8">
+    <v-container class="pb-8 pb-xl-10">
       <CarouselComponent
         :slider="slider"
         :columns="1"
@@ -181,9 +181,9 @@ export default {
   },
   data: () => ({
     slider: [
-      { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') },
-      { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') },
-      { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') }
+      { img: require('../assets/images/delete/12.png') },
+      { img: require('../assets/images/delete/12.png') },
+      { img: require('../assets/images/delete/12.png') }
     ],
     isLoad: false
   }),

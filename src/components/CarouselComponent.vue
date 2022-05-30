@@ -35,18 +35,22 @@
     <slot name="subtitle" />
     <div
       v-if="slider.length"
-      class="d-flex justify-center align-center pt-6"
+      class="d-flex justify-center align-center pt-3"
     >
       <button
-        class="btn-nav mr-3"
+        class="btn-nav mr-3 d-flex justify-center align-center"
         @click="prev"
       >
-        <v-icon
-          :large="$vuetify.breakpoint.mdAndUp"
-          color="white"
-        >
-          mdi-chevron-left
-        </v-icon>
+        <span style="width: 50%;height: 50%;padding-right: 2.5px;">
+          <v-img
+            style="transform: rotate(180deg)"
+            height="100%"
+            width="100%"
+            contain
+            position="center"
+            src="../assets/images/arrow.svg"
+          />
+        </span>
       </button>
       <v-btn
         v-for="n in Math.ceil(slider.length/columns)"
@@ -62,15 +66,18 @@
         </v-icon>
       </v-btn>
       <button
-        class="btn-nav ml-3"
+        class="btn-nav ml-3 d-flex justify-center align-center"
         @click="next"
       >
-        <v-icon
-          :large="$vuetify.breakpoint.mdAndUp"
-          color="white"
-        >
-          mdi-chevron-right
-        </v-icon>
+        <span style="width: 50%;height: 50%;padding-left: 2.5px;">
+          <v-img
+            height="100%"
+            width="100%"
+            contain
+            position="center"
+            src="../assets/images/arrow.svg"
+          />
+        </span>
       </button>
     </div>
   </div>

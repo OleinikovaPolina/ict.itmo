@@ -43,7 +43,7 @@
           >
             <div>
               <img
-                alt=""
+                alt="..."
                 class="carousel-img"
                 :src="slotProps.item"
                 style="object-fit: contain;  width: 100%"
@@ -89,7 +89,7 @@ export default {
             document.querySelectorAll('.carousel-img').forEach(x => x.height = height)
           }
         }
-        img.src = this.block.sliderImagesNames[0]
+        img.src = this.block.sliderImagesNames[0].croppie
       }
     }
   }

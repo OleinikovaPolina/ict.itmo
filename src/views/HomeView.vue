@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isLoad">
     <!-- header -->
     <v-container style="z-index: 1;position: relative">
       <v-row class="d-flex align-center justify-center">
@@ -12,7 +12,10 @@
             Факультет ИКТ
           </div>
           <div class="text-subtitle-1">
-            факультет Инфокоммуникационных технологий является главной отправной точкой в развитии твоих профессиональных навыков. Мы дадим тебе базовые знания в программировании, что сейчас очень востребовано и высокооплачиваемо на рынке труда, и дадим тебе практические навыки, которые ты сможешь реализовать в проектах наших партнеров.
+            Факультет Инфокоммуникационных технологий является главной отправной точкой в развитии твоих
+            профессиональных навыков. Мы дадим тебе базовые знания в программировании, что сейчас очень востребовано и
+            высокооплачиваемо на рынке труда, и дадим тебе практические навыки, которые ты сможешь реализовать в
+            проектах наших партнеров.
           </div>
         </v-col>
         <v-col
@@ -122,13 +125,18 @@
           </linearGradient>
         </defs>
       </svg>
-      <v-container>
-        <div class=" text-center mx-auto text-h6 text-sm-h5 text-md-h4 text-xl-h3">
-          Что вы сможете изучить<br> на факультете ИКТ
-        </div>
+      <v-container style="position: relative;z-index: 10;">
+        <v-col
+          cols="10"
+          sm="7"
+          lg="6"
+          class=" text-center mx-auto text-h6 text-sm-h5 text-md-h4 text-xl-h3"
+        >
+          {{ article.title }}
+        </v-col>
         <BaseHexagonContainer
-          :hex-array="hexArray"
-          header="Что вы сможете изучить на факультете ИКТ "
+          :hex-array="JSON.parse(article.description).winnersHex"
+          :link="'/article/1'"
         />
       </v-container>
       <LineComponent
@@ -281,7 +289,7 @@
       top="10px"
     />
     <!--  Numbers  -->
-    <div class="pt-2 pt-sm-6 pt-xl-12 pb-sm-10 pb-xl-14">
+    <div class="pt-2 pt-sm-8 pt-xl-14 pb-sm-4 pb-xl-8">
       <v-container class="animation-numbers">
         <div class="text-center mx-auto pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Факультет в цифрах
@@ -290,7 +298,7 @@
           <v-col
             v-for="(num,i) in numbers"
             :key="i"
-            cols="3"
+            :cols="i===1?6:3"
             class="text-center"
           >
             <div class="numbers-name">
@@ -305,6 +313,13 @@
     </div>
     <!--  Partners  -->
     <PartnersComponent />
+  </div>
+  <div
+    v-else
+    class="d-flex justify-center fill-height align-center fill-height"
+    style="min-height: 75vh"
+  >
+    <v-progress-circular indeterminate />
   </div>
 </template>
 
@@ -325,14 +340,6 @@ export default {
   },
   props: { animationHeader: { type: Boolean, default: false } },
   data: () => ({
-    hexArray: [
-      { img: require('../assets/images/home/Vector.svg'), text: 'Архитектура баз данных' },
-      { img: require('../assets/images/home/Vector1.svg'), text: 'Облачные технологии' },
-      { img: require('../assets/images/home/Vector3.svg'), text: 'Backend разработка' },
-      { img: require('../assets/images/home/Vector2.svg'), text: 'Frontend разработка' },
-      { img: require('../assets/images/home/Vector4.svg'), text: 'Управление проектами' },
-      { img: require('../assets/images/home/Vector5.svg'), text: 'Геймификация' }
-    ],
     clubs: [
       {
         img: require('../assets/images/home/aires.png'),
@@ -364,10 +371,9 @@ export default {
       }
     ],
     numbers: [
-      { name: '150', description: 'преподавателей и сотрудников' },
-      { name: '80', description: 'кандидатов и докторов наук' },
-      { name: '450', description: 'обучающихся в бакалавриате' },
-      { name: '250', description: 'обучающихся в магистратуре' }
+      { name: '>60', description: 'преподавателей' },
+      { name: '~1000', description: 'студентов' },
+      { name: '6', description: 'образовательных программ' }
     ],
     persons: [
       {
@@ -415,13 +421,14 @@ export default {
     ],
     scrolledClub: [{ type: false }, { type: false }, { type: false }, { type: false }],
     scrolledNumbers: false,
-    scrolledHexLines: false
+    scrolledHexLines: false,
+    isLoad: false
   }),
-  computed: mapState('news', ['news']),
+  computed: mapState('news', ['news', 'article']),
   watch: {
     scrolledClub: {
-      handler: function(vals) {
-        vals.forEach((val, i) => {
+      handler: function(values) {
+        values.forEach((val, i) => {
           if (val.type) {
             document.querySelectorAll('.animation-club')[i].classList.add('animation--active')
           }
@@ -437,6 +444,8 @@ export default {
   },
   async mounted() {
     await this.getNews()
+    await this.getArticle(1)
+    this.isLoad = true
   },
   created() {
     window.addEventListener('scroll', this.handleScroll)
@@ -445,7 +454,7 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
-    ...mapActions('news', ['getNews']),
+    ...mapActions('news', ['getNews', 'getArticle']),
     handleScroll() {
       let height = document.documentElement.clientHeight
       document.querySelectorAll('.animation-club').forEach((obj, i) => {
@@ -537,25 +546,21 @@ export default {
 
 .numbers-name {
   font-size: 180px;
-  line-height: 190px;
+  line-height: normal;
   letter-spacing: -0.02em;
   color: $ict-blue-green;
   font-family: "Rubik-SemiBold", sans-serif !important;
   @media (max-width: 1904px) {
     font-size: 120px;
-    line-height: 130px;
   }
   @media (max-width: 1264px) {
     font-size: 92px;
-    line-height: 100px;
   }
   @media (max-width: 960px) {
     font-size: 70px;
-    line-height: 80px;
   }
   @media (max-width: 600px) {
     font-size: 40px;
-    line-height: 50px;
   }
 }
 
@@ -610,6 +615,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 0;
     @media (max-width: 960px) {
       left: -8%;
     }

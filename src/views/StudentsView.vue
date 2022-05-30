@@ -2,10 +2,17 @@
   <div v-if="isLoad">
     <!-- header -->
     <v-container style="position: relative;z-index: 1;">
-      <BaseStudentsHackathon :block="Object.assign({title:article.title},JSON.parse(article.description))" />
+      <BaseStudentsHackathon
+        :block="getArticle(2)"
+      />
     </v-container>
     <!-- competition -->
     <div class="hex-section">
+      <v-container style="z-index: 10; position: relative">
+        <BaseStudentsCompetition
+          :block="getArticle(3)"
+        />
+      </v-container>
       <svg
         v-if="scrolledHexLines"
         class="hex-section-line"
@@ -99,14 +106,6 @@
           </linearGradient>
         </defs>
       </svg>
-      <v-container>
-        <BaseStudentsCompetition
-          :hex-array="hexArray"
-          title="Конкурс “Горизонт”"
-          subtitle="Победители 2021 года"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non accumsan nulla quis porttitor. Nisl turpis natoque nunc, tellus tincidunt aliquet. Aliquam eu tincidunt nibh suscipit urna, sollicitudin."
-        />
-      </v-container>
       <LineComponent
         id="1"
         color="#FF0281"
@@ -148,43 +147,7 @@
     </v-container>
     <!--  course  -->
     <v-container class="pb-4 pb-md-12">
-      <v-row class="d-flex align-center justify-center">
-        <v-col class="text-center d-md-none">
-          <div class="text-h6 text-sm-h5">
-            MicroTik - курс по сетевым
-            технологиям
-          </div>
-        </v-col>
-        <v-col
-          cols="12"
-          md="6"
-          :class="$vuetify.breakpoint.smAndDown?'text-center':''"
-          class="d-flex flex-column justify-space-around order-2 order-md-0"
-        >
-          <div>
-            <div class="pb-8 text-h4 text-xl-h3 d-none d-md-block">
-              MicroTik - курс по сетевым
-              технологиям
-            </div>
-            <div class="text-subtitle-1 pb-6">
-              Бесплатно для студентов факультета ИКТ проводится обучение от сертифицированного лектора по курсу
-              MicroTik, Ивана Филянина. Обычно занятия проводятся 2 раза в неделю в течении месяца после пар. Студенты
-              изучают теоретическую базу построения сетей, а также работают и настраивают маршрутизаторы от компании
-              MicroTik, которые выдаются на занятиях.
-            </div>
-          </div>
-          <div :class="$vuetify.breakpoint.smAndDown?'mx-auto':''">
-            <BaseButton link="/" />
-          </div>
-        </v-col>
-        <v-col
-          cols="12"
-          md="6"
-          class="d-flex justify-center"
-        >
-          <TheStudentsTwoPhotoComponent />
-        </v-col>
-      </v-row>
+      <BaseStudentsArticleComponent :block="getArticle(4)" />
     </v-container>
     <!--  podcast  -->
     <LineComponent
@@ -226,7 +189,7 @@
             </div>
             <div :class="$vuetify.breakpoint.smAndDown?'mx-auto':''">
               <BaseButton
-                href="https://vk.com/ict.itmo?w=wall-189033559_114"
+                href="https://vk.com/video/@ict.itmo"
                 text="Открыть"
               />
             </div>
@@ -280,10 +243,10 @@ import { mapActions, mapState } from 'vuex'
 export default {
   name: 'StudentsView',
   components: {
+    BaseStudentsArticleComponent: () => import('@/components/students/BaseStudentsArticleComponent'),
     BaseStudentsCompetition: () => import('@/components/students/BaseStudentsCompetition'),
     BaseStudentsHackathon: () => import('@/components/students/BaseStudentsHackathon'),
     LineComponent: () => import('@/components/LineComponent'),
-    TheStudentsTwoPhotoComponent: () => import('@/components/students/TheStudentsTwoPhotoComponent'),
     TheStudentsVideoComponent: () => import('@/components/students/TheStudentsVideoComponent'),
     BaseUlBlock: () => import('@/components/BaseUlBlock'),
     BaseButton: () => import('@/components/BaseButton'),
@@ -292,19 +255,6 @@ export default {
   data: () => ({
     isLoad: false,
     scrolledHexLines: false,
-    hexArray: [
-      { img: require('@/assets/images/home/Vector.svg'), text: 'Архитектура баз данных' },
-      { img: require('@/assets/images/home/Vector1.svg'), text: 'Облачные технологии' },
-      { img: require('@/assets/images/home/Vector3.svg'), text: 'Backend разработка' },
-      { img: require('@/assets/images/home/Vector2.svg'), text: 'Frontend разработка' },
-      { img: require('@/assets/images/home/Vector4.svg'), text: 'Управление проектами' },
-      { img: require('@/assets/images/home/Vector5.svg'), text: 'Геймификация' }
-    ],
-    slider: [
-      require('../assets/images/delete/unsplash_JjjSPPzzpkU2.png'),
-      require('../assets/images/delete/unsplash_JjjSPPzzpkU2.png'),
-      require('../assets/images/delete/unsplash_JjjSPPzzpkU2.png')
-    ],
     persons: [
       {
         img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
@@ -355,13 +305,17 @@ export default {
         links: [
           { name: 'Студенческий офис', href: 'https://student.itmo.ru/ru/studoffice/' },
           { name: 'Интернет-портал ИСУ', href: 'https://isu.ifmo.ru/' },
-          { name: 'Личный кабинет my.itmo', href: 'https://my.itmo.ru/' }]
+          { name: 'Личный кабинет my.itmo', href: 'https://my.itmo.ru/' },
+          {
+            name: 'Прохождение практики',
+            href: 'https://docs.google.com/document/d/1BC2OQzaQ8bW3ZAfSdk8c_F1_j9JhVi3tWjeekJ_i8Fc/edit#heading=h.y9jim1888njz'
+          }]
       },
       {
         name: 'Информационные', img: require('../assets/images/students/news.svg'),
         links: [
           { name: 'Поступление', href: 'https://abit.itmo.ru/' },
-          { name: 'Telegram-канал ИКТ', href: '#' },
+          { name: 'Telegram-канал ИКТ', href: 'https://t.me/itmoict' },
           { name: 'Telegram-канал ITMOLNIA', href: 'https://t.me/s/itmolnia' },
           { name: 'Сайт ИТМО', href: 'https://itmo.ru/ru/' }]
       },
@@ -370,17 +324,13 @@ export default {
         links: [
           { name: 'Центр Карьеры', href: 'https://careers.itmo.ru/' },
           { name: 'ITMO.Students', href: 'https://student.itmo.ru/ru/' },
-          { name: 'Telegram-канал ППА', href: 'https://t.me/+OAOaeubBw6IzYjAy' },
-          {
-            name: 'Инструкция по прохождению практики',
-            href: 'https://docs.google.com/document/d/1BC2OQzaQ8bW3ZAfSdk8c_F1_j9JhVi3tWjeekJ_i8Fc/edit#heading=h.y9jim1888njz'
-          }]
+          { name: 'Telegram-канал ППА', href: 'https://t.me/+OAOaeubBw6IzYjAy' }]
       }
     ]
   }),
-  computed: mapState('news', ['article']),
+  computed: mapState('news', ['articles']),
   async mounted() {
-    await this.getArticle(2)
+    await this.getArticles()
     this.isLoad = true
   },
   created() {
@@ -390,7 +340,10 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
-    ...mapActions('news', ['getArticle']),
+    ...mapActions('news', ['getArticles']),
+    getArticle(id) {
+      return Object.assign({ title: this.articles.find(a => a.id === id).title }, JSON.parse(this.articles.find(a => a.id === id).description))
+    },
     handleScroll() {
       if (!this.scrolledHexLines) {
         let height = document.documentElement.clientHeight
@@ -441,6 +394,7 @@ export default {
 
   .hex-section-line {
     position: absolute;
+    z-index: 0;
     top: 0;
     left: 0;
     @media (max-width: 960px) {

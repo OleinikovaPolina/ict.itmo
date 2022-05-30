@@ -256,7 +256,7 @@ export default {
     symbol: false, show: false,
     links: [
       { text: 'Главная', name: ['home'], path: '' },
-      { text: 'События', name: ['events', 'news', 'new'], path: 'events' },
+      { text: 'События', name: ['events', 'news', 'new','event','announcement'], path: 'events' },
       { text: 'Студентам', name: ['students'], path: 'students' },
       {},
       { text: 'Контакты', name: ['contacts'], path: 'contacts' }

@@ -42,7 +42,7 @@ const appModule = {
         email: 'tatiana.kharkovskaia@itmo.ru'
       },
       {
-        img: '',
+        img:  require('../../assets/images/people/u105760.jpeg'),
         name: 'Говорова Марина Михайловна',
         position: 'Менеджер',
         email: 'mmgovorova@itmo.ru'

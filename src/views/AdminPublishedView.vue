@@ -48,6 +48,8 @@
           :total-visible="7"
           circle
           dark
+          next-icon="$arrowRight"
+          prev-icon="$arrowLeft"
           @input="changeRoute"
         />
       </v-col>

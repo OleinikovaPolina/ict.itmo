@@ -154,72 +154,6 @@
         </v-icon>
         Добавить поле
       </div>
-      <!--  time event    -->
-      <v-row class="pt-4">
-        <v-col
-          cols="12"
-          md="3"
-        >
-          <div
-            class="pl-4 subtitle-color text-body-2"
-            style="opacity: 0.7"
-          >
-            Дата начала мероприятия<span class="error--text">*</span>
-          </div>
-          <v-text-field
-            v-model="form.dateStart"
-            type="date"
-            outlined
-            dense
-            class="search-input"
-            :dark="theme==='dark'"
-            :color="theme==='dark'?'#00A1FF':'#005A8E'"
-            hide-details
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          md="3"
-        >
-          <div
-            class="pl-4 subtitle-color text-body-2"
-            style="opacity: 0.7"
-          >
-            Дата конца мероприятия
-          </div>
-          <v-text-field
-            v-model="form.dateEnd"
-            type="date"
-            outlined
-            dense
-            class="search-input"
-            :dark="theme==='dark'"
-            :color="theme==='dark'?'#00A1FF':'#005A8E'"
-            hide-details
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          md="2"
-        >
-          <div
-            class="pl-4 subtitle-color text-body-2"
-            style="opacity: 0.7"
-          >
-            Время начала
-          </div>
-          <v-text-field
-            v-model="form.timeStart"
-            type="time"
-            outlined
-            dense
-            class="search-input"
-            :dark="theme==='dark'"
-            :color="theme==='dark'?'#00A1FF':'#005A8E'"
-            hide-details
-          />
-        </v-col>
-      </v-row>
       <!--   buttons  -->
       <div class="d-flex pt-6">
         <BaseButton
@@ -321,7 +255,7 @@ export default {
       { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline', 'link', 'clean'],
     isPreview: false, previewData: {}, dialogSliderContent: [], dialogSlider: false,
     form: {
-      title: '', description: '', dateStart: null, dateEnd: null, timeStart: null,
+      title: '', description: '',
       slider: [], sliderImagesNames: [], sliderText: '',
       blocks: [{ id: 0, type: -1, content: null }], attachmentsIds: []
     },
@@ -347,9 +281,6 @@ export default {
     dataToForm() {
       this.form.id = this.article.id
       this.form.title = this.article.title
-      this.form.dateStart = this.$moment(this.article.dateStart).format('YYYY-MM-DD')
-      this.form.dateEnd = this.article.dateEnd ? this.$moment(this.article.dateEnd).format('YYYY-MM-DD') : ''
-      this.form.timeStart = this.$moment(this.article.dateStart).format('HH:mm')
       this.form.blocks = this.article.blocks
       for (let i = 0; i < this.form.blocks.length; i++) {
         this.form.blocks[i].id = i
@@ -429,18 +360,6 @@ export default {
         sliderImagesNames: formPublish.sliderImagesNames,
         sliderText: formPublish.sliderText
       })
-      //date
-      if (formPublish.timeStart) {
-        let timeStart = formPublish.timeStart.split(':')
-        formPublish.dateStart = new Date(formPublish.dateStart)
-        formPublish.dateStart.setHours(parseInt(timeStart[0]), parseInt(timeStart[1]))
-      }
-      formPublish.dateStart = this.$moment(formPublish.dateStart).format()
-      if (formPublish.dateEnd) {
-        formPublish.dateEnd = this.$moment(formPublish.dateEnd).format()
-      } else {
-        formPublish.dateEnd = null
-      }
       //blocks
       for (let block of formPublish.blocks) {
         if (block.type === 1) {

@@ -46,12 +46,12 @@
               id="sliderImg"
               type="file"
               accept="image/*"
-              @change="(e)=>{beforeCrop('sliderImg',{w:855,h:300},'Слайдер',e.target.files[0])}"
+              @change="(e)=>{beforeCrop('sliderImg',{w:912,h:400},'Слайдер',e.target.files[0])}"
             >
             <label
               for="sliderImg"
               class="d-flex align-center py-6 px-12 text-center"
-              @change="(e)=>{beforeCrop('sliderImg',{w:855,h:300},'Слайдер',e.dataTransfer.files[0])}"
+              @change="(e)=>{beforeCrop('sliderImg',{w:912,h:400},'Слайдер',e.dataTransfer.files[0])}"
             >
               <v-img
                 style="z-index: 0"
@@ -60,7 +60,7 @@
                 src="../assets/images/admin/ep_picture.svg"
               />
               Выберите изображение обложки или перетащите файл<br>
-              Размер 1140*400
+              Размер 1140*500
             </label>
           </div>
           <div

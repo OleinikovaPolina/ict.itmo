@@ -1,12 +1,12 @@
 <template>
-  <v-container v-if="isLoad && Object.keys(article).length">
-    <div class="pb-2 pb-md-4 text-h6 text-md-h5">
-      Статьи
-    </div>
+  <v-container v-if="isLoad">
     <!--  Form  -->
     <div v-if="!isPreview">
+      <div class="pb-2 pb-md-4 text-h6 text-md-h5">
+        Статьи
+      </div>
       <!--  name  -->
-      <div class="input-bordered mb-6">
+      <div class="input-bordered mb-8">
         <v-text-field
           v-model="form.title"
           placeholder="Название"
@@ -20,7 +20,7 @@
       <!--  description  -->
       <div class="input-bordered pt-3">
         <div class="input-bordered-label app-background">
-          Описание статьи <span class="error--text">*</span>
+          Описание <span class="error--text">*</span>
         </div>
         <vue-editor
           v-model="form.description"
@@ -31,95 +31,93 @@
       </div>
       <div
         class="text-end mb-6"
-        :style="{color:cutTegs(form.description).length>165?'red':'#0071B2'}"
+        :style="{color:cutTegs(form.description||'').length>300?'red':'#0071B2'}"
       >
-        {{ cutTegs(form.description).length }}/165
+        {{ cutTegs(form.description || '').length }}/300
       </div>
-      <!--   winners   -->
-      <div class="input-bordered mb-6 pt-3">
+      <!--  image 1  -->
+      <div class="input-bordered mb-6 py-6">
         <div class="input-bordered-label app-background">
-          Победители <span class="error--text">*</span>
+          Изображение 1 <span class="error--text">*</span>
+        </div>
+        <div
+          class="input-file-container mx-auto"
+          @dragover.prevent
+          @drop.prevent
+        >
+          <input
+            id="image1"
+            type="file"
+            accept="image/*"
+            @change="(e)=>{beforeCrop('image1',{w:400,h:300},'Изображение 1',e.target.files[0])}"
+          >
+          <label
+            for="image1"
+            class="d-flex align-center py-6 px-12 text-center"
+            @drop="(e)=>{beforeCrop('image1',{w:400,h:300},'Изображение 1',e.dataTransfer.files[0])}"
+          >
+            <v-img
+              style="z-index: 0"
+              width="80"
+              height="80"
+              src="../../../assets/images/admin/ep_picture.svg"
+            />
+            Выберите изображение или перетащите файл<br>
+            Размер 400*300
+          </label>
+        </div>
+        <div
+          v-if="form.image1"
+          class="text-center"
+        >
+          {{ form.image1.name }}
+        </div>
+      </div>
+      <!--  image 2  -->
+      <div class="input-bordered mb-6 py-6">
+        <div class="input-bordered-label app-background">
+          Изображение 2 <span class="error--text">*</span>
         </div>
         <v-text-field
-          v-model="form.subtitle"
-          placeholder="Название слайдера"
+          v-model="form.caption"
+          placeholder="Подпись"
           outlined
           dense
+          class="mx-6 my-2 input-light-blue"
           :dark="theme==='dark'"
           hide-details
-          class="mx-6 my-2 input-light-blue"
         />
-        <div class="mx-6 pb-4 d-flex flex-wrap">
-          <v-col
-            :cols="$vuetify.breakpoint.smAndDown?12:6"
-            class="input-file-container"
-            @dragover.prevent
-            @drop.prevent
+        <div
+          class="input-file-container mx-auto"
+          @dragover.prevent
+          @drop.prevent
+        >
+          <input
+            id="image2"
+            type="file"
+            accept="image/*"
+            @change="(e)=>{beforeCrop('image2',{w:300,h:300},'Изображение 2',e.target.files[0])}"
           >
-            <input
-              id="winners"
-              type="file"
-              accept="image/*"
-              multiple
-              @change="(e)=>{changeContentImagesBlock(form.winners.concat(Array.from(e.target.files)))}"
-            >
-            <label
-              for="winners"
-              class="d-flex align-center py-md-6 px-md-12 text-center"
-              @drop="(e)=>{changeContentImagesBlock(form.winners.concat(Array.from(e.dataTransfer.files)))}"
-            >
-              <span>
-                <v-img
-                  style="z-index: 0"
-                  width="80"
-                  height="80"
-                  contain
-                  src="../../../assets/images/admin/ep_picture.svg"
-                />
-              </span>
-              Выберите изображение или перетащите файл
-            </label>
-          </v-col>
-          <v-col
-            v-if="form.winners.length"
-            :cols="$vuetify.breakpoint.smAndDown?12:6"
-            class="pl-6 py-0 d-flex flex-wrap align-start justify-space-between"
+          <label
+            for="image2"
+            class="d-flex align-center py-6 px-12 text-center"
+            @drop="(e)=>{beforeCrop('image2',{w:300,h:300},'Изображение 2',e.dataTransfer.files[0])}"
           >
-            <draggable
-              :list="form.winners"
-              class="d-flex flex-wrap"
-              @change="function(e){changeList(e)}"
-            >
-              <v-col
-                v-for="(hex,j) in form.winnersHex"
-                :key="j"
-                cols="12"
-                md="6"
-                class="d-flex mt-2 pa-0"
-              >
-                <div>{{ j + 1 }}.</div>
-                <div class="input-slider-img-block px-2 ml-2 d-flex align-center">
-                  <v-text-field
-                    v-model="hex.text"
-                    dense
-                    :dark="theme==='dark'"
-                    hide-details
-                    class="ma-0 input-border-0"
-                  />
-                  <v-btn
-                    icon
-                    x-small
-                    color="#0071B2"
-                    @click="deleteContentImgBlock(j)"
-                  >
-                    <v-icon small>
-                      mdi-close-circle-outline
-                    </v-icon>
-                  </v-btn>
-                </div>
-              </v-col>
-            </draggable>
-          </v-col>
+            <v-img
+              style="z-index: 0"
+              width="80"
+              height="80"
+              src="../../../assets/images/admin/ep_picture.svg"
+            />
+            Выберите изображение или перетащите файл<br>
+            Размер 300*300
+          </label>
+        </div>
+        <div
+          v-if="form.image2"
+          class="text-center"
+        >
+          {{ form.image2.name }}
         </div>
       </div>
       <!--  changing blocks  -->
@@ -160,12 +158,13 @@
     </div>
     <!--  Preview  -->
     <div v-else>
-      <BaseStudentsCompetition
+      <BaseStudentsArticleComponent
         :block="{
-          winnersHex:form.winnersHex,
-          subtitle:form.subtitle,
           title:form.title,
           description:form.description,
+          caption:form.caption,
+          image1:form.image1Croppie,
+          image2:form.image2Croppie,
         }"
       />
       <BaseNews :data="previewData" />
@@ -175,7 +174,7 @@
         @clickBtnCallback="isPreview = false"
       />
     </div>
-    <!--  dialog  -->
+    <!--  dialogs  -->
     <DialogPreviewComponent
       :dialog="dialog"
       :dialog-content="dialogContent"
@@ -185,7 +184,7 @@
     />
     <DialogCroppieComponent
       :dialog="dialogCroppie"
-      :title="dialogCroppieOptions.subtitle"
+      :title="dialogCroppieOptions.title"
       :size="dialogCroppieOptions.size"
       :data-img="dialogCroppieDataImg"
       :enable-resize="dialogCroppieOptions.enableResize"
@@ -210,19 +209,18 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import { VueEditor } from 'vue2-editor'
-import draggable from 'vuedraggable'
-import croppieMixin from '../../../mixins/croppieMixin'
-import formMixin from '../../../mixins/formMixin'
+import croppieMixin from '@/mixins/croppieMixin'
+import formMixin from '@/mixins/formMixin'
 import croppieMultipleMixin from '@/mixins/croppieMultipleMixin'
+import { VueEditor } from 'vue2-editor'
 
 export default {
-  name: 'CompetitionComponent',
+  name: 'TwoPhotosComponent',
   components: {
-    VueEditor, draggable,
+    VueEditor,
+    BaseStudentsArticleComponent: () => import('@/components/students/BaseStudentsArticleComponent'),
     DialogCroppieMultipleComponent: () => import('@/components/admin/DialogCroppieMultipleComponent'),
     DialogCroppieComponent: () => import('@/components/admin/DialogCroppieComponent'),
-    BaseStudentsCompetition: () => import('@/components/students/BaseStudentsCompetition'),
     DialogPreviewComponent: () => import('@/components/admin/DialogPreviewComponent'),
     BaseNews: () => import('@/components/events/BaseNews'),
     DraggableInputs: () => import('@/components/admin/DraggableInputs'),
@@ -236,19 +234,20 @@ export default {
       'bold', 'italic', 'underline',
       'link',
       'clean'],
-    dialog: false,
-    dialogContent: {},
     isPreview: false,
     previewData: {},
     form: {
-      title: '', description: '', subtitle: '',
-      winners: [], winnersHex: [],
+      title: '',
+      description: '', caption: '',
+      image1: null, image1Croppie: null, image1Blob: null,
+      image2: null, image2Croppie: null, image2Blob: null,
       blocks: [{ id: 0, type: -1, content: null }], attachmentsIds: []
     },
     isLoad: false
   }),
   computed: {
-    ...mapState('news', ['article']), ...mapState('app', ['theme'])
+    ...mapState('app', ['theme']),
+    ...mapState('news', ['article'])
   },
   async mounted() {
     await this.getArticle(this.$route.params.id)
@@ -311,29 +310,34 @@ export default {
       }
       this.count = this.form.blocks.length + 1
       const blockData = JSON.parse(this.article.description)
-      this.form.subtitle = blockData.subtitle
+      this.form.caption = blockData.caption
       this.form.description = blockData.description
-      this.form.winnersHex = blockData.winnersHex
-      this.form.winners = []
-      for (let i = 0; i < blockData.winnersHex.length; i++) {
-        this.form.winners.push(null)
-      }
+      this.form.image1Croppie = blockData.image1
+      this.form.image2Croppie = blockData.image2
     },
     async publish() {
       let formPublish = Object.assign({}, this.form)
       formPublish.page = this.article.page
-      //winnersHex
-      for (let i = 0; i < formPublish.winners.length; i++) {
-        if (formPublish.winners[i]) {
-          await this.addAttachment(formPublish.winners[i]).then(res => {
-            formPublish.winnersHex[i].img = res.data.url
-          }).catch(() => ({}))
-        }
+      //images
+      if (formPublish.image1Blob) {
+        await this.addAttachment(formPublish.image1Blob).then(res => {
+          formPublish.image1 = res.data.url
+        }).catch(() => ({}))
+      } else {
+        formPublish.image1 = formPublish.image1Croppie
+      }
+      if (formPublish.image2Blob) {
+        await this.addAttachment(formPublish.image2Blob).then(res => {
+          formPublish.image2 = res.data.url
+        }).catch(() => ({}))
+      } else {
+        formPublish.image2 = formPublish.image2Croppie
       }
       formPublish.description = JSON.stringify({
         description: formPublish.description,
-        subtitle: formPublish.subtitle,
-        winnersHex: formPublish.winnersHex
+        caption: formPublish.caption,
+        image1: formPublish.image1,
+        image2: formPublish.image2
       })
       //blocks
       for (let block of formPublish.blocks) {
@@ -392,36 +396,13 @@ export default {
       await this.updateArticles(formPublish)
       this.$router.push('/favorites').then()
     },
+    preview() {
+      this.previewData = Object.assign({}, this.form)
+      this.isPreview = true
+    },
     cutTegs(str) {
       let regex = /( |<([^>]+)>)/ig
       return str.replace(regex, '')
-    },
-    preview() {
-      this.previewData = this.form
-      this.isPreview = true
-    },
-    changeContentImagesBlock(values) {
-      values.forEach(val => {
-        if (val) {
-          let reader = new FileReader()
-          reader.onload = (e) => {
-            this.form.winnersHex.push({
-              img: e.target.result,
-              text: val.name.split('.').slice(0, -1).join('.')
-            })
-          }
-          reader.readAsDataURL(val)
-        }
-      })
-      this.form.winners = values
-    },
-    deleteContentImgBlock(j) {
-      this.form.winners.splice(j, 1)
-      this.form.winnersHex.splice(j, 1)
-    },
-    changeList(val) {
-      let oldName = this.form.winnersHex.splice(val.moved.oldIndex, 1)[0]
-      this.form.winnersHex.splice(val.moved.newIndex, 0, oldName)
     }
   }
 }

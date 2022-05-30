@@ -10,19 +10,30 @@
       height: 30px;
     }
 
-    i {
-      @media (min-width: 960px) {
-        font-size: 36px;
-      }
+    &[aria-label="Next page"] {
+      padding-left: 2.5px;
+    }
+
+    &[aria-label="Previous page"] {
+      padding-right: 2.5px;
+    }
+
+    &:hover {
+      transform: scale(1.15);
+    }
+
+    &:active {
+      background-color: #1E7F83;
     }
   }
 
-  .v-pagination__navigation:hover {
-    transform: scale(1.15);
-  }
-
-  .v-pagination__navigation:active {
-    background-color: #1E7F83;
+  .v-icon__component {
+    height: 15px;
+    width: 15px;
+    @media(min-width: 600px) {
+      height: 20px;
+      width: 20px;
+    }
   }
 
   .v-pagination__more {
@@ -45,11 +56,11 @@
       font-size: 14px;
       line-height: 16px;
     }
-  }
 
-  .v-pagination__item.v-pagination__item--active {
-    color: #2DC0C5 !important;
-    opacity: 1;
+    &.v-pagination__item--active {
+      color: #2DC0C5 !important;
+      opacity: 1;
+    }
   }
 }
 

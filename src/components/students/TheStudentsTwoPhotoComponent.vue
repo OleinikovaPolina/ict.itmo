@@ -5,11 +5,17 @@
   >
     <div class="anim-pink rounded-pill" />
     <div class="anim-green rounded-pill" />
-    <div class="anim-img-1 rounded-pill" />
-    <div class="anim-img-2 rounded-circle" />
+    <div
+      class="anim-img-1 rounded-pill"
+      :style="{backgroundImage:`url(${img1})`}"
+    />
+    <div
+      class="anim-img-2 rounded-circle"
+      :style="{backgroundImage:`url(${img2})`}"
+    />
     <div class="anim-img-subtitle text-center">
-      <p>Лектор</p>
-      <p>Филянин Иван</p>
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <p v-html="caption" />
     </div>
   </div>
 </template>
@@ -17,6 +23,20 @@
 <script>
 export default {
   name: 'TheStudentsTwoPhotoComponent',
+  props: {
+    img1: {
+      type: String,
+      default: ''
+    },
+    img2: {
+      type: String,
+      default: ''
+    },
+    caption: {
+      type: String,
+      default: ''
+    }
+  },
   data: () => ({
     scrolled: false
   }),
@@ -127,9 +147,7 @@ export default {
   left: 0;
   width: 58%;
   height: 66.67%;
-  background-image: url("../../assets/images/delete/unsplash_JjjSPPzzpkU.png");
   background-size: cover;
-  background-position: center;
 }
 
 .anim-img-2 {
@@ -137,25 +155,33 @@ export default {
   right: 21.5%;
   width: 43.5%;
   height: 66.67%;
-  background-image: url("../../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png");
   background-size: cover;
-  background-position: center;
 }
 
 .anim-img-subtitle {
   bottom: 0;
-  right: 35%;
+  width: 100%;
+  padding-left: 15%;
 
   p {
-    font-size: 18px;
-    line-height: normal;
-    margin: 0;
-    @media (max-width: 1904px) {
-      font-size: 14px;
+    margin: 0 auto;
+    font-size: 10px;
+    line-height: 10px;
+    @media (min-width: 600px) {
+      font-size: 16px;
+      line-height: 18px;
     }
-    @media (max-width: 1264px) {
+    @media (min-width: 960px) {
       font-size: 10px;
       line-height: 10px;
+    }
+    @media (min-width: 1264px) {
+      font-size: 14px;
+      line-height: 16px;
+    }
+    @media (min-width: 1904px) {
+      font-size: 22px;
+      line-height: 24px;
     }
   }
 }
