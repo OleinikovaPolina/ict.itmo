@@ -15,22 +15,17 @@
           sm="4"
           :class="slotProps.index<=columns/2?'partner-col-1':''"
         >
-          <a
-            :href="slotProps.item.link"
-            target="_blank"
+          <div
+            class="pa-2 pa-md-4 partner-container"
+            :class="'rounded-'+($vuetify.breakpoint.mdAndUp?'xl':'lg')+' partner-container-'+(slotProps.index<=columns/2?1:2)"
           >
-            <div
-              class="pa-2 pa-md-4 partner-container"
-              :class="'rounded-'+($vuetify.breakpoint.mdAndUp?'xl':'lg')+' partner-container-'+(slotProps.index<=columns/2?1:2)"
-            >
-              <v-img
-                width="100%"
-                height="100%"
-                contain
-                :src="slotProps.item.img"
-              />
-            </div>
-          </a>
+            <v-img
+              width="100%"
+              height="100%"
+              contain
+              :src="slotProps.item"
+            />
+          </div>
         </v-col>
       </template>
     </CarouselComponent>
@@ -43,22 +38,22 @@ export default {
   components: { CarouselComponent: () => import('@/components/CarouselComponent') },
   data: () => ({
     slider: [
-      { link: '', img: require('../../assets/images/partners/vk.svg') },
-      { link: '', img: require('../../assets/images/partners/red.svg') },
-      { link: '', img: require('../../assets/images/partners/napoleon.svg') },
-      { link: '', img: require('../../assets/images/partners/Layer1.svg') },
-      { link: '', img: require('../../assets/images/partners/cisco.svg') },
-      { link: '', img: require('../../assets/images/partners/ascaeen.svg') },
-      { link: '', img: require('../../assets/images/partners/raidix.svg') },
-      { link: '', img: require('../../assets/images/partners/rardio.svg') },
-      { link: '', img: require('../../assets/images/partners/Transas_logo 1.svg') },
-      { link: '', img: require('../../assets/images/partners/emc.svg') },
-      { link: '', img: require('../../assets/images/partners/Vector (7).svg') },
-      { link: '', img: require('../../assets/images/partners/Luxoft.svg') },
-      { link: '', img: require('../../assets/images/partners/micro 1.svg') },
-      { link: '', img: require('../../assets/images/partners/Group.svg') },
-      { link: '', img: require('../../assets/images/partners/huawei.svg') },
-      { link: '', img: require('../../assets/images/partners/кщы.svg') }
+      require('../../assets/images/partners/vk.svg'),
+      require('../../assets/images/partners/blue_horizontal_logo_sbertech 1.svg'),
+      require('../../assets/images/partners/napoleon.svg'),
+      require('../../assets/images/partners/Yandex_official_logo 1.svg'),
+      require('../../assets/images/partners/Sirius_educational_centre_horizontal_rus 1.svg'),
+      require('../../assets/images/partners/кщы.svg'),
+      require('../../assets/images/partners/6.svg'),
+      require('../../assets/images/partners/orale.svg'),
+      require('../../assets/images/partners/main-logo 1.svg'),
+      require('../../assets/images/partners/emc.svg'),
+      require('../../assets/images/partners/Vector (7).svg'),
+      require('../../assets/images/partners/Luxoft.svg'),
+      require('../../assets/images/partners/1280px-OZON_2019 1.svg'),
+      require('../../assets/images/partners/Group.svg'),
+      require('../../assets/images/partners/huawei.svg'),
+      require('../../assets/images/partners/10.svg')
     ]
   }),
   computed: {

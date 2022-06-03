@@ -55,7 +55,7 @@ const programsModule = {
             position2: 'кандидат технических наук, ординарный доцент'
           },
           {
-            img: require('../../assets/images/people/148954.jpg'), name: 'Коцюба И.Ю.',
+            img: require('../../assets/images/people/u148954.jpeg'), name: 'Коцюба И.Ю.',
             position2: 'кандидат технических наук, ординарный доцент'
           },
           {
@@ -194,7 +194,7 @@ const programsModule = {
             position2: 'кандидат технических наук, ординарный доцент'
           },
           {
-            img: require('../../assets/images/people/148954.jpg'), name: 'Коцюба И.Ю.',
+            img: require('../../assets/images/people/u148954.jpeg'), name: 'Коцюба И.Ю.',
             position2: 'кандидат технических наук, ординарный доцент'
           },
           {

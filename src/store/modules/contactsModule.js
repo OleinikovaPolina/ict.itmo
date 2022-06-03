@@ -16,7 +16,7 @@ const appModule = {
         email: 'anna.z.arseneva@itmo.ru'
       },
       {
-        img: require('../../assets/images/people/bashkina.690c91e2c31e.jpg'),
+        img: require('../../assets/images/people/p1336.jpg'),
         name: 'Башкина Ирина Александровна',
         position: 'Помощник декана',
         email: 'bashkina@itmo.ru'
@@ -42,7 +42,6 @@ const appModule = {
         email: 'tatiana.kharkovskaia@itmo.ru'
       },
       {
-        img:  require('../../assets/images/people/u105760.jpeg'),
         name: 'Говорова Марина Михайловна',
         position: 'Менеджер',
         email: 'mmgovorova@itmo.ru'

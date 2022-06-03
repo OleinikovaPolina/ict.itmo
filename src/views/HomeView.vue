@@ -298,15 +298,18 @@
           <v-col
             v-for="(num,i) in numbers"
             :key="i"
-            :cols="i===1?6:3"
+            cols="4"
+            :md="i===1?6:3"
             class="text-center"
           >
             <div class="numbers-name">
               {{ num.name }}
             </div>
-            <div class="numbers-description subtitle-color">
-              {{ num.description }}
-            </div>
+            <!-- eslint-disable vue/no-v-html -->
+            <div
+              class="numbers-description subtitle-color"
+              v-html="num.description"
+            />
           </v-col>
         </v-row>
       </v-container>
@@ -373,7 +376,7 @@ export default {
     numbers: [
       { name: '>60', description: 'преподавателей' },
       { name: '~1000', description: 'студентов' },
-      { name: '6', description: 'образовательных программ' }
+      { name: '6', description: 'образовательных<br>программ' }
     ],
     persons: [
       {
@@ -560,7 +563,7 @@ export default {
     font-size: 70px;
   }
   @media (max-width: 600px) {
-    font-size: 40px;
+    font-size: 35px;
   }
 }
 
