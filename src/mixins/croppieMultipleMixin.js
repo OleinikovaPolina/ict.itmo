@@ -26,7 +26,6 @@ export default {
           newValues[i].blob = x[1]
         })
         this.form[name + 'ImagesNames'] = this.form[name + 'ImagesNames'].concat(newValues)
-        console.log(this.form)
       }
       this.dialogCroppieMultiple = true
     },

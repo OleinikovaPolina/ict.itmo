@@ -94,38 +94,11 @@
 
         <v-spacer />
 
-        <v-col v-if="$vuetify.breakpoint.mdAndUp">
-          <v-text-field
-            :dark="theme==='dark'"
-            dense
-            placeholder="Поиск по сайту"
-            hide-details
-            outlined
-            append-icon="mdi-magnify"
-            color="#2DC0C5"
-            class="search-input search-input-header"
-            @click:append="()=>{}"
-          />
-        </v-col>
-
         <v-col
           v-if="$vuetify.breakpoint.smAndDown"
           cols="4"
           class="d-flex justify-end"
         >
-          <v-btn
-            :style="{opacity:show?0:1,zIndex:show?-1:1}"
-            icon
-            x-large
-            color="#2DC0C5"
-            @click="clickSearchIcon"
-          >
-            <v-icon
-              size="40"
-            >
-              mdi-magnify
-            </v-icon>
-          </v-btn>
           <div
             class="menu"
             @click="clickMenu"
@@ -146,21 +119,6 @@
               v-show="show"
               class="app-background"
             >
-              <v-list-item>
-                <v-text-field
-                  ref="search"
-                  :dark="theme==='dark'"
-                  dense
-                  placeholder="Введите название новости или тега"
-                  hide-details
-                  outlined
-                  append-icon="mdi-magnify"
-                  color="#2DC0C5"
-                  class="search-input"
-                  height="100%"
-                  @click:append="()=>{}"
-                />
-              </v-list-item>
               <template
                 v-for="(link,i) in links"
               >
@@ -278,13 +236,6 @@ export default {
         document.querySelector('.navbar-container').classList.add('shadow')
       }
     },
-    clickSearchIcon() {
-      document.querySelector('.menu').classList.toggle('active')
-      this.show = true
-      setTimeout(() => {
-        this.$refs['search'].$refs.input.focus()
-      })
-    },
     closeMenu() {
       document.querySelector('.menu').classList.remove('active')
       this.show = false
@@ -353,12 +304,6 @@ export default {
   width: fit-content;
   height: fit-content;
   transition: all .5s;
-}
-
-.search-input {
-  border-radius: 10px;
-  font-size: 15px;
-  color: #2DC0C5 !important;
 }
 
 .menu {

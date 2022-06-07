@@ -470,58 +470,7 @@ export default {
         }).catch(() => ({}))
       }
       //blocks
-      for (let block of formPublish.blocks) {
-        if (block.type === 1) {
-          for (const blockElement of block.content.blocks) {
-            if (blockElement.type === 2 && blockElement.content.imgName.blob) {
-              await this.addAttachment(blockElement.content.imgName.blob).then(res => {
-                blockElement.content.imgName.croppie = res.data.url
-              }).catch(() => ({}))
-            }
-            if (blockElement.type === 3) {
-              for (let blockImage of blockElement.content.imagesName) {
-                if (blockImage['blob']) {
-                  await this.addAttachment(blockImage['blob']).then(res => {
-                    blockImage.croppie = res.data.url
-                  }).catch(() => ({}))
-                }
-                delete blockImage.original
-                delete blockImage['blob']
-              }
-              delete blockElement.content.images
-            }
-            delete blockElement.id
-            if (blockElement.type === 2) {
-              delete blockElement.content.img
-              delete blockElement.content.imgName.original
-              delete blockElement.content.imgName.blob
-            }
-          }
-        }
-        if (block.type === 2 && block.content.imgName.blob) {
-          await this.addAttachment(block.content.imgName.blob).then(res => {
-            block.content.imgName.croppie = res.data.url
-          }).catch(() => ({}))
-        }
-        if (block.type === 3) {
-          for (let blockImage of block.content.imagesName) {
-            if (blockImage['blob']) {
-              await this.addAttachment(blockImage['blob']).then(res => {
-                blockImage.croppie = res.data.url
-              }).catch(() => ({}))
-            }
-            delete blockImage.original
-            delete blockImage['blob']
-          }
-          delete block.content.images
-        }
-        delete block.id
-        if (block.type === 2) {
-          delete block.content.img
-          delete block.content.imgName.original
-          delete block.content.imgName.blob
-        }
-      }
+      formPublish.blocks = await this.publishBlocks(formPublish.blocks)
       //publish
       if (this.typeData === 1) {
         await this.addNews(formPublish)

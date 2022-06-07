@@ -236,6 +236,7 @@
                       <draggable
                         :list="element2.content.images"
                         class="d-flex flex-wrap"
+                        style="width: 100%"
                         @change="function(e){changeList(element2,e)}"
                       >
                         <v-col
@@ -247,7 +248,7 @@
                         >
                           <div>{{ j + 1 }}.</div>
                           <div class="input-slider-img-block px-2 ml-2">
-                            {{ img.name }}
+                            <span>{{ img.name }}</span>
                             <v-btn
                               icon
                               x-small
@@ -397,6 +398,7 @@
             <draggable
               :list="element.content.images"
               class="d-flex flex-wrap"
+              style="width: 100%"
               @change="function(e){changeList(element,e)}"
             >
               <v-col
@@ -408,7 +410,7 @@
               >
                 <div>{{ j + 1 }}.</div>
                 <div class="input-slider-img-block px-2 ml-2">
-                  {{ img.name }}
+                  <span>{{ img.name }}</span>
                   <v-btn
                     icon
                     x-small
@@ -501,6 +503,7 @@ export default {
     changeList(i, val) {
       let oldImgName = i.content.imagesName.splice(val.moved.oldIndex, 1)[0]
       i.content.imagesName.splice(val.moved.newIndex, 0, oldImgName)
+      this.$emit('updateBlock')
     },
     eyeBlock(el) {
       this.$emit('updateBlock')
@@ -530,6 +533,7 @@ export default {
     deleteContentImgBlock(i, j) {
       i.content.images.splice(j, 1)
       i.content.imagesName.splice(j, 1)
+      this.$emit('updateBlock')
     },
     changeTypeBlock(i, type) {
       i.type = type
@@ -587,7 +591,7 @@ export default {
 }
 
 .input-bordered-label {
-  z-index: 100;
+  z-index: 10;
   position: absolute;
   padding: 2.5px 10px;
   right: 0;
@@ -634,8 +638,4 @@ export default {
   }
 }
 
-.input-slider-img-block {
-  border: 1px solid #0071B2;
-  border-radius: 20px;
-}
 </style>

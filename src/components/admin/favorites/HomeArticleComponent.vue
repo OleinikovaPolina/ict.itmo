@@ -235,52 +235,7 @@ export default {
     dataToForm() {
       this.form.id = this.article.id
       this.form.title = this.article.title
-      this.form.blocks = this.article.blocks
-      for (let i = 0; i < this.form.blocks.length; i++) {
-        this.form.blocks[i].id = i
-        if (this.form.blocks[i].type === 0) {
-          this.form.blocks[i].content.text = this.form.blocks[i].content.text.replace('<div>', '').replace('</div>', '')
-          const parser = new DOMParser()
-          this.form.blocks[i].content.text = parser.parseFromString(this.form.blocks[i].content.text, 'text/html').body.innerHTML
-          this.form.blocks[i].content.text = this.form.blocks[i].content.text.replace(/\r/g, '').replace(/\n/g, '')
-        }
-        if (this.form.blocks[i].type === 1) {
-          this.form.blocks[i].content.blocks[0].id = (i + 1) * 1000 + 1
-          this.form.blocks[i].content.blocks[1].id = (i + 1) * 1000 + 2
-          for (let argument of this.form.blocks[i].content.blocks) {
-            if (argument.type === 2) {
-              argument.content.img = null
-              argument.content.imgName.blob = null
-              argument.content.imgName.original = argument.content.imgName.croppie
-            }
-            if (argument.type === 3) {
-              argument.content.images = []
-              let c = 1
-              for (let argument2 of argument.content.imagesName) {
-                argument.content.images.push({ name: c + ' img' })
-                c += 1
-                argument2.original = argument2.croppie
-                argument2.blob = null
-              }
-            }
-          }
-        }
-        if (this.form.blocks[i].type === 2) {
-          this.form.blocks[i].content.img = null
-          this.form.blocks[i].content.imgName.blob = null
-          this.form.blocks[i].content.imgName.original = this.form.blocks[i].content.imgName.croppie
-        }
-        if (this.form.blocks[i].type === 3) {
-          this.form.blocks[i].content.images = []
-          let c = 1
-          for (let argument of this.form.blocks[i].content.imagesName) {
-            this.form.blocks[i].content.images.push({ name: c + ' img', id: c })
-            c += 1
-            argument.original = argument.croppie
-            argument.blob = null
-          }
-        }
-      }
+      this.form.blocks = this.dataToFormBlocks(this.article.blocks)
       this.count = this.form.blocks.length + 1
       const blockData = JSON.parse(this.article.description)
       this.form.winnersHex = blockData.winnersHex
@@ -304,58 +259,7 @@ export default {
         winnersHex: formPublish.winnersHex
       })
       //blocks
-      for (let block of formPublish.blocks) {
-        if (block.type === 1) {
-          for (const blockElement of block.content.blocks) {
-            if (blockElement.type === 2 && blockElement.content.imgName.blob) {
-              await this.addAttachment(blockElement.content.imgName.blob).then(res => {
-                blockElement.content.imgName.croppie = res.data.url
-              }).catch(() => ({}))
-            }
-            if (blockElement.type === 3) {
-              for (let blockImage of blockElement.content.imagesName) {
-                if (blockImage['blob']) {
-                  await this.addAttachment(blockImage['blob']).then(res => {
-                    blockImage.croppie = res.data.url
-                  }).catch(() => ({}))
-                }
-                delete blockImage.original
-                delete blockImage['blob']
-              }
-              delete blockElement.content.images
-            }
-            delete blockElement.id
-            if (blockElement.type === 2) {
-              delete blockElement.content.img
-              delete blockElement.content.imgName.original
-              delete blockElement.content.imgName.blob
-            }
-          }
-        }
-        if (block.type === 2 && block.content.imgName.blob) {
-          await this.addAttachment(block.content.imgName.blob).then(res => {
-            block.content.imgName.croppie = res.data.url
-          }).catch(() => ({}))
-        }
-        if (block.type === 3) {
-          for (let blockImage of block.content.imagesName) {
-            if (blockImage['blob']) {
-              await this.addAttachment(blockImage['blob']).then(res => {
-                blockImage.croppie = res.data.url
-              }).catch(() => ({}))
-            }
-            delete blockImage.original
-            delete blockImage['blob']
-          }
-          delete block.content.images
-        }
-        delete block.id
-        if (block.type === 2) {
-          delete block.content.img
-          delete block.content.imgName.original
-          delete block.content.imgName.blob
-        }
-      }
+      formPublish.blocks = await this.publishBlocks(formPublish.blocks)
       //publish
       await this.updateArticles(formPublish)
       this.$router.push('/favorites').then()

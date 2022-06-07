@@ -154,10 +154,6 @@ input[type=time]::-webkit-calendar-picker-indicator {
   border-width: 0;
 }
 
-.v-application .navbar-container .v-text-field--outlined fieldset {
-  border-width: 1px;
-}
-
 body .v-application .text-subtitle-1 {
   font-size: 34px !important;
   line-height: 38px;
@@ -259,14 +255,6 @@ a.link-arrow:after, .link-arrow a:after {
   font-size: inherit;
 }
 
-.v-application .navbar-container .v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset {
-  color: #2DC0C5 !important;
-}
-
-.navbar-container .v-icon.v-icon.v-icon--link {
-  color: #2DC0C5 !important;
-}
-
 .v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) > .v-input__control > .v-input__slot {
   border-radius: 12px;
 }
@@ -309,17 +297,6 @@ a.link-arrow:after, .link-arrow a:after {
   }
 }
 
-.search-input-header {
-  min-width: 140px;
-  @media (min-width: 1264px) {
-    min-width: 175px;
-  }
-
-  input:focus {
-    min-width: 300px;
-  }
-}
-
 .quillWrapper {
   &.custom {
     @media (min-width: 960px) {
@@ -355,4 +332,19 @@ a.link-arrow:after, .link-arrow a:after {
 
 .v-progress-circular *{
   color: #2DC0C5
+}
+
+.input-slider-img-block {
+  border: 1px solid #0071B2;
+  border-radius: 20px;
+  overflow: hidden;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

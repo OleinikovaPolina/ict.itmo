@@ -107,7 +107,8 @@
                   Количество мест - <b>{{ program.numbers }}</b>
                 </div>
                 <div class="subtitle-color pb-1 pb-md-2 pb-lg-3">
-                  {{ program.type ? 'Конкурс прошлого года' : 'Проходной балл прошлого года' }}&nbsp;-&nbsp;<b>{{ program.score }}</b>
+                  {{ program.type ? 'Конкурс прошлого года' : 'Проходной балл прошлого года'
+                  }}&nbsp;-&nbsp;<b>{{ program.score }}</b>
                 </div>
                 <div class="subtitle-color pb-1 pb-md-2 pb-lg-3">
                   Язык обучения - <b>{{ program.language }}</b>
@@ -438,11 +439,6 @@ export default {
       { img: require('@/assets/images/home/Vector2.svg'), text: 'Frontend разработка' },
       { img: require('@/assets/images/home/Vector4.svg'), text: 'Управление проектами' },
       { img: require('@/assets/images/home/Vector5.svg'), text: 'Геймификация' }
-    ],
-    slider: [
-      { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') },
-      { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') },
-      { img: require('../assets/images/delete/unsplash_JjjSPPzzpkU.png') }
     ],
     usefulLinks: [
       {
