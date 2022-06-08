@@ -6,8 +6,9 @@
     <v-col
       cols="12"
       md="8"
-      class="text-center mx-auto py-2 py-md-6 hex-subtitle"
+      class="text-center mx-auto py-2 py-md-6 hex-subtitle default-color"
     >
+      <!-- eslint-disable-next-line vue/no-v-html -->
       <div v-html="block.description" />
     </v-col>
     <div class=" text-center mx-auto text-h6 text-sm-h5 text-xl-h4">

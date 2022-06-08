@@ -30,6 +30,7 @@
         <BaseBlock
           :info="info"
           :link="(typeData?'/updateNews/':'/updateAnnouncements/')+info.id"
+          @deleteEntry="deleteEntry(info.id)"
         />
       </v-col>
     </v-row>
@@ -94,11 +95,21 @@ export default {
   },
   methods: {
     ...mapActions('news', ['getNews', 'getAnnouncements']),
+    ...mapActions('admin', ['deleteAnnouncement','deleteNews']),
     getRouterQuery() {
       let pageQuery = parseInt(this.$route.query.page?.toString())
       this.page = pageQuery > 0 ? pageQuery : 1
       let typeDataQuery = parseInt(this.$route.query.typeData?.toString())
       this.typeData = typeDataQuery === 1 ? 1 : 0
+    },
+    async deleteEntry(id){
+      if(this.typeData===0){
+        await this.deleteAnnouncement(id)
+      }
+      if(this.typeData===1){
+        await this.deleteNews(id)
+      }
+      await this.changeNews()
     },
     changeRoute() {
       let query = { page: (this.page).toString() }

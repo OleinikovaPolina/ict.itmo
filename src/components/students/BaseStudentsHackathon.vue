@@ -19,8 +19,9 @@
         <div class="pb-8 text-h4 text-xl-h3 d-none d-md-block">
           {{ block.title }}
         </div>
+        <!-- eslint-disable vue/no-v-html -->
         <div
-          class="text-subtitle-1 pb-6"
+          class="text-subtitle-1 pb-6 default-color"
           v-html="block.description"
         />
       </div>

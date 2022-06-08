@@ -9,7 +9,7 @@
       font-family: "OpenSans-Regular", sans-serif !important;
     }
 
-    .default-color {
+    .default-color, .default-color * {
       color: map-get($theme, "color") !important;
     }
 
@@ -330,7 +330,7 @@ a.link-arrow:after, .link-arrow a:after {
   }
 }
 
-.v-progress-circular *{
+.v-progress-circular * {
   color: #2DC0C5
 }
 

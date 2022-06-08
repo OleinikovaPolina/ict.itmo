@@ -55,6 +55,12 @@
             Размер 480*300
           </label>
         </div>
+        <a
+          v-if="form.cover===null && form.coverCroppie"
+          class="img-name text-center"
+          :href="form.coverCroppie"
+          target="_blank"
+        >{{ form.coverCroppie }}</a>
         <div
           v-if="form.cover"
           class="text-center"
@@ -101,6 +107,12 @@
               Размер 1140*500
             </label>
           </div>
+          <a
+            v-if="!form.sliderImg && form.sliderImgCroppie"
+            class="img-name text-center"
+            :href="form.sliderImgCroppie"
+            target="_blank"
+          >{{ form.sliderImgCroppie }}</a>
           <div
             v-if="form.sliderImg"
             class="text-center"

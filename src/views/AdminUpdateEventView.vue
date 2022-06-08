@@ -48,6 +48,12 @@
             Размер {{ getCoverSize() }}
           </label>
         </div>
+        <a
+          v-if="!form.cover && form.coverCroppie"
+          class="img-name text-center"
+          :href="form.coverCroppie"
+          target="_blank"
+        >{{ form.coverCroppie }}</a>
         <div
           v-if="form.cover"
           class="text-center"

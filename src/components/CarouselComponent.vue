@@ -1,5 +1,8 @@
 <template>
-  <div class="carousel-container">
+  <div
+    class="carousel-container"
+    :class="columns===1?'ma-0':''"
+  >
     <v-carousel
       ref="carousel"
       :show-arrows="false"

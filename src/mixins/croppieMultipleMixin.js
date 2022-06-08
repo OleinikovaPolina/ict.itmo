@@ -59,7 +59,6 @@ export default {
         })
       }
       this.dialogCroppieMultipleDataImg = newValues
-      el.content.images = el.content.images.concat(e)
 
       this.dialogCroppieMultipleEdit = false
       this.changeCroppieMultiple = (e) => {

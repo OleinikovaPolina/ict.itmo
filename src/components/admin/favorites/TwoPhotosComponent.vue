@@ -66,6 +66,12 @@
             Размер 400*300
           </label>
         </div>
+        <a
+          v-if="!form.image1 && form.image1Croppie"
+          class="img-name text-center"
+          :href="form.image1Croppie"
+          target="_blank"
+        >{{ form.image1Croppie }}</a>
         <div
           v-if="form.image1"
           class="text-center"
@@ -113,6 +119,12 @@
             Размер 300*300
           </label>
         </div>
+        <a
+          v-if="!form.image2 && form.image2Croppie"
+          class="img-name text-center"
+          :href="form.image2Croppie"
+          target="_blank"
+        >{{ form.image2Croppie }}</a>
         <div
           v-if="form.image2"
           class="text-center"

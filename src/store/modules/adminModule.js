@@ -58,6 +58,12 @@ const adminModule = {
         .then(() => ({}))
         .catch(() => ({}))
     },
+    async deleteAnnouncement(context, id) {
+      await instance
+        .delete('/announcements/' + id)
+        .then(() => ({}))
+        .catch(() => ({}))
+    },
 
     // news
     async addNews(context, payload) {
@@ -69,6 +75,12 @@ const adminModule = {
     async updateNews(context, payload) {
       await instance
         .put('/news/' + payload.id + '/', payload)
+        .then(() => ({}))
+        .catch(() => ({}))
+    },
+    async deleteNews(context, id) {
+      await instance
+        .delete('/news/' + id)
         .then(() => ({}))
         .catch(() => ({}))
     },

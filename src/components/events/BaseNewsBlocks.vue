@@ -7,7 +7,10 @@
       class="ql-editor pa-0"
       v-html="block.content.text"
     />
-    <v-row v-if="block.type===1">
+    <v-row
+      v-if="block.type===1"
+      class="align-center"
+    >
       <v-col
         v-for="(block2,i) in block.content.blocks"
         :key="i"
@@ -89,7 +92,7 @@
       </CarouselComponent>
     </div>
     <div v-if="block.type===4">
-      <div class="d-flex align-start">
+      <div class="d-flex">
         <div>
           <v-img
             width="50"

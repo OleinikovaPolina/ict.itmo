@@ -1,6 +1,6 @@
 <template>
   <div class="admin-block pa-4">
-    <div class="text-h6">
+    <div class="text-h6 mr-7">
       {{ info.title }}
     </div>
     <div v-if=" info.position">
@@ -40,6 +40,19 @@
         :link="link"
       />
     </div>
+    <div
+      class="pa-3"
+      style="position: absolute;right: 0;top: 0"
+    >
+      <v-btn
+        icon
+        @click="$emit('deleteEntry')"
+      >
+        <v-icon color="#00A1FF">
+          mdi-close
+        </v-icon>
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -58,7 +71,8 @@ export default {
       type: String,
       default: ''
     }
-  }
+  },
+  emits: ['deleteEntry']
 }
 </script>
 

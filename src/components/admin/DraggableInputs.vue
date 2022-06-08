@@ -179,6 +179,12 @@
                         </label>
                       </div>
                     </div>
+                    <a
+                      v-if="!element2.content.img && element2.content.imgName"
+                      class="img-name text-center"
+                      :href="element2.content.imgName.croppie"
+                      target="_blank"
+                    >{{ element2.content.imgName.croppie }}</a>
                     <div
                       v-if="element2.content.img"
                       class="text-center"
@@ -266,7 +272,7 @@
                   </div>
                 </template>
                 <div v-if="element2.type===4">
-                  <div class="ict-border-bottom">
+                  <div class="ict-border-bottom mt-4">
                     <v-textarea
                       v-model="element2.content.text"
                       placeholder="Введите цитату"
@@ -293,7 +299,7 @@
                   placeholder="Введите подзаголовок"
                   outlined
                   dense
-                  class="input-border-0"
+                  class="input-border-0 mt-4"
                   :dark="theme==='dark'"
                   hide-details
                 />
@@ -341,6 +347,12 @@
               </label>
             </div>
           </div>
+          <a
+            v-if="!element.content.img && element.content.imgName"
+            class="img-name text-center"
+            :href="element.content.imgName.croppie"
+            target="_blank"
+          >{{ element.content.imgName.croppie }}</a>
           <div
             v-if="element.content.img"
             class="text-center"
@@ -528,6 +540,8 @@ export default {
       }, 300)
     },
     changeContentImagesBlock(i, vals) {
+      i.content.images = i.content.images.concat(vals)
+      this.$emit('updateBlock')
       this.$emit('beforeCropMultipleInsert', i, vals)
     },
     deleteContentImgBlock(i, j) {
@@ -637,5 +651,10 @@ export default {
     }
   }
 }
-
+.img-name{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+}
 </style>
