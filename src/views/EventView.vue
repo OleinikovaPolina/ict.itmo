@@ -1,6 +1,9 @@
 <template>
   <v-container v-if="loading && Object.keys(eventsOne).length">
-    <BaseNews :data="eventsOne" />
+    <BaseNews
+      :data="eventsOne"
+      :is-date="!['3','4','5','6'].includes($route.params.id)"
+    />
   </v-container>
   <BaseNotFound v-else-if="loading" />
   <div

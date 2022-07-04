@@ -36,7 +36,7 @@
     <div v-if="data.place">
       <b>Место проведения: </b>{{ data.place }}
     </div>
-    <div v-if="data.dateStart||data.date">
+    <div v-if="(data.dateStart||data.date)&&isDate">
       <b>Дата проведения: </b>
       <span v-if="data.timeStart">{{ data.timeStart }} </span>
       <span v-if="$moment(data.dateStart || data.date).format('HH')!=='00'">
@@ -76,6 +76,10 @@ export default {
     data: {
       type: Object,
       default: null
+    },
+    isDate: {
+      type: Boolean,
+      default: true
     }
   }
 }
