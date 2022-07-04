@@ -38,7 +38,7 @@
     <slot name="subtitle" />
     <div
       v-if="slider.length"
-      class="d-flex justify-center align-center pt-3"
+      class="d-flex justify-center align-center pt-6 pt-md-3"
     >
       <button
         class="btn-nav mr-3 d-flex justify-center align-center"

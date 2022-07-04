@@ -78,7 +78,11 @@ export default {
     },
     crop() {
       let options = {
-        type: 'base64'
+        type: 'base64',
+        size: {
+          width: parseInt(document.querySelector('.cr-viewport.cr-vp-square').style.width) * 3,
+          height: parseInt(document.querySelector('.cr-viewport.cr-vp-square').style.height) * 3
+        }
       }
       if (this.enableResize.x && this.enableResize.y) {
         options.size = { width: this.size.w, height: this.size.h }

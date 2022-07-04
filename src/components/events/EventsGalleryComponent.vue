@@ -4,6 +4,7 @@
       class="events-item"
     >
       <v-img
+        min-height="150"
         width="100%"
         :src="item.image['url']"
       />
@@ -18,7 +19,7 @@
           v-if="typeItem"
           class="events-item-footer-text-2"
         >
-          {{ $moment(item.date).format('DD MMMM') }}
+          {{ $moment(item.dateStart).format('DD MMMM') }}
         </div>
       </div>
     </div>

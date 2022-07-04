@@ -131,7 +131,7 @@
                 :key="n"
                 class="pt-2 pt-sm-6"
                 :style="{width:n===1||n===4?'48%':'45%'}"
-                :class="n===2?'pb-6':n===3?'pt-5 pt-sm-11':''"
+                :class="n===2?'pb-5':n===3?'pt-5 pt-sm-11':''"
               >
                 <EventsGalleryComponent
                   :item="events[n+1]"

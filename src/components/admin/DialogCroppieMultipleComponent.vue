@@ -89,7 +89,11 @@ export default {
     },
     crop(i) {
       let options = {
-        type: 'base64'
+        type: 'base64',
+        size: {
+          width: parseInt(document.querySelector('.cr-viewport.cr-vp-square').style.width) * 3,
+          height: parseInt(document.querySelector('.cr-viewport.cr-vp-square').style.height) * 3
+        }
       }
       let res = []
       this.$refs.croppieRef.result(options, output => {

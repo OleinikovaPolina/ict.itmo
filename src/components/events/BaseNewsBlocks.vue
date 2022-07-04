@@ -59,7 +59,7 @@
                 alt=""
                 :class="'carousel-img-'+(block.id||index)"
                 :src="slotProps.item.croppie"
-                style="object-fit: contain;  width: 100%"
+                style="object-fit: contain;  width: 100%;min-height: 150px"
                 @load="getHeight(slotProps.item.croppie)"
               >
             </div>

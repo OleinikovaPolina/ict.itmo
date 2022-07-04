@@ -146,9 +146,9 @@
       </v-row>
     </v-container>
     <!--  course  -->
-    <v-container class="pb-4 pb-md-12">
-      <BaseStudentsArticleComponent :block="getArticle(4)" />
-    </v-container>
+    <!--    <v-container class="pb-4 pb-md-12">-->
+    <!--      <BaseStudentsArticleComponent :block="getArticle(4)" />-->
+    <!--    </v-container>-->
     <!--  podcast  -->
     <LineComponent
       id="3"
@@ -243,7 +243,7 @@ import { mapActions, mapState } from 'vuex'
 export default {
   name: 'StudentsView',
   components: {
-    BaseStudentsArticleComponent: () => import('@/components/students/BaseStudentsArticleComponent'),
+    // BaseStudentsArticleComponent: () => import('@/components/students/BaseStudentsArticleComponent'),
     BaseStudentsCompetition: () => import('@/components/students/BaseStudentsCompetition'),
     BaseStudentsHackathon: () => import('@/components/students/BaseStudentsHackathon'),
     LineComponent: () => import('@/components/LineComponent'),

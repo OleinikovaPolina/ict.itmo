@@ -563,7 +563,7 @@ export default {
     font-size: 70px;
   }
   @media (max-width: 600px) {
-    font-size: 35px;
+    font-size: 32px;
   }
 }
 

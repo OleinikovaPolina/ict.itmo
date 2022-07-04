@@ -6,7 +6,7 @@
   >
     <v-img
       v-if="isLoad"
-      class="mb-4"
+      class="mb-2 mb-md-4"
       :style="{width: '100%'}"
       :src="news.image['url']"
       :min-height="$vuetify.breakpoint.xsOnly?'65px':'100px'"
@@ -21,7 +21,7 @@
         </v-row>
       </template>
     </v-img>
-    <div class="news-subtitle mb-1">
+    <div class="news-subtitle mb-md-1">
       {{ $moment(news.date).format('D MMMM YYYY') }}
     </div>
     <div class="news-name subtitle-color">

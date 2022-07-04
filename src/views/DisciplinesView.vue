@@ -51,8 +51,11 @@
               $expand
             </v-icon>
           </template>
-          <div class="text-h6 text-xl-h5 order-1">
-            {{ item.semester }} семестр
+          <div
+            class="text-h6 text-xl-h5 order-1"
+            style="line-height: normal"
+          >
+            {{ item.semester }}
           </div>
         </v-expansion-panel-header>
         <v-expansion-panel-content class="section-background px-0 pt-3">
@@ -64,7 +67,7 @@
             :id="'ict-line-'+n+'-2'"
             class="ict-line ict-line-2"
           />
-          <v-container>
+          <v-container class="text-body-2 text-md-body-1">
             <div
               v-for="discipline in item.disciplines"
               :key="discipline"
