@@ -224,7 +224,7 @@
         <div class="text-center mx-auto pb-4 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Сотрудники факультета
         </div>
-        <CarouselLeadersComponent :slider="persons" />
+        <CarouselLeadersComponent :slider="[dean].concat(contacts,office)" />
       </v-container>
     </div>
   </div>
@@ -255,50 +255,6 @@ export default {
   data: () => ({
     isLoad: false,
     scrolledHexLines: false,
-    persons: [
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Александрова А.А.',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Александрова А.А.',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      }
-    ],
     usefulLinks: [
       {
         name: 'Административные', img: require('../assets/images/students/building.svg'),
@@ -328,7 +284,10 @@ export default {
       }
     ]
   }),
-  computed: mapState('news', ['articles']),
+  computed: {
+    ...mapState('news', [ 'articles']),
+    ...mapState('contacts', ['contacts', 'dean', 'office'])
+  },
   async mounted() {
     await this.getArticles()
     this.isLoad = true

@@ -177,7 +177,7 @@
         <div class="text-center mx-auto pb-4 pb-sm-6 pb-xl-8 text-h6 text-sm-h4 text-xl-h3">
           Руководство факультета
         </div>
-        <CarouselLeadersComponent :slider="persons" />
+        <CarouselLeadersComponent :slider="[dean].concat(contacts,office)" />
       </v-container>
     </div>
     <LineComponent
@@ -378,56 +378,15 @@ export default {
       { name: '~1000', description: 'студентов' },
       { name: '6', description: 'образовательных<br>программ' }
     ],
-    persons: [
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Александрова А.А.',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Александрова А.А.',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      },
-      {
-        img: require('../assets/images/home/homeHeader/unsplash_FcLyt7lW5wg.png'),
-        name: 'Арсеньева Анна Закировна',
-        position: 'Заместитель декана факультета',
-        email: 'Aleksandrov@gmail.com'
-      }
-    ],
     scrolledClub: [{ type: false }, { type: false }, { type: false }, { type: false }],
     scrolledNumbers: false,
     scrolledHexLines: false,
     isLoad: false
   }),
-  computed: mapState('news', ['news', 'article']),
+  computed: {
+    ...mapState('news', ['news', 'article']),
+    ...mapState('contacts', ['contacts', 'dean', 'office'])
+  },
   watch: {
     scrolledClub: {
       handler: function(values) {

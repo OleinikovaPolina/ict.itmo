@@ -2,7 +2,7 @@ const appModule = {
   namespaced: true,
   state: () => ({
     dean: {
-      img: require('../../assets/images/contacts/unsplash_v2aKnjMbP_k.png'),
+      img: require('../../assets/images/people/137820.jpg'),
       name: 'Капитонов Александр Александрович',
       position: 'Декан факультета',
       email: 'kapitonov.aleksandr@itmo.ru',
