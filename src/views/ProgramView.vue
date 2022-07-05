@@ -309,6 +309,7 @@
         <BaseHexagonContainer
           :link="'/disciplines/'+program.code"
           :hex-array="hexArray"
+          :small="true"
         />
       </v-container>
     </div>
@@ -433,12 +434,12 @@ export default {
   data: () => ({
     scrolledHexLines: false,
     hexArray: [
-      { img: require('@/assets/images/home/Vector.svg'), text: 'Архитектура баз данных' },
-      { img: require('@/assets/images/home/Vector1.svg'), text: 'Облачные технологии' },
-      { img: require('@/assets/images/home/Vector3.svg'), text: 'Backend разработка' },
-      { img: require('@/assets/images/home/Vector2.svg'), text: 'Frontend разработка' },
+      { img: require('@/assets/images/home/Vector.svg'), text: 'Проектирование и реализация баз данных' },
+      { img: require('@/assets/images/program/med.svg'), text: 'Основы обработки мультимедийных данных' },
+      { img: require('@/assets/images/home/Vector1.svg'), text: 'Облачные технологии и услуги' },
+      { img: require('@/assets/images/program/web.svg'), text: 'Основы Web программирования' },
       { img: require('@/assets/images/home/Vector4.svg'), text: 'Управление проектами' },
-      { img: require('@/assets/images/home/Vector5.svg'), text: 'Геймификация' }
+      { img: require('@/assets/images/program/math.svg'), text: 'Дискретная математика' }
     ],
     usefulLinks: [
       {

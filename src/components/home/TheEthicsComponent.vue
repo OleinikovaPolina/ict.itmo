@@ -244,10 +244,12 @@ export default {
   methods: {
     handleScroll() {
       let obj = document.querySelector('.ethics-container')
-      let { bottom } = obj.getBoundingClientRect()
-      let height = document.documentElement.clientHeight
-      if (!this.scrolled) {
-        this.scrolled = bottom < height && bottom > 0
+      if (obj) {
+        let { bottom } = obj.getBoundingClientRect()
+        let height = document.documentElement.clientHeight
+        if (!this.scrolled) {
+          this.scrolled = bottom < height && bottom > 0
+        }
       }
     }
   }
@@ -262,7 +264,7 @@ export default {
 }
 
 @keyframes BookText12Animation {
-  99%{
+  99% {
     transform: scaleY(1);
     opacity: 0;
   }

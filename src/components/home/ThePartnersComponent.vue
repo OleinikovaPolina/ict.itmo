@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="d-flex justify-space-between align-center pb-2 pt-md-10 pb-md-6">
+    <div class="d-flex justify-space-between align-center pb-2 pt-6 pt-md-10 pb-md-6">
       <div class="text-center mx-auto text-h6 text-sm-h4 text-xl-h3">
         Партнеры
       </div>

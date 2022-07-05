@@ -1,6 +1,7 @@
 <template>
   <div
     class="hex-container"
+    :class="{'hex-small':small}"
   >
     <div
       v-for="(hex,i) in hexArray"
@@ -102,7 +103,7 @@
         @mouseover="hexHover(i)"
       >
         <v-img
-          width="100%"
+          :width="small?'75%':'100%'"
           contain
           class="mx-auto hex-img"
           :src="hex.img"
@@ -135,6 +136,10 @@ export default {
     link: {
       type: String,
       default: '/'
+    },
+    small: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
@@ -205,6 +210,16 @@ export default {
   }
 }
 
+@keyframes hexTextSm {
+  0% {
+    opacity: 0;
+    height: 0;
+  }
+  100% {
+    opacity: 1;
+    height: 22px;
+  }
+}
 .hex-container {
   position: relative;
   height: 600px;
@@ -272,6 +287,13 @@ export default {
   }
 }
 
+.hex-small .hex-content {
+  padding: 1.5rem;
+  @media (max-width: 600px) {
+    padding: 1em;
+  }
+}
+
 .hex-text {
   padding-top: 0.5em;
   font-size: 20px;
@@ -295,6 +317,31 @@ export default {
   }
   opacity: 0;
   height: 0;
+}
+
+.hex-small .hex-text {
+  font-size: 14px;
+  line-height: 16px;
+  @media (max-width: 1904px) {
+    font-size: 12px;
+    line-height: 14px;
+  }
+  @media (max-width: 1514px) {
+    font-size: 10px;
+    line-height: 12px;
+  }
+  @media (max-width: 1264px) {
+    font-size: 9px;
+    line-height: 10px;
+  }
+  @media (max-width: 600px) {
+    font-size: 7px;
+    line-height: 8px;
+  }
+  @media (max-width: 480px) {
+    font-size: 6px;
+    line-height: 7px;
+  }
 }
 
 .hex-img {
@@ -647,6 +694,9 @@ export default {
 
   .hex-text {
     animation: hexText 1s 2s forwards;
+    @media (max-width: 600px) {
+      animation: hexTextSm 1s 2s forwards;
+    }
   }
 
   .hex-0 {

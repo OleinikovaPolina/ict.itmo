@@ -36,10 +36,9 @@ const appModule = {
     ],
     office:[
       {
-        img: require('../../assets/images/people/152794.jpg'),
-        name: 'Харьковская Татьяна Александровна',
+        name: 'Наталья Владимировна Монахова',
         position: 'Руководитель учебного офиса',
-        email: 'tatiana.kharkovskaia@itmo.ru'
+        email: 'm.n.v@niuitmo.ru'
       },
       {
         name: 'Говорова Марина Михайловна',

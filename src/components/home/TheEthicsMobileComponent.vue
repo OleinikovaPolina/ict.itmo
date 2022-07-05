@@ -244,10 +244,12 @@ export default {
   methods: {
     handleScroll() {
       let obj = document.querySelector('.ethics-mobile-container')
-      let { bottom, height } = obj.getBoundingClientRect()
-      let clientHeight = document.documentElement.clientHeight
-      if (!this.scrolled) {
-        this.scrolled = bottom - height * 2 / 3 < clientHeight && bottom > 0
+      if (obj) {
+        let { bottom, height } = obj.getBoundingClientRect()
+        let clientHeight = document.documentElement.clientHeight
+        if (!this.scrolled) {
+          this.scrolled = bottom - height * 2 / 3 < clientHeight && bottom > 0
+        }
       }
     }
   }

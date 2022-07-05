@@ -149,7 +149,7 @@
     <!--    <v-container class="pb-4 pb-md-12">-->
     <!--      <BaseStudentsArticleComponent :block="getArticle(4)" />-->
     <!--    </v-container>-->
-    <!--  podcast  -->
+    <!--  Leaders  -->
     <LineComponent
       id="3"
       color="#6A30F4"
@@ -163,45 +163,12 @@
       position="left"
       top="10px"
     />
-    <div class="section-background pt-4 pt-md-8 pb-4 pb-md-8 ">
+    <div class="section-background pt-8 pt-md-12 pb-2 pb-md-6">
       <v-container>
-        <v-row class="d-flex align-center justify-center">
-          <v-col class="text-center d-md-none">
-            <div class="text-h6 text-sm-h5">
-              Видео
-            </div>
-          </v-col>
-          <v-col
-            cols="12"
-            md="6"
-            :class="$vuetify.breakpoint.smAndDown?'text-center':''"
-            class="d-flex flex-column justify-space-around order-2 order-md-0"
-          >
-            <div>
-              <div class="pb-8 text-h4 text-xl-h3 d-none d-md-block">
-                Видео
-              </div>
-              <div class="text-subtitle-1 pb-6">
-                Мы снимаем полезные и классные видеролики про программирование, насущные вопросы, жизнь в Университете
-                ИТМО. А также рассказываем про программы и возможности, которые реализуются у нас на факультете ИКТ.
-                Если хотите окунуться в жизнь факультета, то погружайся вместе с ИКТ!
-              </div>
-            </div>
-            <div :class="$vuetify.breakpoint.smAndDown?'mx-auto':''">
-              <BaseButton
-                href="https://vk.com/video/@ict.itmo"
-                text="Открыть"
-              />
-            </div>
-          </v-col>
-          <v-col
-            cols="12"
-            md="6"
-            class="d-flex justify-center order-1"
-          >
-            <TheStudentsVideoComponent />
-          </v-col>
-        </v-row>
+        <div class="text-center mx-auto pb-4 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
+          Сотрудники факультета
+        </div>
+        <CarouselLeadersComponent :slider="[dean].concat(contacts,office)" />
       </v-container>
     </div>
     <LineComponent
@@ -218,15 +185,6 @@
       position="right"
       top="10px"
     />
-    <!--  Leaders  -->
-    <div class="pt-8 pt-md-12">
-      <v-container>
-        <div class="text-center mx-auto pb-4 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
-          Сотрудники факультета
-        </div>
-        <CarouselLeadersComponent :slider="[dean].concat(contacts,office)" />
-      </v-container>
-    </div>
   </div>
   <div
     v-else
@@ -247,9 +205,7 @@ export default {
     BaseStudentsCompetition: () => import('@/components/students/BaseStudentsCompetition'),
     BaseStudentsHackathon: () => import('@/components/students/BaseStudentsHackathon'),
     LineComponent: () => import('@/components/LineComponent'),
-    TheStudentsVideoComponent: () => import('@/components/students/TheStudentsVideoComponent'),
     BaseUlBlock: () => import('@/components/BaseUlBlock'),
-    BaseButton: () => import('@/components/BaseButton'),
     CarouselLeadersComponent: () => import('@/components/CarouselLeadersComponent')
   },
   data: () => ({

@@ -314,6 +314,75 @@
         </v-row>
       </v-container>
     </div>
+    <!--  podcast  -->
+    <LineComponent
+      id="13"
+      color="#6A30F4"
+      width="35%"
+      position="right"
+    />
+    <LineComponent
+      id="14"
+      color="#FF776E"
+      width="70%"
+      position="left"
+      top="10px"
+    />
+    <div class="section-background pt-4 pt-md-8 pb-4 pb-md-8 ">
+      <v-container>
+        <v-row class="d-flex align-center justify-center">
+          <v-col class="text-center d-md-none">
+            <div class="text-h6 text-sm-h5">
+              Видео
+            </div>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+            :class="$vuetify.breakpoint.smAndDown?'text-center':''"
+            class="d-flex flex-column justify-space-around order-2 order-md-0"
+          >
+            <div>
+              <div class="pb-8 text-h4 text-xl-h3 d-none d-md-block">
+                Видео
+              </div>
+              <div class="text-subtitle-1 pb-6">
+                Мы снимаем полезные и классные видеролики про программирование, насущные вопросы, жизнь в Университете
+                ИТМО. А также рассказываем про программы и возможности, которые реализуются у нас на факультете ИКТ.
+                Если хотите окунуться в жизнь факультета, то погружайся вместе с ИКТ!
+              </div>
+            </div>
+            <div :class="$vuetify.breakpoint.smAndDown?'mx-auto':''">
+              <BaseButton
+                href="https://vk.com/video/@ict.itmo"
+                text="Открыть"
+              />
+            </div>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+            class="d-flex justify-center order-1"
+          >
+            <TheStudentsVideoComponent />
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
+    <LineComponent
+      id="15"
+      color="#FF0281"
+      width="35%"
+      position="left"
+      top="-5px"
+    />
+    <LineComponent
+      id="16"
+      color="#18FFBA"
+      width="68%"
+      position="right"
+      top="10px"
+    />
     <!--  Partners  -->
     <PartnersComponent />
   </div>
@@ -339,7 +408,9 @@ export default {
     TheEthicsMobileComponent: () => import('@/components/home/TheEthicsMobileComponent'),
     NewsComponent: () => import('@/components/events/NewsComponent'),
     PartnersComponent: () => import('@/components/home/ThePartnersComponent'),
-    BaseHexagonContainer: () => import('@/components/BaseHexagonContainer')
+    BaseHexagonContainer: () => import('@/components/BaseHexagonContainer'),
+    TheStudentsVideoComponent: () => import('@/components/students/TheStudentsVideoComponent'),
+    BaseButton: () => import('@/components/BaseButton'),
   },
   props: { animationHeader: { type: Boolean, default: false } },
   data: () => ({

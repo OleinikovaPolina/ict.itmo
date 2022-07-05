@@ -312,7 +312,7 @@ export default {
   data: () => ({
     social: [
       { icon: iconYT, link: 'https://www.youtube.com/channel/UC7cJ1RBFsZ7WWjoXV_5Vl1A' },
-      { icon: iconVk, link: 'https://vk.com/dict_itmo' },
+      { icon: iconVk, link: 'https://vk.com/ict.itmo' },
       { icon: iconTe, link: 'https://t.me/itmoict' }
     ]
   })
