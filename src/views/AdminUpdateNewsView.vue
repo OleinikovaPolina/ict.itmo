@@ -383,26 +383,31 @@ export default {
       this.form.title = this.newsOne.title
       this.form.dateStart = this.$moment(this.newsOne.date).format('YYYY-MM-DD')
       this.form.timeStart = this.$moment(this.newsOne.date).format('HH:mm')
+      this.form.datePublish = this.$moment(this.newsOne.datePublished).format('YYYY-MM-DD')
+      this.form.timePublish = this.$moment(this.newsOne.datePublished).format('HH:mm')
       this.form.tagsIds = this.newsOne.tags.map(tag => tag.id)
       this.form.coverCroppie = this.newsOne.image.url
       this.form.blocks = this.dataToFormBlocks(this.newsOne.blocks)
       this.count = this.form.blocks.length + 1
+      if (this.newsOne.sliderImg) {
+        this.form.isSlider = true
+        this.form.sliderImgCroppie = this.newsOne.sliderImg.url
+      }
     },
     canBePublished() {
       let k = true
-      // if (this.form.isSlider && !this.form.sliderImg) {
-      //   k = false
-      // }
+      if (this.form.isSlider && !this.form.sliderImgCroppie) {
+        k = false
+      }
       for (const block of this.form.blocks) {
         if (block.type === -1) {
           k = false
           break
         }
       }
-
       return !(this.form.coverCroppie && this.form.title && this.form.dateStart
-        && this.form.tagsIds.length && this.form.blocks.length && k)
-      //  && this.form.datePublish && this.form.timePublish
+        && this.form.tagsIds.length && this.form.blocks.length && k
+        && this.form.datePublish && this.form.timePublish)
     },
     removeTag(item) {
       const index = this.form.tagsIds.indexOf(item.id)
@@ -417,6 +422,11 @@ export default {
         formPublish.dateStart.setHours(parseInt(timeStart[0]), parseInt(timeStart[1]))
       }
       formPublish.date = this.$moment(formPublish.dateStart).format()
+      //date publish
+      let timePublish = formPublish.timePublish.split(':')
+      formPublish.datePublish = new Date(formPublish.datePublish)
+      formPublish.datePublish.setHours(parseInt(timePublish[0]), parseInt(timePublish[1]))
+      formPublish.datePublished = this.$moment(formPublish.datePublish).format()
       //cover news
       if (formPublish.coverBlob) {
         await this.addAttachment(formPublish.coverBlob).then(res => {
@@ -424,6 +434,15 @@ export default {
         }).catch(() => ({}))
       } else {
         formPublish.imageId = this.newsOne.image.id
+      }
+      //slider
+      if (this.isSlider && this.sliderImgBlob) {
+        await this.addAttachment(formPublish.sliderImgBlob).then(res => {
+          formPublish.slideImageId = res.data.id
+        }).catch(() => ({}))
+      }
+      if (this.isSlider) {
+        formPublish.slideImageId = this.newsOne.slideImage.id
       }
       //blocks
       formPublish.blocks = await this.publishBlocks(formPublish.blocks)

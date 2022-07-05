@@ -1,6 +1,6 @@
 <template>
   <router-link
-    :to="'/new/'+news.id"
+    :to="'/news/'+news.id"
     class="text-decoration-none"
     style="height: 100%"
   >

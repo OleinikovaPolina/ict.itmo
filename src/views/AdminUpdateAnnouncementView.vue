@@ -382,29 +382,32 @@ export default {
       this.form.title = this.announcement.title
       this.form.place = this.announcement.place
       this.form.dateStart = this.$moment(this.announcement.dateStart).format('YYYY-MM-DD')
+      this.form.datePublish = this.$moment(this.announcement.datePublished).format('YYYY-MM-DD')
       this.form.dateEnd = this.announcement.dateEnd ? this.$moment(this.announcement.dateEnd).format('YYYY-MM-DD') : ''
       this.form.timeStart = this.$moment(this.announcement.dateStart).format('HH:mm')
+      this.form.timePublish = this.$moment(this.announcement.datePublished).format('HH:mm')
       this.form.tagsIds = this.announcement.tags.map(tag => tag.id)
       this.form.blocks = this.dataToFormBlocks(this.announcement.blocks)
       this.count = this.form.blocks.length + 1
+      if (this.announcement.sliderImg) {
+        this.form.isSlider = true
+        this.form.sliderImgCroppie = this.announcement.sliderImg.url
+      }
     },
     canBePublished() {
       let k = true
-
-      // if (this.form.isSlider && !this.form.sliderImg) {
-      //   k = false
-      // }
-
+      if (this.form.isSlider && !this.form.sliderImgCroppie) {
+        k = false
+      }
       for (const block of this.form.blocks) {
         if (block.type === -1) {
           k = false
           break
         }
       }
-
       return !(this.form.place && this.form.title && this.form.dateStart
-        && this.form.tagsIds.length && this.form.blocks.length && k)
-      //  && this.form.datePublish && this.form.timePublish
+        && this.form.tagsIds.length && this.form.blocks.length && k
+        && this.form.datePublish && this.form.timePublish)
     },
     removeTag(item) {
       const index = this.form.tagsIds.indexOf(item.id)
@@ -423,6 +426,20 @@ export default {
         formPublish.dateEnd = this.$moment(formPublish.dateEnd).format()
       } else {
         formPublish.dateEnd = null
+      }
+      //date publish
+      let timePublish = formPublish.timePublish.split(':')
+      formPublish.datePublish = new Date(formPublish.datePublish)
+      formPublish.datePublish.setHours(parseInt(timePublish[0]), parseInt(timePublish[1]))
+      formPublish.datePublished = this.$moment(formPublish.datePublish).format()
+      //slider
+      if (this.isSlider && this.sliderImgBlob) {
+        await this.addAttachment(formPublish.sliderImgBlob).then(res => {
+          formPublish.slideImageId = res.data.id
+        }).catch(() => ({}))
+      }
+      if (this.isSlider) {
+        formPublish.slideImageId = this.announcement.slideImage.id
       }
       //blocks
       formPublish.blocks = await this.publishBlocks(formPublish.blocks)

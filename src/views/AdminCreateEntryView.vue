@@ -427,9 +427,9 @@ export default {
       if (this.typeData === 0 && !this.form.place) {
         k = false
       }
-      // if (this.form.isSlider && !this.form.sliderImg) {
-      //   k = false
-      // }
+      if (this.form.isSlider && !this.form.sliderImg) {
+        k = false
+      }
       for (const block of this.form.blocks) {
         if (block.type === -1) {
           k = false
@@ -437,9 +437,8 @@ export default {
         }
       }
       return !(this.form.title && this.form.dateStart
-        && this.form.tagsIds.length && this.form.blocks.length && k)
-
-      //  && this.form.datePublish && this.form.timePublish
+        && this.form.tagsIds.length && this.form.blocks.length && k
+        && this.form.datePublish && this.form.timePublish)
     },
     changeTypeData(val) {
       this.typeData = val
@@ -463,10 +462,21 @@ export default {
       if (this.typeData === 1) {
         formPublish.date = formPublish.dateStart
       }
+      //date publish
+      let timePublish = formPublish.timePublish.split(':')
+      formPublish.datePublish = new Date(formPublish.datePublish)
+      formPublish.datePublish.setHours(parseInt(timePublish[0]), parseInt(timePublish[1]))
+      formPublish.datePublished = this.$moment(formPublish.datePublish).format()
       //cover news
       if (this.typeData === 1) {
         await this.addAttachment(formPublish.coverBlob).then(res => {
           formPublish.imageId = res.data.id
+        }).catch(() => ({}))
+      }
+      //slider
+      if(this.isSlider && this.sliderImgBlob){
+        await this.addAttachment(formPublish.sliderImgBlob).then(res => {
+          formPublish.slideImageId = res.data.id
         }).catch(() => ({}))
       }
       //blocks

@@ -8,12 +8,12 @@
       >
         <template #item="slotProps">
           <v-col cols="12">
-            <div>
+            <router-link :to="slotProps.item.contentType+'/'+slotProps.item.objectId">
               <v-img
                 width="100%"
-                :src="slotProps.item.img"
+                :src="slotProps.item.image.id"
               />
-            </div>
+            </router-link>
           </v-col>
         </template>
       </CarouselComponent>
@@ -180,20 +180,16 @@ export default {
     NewsComponent: () => import('@/components/events/NewsComponent')
   },
   data: () => ({
-    slider: [
-      { img: require('../assets/images/delete/12.png') },
-      { img: require('../assets/images/delete/12.png') },
-      { img: require('../assets/images/delete/12.png') }
-    ],
     isLoad: false
   }),
-  computed: mapState('news', ['news', 'announcements', 'events']),
+  computed: mapState('news', ['news', 'announcements', 'events', 'slider']),
   async mounted() {
     await this.getNews()
     await this.getAnnouncements()
     await this.getEvents()
+    await this.getSlider()
     this.isLoad = true
   },
-  methods: mapActions('news', ['getNews', 'getAnnouncements', 'getEvents'])
+  methods: mapActions('news', ['getNews', 'getAnnouncements', 'getEvents', 'getSlider'])
 }
 </script>

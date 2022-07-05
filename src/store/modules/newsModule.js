@@ -156,6 +156,14 @@ const newsModule = {
           commit('CHANGE_ARTICLES', res.data)
         })
         .catch(() => ({}))
+    },
+    async getSlider({ commit }) {
+      await instance
+        .get('/slides')
+        .then(res => {
+          commit('CHANGE_SLIDER', res.data)
+        })
+        .catch(() => ({}))
     }
   }
 }

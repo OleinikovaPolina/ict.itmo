@@ -11,14 +11,20 @@
         <div v-if="data.datePublish">
           {{ $moment(data.datePublish).format('DD.MM.YYYY') + ', ' + data.timePublish }}
         </div>
-        <div class="pl-6 d-flex align-center">
+        <div v-if="data.datePublished">
+          {{ $moment(data.datePublished).format('DD.MM.YYYY, HH:mm') }}
+        </div>
+        <div
+          v-if="data.views"
+          class="pl-6 d-flex align-center"
+        >
           <v-icon
             color="#00A1FF"
             class="mr-1"
           >
             mdi-eye
           </v-icon>
-          0
+          {{ data.views }}
         </div>
       </div>
     </div>
