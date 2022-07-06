@@ -4,7 +4,7 @@
       class="events-item"
     >
       <v-img
-        min-height="150"
+        min-height="100"
         width="100%"
         :src="item.image['url']"
       />

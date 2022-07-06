@@ -410,7 +410,7 @@ export default {
     PartnersComponent: () => import('@/components/home/ThePartnersComponent'),
     BaseHexagonContainer: () => import('@/components/BaseHexagonContainer'),
     TheStudentsVideoComponent: () => import('@/components/students/TheStudentsVideoComponent'),
-    BaseButton: () => import('@/components/BaseButton'),
+    BaseButton: () => import('@/components/BaseButton')
   },
   props: { animationHeader: { type: Boolean, default: false } },
   data: () => ({
@@ -497,10 +497,12 @@ export default {
         }
       })
       if (!this.scrolledNumbers) {
-        let bottomNumbers = document.querySelector('.animation-numbers').getBoundingClientRect().bottom
-        this.scrolledNumbers = bottomNumbers < height && bottomNumbers > 0
+        let numbers = document.querySelector('.animation-numbers')
+        if (numbers) {
+          let bottomNumbers = numbers.getBoundingClientRect().bottom
+          this.scrolledNumbers = bottomNumbers < height && bottomNumbers > 0
+        }
       }
-
       if (!this.scrolledHexLines) {
         let line = document.querySelector('.hex-section')
         if (line) {

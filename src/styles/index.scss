@@ -28,6 +28,10 @@
       color: map-get($theme, "subtitle-color");
     }
 
+    .ql-editor a *, .ql-editor a {
+      color: map-get($theme, "subtitle-color") !important;
+    }
+
     .subtitle-color-diff {
       color: map-get($theme, "subtitle-color-diff");
     }
