@@ -90,12 +90,12 @@
               id="sliderImg"
               type="file"
               accept="image/*"
-              @change="(e)=>{beforeCrop('sliderImg',{w:912,h:400},'Слайдер',e.target.files[0])}"
+              @change="(e)=>{beforeCrop('sliderImg',{w:912,h:513},'Слайдер',e.target.files[0])}"
             >
             <label
               for="sliderImg"
               class="d-flex align-center py-6 px-12 text-center"
-              @change="(e)=>{beforeCrop('sliderImg',{w:912,h:400},'Слайдер',e.dataTransfer.files[0])}"
+              @change="(e)=>{beforeCrop('sliderImg',{w:912,h:513},'Слайдер',e.dataTransfer.files[0])}"
             >
               <v-img
                 style="z-index: 0"
@@ -104,7 +104,7 @@
                 src="../assets/images/admin/ep_picture.svg"
               />
               Выберите изображение обложки или перетащите файл<br>
-              Размер 1140*500
+              Размер 1920*1080
             </label>
           </div>
           <a
@@ -389,9 +389,9 @@ export default {
       this.form.coverCroppie = this.newsOne.image.url
       this.form.blocks = this.dataToFormBlocks(this.newsOne.blocks)
       this.count = this.form.blocks.length + 1
-      if (this.newsOne.sliderImg) {
+      if (this.newsOne.slideImage) {
         this.form.isSlider = true
-        this.form.sliderImgCroppie = this.newsOne.sliderImg.url
+        this.form.sliderImgCroppie = this.newsOne.slideImage.url
       }
     },
     canBePublished() {
@@ -436,13 +436,13 @@ export default {
         formPublish.imageId = this.newsOne.image.id
       }
       //slider
-      if (this.isSlider && this.sliderImgBlob) {
+      if (formPublish.isSlider && formPublish.sliderImgBlob) {
         await this.addAttachment(formPublish.sliderImgBlob).then(res => {
           formPublish.slideImageId = res.data.id
         }).catch(() => ({}))
       }
-      if (this.isSlider) {
-        formPublish.slideImageId = this.newsOne.slideImage.id
+      if (!formPublish.isSlider) {
+        formPublish.slideImageId = null
       }
       //blocks
       formPublish.blocks = await this.publishBlocks(formPublish.blocks)

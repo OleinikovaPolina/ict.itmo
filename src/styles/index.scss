@@ -249,6 +249,11 @@ a.link-arrow:after, .link-arrow a:after {
     width: min(100%, 560px);
     height: 315px;
   }
+
+  * {
+    color: inherit !important;
+    background-color: inherit !important;
+  }
 }
 
 .link-arrow .ql-editor a {

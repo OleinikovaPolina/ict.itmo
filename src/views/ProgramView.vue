@@ -36,7 +36,7 @@
           </div>
           <div :class="$vuetify.breakpoint.smAndDown?'mx-auto':''">
             <BaseButton
-              link="/"
+              :href="program.links[0].link"
               text="Перейти на сайт"
             />
           </div>

@@ -8,10 +8,10 @@
       >
         <template #item="slotProps">
           <v-col cols="12">
-            <router-link :to="slotProps.item.contentType+'/'+slotProps.item.objectId">
+            <router-link :to="slotProps.item.contentType+'/'+slotProps.item.id">
               <v-img
                 width="100%"
-                :src="slotProps.item.image.id"
+                :src="slotProps.item.slideImage.url"
               />
             </router-link>
           </v-col>
