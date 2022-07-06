@@ -167,10 +167,12 @@ export default {
   methods: {
     handleScroll() {
       let obj = document.querySelector('.hex-container')
-      let { bottom } = obj.getBoundingClientRect()
-      let height = document.documentElement.clientHeight
-      if (!this.scrolled) {
-        this.scrolled = bottom < height && bottom > 0
+      if (obj) {
+        let { bottom } = obj.getBoundingClientRect()
+        let height = document.documentElement.clientHeight
+        if (!this.scrolled) {
+          this.scrolled = bottom < height && bottom > 0
+        }
       }
     },
     hexHover(i) {
@@ -220,6 +222,7 @@ export default {
     height: 22px;
   }
 }
+
 .hex-container {
   position: relative;
   height: 600px;

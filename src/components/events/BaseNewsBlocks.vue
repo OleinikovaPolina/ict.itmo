@@ -47,7 +47,10 @@
         </v-icon>
       </v-btn>
     </div>
-    <div v-if="block.type===3">
+    <div
+      v-if="block.type===3"
+      :class="'carousel-block-'+(block.id||index)"
+    >
       <CarouselComponent
         :slider="block.content.imagesName"
         :columns="1"
@@ -150,6 +153,7 @@ export default {
           if (blocks.length) {
             height = Math.min(height, blocks[0].height)
             blocks.forEach(x => x.height = height)
+            document.querySelector('.carousel-block-' + (this.block.id || this.index) + ' .v-window__container').style.height = `${height + 6}px`
           }
         }
         img.src = src

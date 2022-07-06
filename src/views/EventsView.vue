@@ -9,10 +9,13 @@
         <template #item="slotProps">
           <v-col cols="12">
             <router-link :to="slotProps.item.contentType+'/'+slotProps.item.id">
-              <v-img
+              <img
+                alt="..."
+                class="carousel-img"
                 width="100%"
                 :src="slotProps.item.slideImage.url"
-              />
+                @load="getHeight(slotProps.item.slideImage.url)"
+              >
             </router-link>
           </v-col>
         </template>
@@ -190,6 +193,20 @@ export default {
     await this.getSlider()
     this.isLoad = true
   },
-  methods: mapActions('news', ['getNews', 'getAnnouncements', 'getEvents', 'getSlider'])
+  methods: {
+    ...mapActions('news', ['getNews', 'getAnnouncements', 'getEvents', 'getSlider']),
+    getHeight(src) {
+      let img = new Image()
+      img.onload = () => {
+        let height = img.height
+        if (document.querySelectorAll('.carousel-img').length) {
+          height = Math.min(height, document.querySelectorAll('.carousel-img')[0].height)
+          document.querySelectorAll('.carousel-img').forEach(x => x.height = height)
+          document.querySelector('.carousel-container .v-window__container').style.height = `${height + 6}px`
+        }
+      }
+      img.src = src
+    }
+  }
 }
 </script>

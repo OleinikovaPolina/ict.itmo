@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center">
+  <div class="text-center carousel-slider">
     <v-dialog
       :value="dialog"
       width="85%"
@@ -116,6 +116,7 @@ export default {
           if (document.querySelectorAll('.carousel-img-slider').length) {
             height = Math.min(height, document.querySelectorAll('.carousel-img-slider')[0].height)
             document.querySelectorAll('.carousel-img-slider').forEach(x => x.height = height)
+            document.querySelector('.carousel-slider .v-window__container').style.height = `${height + 6}px`
           }
         }
         img.src = src

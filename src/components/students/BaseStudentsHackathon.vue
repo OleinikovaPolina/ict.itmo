@@ -88,6 +88,7 @@ export default {
           if (document.querySelectorAll('.carousel-img').length) {
             height = Math.min(height, document.querySelectorAll('.carousel-img')[0].height)
             document.querySelectorAll('.carousel-img').forEach(x => x.height = height)
+            document.querySelector('.carousel-container .v-window__container').style.height = `${height + 6}px`
           }
         }
         img.src = this.block.sliderImagesNames[0].croppie
