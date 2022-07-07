@@ -107,7 +107,7 @@ const programsModule = {
           },
           {
             img: require('../../assets/images/people/137820.jpg'),
-            email: '', tel: '',
+            email: 'kapitonov.aleksandr@itmo.ru', tel: '+7 (812) 457-15-35',
             position: 'Александр Александрович Капитонов', name: 'Руководитель программы'
           }
         ],
@@ -173,7 +173,7 @@ const programsModule = {
           },
           {
             img: require('../../assets/images/people/115801.jpg'),
-            email: '', tel: '',
+            email: 'khlopotov@itmo.ru', tel: '',
             position: 'Максим Валерьевич Хлопотов', name: 'Руководитель программы'
           }],
         teachers: [
@@ -246,7 +246,7 @@ const programsModule = {
           },
           {
             img: require('../../assets/images/people/u332084.jpeg'),
-            email: '', tel: '',
+            email: 'dmbotov@gmail.com', tel: '',
             position: 'Дмитрий Сергеевич Ботов', name: 'Руководитель программы'
           }
         ],
@@ -291,7 +291,7 @@ const programsModule = {
           },
           {
             img: require('../../assets/images/people/173155.jpg'),
-            email: '', tel: '',
+            email: 'asvatian@itmo.ru', tel: '+7 920-457-85-96',
             position: 'Александра Сергеевна Ватьян', name: 'Руководитель программы'
           }
         ],
@@ -358,7 +358,7 @@ const programsModule = {
           },
           {
             img: require('../../assets/images/people/137820.jpg'),
-            email: '', tel: '',
+            email: 'kapitonov.aleksandr@itmo.ru', tel: '+7 (812) 457-15-35',
             position: 'Александр Александрович Капитонов', name: 'Руководитель программы'
           }
         ],

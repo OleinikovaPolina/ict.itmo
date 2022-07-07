@@ -46,7 +46,10 @@
           {{ person.email }}
         </a>
       </div>
-      <div class="d-flex align-center person-link pt-1 pr-1">
+      <div
+        v-if="person.tel"
+        class="d-flex align-center person-link pt-1 pr-1"
+      >
         <v-icon
           class="mr-1 mr-md-2"
           color="white"
