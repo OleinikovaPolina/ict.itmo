@@ -168,7 +168,7 @@
         <div class="text-center mx-auto pb-4 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Сотрудники факультета
         </div>
-        <CarouselLeadersComponent :slider="[dean].concat(contacts,office)" />
+        <CarouselLeadersComponent :slider="[dean].concat(office,contacts)" />
       </v-container>
     </div>
     <LineComponent

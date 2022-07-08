@@ -14,7 +14,7 @@
     <div class="anim-pink rounded-pill" />
     <div class="anim-purple rounded-pill" />
     <div
-      v-for="i in 4"
+      v-for="i in [4,3,2,1]"
       :key="i"
       class=" rounded-circle"
       :class="'anim-img-'+(i+1)"
@@ -186,7 +186,7 @@ export default {
   top: 0;
   left: 0;
   width: 31.5%;
-  height: 52%;
+  height: 51.5%;
   background-color: #18FFBA;
 }
 
@@ -194,7 +194,7 @@ export default {
   bottom: 8%;
   left: 15%;
   width: 31.5%;
-  height: 52%;
+  height: 51.5%;
   background-color: #FF0281;
 }
 
@@ -202,7 +202,7 @@ export default {
   top: 0;
   right: 31.5%;
   width: 31.5%;
-  height: 52%;
+  height: 51.5%;
   background-color: #FF776E;
 }
 
@@ -244,7 +244,7 @@ export default {
 }
 
 .anim-img-3 {
-  top: 17.5%;
+  top: 17%;
   right: 31.5%;
   width: 31.5%;
   height: 34.72%;
@@ -254,7 +254,7 @@ export default {
 }
 
 .anim-img-4 {
-  bottom: 10%;
+  bottom: 9%;
   right: 12%;
   width: 39.4%;
   height: 43.4%;

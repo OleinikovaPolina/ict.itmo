@@ -42,6 +42,7 @@
     >
       <button
         class="btn-nav mr-3 d-flex justify-center align-center"
+        aria-label="prev"
         @click="prev"
       >
         <span style="width: 50%;height: 50%;padding-right: 2.5px;">
@@ -62,6 +63,7 @@
         icon
         class="btn-nav-circle"
         :class="(n-1)===activeIndex?'is-active':''"
+        aria-label="delimiter"
         @click="clickDelimiters(n-1)"
       >
         <v-icon x-small>
@@ -70,6 +72,7 @@
       </v-btn>
       <button
         class="btn-nav ml-3 d-flex justify-center align-center"
+        aria-label="next"
         @click="next"
       >
         <span style="width: 50%;height: 50%;padding-left: 2.5px;">

@@ -252,9 +252,11 @@ export default {
   },
   mixins: [croppieMixin, formMixin, croppieMultipleMixin],
   data: () => ({
-    customToolbar: [{ align: '' }, { align: 'center' }, { align: 'justify' },
-      { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline', 'link', 'clean'],
-    isPreview: false, previewData: {}, dialogSliderContent: [], dialogSlider: false,
+    customToolbar: [{ align: 'center' }, { align: 'justify' },
+      { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline',
+      'link', 'clean'],
+    isPreview: false, previewData: {},
+    dialogSliderContent: [], dialogSlider: false,
     form: {
       title: '', description: '',
       slider: [], sliderImagesNames: [], sliderText: '',

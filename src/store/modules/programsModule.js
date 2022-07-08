@@ -30,11 +30,11 @@ const programsModule = {
         ],
         contacts: [{
           img: require('../../assets/images/people/184402.jpg'),
-          email: 'pakuznetsov@itmo.ru', tel: '+7(931)378-50-18',
+          email: '184402@itmo.ru', tel: '+7(931)378-50-18',
           position: 'Павел Александрович Кузнецов', name: 'Контактное лицо'
         }, {
           img: require('../../assets/images/people/173155.jpg'),
-          email: 'asvatian@itmo.ru', tel: '+7 920-457-85-96',
+          email: '173155@itmo.ru', tel: '+7 920-457-85-96',
           position: 'Ватьян Александра Сергеевна', name: 'Руководитель программы'
         }],
         teachers: [
@@ -102,12 +102,12 @@ const programsModule = {
         contacts: [
           {
             img: require('../../assets/images/people/184402.jpg'),
-            email: 'pakuznetsov@itmo.ru', tel: '+7(931)378-50-18',
+            email: '184402@itmo.ru', tel: '+7(931)378-50-18',
             position: 'Павел Александрович Кузнецов', name: 'Контактное лицо'
           },
           {
             img: require('../../assets/images/people/137820.jpg'),
-            email: 'kapitonov.aleksandr@itmo.ru', tel: '+7 (812) 457-15-35',
+            email: '137820@itmo.ru', tel: '+7 (812) 457-15-35',
             position: 'Александр Александрович Капитонов', name: 'Руководитель программы'
           }
         ],
@@ -168,12 +168,12 @@ const programsModule = {
         contacts: [
           {
             img: require('../../assets/images/people/184402.jpg'),
-            email: 'pakuznetsov@itmo.ru', tel: '+7(931)378-50-18',
+            email: '184402@itmo.ru', tel: '+7(931)378-50-18',
             position: 'Павел Александрович Кузнецов', name: 'Контактное лицо'
           },
           {
             img: require('../../assets/images/people/115801.jpg'),
-            email: 'khlopotov@itmo.ru', tel: '',
+            email: '115801@itmo.ru', tel: '',
             position: 'Максим Валерьевич Хлопотов', name: 'Руководитель программы'
           }],
         teachers: [
@@ -241,12 +241,12 @@ const programsModule = {
         contacts: [
           {
             img: require('../../assets/images/people/184402.jpg'),
-            email: 'pakuznetsov@itmo.ru', tel: '+7(931)378-50-18',
+            email: '184402@itmo.ru', tel: '+7(931)378-50-18',
             position: 'Павел Александрович Кузнецов', name: 'Контактное лицо'
           },
           {
             img: require('../../assets/images/people/u332084.jpeg'),
-            email: 'dmbotov@gmail.com', tel: '',
+            email: '332084@itmo.ru', tel: '',
             position: 'Дмитрий Сергеевич Ботов', name: 'Руководитель программы'
           }
         ],
@@ -286,12 +286,12 @@ const programsModule = {
         contacts: [
           {
             img: require('../../assets/images/people/184402.jpg'),
-            email: 'pakuznetsov@itmo.ru', tel: '+7(931)378-50-18',
+            email: '184402@itmo.ru', tel: '+7(931)378-50-18',
             position: 'Павел Александрович Кузнецов', name: 'Контактное лицо'
           },
           {
             img: require('../../assets/images/people/173155.jpg'),
-            email: 'asvatian@itmo.ru', tel: '+7 920-457-85-96',
+            email: '173155@itmo.ru', tel: '+7 920-457-85-96',
             position: 'Александра Сергеевна Ватьян', name: 'Руководитель программы'
           }
         ],
@@ -353,12 +353,12 @@ const programsModule = {
         contacts: [
           {
             img: require('../../assets/images/people/184402.jpg'),
-            email: 'pakuznetsov@itmo.ru', tel: '+7(931)378-50-18',
+            email: '184402@itmo.ru', tel: '+7(931)378-50-18',
             position: 'Павел Александрович Кузнецов', name: 'Контактное лицо'
           },
           {
             img: require('../../assets/images/people/137820.jpg'),
-            email: 'kapitonov.aleksandr@itmo.ru', tel: '+7 (812) 457-15-35',
+            email: '137820@itmo.ru', tel: '+7 (812) 457-15-35',
             position: 'Александр Александрович Капитонов', name: 'Руководитель программы'
           }
         ],

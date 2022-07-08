@@ -383,6 +383,10 @@ export default {
       font-size: 24px;
     }
   }
+
+  .ethics-book-text-3:focus {
+    text-decoration: none;
+  }
 }
 
 .ethics-item {

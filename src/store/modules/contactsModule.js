@@ -5,7 +5,7 @@ const appModule = {
       img: require('../../assets/images/people/137820.jpg'),
       name: 'Капитонов Александр Александрович',
       position: 'Декан факультета',
-      email: 'kapitonov.aleksandr@itmo.ru',
+      email: '137820@itmo.ru',
       tel: '+7 (812) 457-15-35'
     },
     contacts:[
@@ -13,49 +13,49 @@ const appModule = {
         img: require('../../assets/images/people/arsenieva.3be2db26674e.jpg'),
         name: 'Арсеньева Анна Закировна',
         position: 'Заместитель декана по учебному процессу',
-        email: 'anna.z.arseneva@itmo.ru'
+        email: '164661@itmo.ru'
       },
       {
         img: require('../../assets/images/people/p1336.jpg'),
         name: 'Башкина Ирина Александровна',
         position: 'Помощник декана',
-        email: 'bashkina@itmo.ru'
-      },
-      {
-        img: require('../../assets/images/people/184402.jpg'),
-        name: 'Кузнецов Павел Александрович',
-        position: 'Ответственный за прием абитуриентов, куратор практики',
-        email: 'pakuznetsov@itmo.ru'
+        email: '245011@itmo.ru'
       },
       {
         img: require('../../assets/images/people/pavlovich.eb74b9efcb8b.jpg'),
         name: 'Павлович Яна Александровна',
         position: 'Менеджер по связям с общественностью',
-        email: 'yana.pavlovich@itmo.ru'
+        email: '344229@itmo.ru'
+      },
+      {
+        img: require('../../assets/images/people/184402.jpg'),
+        name: 'Кузнецов Павел Александрович',
+        position: 'Ответственный за прием абитуриентов, куратор практики',
+        email: '184402@itmo.ru'
       }
     ],
     office:[
       {
-        name: 'Наталья Владимировна Монахова',
-        position: 'Руководитель учебного офиса',
-        email: 'm.n.v@niuitmo.ru'
-      },
-      {
-        name: 'Говорова Марина Михайловна',
-        position: 'Менеджер',
-        email: 'mmgovorova@itmo.ru'
-      },
-      {
         img: require('../../assets/images/people/246011.png'),
         name: 'Деркунская Светлана',
         position: 'Менеджер',
-        email: 'sderkunskaia@itmo.ru'
+        email: '246011@itmo.ru'
       },
       {
         img: require('../../assets/images/people/larionova.44c52f8797e2.jpg'),
         name: 'Ларионова Александра Сергеевна',
         position: 'Менеджер',
-        email: 'as_larionova@itmo.ru'
+        email: '345154@itmo.ru'
+      },
+      {
+        name: 'Наталья Владимировна Монахова',
+        position: 'Руководитель учебного офиса',
+        email: '118988@itmo.ru'
+      },
+      {
+        name: 'Говорова Марина Михайловна',
+        position: 'Менеджер',
+        email: '105760@itmo.ru'
       }
     ]
   })

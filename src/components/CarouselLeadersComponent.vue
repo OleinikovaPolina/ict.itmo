@@ -52,6 +52,7 @@
       <button
         class="btn-nav mr-3 d-flex justify-center align-center"
         :disabled="!canChange"
+        aria-label="prev"
         @click="prev"
       >
         <span style="width: 50%;height: 50%;padding-right: 2.5px;">
@@ -73,6 +74,7 @@
         class="btn-nav-circle"
         :class="((n-1)===activeIndex?'is-active':'')+($vuetify.breakpoint.xl?' mx-1':' ')"
         :disabled="!canChange"
+        aria-label="delimiter"
         @click="clickDelimiters(n-1)"
       >
         <v-icon :x-small="$vuetify.breakpoint.lgAndDown">
@@ -82,6 +84,7 @@
       <button
         class="btn-nav ml-3 d-flex align-center justify-center"
         :disabled="!canChange"
+        aria-label="next"
         @click="next"
       >
         <span style="width: 50%;height: 50%;padding-left: 2.5px;">

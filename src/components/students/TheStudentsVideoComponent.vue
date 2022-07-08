@@ -4,6 +4,7 @@
     <div class="anim-pink rounded-pill" />
     <div class="anim-video">
       <iframe
+        title="Как бесплатно поступить в ИТМО"
         src="https://vk.com/video_ext.php?oid=-189033559&id=456239037&hash=c2f77b600102cde5"
         width="100%"
         height="100%"

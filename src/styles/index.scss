@@ -29,7 +29,7 @@
     }
 
     .ql-editor a *, .ql-editor a {
-      color: map-get($theme, "subtitle-color") !important;
+      color: map-get($theme, "h-color") !important;
     }
 
     .subtitle-color-diff {
@@ -159,12 +159,12 @@ input[type=time]::-webkit-calendar-picker-indicator {
 }
 
 body .v-application .text-subtitle-1 {
-  font-size: 34px !important;
-  line-height: 38px;
+  font-size: 28px !important;
+  line-height: 34px;
   font-family: "OpenSans-Regular", sans-serif !important;
   @media (max-width: 1904px) {
-    font-size: 22px !important;
-    line-height: 26px;
+    font-size: 20px !important;
+    line-height: 24px;
   }
   @media (max-width: 1264px) {
     font-size: 16px !important;
@@ -178,7 +178,10 @@ body .v-application .text-subtitle-1 {
 
 .ict-ul {
   list-style: none;
-  padding-left: 5px !important;
+  padding-left: 25px !important;
+  @media (max-width: 600px) {
+    padding-left: 15px !important;
+  }
 
   li::before {
     content: " ";
@@ -187,14 +190,19 @@ body .v-application .text-subtitle-1 {
     border-radius: 50%;
     height: 12px;
     width: 12px;
+    margin-bottom: 3px;
     margin-inline-end: 7px;
-    margin-bottom: -1px;
+    margin-left: -23px;
+    @media (max-width: 1904px) {
+      margin-bottom: -1px;
+    }
     @media (max-width: 600px) {
       border: 1px solid $ict-blue-green;
       height: 5px;
       width: 5px;
-      margin-inline-end: 3px;
       margin-bottom: 1px;
+      margin-inline-end: 4px;
+      margin-left: -12px;
     }
   }
 }
@@ -245,8 +253,13 @@ a.link-arrow:after, .link-arrow a:after {
 }
 
 .ql-editor {
-  p {
+  p, a {
     margin-bottom: 0;
+  }
+
+  p, a, h1, h2, h3, h4, h5, h6 {
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .ql-video {
@@ -257,6 +270,10 @@ a.link-arrow:after, .link-arrow a:after {
   * {
     color: inherit !important;
     background-color: inherit !important;
+  }
+
+  a:after {
+    background-image: url("../assets/images/arrowLight.svg") !important;
   }
 }
 

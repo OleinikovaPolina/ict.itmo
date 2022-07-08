@@ -164,7 +164,10 @@
       </v-col>
     </v-container>
     <!--  directions  -->
-    <v-container class="directions pb-md-16">
+    <v-container
+      style="position: relative;z-index: 10"
+      class="directions pb-md-16"
+    >
       <div class="d-flex pb-6">
         <v-col
           cols="3"
@@ -299,7 +302,7 @@
           </linearGradient>
         </defs>
       </svg>
-      <v-container>
+      <v-container style="position: relative;z-index: 10">
         <div
           class=" text-center mx-auto text-h5 text-sm-h4 text-xl-h3"
           :style="{width:$vuetify.breakpoint.smAndDown?'275px':'450px'}"
@@ -549,6 +552,7 @@ export default {
 
   .hex-section-line {
     position: absolute;
+    z-index: 0;
     top: 0;
     left: 0;
     @media (max-width: 960px) {

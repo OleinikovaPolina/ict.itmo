@@ -17,6 +17,7 @@
             :class="$vuetify.breakpoint.smAndDown?'py-2':''"
           >
             <a
+              aria-label="itmo website"
               href="https://itmo.ru/ru/"
               target="_blank"
               style="width: 100%"
@@ -113,7 +114,7 @@
                   <v-icon>mdi-bank-outline</v-icon>
                 </v-list-item-icon>
                 <div>
-                  197101, г. Санкт-Петербург, Кронверкский пр., 49 литер А(юр. адрес)
+                  197101, г. Санкт-Петербург, Кронверкский пр., 49 литер А(юр.&nbsp;адрес)
                 </div>
               </v-list-item>
               <v-list-item>
@@ -121,9 +122,7 @@
                   <v-icon>mdi-email-outline</v-icon>
                 </v-list-item-icon>
                 <div>
-                  <a
-                    href="mailto: dict@itmo.ru"
-                  >dict@itmo.ru</a>
+                  <a href="mailto: dict@itmo.ru">dict@itmo.ru</a>
                 </div>
               </v-list-item>
               <v-list-item>
@@ -131,9 +130,7 @@
                   <v-icon>mdi-phone-outline</v-icon>
                 </v-list-item-icon>
                 <div>
-                  <a
-                    href="tel:+78124571536"
-                  >+7 (812) 457-15-36</a>
+                  <a href="tel:+78124800496">+7 (812) 480-04-96</a>
                   (Пн-Пт: 11:00-16:00)
                 </div>
               </v-list-item>
@@ -157,6 +154,7 @@
               icon
               rounded
               link
+              aria-label="social network"
               :href="link.link"
               target="_blank"
               class="ml-4"
@@ -230,7 +228,7 @@
                   </v-icon>
                 </v-list-item-icon>
                 <div>
-                  197101, г. Санкт-Петербург, Кронверкский пр., 49 литер А(юр. адрес)
+                  197101, г. Санкт-Петербург, Кронверкский пр., 49 литер А(юр.&nbsp;адрес)
                 </div>
               </v-list-item>
               <v-list-item style="min-height: 1em">
@@ -253,8 +251,8 @@
                 </v-list-item-icon>
                 <div>
                   <a
-                    href="tel:+78124571536"
-                  >+7 (812) 457-15-36</a>
+                    href="tel:+78124800496"
+                  >+7 (812) 480-04-96</a>
                   (Пн-Пт: 11:00-16:00)
                 </div>
               </v-list-item>
@@ -277,6 +275,7 @@
                 icon
                 rounded
                 link
+                aria-label="social network"
                 :href="link.link"
                 target="_blank"
                 class="ml-2"
@@ -330,7 +329,7 @@ export default {
 
 .link {
   font-weight: 300;
-  text-decoration-thickness: 1px!important;
+  text-decoration-thickness: 1px !important;
   text-underline-offset: 1px;
 }
 

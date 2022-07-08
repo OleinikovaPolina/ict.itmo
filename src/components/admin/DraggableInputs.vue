@@ -495,10 +495,12 @@ export default {
       default: 12
     }
   },
-  emits: ['beforeCropMultipleInsert', 'updateBlock', 'deleteBlock', 'changeDialog', 'changeDialogContent', 'beforeCropInsert'],
+  emits: ['beforeCropMultipleInsert', 'updateBlock', 'deleteBlock',
+    'changeDialog', 'changeDialogContent', 'beforeCropInsert'],
   data: () => ({
-    customToolbar: [{ align: '' }, { align: 'center' }, { align: 'justify' },
-      { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline', 'link', 'clean', 'video'],
+    customToolbar: [{ align: 'center' }, { align: 'justify' },
+      { list: 'ordered' }, { list: 'bullet' }, 'bold', 'italic', 'underline',
+      'link', 'clean', 'video'],
     typesInput: [
       { id: 0, text: 'Текстовый блок' },
       { id: 1, text: 'Два блока' },
@@ -651,7 +653,8 @@ export default {
     }
   }
 }
-.img-name{
+
+.img-name {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;

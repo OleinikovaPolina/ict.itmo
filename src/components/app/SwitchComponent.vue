@@ -1,9 +1,11 @@
 <template>
   <label
+    for="switch"
     class="switch"
     :class="themeBoolean?'dark':''"
   >
     <input
+      id="switch"
       v-model="themeBoolean"
       type="checkbox"
     >

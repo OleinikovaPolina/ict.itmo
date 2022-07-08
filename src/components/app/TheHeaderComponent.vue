@@ -7,11 +7,11 @@
       >
         <div class="pa-3 pr-lg-8 pr-xl-12">
           <router-link to="/">
-            <img
+            <v-img
               alt="logo"
               class="logo"
               src="../../assets/images/logo.svg"
-            >
+            />
           </router-link>
         </div>
 
