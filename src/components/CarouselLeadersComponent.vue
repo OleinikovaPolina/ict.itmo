@@ -35,6 +35,7 @@
               {{ person.position2 }}
             </div>
             <a
+              v-if="person.email"
               :title="person.email"
               :href="'mailto: '+person.email"
               class="person-email px-1 px-md-2"

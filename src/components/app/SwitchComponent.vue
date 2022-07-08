@@ -1,13 +1,12 @@
 <template>
   <label
-    for="switch"
     class="switch"
     :class="themeBoolean?'dark':''"
   >
     <input
-      id="switch"
       v-model="themeBoolean"
       type="checkbox"
+      aria-label="switch"
     >
     <span class="slider">
       <span class="d-flex justify-center align-center">
