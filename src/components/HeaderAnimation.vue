@@ -230,6 +230,9 @@ export default {
   height: 34.72%;
   background-color: #020202;
   background-image: url("../assets/images/home/homeHeader/1.1.jpg");
+  background-image: -webkit-image-set(
+      url("../assets/images/home/homeHeader/1.1.webp") 1x,
+      url("../assets/images/home/homeHeader/1.1.jpg") 1x);
   background-size: cover;
 }
 
@@ -240,6 +243,9 @@ export default {
   height: 34.72%;
   background-color: #020202;
   background-image: url("../assets/images/home/homeHeader/2.1.jpg");
+  background-image: -webkit-image-set(
+      url("../assets/images/home/homeHeader/2.1.webp") 1x,
+      url("../assets/images/home/homeHeader/2.1.jpg") 1x);
   background-size: cover;
 }
 
@@ -250,6 +256,9 @@ export default {
   height: 34.72%;
   background-color: #020202;
   background-image: url("../assets/images/home/homeHeader/3.1.jpg");
+  background-image: -webkit-image-set(
+      url("../assets/images/home/homeHeader/3.1.webp") 1x,
+      url("../assets/images/home/homeHeader/3.1.jpg") 1x);
   background-size: cover;
 }
 
@@ -260,6 +269,9 @@ export default {
   height: 43.4%;
   background-color: #020202;
   background-image: url("../assets/images/home/homeHeader/4.1.jpg");
+  background-image: -webkit-image-set(
+      url("../assets/images/home/homeHeader/4.1.webp") 1x,
+      url("../assets/images/home/homeHeader/4.1.jpg") 1x);
   background-size: cover;
 }
 
@@ -270,6 +282,9 @@ export default {
   height: 34.72%;
   background-color: #020202;
   background-image: url("../assets/images/home/homeHeader/8.jpg");
+  background-image: -webkit-image-set(
+      url("../assets/images/home/homeHeader/8.webp") 1x,
+      url("../assets/images/home/homeHeader/8.jpg") 1x);
   background-size: cover;
 }
 

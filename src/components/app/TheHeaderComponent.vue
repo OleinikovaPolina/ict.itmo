@@ -10,6 +10,7 @@
             <v-img
               alt="logo"
               class="logo"
+              contain
               src="../../assets/images/logo.svg"
             />
           </router-link>
@@ -287,7 +288,6 @@ export default {
 
 .logo {
   height: 3rem;
-  object-fit: contain;
   @media (min-width: 1904px) {
     height: 4rem;
   }
