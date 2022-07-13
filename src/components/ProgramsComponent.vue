@@ -4,6 +4,7 @@
     no-gutters
   >
     <v-col
+      class="d-none d-md-block"
       cols="12"
       md="10"
     >
@@ -36,13 +37,34 @@
           {{ program.code }}
         </div>
         <v-row>
-          <v-col cols="3">
+          <v-col
+            cols="12"
+            md="3"
+            class="pb-0 pb-md-3"
+          >
+            <div class="admission-title d-md-none">
+              Направление
+            </div>
             <div>{{ program.direction }}</div>
           </v-col>
-          <v-col cols="3">
+          <v-col
+            cols="12"
+            md="3"
+            class="py-0 py-md-3"
+          >
+            <div class="admission-title d-md-none">
+              Программа
+            </div>
             <div>{{ program.program }}</div>
           </v-col>
-          <v-col cols="6">
+          <v-col
+            cols="12"
+            md="6"
+            class="pt-0 pt-md-3"
+          >
+            <div class="admission-title d-md-none">
+              Специализации
+            </div>
             <ul class="ict-ul">
               <li
                 v-for="(sp,j) in program.specializations"
