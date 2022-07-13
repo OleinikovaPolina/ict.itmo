@@ -168,7 +168,7 @@
         <div class="text-center mx-auto pb-4 pb-sm-6 text-h6 text-sm-h4 text-xl-h3">
           Сотрудники факультета
         </div>
-        <CarouselLeadersComponent :slider="[dean].concat(office,contacts)" />
+        <CarouselLeadersComponent :slider="persons" />
       </v-container>
     </div>
     <LineComponent
@@ -241,8 +241,13 @@ export default {
     ]
   }),
   computed: {
-    ...mapState('news', [ 'articles']),
-    ...mapState('contacts', ['contacts', 'dean', 'office'])
+    ...mapState('news', ['articles']),
+    ...mapState('contacts', ['contacts', 'dean', 'office']),
+    persons() {
+      let arr = [this.dean].concat(this.office, this.contacts)
+      arr[1] = arr.splice(5, 1, arr[1])[0]
+      return arr
+    }
   },
   async mounted() {
     await this.getArticles()
