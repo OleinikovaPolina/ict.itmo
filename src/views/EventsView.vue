@@ -12,8 +12,8 @@
               <img
                 alt="..."
                 class="carousel-img"
-                width="100%"
                 :src="slotProps.item.slideImage.url"
+                style="object-fit: contain;  width: 100%"
                 @load="getHeight(slotProps.item.slideImage.url)"
               >
             </router-link>
