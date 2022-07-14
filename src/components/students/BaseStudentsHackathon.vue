@@ -45,6 +45,7 @@
             <div>
               <img
                 alt="..."
+                rel="preload"
                 class="carousel-img"
                 :src="slotProps.item"
                 style="object-fit: contain;  width: 100%"

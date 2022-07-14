@@ -9,12 +9,13 @@
     >
       <!--  book  -->
       <div class="ethics-book text-center">
-        <v-img
+        <img
+          alt="..."
+          rel="preload"
           width="100%"
           height="100%"
-          contain
           src="../../assets/images/ethics/book.svg"
-        />
+        >
         <div class="ethics-book-text ethics-book-text-1">
           Путеводитель<br>ИКТ
         </div>

@@ -102,12 +102,13 @@
         @mouseout="hexHoverNot(i)"
         @mouseover="hexHover(i)"
       >
-        <v-img
+        <img
+          alt="..."
           :width="small?'75%':'100%'"
-          contain
           class="mx-auto hex-img"
           :src="hex.img"
-        />
+          rel="preload"
+        >
         <div class="hex-text subtitle-color">
           {{ hex.text }}
         </div>

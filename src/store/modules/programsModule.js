@@ -43,7 +43,7 @@ const programsModule = {
           position: 'Павел Александрович Кузнецов', name: 'Контактное лицо'
         }, {
           img: require('../../assets/images/people/173155.jpg'),
-          email: '173155@itmo.ru', tel: '+7 920-457-85-96',
+          email: '173155@itmo.ru', tel: '+7(920)457-85-96',
           position: 'Ватьян Александра Сергеевна', name: 'Руководитель программы'
         }],
         teachers: [
@@ -123,7 +123,7 @@ const programsModule = {
           },
           {
             img: require('../../assets/images/people/137820.jpg'),
-            email: '137820@itmo.ru', tel: '+7 (812) 457-15-35',
+            email: '137820@itmo.ru', tel: '+7(812)457-15-35',
             position: 'Александр Александрович Капитонов', name: 'Руководитель программы'
           }
         ],
@@ -307,7 +307,7 @@ const programsModule = {
           },
           {
             img: require('../../assets/images/people/173155.jpg'),
-            email: '173155@itmo.ru', tel: '+7 920-457-85-96',
+            email: '173155@itmo.ru', tel: '+7(920)457-85-96',
             position: 'Александра Сергеевна Ватьян', name: 'Руководитель программы'
           }
         ],
@@ -374,7 +374,7 @@ const programsModule = {
           },
           {
             img: require('../../assets/images/people/137820.jpg'),
-            email: '137820@itmo.ru', tel: '+7 (812) 457-15-35',
+            email: '137820@itmo.ru', tel: '+7(812)457-15-35',
             position: 'Александр Александрович Капитонов', name: 'Руководитель программы'
           }
         ],

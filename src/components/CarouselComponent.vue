@@ -13,6 +13,7 @@
         <v-carousel-item
           v-if="index % columns === 1 || columns === 1"
           :key="index"
+          eager
         >
           <v-row
             class="align-stretch carousel-component"
@@ -23,6 +24,7 @@
                 <slot
                   :item="slider[index+i-2]"
                   :index="i"
+                  :index2="index+i-2"
                   name="item"
                 />
                 <slot

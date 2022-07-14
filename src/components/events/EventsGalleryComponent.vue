@@ -3,11 +3,13 @@
     <div
       class="events-item"
     >
-      <v-img
-        min-height="100"
+      <img
+        alt="..."
+        rel="preload"
+        style="min-height: 100px"
         width="100%"
         :src="item.image['url']"
-      />
+      >
       <div class="events-item-footer px-2 py-2">
         <div
           class="events-item-footer-title"

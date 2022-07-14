@@ -26,6 +26,7 @@
     >
       <img
         alt="..."
+        rel="preload"
         style="width: 100%"
         :src="block.content.imgName.croppie"
       >
@@ -60,6 +61,7 @@
             <div>
               <img
                 alt=""
+                rel="preload"
                 :class="'carousel-img-'+(block.id||index)"
                 :src="slotProps.item.croppie"
                 style="object-fit: contain;  width: 100%;min-height: 150px"

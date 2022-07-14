@@ -19,12 +19,14 @@
       >
         <div class="person">
           <div class="person-img mx-auto">
-            <v-img
+            <img
+              alt="..."
+              rel="preload"
               width="100%"
               height="100%"
               class="rounded-circle"
               :src="person.img||require('../assets/images/people/nobody.png')"
-            />
+            >
           </div>
           <div class="person-text pt-1 pt-md-2 px-1 px-sm-4 text-center">
             <div class="text-h6 pb-1">

@@ -80,7 +80,7 @@ export default {
     top: 0;
   }
   50% {
-    top: 17.5%;
+    top: 17%;
   }
   100% {
     top: 8%;
@@ -98,7 +98,7 @@ export default {
 
 @keyframes anim3 {
   0% {
-    top: 17.5%;
+    top: 17%;
   }
   100% {
     top: 0;
@@ -107,7 +107,7 @@ export default {
 
 @keyframes anim4 {
   0% {
-    bottom: 10%;
+    bottom: 9%;
   }
   100% {
     bottom: 0;

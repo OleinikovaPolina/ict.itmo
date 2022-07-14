@@ -19,12 +19,13 @@
             class="pa-2 pa-md-4 partner-container"
             :class="'rounded-'+($vuetify.breakpoint.mdAndUp?'xl':'lg')+' partner-container-'+(slotProps.index<=columns/2?1:2)"
           >
-            <v-img
+            <img
+              alt="..."
               width="100%"
               height="100%"
-              contain
+              rel="preload"
               :src="slotProps.item"
-            />
+            >
           </div>
         </v-col>
       </template>

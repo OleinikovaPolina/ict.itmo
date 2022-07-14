@@ -11,12 +11,14 @@
         frameborder="0"
         allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
       />
-      <v-img
+      <img
+        alt="..."
+        rel="preload"
         class="anim-video-preview"
         width="100%"
         height="100%"
         src="https://sun9-23.userapi.com/impf/90UKl8A03ksEX_WKQ7vHDo4c6jA3WMId3hLY5w/r1Jh-BendX8.jpg?size=800x450&quality=96&keep_aspect_ratio=1&background=000000&sign=4d2eabd5292f20d54d160c3354e3b78e&type=video_thumb"
-      />
+      >
       <div class="anim-video-btn justify-center align-center">
         <button @click="playVideo">
           ▶
@@ -182,5 +184,6 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+  object-fit: cover;
 }
 </style>

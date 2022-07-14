@@ -227,11 +227,12 @@
             md="3"
             class="pt-6 text-center d-flex flex-column align-center animation-club"
           >
-            <v-img
+            <img
+              alt="..."
+              rel="preload"
               :src="club.img"
               class="club-img"
-              contain
-            />
+            >
             <div class="club-text">
               <div class="text-h6 text-xl-h4 club-name pb-1 pt-4 pt-md-8">
                 {{ club.name }}
@@ -241,12 +242,13 @@
               </div>
               <div class="d-flex justify-center club-description pt-2">
                 <div>
-                  <v-img
+                  <img
+                    alt="..."
+                    rel="preload"
                     :src="club.iconLink"
                     :width="$vuetify.breakpoint.xs?20:30"
-                    contain
                     class="mr-2"
-                  />
+                  >
                 </div>
                 <a
                   :href="club.link"

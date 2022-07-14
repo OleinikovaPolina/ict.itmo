@@ -14,13 +14,14 @@
         cols="3"
         class="pr-0"
       >
-        <v-img
+        <img
+          alt="..."
+          rel="preload"
+          style="max-height: 100px"
           width="100%"
           height="100%"
-          max-height="100"
-          contain
           :src="item.img"
-        />
+        >
       </v-col>
       <v-col
         cols="9"

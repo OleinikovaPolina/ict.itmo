@@ -9,13 +9,23 @@
         <template #item="slotProps">
           <v-col cols="12">
             <router-link :to="slotProps.item.contentType+'/'+slotProps.item.id">
-              <img
-                alt="..."
-                class="carousel-img"
+              <v-img
                 :src="slotProps.item.slideImage.url"
-                style="object-fit: contain;  width: 100%"
-                @load="getHeight(slotProps.item.slideImage.url)"
+                :aspect-ratio="1500/638"
+                width="100%"
+                class="carousel-img"
+                eager
               >
+                <template #placeholder>
+                  <v-row
+                    class="fill-height ma-0"
+                    align="center"
+                    justify="center"
+                  >
+                    <v-progress-circular indeterminate />
+                  </v-row>
+                </template>
+              </v-img>
             </router-link>
           </v-col>
         </template>
@@ -193,20 +203,6 @@ export default {
     await this.getSlider()
     this.isLoad = true
   },
-  methods: {
-    ...mapActions('news', ['getNews', 'getAnnouncements', 'getEvents', 'getSlider']),
-    getHeight(src) {
-      let img = new Image()
-      img.onload = () => {
-        let height = img.height
-        if (document.querySelectorAll('.carousel-img').length) {
-          height = Math.min(height, document.querySelectorAll('.carousel-img')[0].height)
-          document.querySelectorAll('.carousel-img').forEach(x => x.height = height)
-          document.querySelector('.carousel-container .v-window__container').style.height = `${height + 6}px`
-        }
-      }
-      img.src = src
-    }
-  }
+  methods: mapActions('news', ['getNews', 'getAnnouncements', 'getEvents', 'getSlider'])
 }
 </script>

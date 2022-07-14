@@ -10,6 +10,7 @@
       :style="{width: '100%'}"
       :src="news.image['url']"
       :min-height="$vuetify.breakpoint.xsOnly?'65px':'100px'"
+      eager
     >
       <template #placeholder>
         <v-row

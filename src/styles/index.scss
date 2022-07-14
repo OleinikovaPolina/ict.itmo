@@ -106,6 +106,10 @@
   }
 }
 
+img {
+  aspect-ratio: attr(width) / attr(height);
+}
+
 .v-menu__content {
   box-shadow: none !important;
   border: 2px solid #0071B2;
