@@ -207,11 +207,11 @@ export default {
     background-color: #1E7F83;
   }
 
-  .btn-nav-circle .v-icon, .v-btn.v-btn--disabled.btn-nav-circle .v-icon {
+  .v-btn.btn-nav-circle .v-icon {
     color: $ict-blue-green !important;
   }
 
-  .btn-nav-circle.is-active .v-icon {
+  .v-btn.btn-nav-circle.is-active .v-icon {
     color: #1E7F83 !important;
   }
 }
