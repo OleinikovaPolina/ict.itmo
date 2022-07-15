@@ -207,7 +207,7 @@ export default {
     background-color: #1E7F83;
   }
 
-  .btn-nav-circle .v-icon {
+  .btn-nav-circle .v-icon, .v-btn.v-btn--disabled.btn-nav-circle .v-icon {
     color: $ict-blue-green !important;
   }
 
