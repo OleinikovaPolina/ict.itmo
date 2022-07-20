@@ -252,21 +252,17 @@
 
           <v-col
             v-if="$vuetify.breakpoint.smAndDown"
-            cols="5"
+            cols="4"
             class="d-flex justify-end"
           >
-            <v-btn
-              icon
-              x-large
-              color="#2DC0C5"
-              @click="show=!show"
+            <div
+              class="menu"
+              @click="clickMenu"
             >
-              <v-icon
-                size="40"
-              >
-                mdi-{{ show ? 'close' : 'menu' }}
-              </v-icon>
-            </v-btn>
+              <div class="bar" />
+              <div class="bar" />
+              <div class="bar" />
+            </div>
           </v-col>
 
           <v-col
@@ -286,7 +282,7 @@
                     :key="i"
                     style="min-height: 33px"
                     class="d-flex justify-center"
-                    @click="show=false"
+                    @click="closeMenu"
                   >
                     <router-link
                       :to="'/'+link.path"
@@ -327,6 +323,14 @@ export default {
     logoutFunction() {
       this.logout()
       this.$router.push('/login')
+    },
+    closeMenu() {
+      document.querySelector('.menu').classList.remove('active')
+      this.show = false
+    },
+    clickMenu() {
+      document.querySelector('.menu').classList.toggle('active')
+      this.show = !this.show
     }
   }
 }
@@ -365,9 +369,5 @@ export default {
 .logo {
   height: 3rem;
   object-fit: contain;
-}
-
-.v-menu__content {
-  box-shadow: 0 0 5px rgba(0, 109, 172, 0.2), 0 0 14px rgba(3, 67, 104, 0.1) !important;
 }
 </style>
