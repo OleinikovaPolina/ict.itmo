@@ -525,7 +525,7 @@ export default {
   background-size: cover;
   background-position: top left;
   margin-top: -10em;
-  padding-top: 21em;
+  padding-top: 26em;
   position: relative;
   @media (max-width: 1904px) {
     margin-top: -10em;
@@ -533,7 +533,7 @@ export default {
   }
   @media (max-width: 1600px) {
     margin-top: -8em;
-    padding-top: 14em;
+    padding-top: 15em;
   }
   @media (max-width: 1280px) {
     margin-top: -7.5em;

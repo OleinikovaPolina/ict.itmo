@@ -11,14 +11,23 @@
       class="anim-img-1 rounded-circle"
       @mouseover="mouseOver(1)"
     />
+    <div
+      class="anim-img-4 rounded-circle"
+      @mouseover="mouseOver(4)"
+    />
+    <div
+      class="anim-img-3 rounded-circle"
+      @mouseover="mouseOver(3)"
+    />
     <div class="anim-pink rounded-pill" />
     <div class="anim-purple rounded-pill" />
     <div
-      v-for="i in [4,3,2,1]"
-      :key="i"
-      class=" rounded-circle"
-      :class="'anim-img-'+(i+1)"
-      @mouseover="mouseOver(i+1)"
+      class="anim-img-5 rounded-circle"
+      @mouseover="mouseOver(5)"
+    />
+    <div
+      class="anim-img-2 rounded-circle"
+      @mouseover="mouseOver(2)"
     />
   </div>
 </template>
@@ -52,7 +61,7 @@ export default {
         document.querySelector('.anim-img-2').style.bottom = '8%'
         document.querySelector('.anim-img-3').style.top = '0'
         document.querySelector('.anim-img-4').style.bottom = '0'
-        document.querySelector('.anim-img-5').style.top = '17.5%'
+        document.querySelector('.anim-img-5').style.top = '17.1%'
       }
     },
     mouseOver(i) {
@@ -80,7 +89,7 @@ export default {
     top: 0;
   }
   50% {
-    top: 17%;
+    top: 17.2%;
   }
   100% {
     top: 8%;
@@ -98,7 +107,7 @@ export default {
 
 @keyframes anim3 {
   0% {
-    top: 17%;
+    top: 16.7%;
   }
   100% {
     top: 0;
@@ -119,13 +128,13 @@ export default {
     top: 0;
   }
   100% {
-    top: 17.5%;
+    top: 17.1%;
   }
 }
 
 .anim-container {
   width: 300px;
-  height: 272.5px;
+  height: 274.3px;
   position: relative;
 
   div {
@@ -134,27 +143,27 @@ export default {
 
   @media (min-width: 960px) {
     width: 380px;
-    height: 345px;
+    height: 347.4px;
   }
   @media (min-width: 1110px) {
     width: 420px;
-    height: 381.5px;
+    height: 384px;
   }
   @media (min-width: 1264px) {
     width: 505px;
-    height: 458.7px;
+    height: 461.7px;
   }
   @media (min-width: 1514px) {
     width: 570px;
-    height: 517.5px;
+    height: 521.2px;
   }
   @media (min-width: 1904px) {
     width: 760px;
-    height: 690px;
+    height: 695px;
   }
   @media (min-width: 2204px) {
     width: 860px;
-    height: 781px;
+    height: 786.4px;
   }
 }
 
@@ -186,7 +195,7 @@ export default {
   top: 0;
   left: 0;
   width: 31.5%;
-  height: 51.5%;
+  height: 51.9%;
   background-color: #18FFBA;
 }
 
@@ -194,7 +203,7 @@ export default {
   bottom: 8%;
   left: 15%;
   width: 31.5%;
-  height: 51.5%;
+  height: 52%;
   background-color: #FF0281;
 }
 
@@ -202,7 +211,7 @@ export default {
   top: 0;
   right: 31.5%;
   width: 31.5%;
-  height: 51.5%;
+  height: 51.4%;
   background-color: #FF776E;
 }
 
@@ -219,7 +228,7 @@ export default {
   top: 0;
   right: 0;
   width: 31.5%;
-  height: 52%;
+  height: 51.9%;
   background-color: #6A30F4;
 }
 
@@ -244,7 +253,7 @@ export default {
 }
 
 .anim-img-3 {
-  top: 17%;
+  top: 16.7%;
   right: 31.5%;
   width: 31.5%;
   height: 34.72%;
@@ -274,7 +283,7 @@ export default {
 }
 
 .anim-circle-1 {
-  top: 50%;
+  top: 49%;
   left: 3%;
   width: 15.77%;
   height: 17.36%;
