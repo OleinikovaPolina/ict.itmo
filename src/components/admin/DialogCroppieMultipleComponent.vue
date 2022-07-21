@@ -5,7 +5,7 @@
       width="1100"
       persistent
     >
-      <v-card class="py-6">
+      <v-card class="py-6 app-background">
         <v-btn
           v-if="edit"
           class="btn-dialog-close mr-1 mt-1"

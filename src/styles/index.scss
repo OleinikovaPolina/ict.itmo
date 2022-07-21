@@ -103,6 +103,16 @@
     .v-icon.v-icon.v-icon--link {
       color: map-get($theme, "input-default");
     }
+
+    .quillWrapper .ql-snow {
+      .ql-stroke {
+        stroke: map-get($theme, "color");
+      }
+
+      .ql-fill {
+        fill: map-get($theme, "color");
+      }
+    }
   }
 }
 
@@ -349,8 +359,12 @@ a.link-arrow:after, .link-arrow a:after {
   .ql-snow.ql-toolbar button.ql-active {
     background-color: #0071B2;
 
+    .ql-fill {
+      fill: #fff;
+    }
+
     .ql-stroke, {
-      stroke: #000;
+      stroke: #fff;
       stroke-width: 1.7px;
     }
   }

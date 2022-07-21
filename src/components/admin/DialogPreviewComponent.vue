@@ -5,7 +5,7 @@
       width="85%"
       persistent
     >
-      <v-card class="py-6">
+      <v-card class="py-6 app-background">
         <v-btn
           class="btn-dialog-close mr-1 mt-1"
           icon

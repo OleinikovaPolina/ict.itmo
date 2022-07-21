@@ -1,5 +1,6 @@
 <template>
   <draggable
+    :disabled="$vuetify.breakpoint.smAndDown"
     :list="blocks"
     class="d-flex flex-wrap"
   >
@@ -17,6 +18,7 @@
         <v-btn
           icon
           small
+          class="default-color"
           @click="eyeBlock(element)"
         >
           <v-icon>
@@ -28,6 +30,7 @@
         <v-btn
           icon
           small
+          class="default-color"
           @click="deleteBlock(element.id)"
         >
           <v-icon>
@@ -82,6 +85,7 @@
       <template v-if="element.type===1">
         <div class="pt-8 px-4">
           <draggable
+            :disabled="$vuetify.breakpoint.smAndDown"
             :list="element.content.blocks"
             class="d-flex flex-wrap"
           >

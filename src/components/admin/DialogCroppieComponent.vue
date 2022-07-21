@@ -5,7 +5,7 @@
       :width="size.w+150"
       persistent
     >
-      <v-card class="py-2">
+      <v-card class="py-2 app-background">
         <v-card-title>
           <div class="text-h5 text-center mx-auto">
             {{ title }}

@@ -396,6 +396,7 @@ export default {
   },
   mixins: [croppieMixin, formMixin, croppieMultipleMixin],
   data: () => ({
+    btnDisabled: false,
     dialog: false,
     dialogContent: {},
     typeData: 0,
@@ -438,7 +439,7 @@ export default {
       }
       return !(this.form.title && this.form.dateStart
         && this.form.tagsIds.length && this.form.blocks.length && k
-        && this.form.datePublish && this.form.timePublish)
+        && this.form.datePublish && this.form.timePublish && !this.btnDisabled)
     },
     changeTypeData(val) {
       this.typeData = val
@@ -448,6 +449,7 @@ export default {
       if (index >= 0) this.form.tagsIds.splice(index, 1)
     },
     async publish() {
+      this.btnDisabled = true
       let formPublish = Object.assign({}, this.form)
       //date
       if (formPublish.timeStart) {
@@ -474,7 +476,7 @@ export default {
         }).catch(() => ({}))
       }
       //slider
-      if(formPublish.isSlider && formPublish.sliderImgBlob){
+      if (formPublish.isSlider && formPublish.sliderImgBlob) {
         await this.addAttachment(formPublish.sliderImgBlob).then(res => {
           formPublish.slideImageId = res.data.id
         }).catch(() => ({}))
@@ -488,6 +490,7 @@ export default {
       if (this.typeData === 0) {
         await this.addAnnouncement(formPublish)
       }
+      this.btnDisabled = false
       this.$router.push('/published').then()
     },
     preview() {
