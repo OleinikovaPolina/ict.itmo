@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/OleinikovaPolina/ict.itmo">
+  <a href="https://github.com/OleinikovaPolina/ict.itmo" target="_blank">
     <img src="imagesREADME/icon.png" alt="Logo" width="80" height="80">
   </a>
   <h3 align="center">fict.itmo</h3>
@@ -35,8 +35,8 @@
 <h2 id="about">✨ About The Project</h2>
 
 <div class="d-flex">
-  <img src="imagesREADME/1.png" alt="mobile" width="58%">
-  <img src="imagesREADME/2.png" alt="dark" width="40%">
+  <img src="imagesREADME/1.png" alt="mobile" width="56%">
+  <img src="imagesREADME/2.png" alt="dark" width="42%">
 </div>
 
 The Faculty of Infocommunication Technologies is the main starting point in the development of professional skills. The site is the hallmark of ITMO Faculty of ICT. When going to the site, the entrant or his parents should have an understanding of what kind of faculty it is and what its specialization is. The site contains accessible information about the activities, information  about disciplines and teachers. There are also pages for administration.
