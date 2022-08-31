@@ -12,7 +12,7 @@
         <v-row class="px-2 px-md-6">
           <v-col
             cols="9"
-            md="7"
+            sm="4"
             class="d-flex justify-start align-center"
             :class="$vuetify.breakpoint.smAndDown?'py-2':''"
           >
@@ -27,13 +27,13 @@
                 contain
                 width="100%"
                 :height="$vuetify.breakpoint.smAndDown?'15':$vuetify.breakpoint.xl?'48':'36'"
-                src="../../assets/images/footer/logoITMO.svg"
+                src="../../assets/images/footer/logoITMO.png"
               />
             </a>
           </v-col>
           <v-col
             v-if="$vuetify.breakpoint.mdAndUp"
-            cols="5"
+            cols
             class="d-flex justify-end align-center"
           >
             <div
@@ -189,7 +189,7 @@
     >
       <div style="z-index: 10; position: relative">
         <v-sheet
-          class="sheet-1 rounded-pill"
+          class="sheet-1-2 rounded-pill"
           color="#00A1FF"
           style="position: relative;top:1em;"
         >
@@ -333,15 +333,19 @@ export default {
   text-underline-offset: 1px;
 }
 
-.sheet-1 {
-  max-width: 50%;
+.sheet-1, .sheet-1-2 {
+  max-width: 35%;
   top: 18px;
   margin-left: 2em;
   @media (max-width: 960px) {
-    max-width: 55%;
+    max-width: 30%;
     top: 7.5px;
     margin-left: 1em;
   }
+}
+
+.sheet-1-2 {
+  max-width: 55%;
 }
 
 .sheet-2 {
