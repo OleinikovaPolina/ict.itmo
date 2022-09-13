@@ -113,6 +113,10 @@
         fill: map-get($theme, "color");
       }
     }
+
+    .bar {
+      background-color: map-get($theme, "bar");
+    }
   }
 }
 
@@ -411,7 +415,7 @@ a.link-arrow:after, .link-arrow a:after {
   height: 22px;
   width: 60px;
   position: relative;
-  padding-top: 6px;
+  padding-top: 10px;
   border: 5px solid transparent;
   cursor: pointer;
   transition: all .3s;
@@ -424,7 +428,6 @@ a.link-arrow:after, .link-arrow a:after {
   display: block;
   margin: 6px auto;
   position: relative;
-  background-color: #2DC0C5;
   transition: all .4s;
   border-radius: 6px;
 }

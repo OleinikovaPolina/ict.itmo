@@ -133,37 +133,12 @@ export default {
 }
 
 .anim-container {
-  width: 300px;
-  height: 274.3px;
   position: relative;
+  aspect-ratio: calc(634 / 576);
+  width: 100%;
 
   div {
     position: absolute;
-  }
-
-  @media (min-width: 960px) {
-    width: 380px;
-    height: 347.4px;
-  }
-  @media (min-width: 1110px) {
-    width: 420px;
-    height: 384px;
-  }
-  @media (min-width: 1264px) {
-    width: 505px;
-    height: 461.7px;
-  }
-  @media (min-width: 1514px) {
-    width: 570px;
-    height: 521.2px;
-  }
-  @media (min-width: 1904px) {
-    width: 760px;
-    height: 695px;
-  }
-  @media (min-width: 2204px) {
-    width: 860px;
-    height: 786.4px;
   }
 }
 

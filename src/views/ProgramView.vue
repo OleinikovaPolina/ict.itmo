@@ -6,7 +6,6 @@
         <v-col
           cols="12"
           md="6"
-          lg="5"
           :class="$vuetify.breakpoint.smAndDown?'text-center':''"
           class="d-flex flex-column justify-space-around"
         >
@@ -44,7 +43,6 @@
         <v-col
           cols="12"
           md="6"
-          lg="7"
           class="d-flex justify-center"
         >
           <HeaderAnimation :animation-header="animationHeader" />
